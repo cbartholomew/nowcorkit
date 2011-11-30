@@ -67,6 +67,7 @@ function buildTextForm()
 					echo "<option value='none' selected='selected'>None</option>";
 				    echo "<option value='email'>Email</option>";
 					echo "<option value='phone'>Phone</option>";
+					echo "<option value='social'>Social Network Link</option>";
 					echo "</select>";
 				echo "</td>";
 				echo "<td></td>";
@@ -167,6 +168,7 @@ function buildTextImageForm()
 					echo "<option value='none' selected='selected'>None</option>";
 				    echo "<option value='email'>Email</option>";
 					echo "<option value='phone'>Phone</option>";
+					echo "<option value='social'>Social Network Link</option>";
 					echo "</select>";
 				echo "</td>";
 				echo "<td></td>";
