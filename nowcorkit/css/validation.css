@@ -1,0 +1,36 @@
+#signupform label.error {
+  background:url("../images/unchecked.gif") no-repeat 0px 0px;
+  padding-left: 16px;
+  padding-bottom: 23px;
+  font-weight: bold;
+  color: #EA5200;
+  
+}
+
+#signupform label.checked {
+  background:url("../images/checked.gif") no-repeat 0px 0px;
+}
+
+#signupform .status {
+  padding-top: 2px;
+  padding-left: 8px;
+  vertical-align: top;
+  width: 246px;
+  white-space: nowrap;
+}
+
+#text_form label.error {
+  padding-left: 16px;
+  padding-bottom: 23px;
+  font-weight: bold;
+  color: #EA5200;
+}
+
+
+#text_form label.status {
+  padding-top: 2px;
+  padding-left: 8px;
+  vertical-align: top;
+  width: 246px;
+  white-space: nowrap;
+}

@@ -1,0 +1,140 @@
+#toolbar {
+	padding: 10px 4px;
+	float: right;
+}
+#menu_items {
+	display: inline-block;
+	}
+	
+#content {
+	display: inline-block;
+	position: absolute;
+	top: 115px;
+	}
+	
+#form_content {
+		display: inline-block;
+		position: absolute;
+		top: 115px;
+		left: 485px;
+}
+
+
+#map_canvas{
+		
+		display: inline-block;
+ 		position: absolute;
+		top: 60px;
+		left: 650px;
+
+		width: 300px;
+		height: 300px;
+}
+
+#manager
+{
+	
+	width: 500px;
+	
+}
+
+/*#messages {
+	position: absolute;
+	top: -15px;
+	left: 410px;
+	width: 300px;
+}*/
+
+#flyer_select
+{
+	width: 	200px;
+	height: 50px;
+	font-size: 20px;
+}
+
+#feed_select
+{
+	width: 	200px;
+	height: 50px;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+#droppable_editor{
+	
+	position: absolute;
+	top: 5px;
+	left: 500px;
+	width: 200px;
+	height: 200px;
+	z-index: -1;
+	
+}
+
+#droppable_remover{
+	
+	position: absolute;
+	top: 210px;
+	left: 500px;
+	width: 200px;
+	height: 200px;
+	z-index: -1;
+	
+}
+
+table.table_data
+{
+    border-style    : none;
+    border-color    : #FFF;
+    border-spacing  : 0;
+    margin-left     : auto;
+    margin-right    : auto;
+    text-align      : left;
+	padding: 10;
+}
+
+td.table_data,th.table_data
+{
+    padding: 5px;
+}
+
+.template_div
+{
+	width:190px;
+	padding:5px;
+}
+
+.template_text
+{
+	
+	width:	190px; 
+	font-size: 15px;
+		
+}
+
+
+#state
+{
+	width: 	250px;
+	font-size: 20px;
+}
+										 
+										
+										
+#selectable .ui-selecting { background: #9BCC80; }
+#selectable .ui-selected  { background: #9BCC60; color: white; }
+#selectable    { list-style-type: none; margin: 0px; padding: 100px 0 0 0; width: 25%;}
+#selectable li { margin: 5px; padding: 15px 0 15px 5px; font-size: 20px; width:250px}
+
+#feedback { font-size: 1.4em; }
+#selectable_content .ui-selecting { background: #9BCC80; }
+#selectable_content .ui-selected { background: #9BCC60; color: white; }
+#selectable_content { list-style-type: none; margin: 0; padding: 0; }
+#selectable_content li { margin: 3px; padding: 1px; float: left; width: 100px; height: 80px; font-size: 4em; text-align: center; }
+
+body {
+    	background-image: url(../images/bg.jpg);
+    	background-repeat: repeat;
+    	color: black;
+		font-family :"proxima-nova-1","proxima-nova-2",sans-serif,Tahoma,Helvetica,Verdana;
+}
