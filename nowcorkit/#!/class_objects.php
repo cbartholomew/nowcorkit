@@ -7,7 +7,7 @@
 * Purpose		: file, which holds my class objects and its functions
 **********************************************************************/
 
-require_once("qrcode.php";
+
 
 /*
  * Object: State
@@ -186,6 +186,7 @@ class Flyer
 		
 		public $id 						= NULL;
 		public $cork_id					= NULL;
+		public $contact_name			= NULL;
 		public $title 					= NULL;
 		public $desc 					= NULL;
 		public $location				= NULL;
@@ -201,27 +202,30 @@ class Flyer
 		 */
 	    function __construct($_DATA) 
 		{
-			$this->title   					= $_DATA["title"];
-			$this->description				= $_DATA["description"];
-			$this->location					= $_DATA["location"];
-			$this->contact_id				= $_DATA["contact_type"];
-			$this->contact_desc   			= $_DATA["contact_desc"];
+			$this->title   					= mysql_real_escape_string($_DATA["title"]);
+			$this->description				= mysql_real_escape_string($_DATA["description"]);
+			$this->location					= mysql_real_escape_string($_DATA["location"]);
+			$this->name						= mysql_real_escape_string($_DATA["name"]);
+			$this->type						= mysql_real_escape_string($_DATA["type"]);
+			$this->contact   				= mysql_real_escape_string($_DATA["contact"]);
+			$this->cork_id					= $_SESSION["cork_id"];
 
 	    }
 	
 	function insert()
 	{
+		// LEFT OFF HERE - MAKE SURE YOU FIX THE QUERY TO MATCH TABLE CHANGES!!!!!
 				$date_time = date('Y-m-d H:i:s');
 				// insert the user in the database		
 				$sql = "insert into text_flyers \n"
-					. "(text_flyer_title, text_flyer_desc, text_flyer_location, text_flyer_contact_type_id, text_flyer_contact_name_or_emai, \n"
+					. "(text_flyer_title, text_flyer_desc, text_flyer_location, text_flyer_contact_type_id, text_flyer_contact_name_or_email, \n"
 					. "text_flyer_generate_qr_code, text_flyer_qr_code, text_flyer_users_cork_id, text_flyer_created_dttm) \n"
 					. "values \n"
 					. "('$this->title','$this->desc','$this->location','$this->contact_id','$this->contact_desc', '$this->enable_qr', \n"
 					. "'$this->qr_blob', '$this->cork_id', '$date_time')";
 						
 				// run statement or die
-				$result = mysql_query($sql) or die (show_error('Problem with inserting facebook user into the database'));
+				$result = mysql_query($sql) or die (show_error('Problem with inserting text flyer into the database'));
 				
 				// other than an error, there was a problem submitting the user
 				if ($result == false) { return false; }
@@ -232,10 +236,7 @@ class Flyer
 	
 	function generateQR()
 	{
-		$qr = new SocialQrCode ();
-		$qr->setType ( SocialQrCode::QRCODE_TYPE_PNG );
-		$qr->generate ( "http://qrcodescript.com" );
-		$qr->store ( "./uploads/", "mycode1.bin" );
+
 	}
 	
 	function update()

@@ -20,7 +20,7 @@ switch($template)
 function buildTextForm()
 {	
 	
-	echo "<form id='text_form' action='' method='' novalidate='novalidate'>";
+	echo "<form id='text_form' action='' method='POST' novalidate='novalidate'>";
 	echo "<table class='ui-widget-content ui-corner-all'>";
 		echo "<tbody>";
 		
@@ -63,7 +63,7 @@ function buildTextForm()
 			echo "<tr>";
 				echo "<td><label for='contact'>Contact Type</label></td>";
 				echo "<td>";
-					echo "<select id='contact' onchange='toggleContactType(this.value)' class='ui-widget-content'>";
+					echo "<select id='contact' onchange='toggleContactType(this.value)' name='contact' class='ui-widget-content'>";
 					echo "<option value='none' selected='selected'>None</option>";
 				    echo "<option value='email'>Email</option>";
 					echo "<option value='phone'>Phone</option>";
@@ -76,7 +76,7 @@ function buildTextForm()
 			echo "<tr>";
 			echo "<td></td>";
 			echo "<td><input id='type' type='text' class='ui-widget-content template_text ui-helper-hidden' name='type'></td>";
-			echo "<td></td>";
+			echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 			
 			echo "<tr>";
@@ -87,7 +87,7 @@ function buildTextForm()
 			
 			
 			echo "<tr>";
-					echo "<td></td>";
+				echo "<td><i><b>Step 2: Submit</b></i></td>";
 				echo "<td></td>";
 				echo "<td>";
 				echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' 'value='submit'>";
@@ -171,7 +171,7 @@ function buildTextImageForm()
 					echo "<option value='social'>Social Network Link</option>";
 					echo "</select>";
 				echo "</td>";
-				echo "<td></td>";
+				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 			
 			echo "<tr>";

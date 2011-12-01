@@ -338,6 +338,31 @@ function RequestPageByAjaxGet(page)
 }
 
 /*
+ * Submit Form using AJAX POST
+ */
+function SubmitFormByAjaxPost()
+{	
+	$.ajax({
+	       url: "flyer_creation.php",
+		   type: "post",
+		   data: {
+				title: $("#title").val(),
+				description: $("#description").val(),
+				name:  $("#name").val(),
+				contact: $("#contact").val(),
+				type: $("#type").val(),
+				qrcode: $("#qrcode").val()
+			
+		   }
+	       success: function(data) {
+	 	   		$('#form_content').html("");			
+	       }
+	});	
+	return false;
+}
+
+
+/*
  * Load Page using AJAX post
  */
 function RequestFormByAjaxPost(page)

@@ -4,11 +4,19 @@ $(document).ready(function() {
         rules: { 
             title: 		 "required", 
             description: "required",
+			location:    "required",
+			type: {
+					required: {
+						depends: function(element) { return ( $("#contact option:selected").val() == 'none' ) ? false : true; }
+					}
+			}
 
         }, 
         messages: { 
             title: "Title is required", 
-            description: "Description is Required"
+            description: "Description is required",
+			location: "Location is required", 
+			type: "Required field if contact type is not none"
         }, 
         // the errorPlacement has to take the table layout into account 
         errorPlacement: function(error, element) { 			
@@ -20,13 +28,9 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },         // specifying a submitHandler prevents the default submit, good for the demo 
 		submitHandler: function() { 
-			
-		},
-        // set this class to error-labels to indicate valid fields 
-        success: function(label) { 
-            // set   as text for IE 
-            label.html(" ").addClass("checked"); 
-        } 
+			console.log("submitted");
+			 SubmitFormByAjaxPost();
+		}
     });
 
 });
