@@ -92,12 +92,13 @@ function buildGeneralForm()
 
 function buildPermissionForm()
 {
-	echo "<form id='permission' action='permission_post.php' method='POST'>";
+	echo "<form id='permission' action='.php' method=''>";
 	echo "<table class='ui-widget-content ui-corner-all'>";
 		echo "<tbody>";
 
 			echo "<tr>";
 				echo "<td><label for='approval'>By Approval</label></td>";
+			
 				echo "<td><input id='approval' type='radio' checked='true'  class='ui-widget-content template_text' name='permissions'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";

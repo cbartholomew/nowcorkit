@@ -8,22 +8,17 @@
 	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel='stylesheet' href='css/validation.css' type='text/css' media='screen' title='no title' charset='utf-8'>
 	<link rel="stylesheet" type="text/css" media="all" href="css/fileupload.css" />
+	<link rel="stylesheet" href="css/jquery.loadmask.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="css/theme/jquery-ui-1.8.16.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
 	<script src="lib/src/jquery-1.7.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/src/jquery-ui-1.8.16.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/src/jquery.loadmask.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/src/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/helper.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">	
-		$(document).ready(function(){
-			$(function() {
-				$( "#selectable" ).selectable({
-					//ui.selected.id is the id of the list item
-					selected: function(event, ui){	
-						RequestPageByAjaxGet(ui.selected.id);
-					}
-				});
-			});
-		});
+		//ui.selected.id is the id of the list item
+		$(document).ready(function(){$(function() {$( "#selectable" ).selectable({selected: function(event, ui){RequestPageByAjaxGet(ui.selected.id);}});});});
 	</script>
 	<script type="text/javascript"
 	    src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDaVcENLnUcWYLoeoIQPAmpHNeZTON0ml0&sensor=false"> 

@@ -33,7 +33,7 @@
 					<label for="email">Email</label>
 					<?				
 					if (!$login_correct) { echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' value='" . $_POST["email"] . "'/>";}
-					else { echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' />";}
+					else { echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' required/>";}
 					?>
 					
 				<label for="password">Password</label>

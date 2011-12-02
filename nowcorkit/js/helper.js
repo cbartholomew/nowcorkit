@@ -1,11 +1,10 @@
-// global variable used as a switch
+// global variable, i know bad, used as a switch
 current_selected_value = null;
 
 /*
  * Renders the Corkboard
  */
-function BuildCork(first_name, last_name)
-{
+function BuildCork(first_name, last_name){
     	// new object
     	var o = new Object(); 
     	o.first_name = first_name;
@@ -30,8 +29,7 @@ function BuildCork(first_name, last_name)
 /*
  * Builds Toolbar and Checks for which page you are currently on
  */
-function BuildToolbar(page)
-{
+function BuildToolbar(page){
 	// build tool bar html
 	html =	'<span id="span_menu">';
 	html +=	'<input type="radio" id="menu" 	   	name="menu" />	<label for="menu">Menu</label>';
@@ -63,8 +61,7 @@ function BuildToolbar(page)
 /*
  * Used to toggle description fields on 
  */
-function toggleDescriptionOn(div_id)
-{
+function toggleDescriptionOn(div_id){
 	 toggleDescriptionOff();
 	 RequestFormByAjaxPost(div_id);
 	 $('#' + div_id).toggleClass('ui-helper-hidden', false);
@@ -74,16 +71,14 @@ function toggleDescriptionOn(div_id)
 /*
  * Used to toggle description fields off
  */
-function toggleDescriptionOff()
-{
+function toggleDescriptionOff(){
 	if (current_selected_value != null) { $('#' + current_selected_value).toggleClass('ui-helper-hidden', true) ; }
 }
 
 /*
  * used for contact type screen
  */
-function toggleContactType(value)
-{
+function toggleContactType(value){
 	if (value != ('none')) { $('#type').toggleClass('ui-helper-hidden', false);} 
 	else { $('#type').toggleClass('ui-helper-hidden', true); }
 }
@@ -91,8 +86,7 @@ function toggleContactType(value)
 /*
  * used for feed permissions settings
  */
-function toggleShuffleFeature(value)
-{
+function toggleShuffleFeature(value){
 	$('#interval').toggleClass('ui-helper-hidden', value); 
 	$('#label_interval').toggleClass('ui-helper-hidden', value); 
 }
@@ -100,8 +94,7 @@ function toggleShuffleFeature(value)
 /*
  * used for feed permissions settings
  */
-function togglePayPerSpaceFeature(value)
-{
+function togglePayPerSpaceFeature(value){
 	if (value != ('none')){ 
 		$('#cashamount').toggleClass('ui-helper-hidden', false);
 		$('#label_cashamount').toggleClass('ui-helper-hidden', false);
@@ -119,16 +112,14 @@ function togglePayPerSpaceFeature(value)
 /*
  * used to reset the form divs on ajax get
  */
-function cleanContentAndFormFields()
-{
+function cleanContentAndFormFields(){
 	$('#content').html("");
 	$('#form_content').html("");
 }
 /*
  * Allow flyers to become editable by user BROKEN
  */
-function ActivateSelectableContent()
-{
+function ActivateSelectableContent(){
 	
 	$(function() {
 		$( "#item_one" ).draggable({ 
@@ -153,8 +144,7 @@ function ActivateSelectableContent()
 /*
  * Launches Modal Window to edit or remove flyers
  */
-function LaunchEditorModal(div_id, is_remove)
-{
+function LaunchEditorModal(div_id, is_remove){
 	
 	if (is_remove == false)
 	{
@@ -220,8 +210,7 @@ function LaunchEditorModal(div_id, is_remove)
 /*
  * Enables "add" button in table
  */
-function LoadAddButton()
-{
+function LoadAddButton(){
 $(function() {
 	$( "#add_button" ).button({
         icons: {
@@ -236,8 +225,7 @@ $(function() {
 /*
  * initalize the map's api via an onchange event
  */
-function InitializeMapsAPI(address)
-{
+function InitializeMapsAPI(address){
   	// load the data 
   	LoadTableEntry(address);
 	
@@ -267,8 +255,7 @@ function InitializeMapsAPI(address)
 /*
  * Load the address inside of the table
  */
-function LoadTableEntry(address)
-{	
+function LoadTableEntry(address){	
 	var location = {
 		address_line: address.toString().split(',')[0],
 		city		: address.toString().split(',')[1],
@@ -293,8 +280,7 @@ function toggleAndLoadFeed(value){
 /*
  * Load the tab container, and use ajax for each of the tabs
  */
-function LoadFeedManagerTabs()
-{
+function LoadFeedManagerTabs(){
  		$(function() {
 			$( "#tabs" ).tabs({
 				ajaxOptions: {
@@ -310,10 +296,18 @@ function LoadFeedManagerTabs()
 }
 
 /*
+ * Called by flyer constructor, loads date picker
+ */
+function loadDatePicker(){
+	$(function(){
+		$('#event_date').datepicker();
+	});
+}
+
+/*
  * Remove Flyer Element
  */
-function RemoveFlyer(flyer_id)
-{
+function RemoveFlyer(flyer_id){
 	// makes ajax call
 	
 	// remove from the element list
@@ -325,8 +319,7 @@ function RemoveFlyer(flyer_id)
 /*
  * Load Page using AJAX GET
  */
-function RequestPageByAjaxGet(page)
-{	
+function RequestPageByAjaxGet(page){	
 	$.ajax({
 	       url: page + ".php",
 	       success: function(data) {
@@ -340,8 +333,7 @@ function RequestPageByAjaxGet(page)
 /*
  * Submit Form using AJAX POST
  */
-function SubmitFormByAjaxPost()
-{	
+function SubmitFormByAjaxPost(){	
 	$.ajax({
 	       url: "flyer_creation.php",
 		   type: "post",
@@ -353,7 +345,7 @@ function SubmitFormByAjaxPost()
 				type: $("#type").val(),
 				qrcode: $("#qrcode").val()
 			
-		   }
+		   },
 	       success: function(data) {
 	 	   		$('#form_content').html("");			
 	       }
@@ -365,8 +357,7 @@ function SubmitFormByAjaxPost()
 /*
  * Load Page using AJAX post
  */
-function RequestFormByAjaxPost(page)
-{	
+function RequestFormByAjaxPost(page){	
 	$.ajax({
 	       url: "flyer_constructor.php",
 		   type: 'post',

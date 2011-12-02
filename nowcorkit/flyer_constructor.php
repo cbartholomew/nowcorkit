@@ -20,7 +20,7 @@ switch($template)
 function buildTextForm()
 {	
 	
-	echo "<form id='text_form' action='' method='POST' novalidate='novalidate'>";
+	echo "<form id='text_form' action='' method='' novalidate='novalidate'>";
 	echo "<table class='ui-widget-content ui-corner-all'>";
 		echo "<tbody>";
 		
@@ -47,6 +47,12 @@ function buildTextForm()
 				echo "<td><input id='location' type='text' class='ui-widget-content template_text' name='location'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
+			
+			echo "<tr>";
+				echo "<td><label for='event_date'>Event Date</label></td>";
+				echo "<td><input id='event_date' type='text' class='ui-widget-content template_text' name='event_date'></td>";
+				echo "<td><label id='status'></label></td>";
+			echo "</tr>";
 
 			echo "<tr>";
 				echo "<td><label for='contact'><i><b>Contact Information</b></i></label></td>";
@@ -55,8 +61,8 @@ function buildTextForm()
 			echo "</tr>";
 			
 			echo "<tr>";
-				echo "<td><label for='name'>Name</label></td>";
-				echo "<td><input id='name' type='text' class='ui-widget-content template_text' name='name'></td>";
+				echo "<td><label for='contact_name'>Name</label></td>";
+				echo "<td><input id='contact_name' type='text' class='ui-widget-content template_text' name='contact_name'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 			
@@ -64,10 +70,10 @@ function buildTextForm()
 				echo "<td><label for='contact'>Contact Type</label></td>";
 				echo "<td>";
 					echo "<select id='contact' onchange='toggleContactType(this.value)' name='contact' class='ui-widget-content'>";
-					echo "<option value='none' selected='selected'>None</option>";
-				    echo "<option value='email'>Email</option>";
-					echo "<option value='phone'>Phone</option>";
-					echo "<option value='social'>Social Network Link</option>";
+					echo "<option value='0' selected='selected'>None</option>";
+				    echo "<option value='1'>Email</option>";
+					echo "<option value='2'>Phone</option>";
+					echo "<option value='3'>Social Network Link</option>";
 					echo "</select>";
 				echo "</td>";
 				echo "<td></td>";
@@ -75,22 +81,21 @@ function buildTextForm()
 			
 			echo "<tr>";
 			echo "<td></td>";
-			echo "<td><input id='type' type='text' class='ui-widget-content template_text ui-helper-hidden' name='type'></td>";
+			echo "<td><input id='contact_info' type='text' class='ui-widget-content template_text ui-helper-hidden' name='contact_info'></td>";
 			echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 			
 			echo "<tr>";
-				echo "<td><label for='qrcode'>Generate QR Code?</label></td>";
-				echo "<td><input id='qrcode' type='checkbox' class='ui-widget-content template_text' name='qrcode'></td>";
+				echo "<td><label for='enable_qr'>Generate QR Code?</label></td>";
+				echo "<td><input id='enable_qr' type='checkbox' class='ui-widget-content template_text' name='enable_qr'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
-			
-			
+						
 			echo "<tr>";
 				echo "<td><i><b>Step 2: Submit</b></i></td>";
 				echo "<td></td>";
 				echo "<td>";
-				echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' 'value='submit'>";
+				echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
 				echo  	"<span class='ui-button-text'>Create Flyer</span>";
 				echo "</button>";
 				echo "</td>";
@@ -99,8 +104,9 @@ function buildTextForm()
 		echo "</tbody>";
 	echo "</table>";
 	echo "</form>";
-	echo "<script src='js/validation.flyer.js' type='text/javascript' charset='utf-8'></script>";
-
+	
+	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
+	echo "<script>loadDatePicker();</script>";
 }
 
 function buildTextImageForm()
@@ -133,7 +139,7 @@ function buildTextImageForm()
 		
 			echo "<tr>";
 				echo "<td>Title</td>";
-				echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title'></td>";
+				echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title' required></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 			

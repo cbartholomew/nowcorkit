@@ -7,7 +7,7 @@
 * Purpose		: file, which holds my class objects and its functions
 **********************************************************************/
 
-
+require_once("qrcode.php");
 
 /*
  * Object: State
@@ -186,14 +186,16 @@ class Flyer
 		
 		public $id 						= NULL;
 		public $cork_id					= NULL;
-		public $contact_name			= NULL;
 		public $title 					= NULL;
-		public $desc 					= NULL;
+		public $description 			= NULL;
 		public $location				= NULL;
+		public $event_date				= NULL;
 		public $contact_id				= NULL;
-		public $contact_desc			= NULL;
+		public $contact_name			= NULL;
+		public $contact_info			= NULL;
 		public $enable_qr				= NULL;
-		public $qr_blob					= NULL;
+		public $qr_location_path		= NULL;
+		public $qr_location_file 		= NULL;
 		public $image_meta_data_id		= NULL;
 		
 		/*
@@ -205,24 +207,32 @@ class Flyer
 			$this->title   					= mysql_real_escape_string($_DATA["title"]);
 			$this->description				= mysql_real_escape_string($_DATA["description"]);
 			$this->location					= mysql_real_escape_string($_DATA["location"]);
+			$this->event_date   			= mysql_real_escape_string($_DATA["event_date"]);
 			$this->name						= mysql_real_escape_string($_DATA["name"]);
 			$this->type						= mysql_real_escape_string($_DATA["type"]);
-			$this->contact   				= mysql_real_escape_string($_DATA["contact"]);
-			$this->cork_id					= $_SESSION["cork_id"];
+			$this->contact_id   			= mysql_real_escape_string($_DATA["contact"]);
+			$this->contact_name   			= mysql_real_escape_string($_DATA["contact_name"]);
+			$this->contact_info   			= mysql_real_escape_string($_DATA["contact_info"]);
+			$this->enable_qr	   			= mysql_real_escape_string($_DATA["enable_qr"]);
+			$this->cork_id					= $_SESSION["users_cork_id"];
+			
+			
 
 	    }
-	
+	/*
+	 * insert()
+     * Based on the data from the form post, this will submit the the text flyer in the system 
+	 */	
 	function insert()
 	{
-		// LEFT OFF HERE - MAKE SURE YOU FIX THE QUERY TO MATCH TABLE CHANGES!!!!!
 				$date_time = date('Y-m-d H:i:s');
 				// insert the user in the database		
 				$sql = "insert into text_flyers \n"
-					. "(text_flyer_title, text_flyer_desc, text_flyer_location, text_flyer_contact_type_id, text_flyer_contact_name_or_email, \n"
-					. "text_flyer_generate_qr_code, text_flyer_qr_code, text_flyer_users_cork_id, text_flyer_created_dttm) \n"
+					. "(text_flyer_title, text_flyer_desc, text_flyer_location, text_flyer_event_date, text_flyer_contact_type_id, text_flyer_contact_name, \n"
+					. "text_flyer_contact_information, text_flyer_generate_qr_code, text_flyer_qr_code_location, text_flyer_users_cork_id, text_flyer_created_dttm) \n"
 					. "values \n"
-					. "('$this->title','$this->desc','$this->location','$this->contact_id','$this->contact_desc', '$this->enable_qr', \n"
-					. "'$this->qr_blob', '$this->cork_id', '$date_time')";
+					. "('$this->title','$this->description','$this->location','$this->event_date','$this->contact_id','$this->contact_name', '$this->contact_info', '$this->enable_qr', \n"
+					. "'$this->qr_location', '$this->cork_id', '$date_time')";
 						
 				// run statement or die
 				$result = mysql_query($sql) or die (show_error('Problem with inserting text flyer into the database'));
@@ -230,17 +240,60 @@ class Flyer
 				// other than an error, there was a problem submitting the user
 				if ($result == false) { return false; }
 				
+				// get the recent cork id
+				$this->id = mysql_insert_id();
+				
+				// Generate QRCode Image, Save It, Update Location
+				if ($this->enable_qr == "on") { generate_qr(); update_qr_location(); }
+				
+				
+				
 				return true;
 		
 	}
 	
-	function generateQR()
+	/*
+	 * generate_qr()
+     * This will generate a QRCode Image, store it as FLYERID_CORKID.PNG in CORK_ID folder
+	 */
+	function generate_qr()
 	{
+		// use this to make a link nowcorkit.com?generate_flyer.php?flyerid=12345&corkid=5421 would be the QR link
+		$qr = new SocialQrCode();
+		$qr->setType ( SocialQrCode::QRCODE_TYPE_PNG );
+		$qr->generate ( "http://nowcorkit.com/generate_flyer.php?flyerid=" . $this->id . "&" . $this->cork_id );
+		
+		// build file name and location
+		$this->qr_location_path = "../flyers/" . $this.cork_id . "/"; 
+		$this->qr_location_file = "qr" . "_" . $this->id . "_" . $this.cork_id . ".png";
+	
+		// store the png to the saved location
+		$qr->store($this->qr_location_path, $this->qr_location_file);
+		
+	}
+	
+	/* update_qr_location()
+     * This will update the flyer table with the QR Code's location path and file name
+	 */
+	function update_qr_location()
+	{
+		$sql = "update text_flyers \n"
+			.  "set text_flyer_qr_code_location = ('$this->qr_location_path $this->qr_location_file' )"
+			.  "where text_flyer_id = ('$this->id') and text_flyer_users_cork_id = ('$this->cork_id')"
 
+		// run statement or die
+		$result = mysql_query($sql) or die (show_error('Problem with updating qrcode in the database'));
+		
+		// other than an error, there was a problem submitting the user
+		if ($result == false) { return false; }
+		
+		return true;
+				
 	}
 	
 	function update()
 	{	
+		
 		
 	}
 	
