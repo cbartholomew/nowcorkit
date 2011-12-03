@@ -113,12 +113,12 @@ function buildTextImageForm()
 {
 	echo "<form id='upload' action='upload.php' method='POST' enctype='multipart/form-data'>";
 	echo "<fieldset class='ui-widget-content ui-corner-all'>";
-	echo "<label id='lupload'><i><b>Step 1: Upload Image</b></i></label>";
+	echo "<label id='lupload'><i><b>Step 1: Upload Image (jpeg/jpg/png/gif)</b></i></label>";
 	echo "<input type='hidden' id='MAX_FILE_SIZE' name='MAX_FILE_SIZE' value='300000' />";
 	echo "<div>";
-		echo "<label for='fileselect'>Files to upload:</label>";
-		echo "<input type='file' id='fileselect' name='fileselect[]' multiple='multiple'/>";
-		echo "<div id='filedrag'>or drop files here</div>";
+		echo "<label for='fileselect'>Choose image to upload:</label>";
+		echo "<input type='file' id='fileselect' name='fileselect'/>";
+		echo "<div id='filedrag'>or drop image here</div>";
 	echo "</div>";
 	echo "<div id='submitbutton'>";
 		echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all'>Upload Files</button>";
@@ -127,110 +127,115 @@ function buildTextImageForm()
 	echo "</form>";
 	echo "</div>";
 	echo "<br>";
-	echo "<form id='text_form' action='create_text_flyer.php' method='pointer'>";
-	echo "<table class='ui-widget-content ui-corner-all'>";
-		echo "<tbody>";
+		echo "<form id='text_image_form' action='' method='' novalidate='novalidate'>";
+		echo "<table class='ui-widget-content ui-corner-all'>";
+			echo "<tbody>";
+
+				echo "<tr>";
+					echo "<td><label for='general'><i><b>Step 2: General Information</b></i></label></td>";
+					echo "<td></td>";
+					echo "<td></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><label id='ltitle' for='title'>Title</label></td>";
+					echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title'></td>";
+					echo "<td class='status'></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><label for='description'>Description</label></td>";
+					echo "<td><textarea id='description' class='ui-widget-content template_text' name='description' rows='10' cols='30'></textarea></td>";
+					echo "<td><label for='description'></label></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><label for='location'>Location</label></td>";
+					echo "<td><input id='location' type='text' class='ui-widget-content template_text' name='location'></td>";
+					echo "<td><label id='status'></label></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><label for='event_date'>Event Date</label></td>";
+					echo "<td><input id='event_date' type='text' class='ui-widget-content template_text' name='event_date'></td>";
+					echo "<td><label id='status'></label></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><label for='contact'><i><b>Contact Information</b></i></label></td>";
+					echo "<td></td>";
+					echo "<td></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><label for='contact_name'>Name</label></td>";
+					echo "<td><input id='contact_name' type='text' class='ui-widget-content template_text' name='contact_name'></td>";
+					echo "<td><label id='status'></label></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><label for='contact'>Contact Type</label></td>";
+					echo "<td>";
+						echo "<select id='contact' onchange='toggleContactType(this.value)' name='contact' class='ui-widget-content'>";
+						echo "<option value='0' selected='selected'>None</option>";
+					    echo "<option value='1'>Email</option>";
+						echo "<option value='2'>Phone</option>";
+						echo "<option value='3'>Social Network Link</option>";
+						echo "</select>";
+					echo "</td>";
+					echo "<td></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+				echo "<td></td>";
+				echo "<td><input id='contact_info' type='text' class='ui-widget-content template_text ui-helper-hidden' name='contact_info'></td>";
+				echo "<td><label id='status'></label></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><label for='enable_qr'>Generate QR Code?</label></td>";
+					echo "<td><input id='enable_qr' type='checkbox' class='ui-widget-content template_text' name='enable_qr'></td>";
+					echo "<td><label id='status'></label></td>";
+				echo "</tr>";
+
+				echo "<tr>";
+					echo "<td><i><b>Step 3: Submit</b></i></td>";
+					echo "<td></td>";
+					echo "<td>";
+					echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
+					echo  	"<span class='ui-button-text'>Create Flyer</span>";
+					echo "</button>";
+					echo "</td>";
+				echo "</tr>";
+
+			echo "</tbody>";
+		echo "</table>";
+		echo "</form>";
+		echo "<div id='progress' class='ui-corner-all'></div>";
+		echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
+		echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
+		echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";
 		
-			echo "<tr>";
-				echo "<td><label id='general'><i><b>Step 2: General Information</b></i></label></td>";
-				echo "<td></td>";
-				echo "<td></td>";
-			echo "</tr>";
 		
-			echo "<tr>";
-				echo "<td>Title</td>";
-				echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title' required></td>";
-				echo "<td><label id='status'></label></td>";
-			echo "</tr>";
-			
-			echo "<tr>";
-				echo "<td>Description</td>";
-				echo "<td><textarea id='description'  	class='ui-widget-content template_text' name='description' rows='5' cols='30'></textarea></td>";
-				echo "<td><label id='status'></label></td>";
-			echo "</tr>";
-			
-			echo "<tr>";
-				echo "<td>Location</td>";
-				echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title'></td>";
-				echo "<td><label id='status'></label></td>";
-			echo "</tr>";
-		
-			echo "<tr>";
-				echo "<td><label id='contact'><i><b>Contact Information</b></i></label></td>";
-				echo "<td></td>";
-				echo "<td></td>";
-			echo "</tr>";
-			
-			echo "<tr>";
-				echo "<td>Name</td>";
-				echo "<td><input id='name' type='text' class='ui-widget-content template_text' name='name'></td>";
-				echo "<td><label id='status'></label></td>";
-			echo "</tr>";
-			
-			echo "<tr>";
-				echo "<td>Contact Type</td>";
-				echo "<td>";
-					echo "<select id='contact' onchange='toggleContactType(this.value)' class='ui-widget-content'>";
-					echo "<option value='none' selected='selected'>None</option>";
-				    echo "<option value='email'>Email</option>";
-					echo "<option value='phone'>Phone</option>";
-					echo "<option value='social'>Social Network Link</option>";
-					echo "</select>";
-				echo "</td>";
-				echo "<td><label id='status'></label></td>";
-			echo "</tr>";
-			
-			echo "<tr>";
-			echo "<td></td>";
-			echo "<td><input id='type' type='text' class='ui-widget-content template_text ui-helper-hidden' name='type'></td>";
-			echo "<td></td>";
-			echo "</tr>";
-			
-			echo "<tr>";
-				echo "<td>Generate QR Code?</td>";
-				echo "<td><input id='qrcode' type='checkbox' class='ui-widget-content template_text' name='qrcode'></td>";
-				echo "<td><label id='status'></label></td>";
-			echo "</tr>";
-			
-			echo "<tr>";
-				echo "<td></td>";
-				echo "<td></td>";
-				echo "<td>";
-				echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
-				echo  	"<span class='ui-button-text'>Create Flyer</span>";
-				echo "</button>";
-				echo "</td>";
-			echo "</tr>";
-			
-		echo "</tbody>";
-	echo "</table>";
-	echo "</form>";
-	echo "<div>";
-	echo "<div id='progress' class='ui-corner-all'></div>";
-	echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
-	echo "<p>Status Messages</p>";
-	echo "</div>";
-	echo "<script src='js/filedrag.js'></script>";
-	echo "<script src='js/validation.flyer.js' type='text/javascript' charset='utf-8'></script>";
+		echo "<script>loadDatePicker();</script>";
 }	
 
 
 function buildImageOnlyForm()
 {
-	echo "<div>";
-	echo "<form id='upload' action='upload.php' method='POST' enctype='multipart/form-data'>";
+	echo "<form id='upload' action='' method='POST' enctype='multipart/form-data'>";
 	echo "<fieldset class='ui-widget-content ui-corner-all'>";
-	echo "<label id='lupload'><i><b>Step 1: Upload Image</b></i></label>";
+	echo "<label id='lupload'><i><b>Step 1: Upload Image (jpeg/jpg/png/gif)</b></i></label>";
 	echo "<input type='hidden' id='MAX_FILE_SIZE' name='MAX_FILE_SIZE' value='300000' />";
 	echo "<div>";
-		echo "<label for='fileselect'>Files to upload:</label>";
-		echo "<input type='file' id='fileselect' name='fileselect[]' multiple='multiple'/>";
-		echo "<div id='filedrag'>or drop files here</div>";
+		echo "<label for='fileselect'>Choose image to upload:</label>";
+		echo "<input type='file' id='fileselect' name='fileselect'/>";
+		echo "<div id='filedrag'>or drop image here</div>";
 	echo "</div>";
 	echo "<div id='submitbutton'>";
 		echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all'>Upload Files</button>";
 	echo "</div>";
-	echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' style='float:right;' value='submit'>";
+	echo "<button type='submit' style='float:right' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
 	echo  	"<span class='ui-button-text'>Create Flyer</span>";
 	echo "</button>";
 	echo "</fieldset>";
@@ -240,6 +245,7 @@ function buildImageOnlyForm()
 	echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
 	echo "<p>Status Messages</p>";
 	echo "</div>";
+	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
 	echo "<script src='js/filedrag.js'></script>";
 	
 }	

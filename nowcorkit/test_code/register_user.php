@@ -1,5 +1,5 @@
 <?
- require_once('#!/common.php');
+ require_once('includes/common.php');
  	
  /***********************************************************************
   * register_user.php

@@ -1,5 +1,5 @@
 <?
- 	require_once('#!/common.php');
+ 	require_once('includes/common.php');
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +31,8 @@
 </div>
 <div id="menu_items">
 	<ol id="selectable">
-		<li id="post" class="ui-widget-content ui-corner-all">Post Flyer</li>
 		<li id="flyer_choice" class="ui-widget-content ui-corner-all">Create Flyer</li>
+		<li id="post" class="ui-widget-content ui-corner-all">Post Flyer</li>
 		<li id="flyer_manager" class="ui-widget-content ui-corner-all">Flyer Manager</li>		
 		<li id="feed_manager" class="ui-widget-content ui-corner-all">Feed Manager</li>
 	</ol>

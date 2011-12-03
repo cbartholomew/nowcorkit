@@ -1,8 +1,8 @@
 <?
 
-	require_once("#!/constants.php");
-	require_once("#!/DAL.php");
-	require_once("#!/class_objects.php");
+	require_once("constants.php");
+	require_once("DAL.php");
+	require_once("class_objects.php");
 	
 	/***********************************************************************
 	* helpers.php
@@ -231,7 +231,22 @@
         // exit immediately since we're redirecting anyway
         exit;
     }
+    
+	/*
+     * void
+     * dump($variable)
+     *
+     * Facilitates debugging by dumping contents of variable
+     * to browser.
+     */
+    function dump($variable)
+    {
+        // dump variable with some quick and dirty HTML
+        require("dump.php");
 
+        // exit immediately so that we can see what we printed
+        exit;
+    }
 	/*
 	 * function, which builds a show error page
 	 */

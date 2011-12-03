@@ -8,10 +8,10 @@
  **********************************************************************/
 	
    	// requirements 
-	require_once("#!/constants.php");
-	require_once("#!/DAL.php");
-	require_once("#!/helpers.php");
-	require_once("#!/class_objects.php");
+	require_once("includes/constants.php");
+	require_once("includes/DAL.php");
+	require_once("includes/helpers.php");
+	require_once("includes/class_objects.php");
 	
    $app_id 		= APP_ID;
    $app_secret  = APP_SECRET;

@@ -79,8 +79,8 @@ function toggleDescriptionOff(){
  * used for contact type screen
  */
 function toggleContactType(value){
-	if (value != ('none')) { $('#type').toggleClass('ui-helper-hidden', false);} 
-	else { $('#type').toggleClass('ui-helper-hidden', true); }
+	if (value != ('0')) { $('#contact_info').toggleClass('ui-helper-hidden', false);} 
+	else { $('#contact_info').toggleClass('ui-helper-hidden', true); }
 }
 
 /*
@@ -333,22 +333,38 @@ function RequestPageByAjaxGet(page){
 /*
  * Submit Form using AJAX POST
  */
-function SubmitFormByAjaxPost(){	
+function SubmitFormByAjaxPost(page){	
+	
 	$.ajax({
 	       url: "flyer_creation.php",
 		   type: "post",
 		   data: {
-				title: $("#title").val(),
-				description: $("#description").val(),
-				name:  $("#name").val(),
-				contact: $("#contact").val(),
-				type: $("#type").val(),
-				qrcode: $("#qrcode").val()
-			
+				title			: $("#title").val(),
+				description		: $("#description").val(),
+				location		: $("#location").val(),
+				event_date   	: $("#event_date").val(),
+				contact_id   	: $("#contact").val(),
+				contact_name   	: $("#contact_name").val(),
+				contact_info   	: $("#contact_info").val(),
+				enable_qr	   	: $("#enable_qr").val(),
+				image_meta_data	: image_meta_data,
+				flyer_type		: page
 		   },
-	       success: function(data) {
-	 	   		$('#form_content').html("");			
-	       }
+		   beforeSend: function(){
+				$("#form_content").mask("creating...");
+		   },
+	       success: function(data){
+				console.log(data);
+	 	   		$('#form_content').mask("completed!");	
+	       },
+		   error:  function(data){
+				$("#form_content").unmask();
+				$('#form_content').mask("Error Occured!",5000);	
+		   },
+		   complete: function(){
+				RequestFormByAjaxPost(page)
+				$('#form_content').unmask();
+		   }
 	});	
 	return false;
 }

@@ -1,6 +1,6 @@
 <?
 
-require_once('#!/common.php');
+require_once('includes/common.php');
 echo "<form id='add_post' action='add_post.php' method='POST'>";
 	
 	echo "<table id='table_content' class='ui-corner-all table_data ui-widget-content'>";

@@ -1,10 +1,19 @@
-<?
+<?php
+  // Create some random text-encoded data for a QR code.
+  header('content-type: image/png');
+  $url = 'https://chart.googleapis.com/chart?chid=' . md5(uniqid(rand(), true));
+  $chd = "http://nowcorkit.com/generate.php?flyerid=12345";
 
-require_once("../#!/qrcode.php");
+  // Add image type, image size, and data to params.
+  $qrcode = array(
+    'cht' => 'qr',
+    'chs' => '300x300',
+    'chl' => $chd);
 
-$qr = new SocialQrCode ();
-$qr->setType ( SocialQrCode::QRCODE_TYPE_PNG );
-$qr->generate ( "http://qrcodescript.com" );
-$qr->store ( "../uploads/", "mycode1.bin" );
-
+  // Send the request, and print out the returned bytes.
+  $context = stream_context_create(
+    array('http' => array(
+      'method' => 'POST',
+      'content' => http_build_query($qrcode))));
+  fpassthru(fopen($url, 'r', false, $context));
 ?>

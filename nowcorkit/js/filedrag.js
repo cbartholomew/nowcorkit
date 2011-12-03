@@ -3,6 +3,7 @@ filedrag.js - HTML5 File Drag & Drop demonstration
 Featured on SitePoint.com
 Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 */
+
 (function() {
 
 	// getElementById
@@ -14,7 +15,8 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 	// output information
 	function Output(msg) {
 		var m = $id("messages");
-		m.innerHTML = msg + m.innerHTML;
+		// removed += concat of html data. Only display a single photo
+		m.innerHTML = msg;
 	}
 
 
@@ -34,23 +36,21 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 
 		// fetch FileList object
 		var files = e.target.files || e.dataTransfer.files;
-
-		// process all File objects
-		for (var i = 0, f; f = files[i]; i++) {
-			ParseFile(f);
-			UploadFile(f);
-		}
-
+		
+		// allow only one file to be uploaded instead of multiple
+		f = files[0];
+		ParseFile(f);		
+		UploadFile(f);
 	}
 
 
 	// output file information
 	function ParseFile(file) {
-
+		
 		Output(
 			"<p>File information: <strong>" + file.name +
-			"</strong> type: <strong>" + file.type +
-			"</strong> size: <strong>" + file.size +
+			"</strong> type: <strong>" 		+ file.type +
+			"</strong> size: <strong>" 		+ file.size +
 			"</strong> bytes</p>"
 		);
 
@@ -82,15 +82,24 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 	}
 
 
-	// upload JPEG files
+	// upload JPEG / PNG files
 	function UploadFile(file) {
 
-		// following line is not necessary: prevents running on SitePoint servers
-		if (location.host.indexOf("sitepointstatic") >= 0) return
-
 		var xhr = new XMLHttpRequest();
-		if (xhr.upload && file.type == "image/jpeg" && file.size <= $id("MAX_FILE_SIZE").value) {
 
+		if (xhr.upload && file.type == "image/jpeg" || "image/png" || "image/gif" && file.size <= $id("MAX_FILE_SIZE").value) {
+
+			
+		 	image_meta_data = {
+							id:         null,
+							cork_id:	null, 
+							type: 		file.type,
+							size: 		file.size,
+							name: 		file.name,
+							location:   "/flyers/images/" 
+			};
+			
+			
 			// create progress bar
 			var o = $id("progress");
 			var progress = o.appendChild(document.createElement("p"));
