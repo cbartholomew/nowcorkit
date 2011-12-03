@@ -191,8 +191,8 @@ class FacebookUser
 	{
 		$date_time = date('Y-m-d H:i:s');
 		// insert the user in the database		
-		$sql = "insert into users "
-			. "( \n"
+		$sql = "insert into users 			\n"
+			. "( 							\n"
 			. "users_facebook_users_id, 	\n"
 			. "users_email,					\n"
 			. "users_hash,					\n"
@@ -204,7 +204,7 @@ class FacebookUser
 			. "users_account_disable, 		\n"
 			. "users_created_dttm 			\n"
 			. ")  							\n"
-			. " values "
+			. " values 						\n"
 			. "( 							\n" 
 			. "'$this->id', 				\n"
 			. "'NULL',						\n"
@@ -222,7 +222,7 @@ class FacebookUser
 		$result = mysql_query($sql) or die (show_error('Problem with inserting user into the database'));
 		
 		// other than an error, there was a problem submitting the user
-		if ($result == false) { return false; }
+		if ($result == false) { return false; }	
 		
 		// get the newly assigned cork id. 
 		$this->cork_id = mysql_insert_id();
@@ -253,6 +253,8 @@ class Flyer
 		public $qr_location_file 		= NULL;
 		public $image_meta_data_id		= NULL;
 		public $type					= NULL;
+		public $type_id					= NULL;
+		public $users_flyer_id			= NULL;
 		
 		/*
 		 * __construct($_DATA) 
@@ -277,10 +279,9 @@ class Flyer
 	 */	
 	function insert()
 	{
-				$date_time = date('Y-m-d H:i:s');
 				// insert the user in the database		
-				$sql = $this->get_form_sql(); 
-					  			
+				$sql = $this->get_form_sql(); 					  	
+						
 				// run statement or die
 				$result = mysql_query($sql) or die (show_error($sql));
 				
@@ -290,16 +291,84 @@ class Flyer
 				// get the recent cork id
 				$this->id = mysql_insert_id();
 				
-				// don't need to generate QR code for image only flyers
-				if ($this->type != 'image')
-				{
-					// Generate QRCode Image, Save It, Update Location
-					if ($this->enable_qr == "on") { $this->generate_qr(); $this->update_qr_location();}
-				}
-				
-				// all is good
+				// If applicable, generate QR code image, save it, and update location in assoicated flyer table
+				if ($this->type != 'image') { if ($this->enable_qr == "on") { $this->generate_qr(); $this->update_qr_location();}}		
+
 				return true;
 	}
+	/*
+	 * insert_into_user_flyers()
+	 * this function inserts data into the table, which services as the relation of user and flyers
+	 */
+	function insert_into_users_flyers()
+	{
+				// set the flyer type
+				$this->set_flyer_type_id();
+				
+				// insert the user in the database		
+				$sql = "insert into users_flyers 		\n"
+					 . "( 								\n" 
+					 . "users_flyers_users_cork_id, 	\n"
+					 . "users_flyers_flyers_type_id, 	\n" 
+					 . "users_flyers_flyers_id 			\n" 
+					 . ") 								\n"
+					 . "values							\n" 
+					 . "(								\n"
+					 . "'$this->cork_id', 				\n"
+					 . "'$this->type_id', 				\n"
+					 . "'$this->id' 					\n"
+					 .")";  	
+						
+				// run statement or die
+				$result = mysql_query($sql) or die (show_error($sql));
+				
+				// other than an error, there was a problem submitting the user
+				if ($result == false) { return false; }
+				
+				// get the recent cork id
+				$this->users_flyer_id = mysql_insert_id();
+				
+				return true;
+				
+	}
+	
+	function update()
+	{	
+		
+		
+	}
+	
+	function delete()
+	{
+		
+	}
+    
+	/* 
+	 *	set_flyer_type_id()
+	 *  sets the $this->type_id to the proper id based on "type"
+	 */ 
+	function set_flyer_type_id(){
+		
+		//sets the $this->type_id to the proper based on "type"
+			switch ($this->type)
+			{
+				case "text":
+					$this->type_id = 1;
+				break;
+				
+				case "text_image":
+					$this->type_id = 2;
+				break;
+				
+				case "image":
+					$this->type_id = 3;
+				break;
+				
+				default:
+					$this->type_id = 0;
+				break;		
+			}	
+	}	
 	
 	/*
 	 * generate_qr()
@@ -344,18 +413,7 @@ class Flyer
 		// all is good, i'd hope.
 		return true;			
 	}
-	
-	function update()
-	{	
 		
-		
-	}
-	
-	function delete()
-	{
-		
-	}		
-	
 	/*
 	 *  get_form_sql()
 	 * 	Keep the SQL in one function because it's pretty long for each flyer table
@@ -364,7 +422,7 @@ class Flyer
 	function get_form_sql()
 	{
 		$SQL = "";
-				
+		$date_time = date('Y-m-d H:i:s');
 		// based on the page, prepare the proepr sql statement that should be used
 		switch($this->type){
 			
@@ -398,6 +456,7 @@ class Flyer
 				. "'$date_time'						\n"
 				. ")";			
 			break;			
+			
 			case "text_image":
 				$SQL = "insert into text_image_flyers 			\n"
 					. "( 										\n"
@@ -432,7 +491,20 @@ class Flyer
 			break;
 			
 			case "image":
-			
+				$SQL = "insert into image_flyers 			\n"
+					. "( 									\n"
+					. "image_flyer_title, 		 			\n"
+					. "image_flyer_image_meta_data_id,		\n"
+					. "image_flyer_users_cork_id,			\n"
+					. "image_flyer_created_dttm 			\n"
+					. ") 									\n"
+					. " values 								\n"
+					. "( 									\n"	
+					. "'$this->title',						\n"
+					. "'$this->image_meta_data_id',			\n"	
+					. "'$this->cork_id', 					\n"
+					. "'$date_time'							\n"
+					. ")";
 			break;			
 			
 			default:

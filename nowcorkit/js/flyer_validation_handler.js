@@ -25,7 +25,6 @@ $(document).ready(function() {
 			contact_name: {
 				rangelength: [0,50]
 			}
-
         }, 
         messages: { 
             title: {
@@ -41,7 +40,7 @@ $(document).ready(function() {
 				rangelength: "Maximum character limit: 50"
 			}, 
 			contact_info: "Required field if contact type is not none",
-			contact_name:{
+			contact_name: {
 				rangelength: "Maximum character limit: 50"
 			}
         }, 
@@ -53,7 +52,7 @@ $(document).ready(function() {
                 error.appendTo ( element.next() ); 
             else 
                 error.appendTo( element.parent().next() ); 
-        },         // specifying a submitHandler prevents the default submit, good for the demo 
+        },       
 		submitHandler: function() { 
 			SubmitFormByAjaxPost('text');
 		}
@@ -114,13 +113,13 @@ $(document).ready(function() {
                 error.appendTo ( element.next() ); 
             else 
                 error.appendTo( element.parent().next() ); 
-        },         // specifying a submitHandler prevents the default submit, good for the demo 
+        },       
 		submitHandler: function() { 				
 				if ($("#progress > p").size() != 0)
 				{
 					SubmitFormByAjaxPost('text_image');
 				}else{
-					$("#messages").html(">>Image must be accompanied with this flyer type<<");
+					$("#messages").html("<label style='color: #9BCC60;'>Image must be accompanied with this flyer type</label>");
 				}
 		}
     });
@@ -128,7 +127,19 @@ $(document).ready(function() {
 	/*
 	 * Builds Validation options for Image upload only
 	 */
-    var upload_image_validator = $("#upload").validate({ 
+    var upload_image_validator = $("#image_form").validate({ 
+		rules: { 
+            title: 		 {
+				required: true,
+				rangelength: [1,50]
+			}
+        }, 
+        messages: { 
+            title: {
+				required: "Title is required",
+				rangelength: "Maximum character limit: 50"
+			}
+        },
         // the errorPlacement has to take the table layout into account 
         errorPlacement: function(error, element) { 			
             if ( element.is(":radio") ) 
@@ -143,7 +154,7 @@ $(document).ready(function() {
 				{
 					SubmitFormByAjaxPost('image');
 				}else{
-					$("#messages").html(">>Image must be accompanied with this flyer type<<");
+					$("#messages").html("<label style='color: #9BCC60;'>Image must be accompanied with this flyer type</label>");
 				}
 		}
     });

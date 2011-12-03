@@ -1,0 +1,14 @@
+		echo "<form id='text_image_form' action='' method='' novalidate='novalidate'>";
+		echo "<table class='ui-widget-content ui-corner-all'>";
+			echo "<tbody>";
+
+				echo "<tr>";
+					echo "<td><label id='ltitle' for='title'>Title</label></td>";
+					echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title'></td>";
+					echo "<td class='status'></td>";
+				echo "</tr>";
+
+			echo "</tbody>";
+		echo "</table>";
+		echo "</form>";
+		echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";

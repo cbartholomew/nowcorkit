@@ -50,3 +50,19 @@
   width: 246px;
   white-space: nowrap;
 }
+
+#image_form label.error {
+  padding-left: 16px;
+  padding-bottom: 23px;
+  font-weight: bold;
+  color: #9BCC60;
+}
+
+
+#image_form label.status {
+  padding-top: 2px;
+  padding-left: 8px;
+  vertical-align: top;
+  width: 246px;
+  white-space: nowrap;
+}

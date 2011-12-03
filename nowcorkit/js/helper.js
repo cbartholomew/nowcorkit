@@ -354,16 +354,18 @@ function SubmitFormByAjaxPost(page){
 				$("#form_content").mask("creating...");
 		   },
 	       success: function(data){
-				console.log(data);
-	 	   		$('#form_content').mask("completed!");	
+				$("#form_content").unmask();
+				$('#status_messages').toggleClass('ui-helper-hidden', false);
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer successfully inserted, go to flyer manager to edit or remove</label>");
 	       },
 		   error:  function(data){
 				$("#form_content").unmask();
-				$('#form_content').mask("Error Occured!",5000);	
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer insertion failed, please try again later</label>");
 		   },
 		   complete: function(){
 				RequestFormByAjaxPost(page)
 				$('#form_content').unmask();
+
 		   }
 	});	
 	return false;

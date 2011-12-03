@@ -6,6 +6,16 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 
 (function() {
 
+			
+	image_meta_data = {
+		id:         null,
+		cork_id:	null, 
+		type: 		null,
+		size: 		null,
+		name: 		null,
+		location:   null
+	};	
+	
 	// getElementById
 	function $id(id) {
 		return document.getElementById(id);

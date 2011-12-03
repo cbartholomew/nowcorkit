@@ -27,6 +27,9 @@
 </head>
 <html>
 <body onload="BuildToolbar('menu');">
+	<div id='status_messages' class='ui-widget-content ui-corner-all'>
+		<label style="color: #9BCC60;">Messages:</label>
+	</div>
 <div id="toolbar">
 </div>
 <div id="menu_items">
@@ -42,5 +45,6 @@
 </div>
 <div id="form_content" class="ui-corner-all">
 </div>
+
 </body>
 </html>

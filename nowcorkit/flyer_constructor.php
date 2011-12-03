@@ -103,10 +103,11 @@ function buildTextForm()
 			
 		echo "</tbody>";
 	echo "</table>";
-	echo "</form>";
-	
+	echo "</form>";	
+	echo "<br>";
 	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
 	echo "<script>loadDatePicker();</script>";
+	echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";
 }
 
 function buildTextImageForm()
@@ -223,7 +224,7 @@ function buildTextImageForm()
 
 function buildImageOnlyForm()
 {
-	echo "<form id='upload' action='' method='POST' enctype='multipart/form-data'>";
+	echo "<form id='upload' action='upload.php' method='POST' enctype='multipart/form-data'>";
 	echo "<fieldset class='ui-widget-content ui-corner-all'>";
 	echo "<label id='lupload'><i><b>Step 1: Upload Image (jpeg/jpg/png/gif)</b></i></label>";
 	echo "<input type='hidden' id='MAX_FILE_SIZE' name='MAX_FILE_SIZE' value='300000' />";
@@ -235,12 +236,30 @@ function buildImageOnlyForm()
 	echo "<div id='submitbutton'>";
 		echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all'>Upload Files</button>";
 	echo "</div>";
-	echo "<button type='submit' style='float:right' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
-	echo  	"<span class='ui-button-text'>Create Flyer</span>";
-	echo "</button>";
 	echo "</fieldset>";
 	echo "</form>";
 	echo "</div>";
+	echo "<br>";
+	echo "<form id='image_form' action='' method='' novalidate='novalidate'>";
+	echo "<table class='ui-widget-content ui-corner-all'>";
+		echo "<tbody>";
+			echo "<tr>";
+				echo "<td><label id='ltitle' for='title'>Title</label></td>";
+				echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title'></td>";
+				echo "<td class='status'></td>";
+			echo "</tr>";
+			echo "<tr>";
+				echo "<td><i><b>Step 2: Submit</b></i></td>";
+				echo "<td></td>";
+				echo "<td>";
+				echo "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
+				echo  	"<span class='ui-button-text'>Create Flyer</span>";
+				echo "</button>";
+				echo "</td>";
+			echo "</tr>";
+		echo "</tbody>";
+	echo "</table>";
+	echo "</form>";
 	echo "<div id='progress' class='ui-corner-all'></div>";
 	echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
 	echo "<p>Status Messages</p>";
