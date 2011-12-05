@@ -245,6 +245,7 @@ class Flyer
 		public $description 			= NULL;
 		public $location				= NULL;
 		public $event_date				= NULL;
+		public $created_dttm			= NULL;
 		public $contact_id				= NULL;
 		public $contact_name			= NULL;
 		public $contact_info			= NULL;
@@ -255,7 +256,9 @@ class Flyer
 		public $type					= NULL;
 		public $type_id					= NULL;
 		public $users_flyer_id			= NULL;
-		
+		public $qr_full_location		= NULL;
+		public $flyer_error_id			= NULL;
+		public $flyer_message			= NULL;
 		/*
 		 * __construct($_DATA) 
 		 * Contructs a user object based on the form data
@@ -273,6 +276,7 @@ class Flyer
 			$this->type						= mysql_real_escape_string($_DATA["flyer_type"]);
 			$this->cork_id					= $_SESSION["users_cork_id"];
 	    }
+	
 	/*
 	 * insert()
      * Based on the data from the form post, this will submit the the text flyer in the system 
@@ -283,7 +287,7 @@ class Flyer
 				$sql = $this->get_form_sql(); 					  	
 						
 				// run statement or die
-				$result = mysql_query($sql) or die (show_error($sql));
+				$result = mysql_query($sql) or die (show_error("Problem with inserting flyer into database"));
 				
 				// other than an error, there was a problem submitting the user
 				if ($result == false) { return false; }
@@ -332,14 +336,64 @@ class Flyer
 				
 	}
 	
+	/*
+	 * delete_users_flyers()
+	 * this function inserts data into the table, which services as the relation of user and flyers
+	 */
+	function delete_users_flyers()
+	{
+			// set the flyer type
+			$this->set_flyer_type_id();
+				
+			// delete the users_flyer in the database		
+			$sql = "DELETE FROM users_flyers 									  				\n"
+				 . "WHERE users_flyers.users_flyers_id 				= ('$this->users_flyer_id')";
+
+			 // run statement or die
+			$result = mysql_query($sql) or die (show_error("Problem with removing users flyer from database"));
+		
+			// other than an error, there was a problem submitting the user
+			if ($result == false) { return false; }
+				
+			return true;	
+	}
+	
 	function update()
 	{	
+		// get the sql invovled for updating the database
+		$sql = $this->get_update_form_sql(); 					  	
+				
+		// run statement or die
+		$result = mysql_query($sql) or die (show_error("Problem with updating flyer into database" . $sql));
 		
+		// other than an error, there was a problem submitting the user
+		if ($result == false) { return false; }
+		
+		return true;
 		
 	}
 	
 	function delete()
-	{
+	{	
+		$this->delete_users_flyers();
+		
+		$sql = $this->get_delete_form_sql();
+		
+		// run statement or die
+		$result = mysql_query($sql) or die (show_error("Problem with removing flyer from database"));
+
+    	// other than an error, there was a problem submitting the user
+		if ($result == false) { return false; }
+
+		// If applicable, generate QR code image, save it, and update location in assoicated flyer table
+		if ($this->type == 'image' || $this->type =="text_image") 
+		{ 
+			// come back to this later
+			
+		}		
+
+		return true;
+			
 		
 	}
     
@@ -485,7 +539,7 @@ class Flyer
 					. "'$this->enable_qr', 						\n"
 					. "'$this->qr_location', 					\n"			
 					. "'$this->cork_id', 						\n"
-					. "'$image_meta_data_id',					\n"
+					. "'$this->image_meta_data_id',				\n"
 					. "'$date_time'								\n"
 					. ")";
 			break;
@@ -512,6 +566,86 @@ class Flyer
 		}		
 		return $SQL;	
 	}
+	/*
+	 * get_update_form_sql()
+	 * Allows the user to udpate SQL 
+ 	 */
+	function get_delete_form_sql(){
+		
+			$SQL = "";
+			// based on the page, prepare the proepr sql statement that should be used
+			switch($this->type){
+
+				case "text":
+					$SQL = "DELETE FROM text_flyers 												\n"
+						 . "WHERE text_flyers.text_flyer_id 				= ('$this->id')";
+				break;			
+
+				case "text_image":
+					$SQL = "DELETE FROM text_image_flyers 											\n"
+						 . "WHERE text_image_flyers.text_image_flyer_id 	= ('$this->id')";
+				break;
+
+				case "image":
+					$SQL = "DELETE FROM image_flyers												\n"
+						 . "WHERE image_flyers.image_flyer_id	 			= ('$this->id')";
+				break;			
+				default:
+				break;				
+			}		
+			return $SQL;
+		
+	}
+	
+	/*
+	 * get_update_form_sql()
+	 * Allows the user to udpate SQL 
+ 	 */
+	function get_update_form_sql(){
+		
+		$SQL = "";
+		// based on the page, prepare the proepr sql statement that should be used
+		switch($this->type){
+			
+			case "text":
+				$SQL = "UPDATE text_flyers SET 															\n"
+					 . "text_flyer_title 								= ('$this->title'), 			\n" 
+					 . "text_flyer_desc 								= ('$this->description'), 		\n"
+					 . "text_flyer_location 							= ('$this->location'), 			\n"
+					 . "text_flyer_event_date 							= ('$this->event_date'),		\n" 
+					 . "text_flyer_contact_type_id						= ('$this->contact_id') , 		\n" 
+					 . "text_flyer_contact_name 						= ('$this->contact_name'), 		\n" 
+					 . "text_flyer_contact_information 					= ('$this->contact_info'), 		\n" 
+					 . "text_flyer_generate_qr_code 					= ('$this->enable_qr'), 		\n" 
+					 . "text_flyer_users_cork_id 						= ('$this->cork_id')			\n" 
+					 . "WHERE text_flyers.text_flyer_id 				= ('$this->id')";
+			break;			
+			
+			case "text_image":
+				$SQL = "UPDATE text_image_flyers SET 													\n"
+					 . "text_image_flyer_title 							= ('$this->title'), 			\n" 
+					 . "text_image_flyer_desc 							= ('$this->description'), 		\n"
+					 . "text_image_flyer_location 						= ('$this->location'), 			\n"
+					 . "text_image_flyer_event_date 					= ('$this->event_date'),		\n" 
+					 . "text_image_flyer_contact_type_id				= ('$this->contact_id') , 		\n" 
+					 . "text_image_flyer_contact_name 					= ('$this->contact_name'), 		\n" 
+					 . "text_image_flyer_contact_information 			= ('$this->contact_info'), 		\n" 
+					 . "text_image_flyer_generate_qr_code 				= ('$this->enable_qr'), 		\n" 
+					 . "text_image_flyer_users_cork_id	 			    = ('$this->cork_id') 			\n" 
+					 . "WHERE text_image_flyers.text_image_flyer_id 	= ('$this->id')";
+			break;
+			
+			case "image":
+				$SQL = "UPDATE image_flyers SET 														\n"
+					 . "image_flyer_title 								= ('$this->title'), 			\n" 
+				     . "image_flyer_users_cork_id						= ('$this->cork_id')			\n"			
+					 . "WHERE image_flyers.image_flyer_id	 			= ('$this->id')";
+			break;			
+			default:
+			break;				
+		}		
+		return $SQL;		
+	}
 	
 	/*
 	 *  get_qr_sql()
@@ -526,19 +660,19 @@ class Flyer
 		switch($this->type){
 			
 			case "text":
-				$SQL = 	"update text_flyers \n"
-					.  "set text_flyer_qr_code_location = ('$this->qr_location_path$this->qr_location_file' ) \n"
-					.  "where \n"
-					.  "text_flyer_id = ('$this->id') \n"
-					.  "and  \n"
+				$SQL = "update text_flyers 																	   \n"
+					.  "set text_flyer_qr_code_location = ('$this->qr_location_path$this->qr_location_file' )  \n"
+					.  "where 																				   \n"
+					.  "text_flyer_id = ('$this->id') 														   \n"
+					.  "and  																				   \n"
 					.  "text_flyer_users_cork_id = ('$this->cork_id')";	
 			break;			
 			case "text_image":
-				$SQL = "update text_image_flyers \n"
+				$SQL = "update text_image_flyers 																	\n"
 					.  "set text_image_flyer_qr_code_location = ('$this->qr_location_path$this->qr_location_file' ) \n"
-					.  "where \n"
-					.  "text_image_flyer_id = ('$this->id') \n"
-					.  "and  \n"
+					.  "where 																						\n"
+					.  "text_image_flyer_id = ('$this->id') 														\n"
+					.  "and  																						\n"
 					.  "text_image_flyer_users_cork_id = ('$this->cork_id')";
 			break;
 			
@@ -574,6 +708,24 @@ class Image
 			$this->location   				= $_DATA["image_meta_data"]["location"];
 			$this->cork_id					= $_SESSION["users_cork_id"];
 	    }
+		
+		function delete($meta_id)
+		{
+					
+			// prepare sql statement that will insert the user in the database		
+			$sql = "DELETE FROM image_meta_data 											\n"
+				 . "WHERE image_meta_data.image_meta_data_id 					= ('$meta_id')";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with removing image from the database'));
+			
+			// other than an error, there was a problem submitting the user
+			if ($result == false) { return false; }
+					
+			// all is good
+			return true;
+			
+		}
 		
 		function insert()
 		{

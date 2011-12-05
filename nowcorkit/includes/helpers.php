@@ -41,7 +41,7 @@
 	
 		return false;
 	}
-	
+		
 	/*
 	 * Server Side Validation for Registration users
 	 */
@@ -191,6 +191,278 @@
 		}
 		// return array
 		return $state_array;		
+	}
+	
+	/*
+	 * function, which returns a specific flyer based on the users_flyer id
+ 	 */ 
+	function GetFullFlyer($user_flyer_id)
+	{
+		
+		// select the specific data for this user
+		$sql = "SELECT * 																\n"
+		    . "FROM users_flyers														\n"
+		    . "INNER JOIN flyer_type													\n"
+		    . "ON users_flyers.users_flyers_flyers_type_id = flyer_type.flyer_type_id	\n"
+		    . "WHERE users_flyers_id = ('$user_flyer_id') 								\n";
+		
+		$result = mysql_query($sql) or die (showerror('Problem with pulling users flyer id'));
+		
+		//users_flyers_id	users_flyers_users_cork_id	users_flyers_flyers_type_id	us
+		if (mysql_num_rows($result) > 0)
+		{
+			while($row = mysql_fetch_array($result))
+			{
+				// assign the flyer type to variable to be used later
+				$users_flyer_flyer_type_id = $row["users_flyers_flyers_type_id"];
+				
+				// create new sql query to obtain the actual flyer
+				$sql = get_select_sql_specific($row["users_flyers_flyers_id"], $users_flyer_flyer_type_id);
+
+				// get the data from the second query result
+				$result = mysql_query($sql) or die (show_error("problem with pulling specific flyer"));
+					
+					// obtain the inner data
+					while($row = mysql_fetch_array($result))
+					{
+						if (mysql_num_rows($result) > 0) 
+						{ 
+							switch($users_flyer_flyer_type_id)
+							{
+									case "1":
+											$flyer = new Flyer(null);
+											
+											$flyer->flyer_error_id 			= 0;
+											$flyer->id 						= $row["text_flyer_id"];
+											$flyer->cork_id					= $row["text_flyer_users_cork_id"];
+											$flyer->title 					= $row["text_flyer_title"];
+											$flyer->description 			= $row["text_flyer_desc"];
+											$flyer->location				= $row["text_flyer_location"];
+											$flyer->event_date				= $row["text_flyer_event_date"];
+											$flyer->contact_id				= $row["text_flyer_contact_type_id"];
+											$flyer->contact_name			= $row["text_flyer_contact_name"];
+											$flyer->contact_info			= $row["text_flyer_contact_information"];
+											$flyer->enable_qr				= $row["text_flyer_generate_qr_code"];
+											$flyer->qr_full_location		= $row["text_flyer_qr_code_location"];
+											$flyer->created_dttm 			= $row["text_flyer_created_dttm"];
+											$flyer->type					= $row["flyer_type_desc"];
+											$flyer->type_id					= $row["users_flyers_flyers_type_id"];
+											$flyer->users_flyer_id			= $row["users_flyers_id"];
+										
+											return $flyer;
+									break;
+								
+									case "2":
+									
+											$flyer = new Flyer(null);
+											
+											$flyer->flyer_error_id 			= 0;
+											$flyer->id 						= $row["text_image_flyer_id"];
+											$flyer->cork_id					= $row["text_image_flyer_users_cork_id"];
+										 	$flyer->title 					= $row["text_image_flyer_title"];
+										 	$flyer->description 			= $row["text_image_flyer_desc"];
+										 	$flyer->location				= $row["text_image_flyer_location"];
+										 	$flyer->event_date				= $row["text_image_flyer_event_date"];
+								 			$flyer->contact_id				= $row["text_image_flyer_contact_type_id"];
+										 	$flyer->contact_name			= $row["text_image_flyer_contact_name"];
+										 	$flyer->contact_info			= $row["text_image_flyer_contact_information"];
+										 	$flyer->enable_qr				= $row["text_image_flyer_generate_qr_code"];
+										 	$flyer->qr_full_location		= $row["text_image_flyer_qr_code_location"];
+										 	$flyer->created_dttm 			= $row["text_image_flyer_created_dttm"];
+										 	$flyer->type					= $row["flyer_type_desc"];
+									 		$flyer->type_id					= $row["users_flyers_flyers_type_id"];
+									 		$flyer->users_flyer_id			= $row["users_flyers_id"];
+											$flyer->image_meta_data_id		= $row["text_image_flyer_image_meta_data_id"];
+										
+											return $flyer;
+									break;
+								
+									case "3":
+															
+											$flyer = new Flyer(null);											
+											
+											$flyer->flyer_error_id 			= 0;
+											$flyer->id 						= $row["image_flyer_id"];
+											$flyer->title 					= $row["image_flyer_title"];
+											$flyer->image_meta_data_id		= $row["image_flyer_image_meta_data_id"];	
+										
+											return $flyer;				
+									break;
+								
+									default:
+											$flyer->flyer_error_id 			= 99;
+											$flyer->flyer_message			= "There was a problem looking up the flyer.";
+										
+											return $flyer;
+									break;				
+							}							
+						}
+					}
+				}
+			}
+		}
+	
+	
+	/*
+	 * function, which returns a list of flyers from database
+	 */
+	function GetFlyers($cork_id, $flyer_type_id)
+	{		
+		// create new associative array object
+		$flyer_array =  array();
+		
+		// prepare statement
+		$sql =  get_select_sql($cork_id, $flyer_type_id);
+			
+		// run statement or error
+		$result = mysql_query($sql) or die (show_error('Problem with pulling flyers' . $sql));
+		
+		// push the states onto the array stack LIFO. State ID 1-50.
+		if (mysql_num_rows($result) > 0) 
+		{
+		   while($row = mysql_fetch_array($result))
+		   {	   
+				// prepare new flyer object
+				$flyer 		 = new Flyer(null);					
+				// populate object
+				
+				switch($flyer_type_id)
+				{
+					case "1":
+						$flyer->id 						= $row["text_flyer_id"];
+						$flyer->cork_id					= $row["text_flyer_users_cork_id"];
+					 	$flyer->title 					= $row["text_flyer_title"];
+					 	$flyer->description 			= $row["text_flyer_desc"];
+					 	$flyer->location				= $row["text_flyer_location"];
+					 	$flyer->event_date				= $row["text_flyer_event_date"];
+					 	$flyer->contact_id				= $row["text_flyer_contact_type_id"];
+					 	$flyer->contact_name			= $row["text_flyer_contact_name"];
+					 	$flyer->contact_info			= $row["text_flyer_contact_information"];
+					 	$flyer->enable_qr				= $row["text_flyer_generate_qr_code"];
+					 	$flyer->qr_full_location		= $row["text_flyer_qr_code_location"];
+					 	$flyer->type					= $row["flyer_type_desc"];
+				 		$flyer->type_id					= $row["users_flyers_flyers_type_id"];
+				 		$flyer->users_flyer_id			= $row["users_flyers_id"];
+					break;
+					case "2":
+						$flyer->id 						= $row["text_image_flyer_id"];
+						$flyer->cork_id					= $row["text_image_flyer_users_cork_id"];
+					 	$flyer->title 					= $row["text_image_flyer_title"];
+					 	$flyer->description 			= $row["text_image_flyer_desc"];
+					 	$flyer->location				= $row["text_image_flyer_location"];
+					 	$flyer->event_date				= $row["text_image_flyer_event_date"];
+					 	$flyer->contact_id				= $row["text_image_flyer_contact_type_id"];
+					 	$flyer->contact_name			= $row["text_image_flyer_contact_name"];
+					 	$flyer->contact_info			= $row["text_image_flyer_contact_information"];
+					 	$flyer->enable_qr				= $row["text_image_flyer_generate_qr_code"];
+					 	$flyer->qr_full_location		= $row["text_image_flyer_qr_code_location"];
+					 	$flyer->type					= $row["flyer_type_desc"];
+				 		$flyer->type_id					= $row["users_flyers_flyers_type_id"];
+				 		$flyer->users_flyer_id			= $row["users_flyers_id"];
+						$flyer->image_meta_data_id		= $row["text_image_flyer_image_meta_data_id"];
+					break;
+					case "3":
+						$flyer->id 						= $row["image_flyer_id"];
+						$flyer->title 					= $row["image_flyer_title"];
+						$flyer->image_meta_data_id		= $row["image_flyer_image_meta_data_id"];			
+						$flyer->users_flyer_id			= $row["users_flyers_id"];		
+					break;
+					default:
+					break;				
+				}
+				
+				// push onto stack
+				array_push($flyer_array, $flyer);
+			}	
+		}
+		// return array
+		return $flyer_array;		
+	}
+	/*
+	 * 
+	 */
+	function get_select_sql($cork_id,$flyer_type_id)
+	{
+		$sql = "";
+		
+		switch ($flyer_type_id)
+		{
+		case "1":
+				$sql =  "SELECT * 																\n"
+				   . "FROM users_flyers 														\n"
+				   . "INNER JOIN flyer_type														\n"
+				   . "ON flyer_type.flyer_type_id = users_flyers.users_flyers_flyers_type_id	\n"
+				   . "INNER JOIN text_flyers													\n"
+				   . "ON users_flyers.users_flyers_flyers_id = text_flyers.text_flyer_id		\n"
+				   . "WHERE users_flyers_flyers_type_id = ('$flyer_type_id')					\n"
+				   . "AND users_flyers.users_flyers_users_cork_id = ('$cork_id')                \n"
+				   . "ORDER BY text_flyers.text_flyer_created_dttm 	desc";
+		break;
+		
+		case "2":
+				$sql = "SELECT * 																		\n"
+				    . "FROM users_flyers 																\n"
+				    . "INNER JOIN flyer_type															\n"
+				    . "ON flyer_type.flyer_type_id = users_flyers.users_flyers_flyers_type_id			\n"
+				    . "INNER JOIN text_image_flyers														\n"
+				    . "ON users_flyers.users_flyers_flyers_id = text_image_flyers.text_image_flyer_id	\n"
+				    . "WHERE users_flyers_flyers_type_id = ('$flyer_type_id')							\n"
+				    . "AND users_flyers.users_flyers_users_cork_id = ('$cork_id')						\n"
+					. "ORDER BY text_image_flyers.text_image_flyer_created_dttm desc";
+		
+		break;
+		case "3":
+				$sql = "SELECT * 																	\n"
+					    . "FROM users_flyers														\n"
+					    . "INNER JOIN flyer_type 													\n"
+					    . "ON flyer_type.flyer_type_id = users_flyers.users_flyers_flyers_type_id	\n"
+					    . "INNER JOIN image_flyers 													\n"
+					    . "ON users_flyers.users_flyers_flyers_id = image_flyers.image_flyer_id		\n"
+					    . "WHERE users_flyers_flyers_type_id =  ('$flyer_type_id')					\n"
+					    . "AND users_flyers.users_flyers_users_cork_id =  ('$cork_id')				\n"
+						. "ORDER BY image_flyers.image_flyer_created_dttm desc";
+			break;
+
+		}
+		
+		
+		return $sql;
+		
+	}
+	
+	/*
+	 * 
+	 */
+	function get_select_sql_specific($flyer_id,$flyer_type_id)
+	{
+		$sql = "";
+		
+		switch ($flyer_type_id)
+		{
+		case "1":
+				$sql = "SELECT * 																		\n"
+		    	. "FROM text_flyers																		\n"
+		    	. "WHERE text_flyer_id = ('$flyer_id')													\n"; 
+		break;		
+		case "2":
+				$sql = "SELECT * 																		\n"
+				    . "FROM text_image_flyers															\n"
+				    . "INNER JOIN image_meta_data														\n"
+				    . "ON text_image_flyers.text_image_flyer_image_meta_data_id = image_meta_data_id	\n"
+				    . "where text_image_flyer_id = ('$flyer_id')";
+		break;
+		case "3":
+				$sql = "SELECT * 																		\n"
+				    . "FROM image_flyers																\n"
+				    . "INNER JOIN image_meta_data														\n"
+				    . "ON image_flyers.image_flyer_image_meta_data_id = image_meta_data_id				\n"
+				    . "where image_flyer_id = ('$flyer_id')";
+			break;
+		}
+		
+		
+		return $sql;
+		
 	}
 	
 	/*

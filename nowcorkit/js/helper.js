@@ -91,6 +91,21 @@ function toggleShuffleFeature(value){
 	$('#label_interval').toggleClass('ui-helper-hidden', value); 
 }
 
+function toggleManagerActionsOff()
+{
+	$('#ltext_preview').toggleClass('ui-state-active',false);
+	$('#ltext_edit').toggleClass('ui-state-active',false);
+	$('#ltext_remove').toggleClass('ui-state-active',false);	
+	
+	$('#ltext_image_preview').toggleClass('ui-state-active',false);
+	$('#ltext_image_edit').toggleClass('ui-state-active',false);
+	$('#ltext_image_remove').toggleClass('ui-state-active',false);
+	
+	$('#limage_preview').toggleClass('ui-state-active',false);
+	$('#limage_edit').toggleClass('ui-state-active',false);
+	$('#limage_remove').toggleClass('ui-state-active',false);
+	
+}
 /*
  * used for feed permissions settings
  */
@@ -117,85 +132,117 @@ function cleanContentAndFormFields(){
 	$('#form_content').html("");
 }
 /*
- * Allow flyers to become editable by user BROKEN
+ * Using these button sets, users will be able to edit/remove/preview flyers
  */
 function ActivateSelectableContent(){
 	
-	$(function() {
-		$( "#item_one" ).draggable({ 
-				revert: "valid" 
-				
-				});
-
-		$( "#droppable_editor" ).droppable({
-			activeClass: "ui-state-hover",
-			hoverClass: "ui-state-active",
-			drop: function( event, ui ) {
-				$( this )
-					.addClass( "ui-state-highlight" )
-					.find( "p" )
-						.html( "Dropped!" );
-			}
-		});
+	$(function() {		
+		// render button sets
+		$('#text_radio').buttonset();		
+		$('#text_image_radio').buttonset();
+		$('#image_radio').buttonset();
 	});
 	
+	// text flyer menu click listeners
+	$('#text_preview').click(function() {
+	 	alert($('#text_flyer_select option:selected').val());
+	});
+	
+	$('#text_edit').click(function() {		
+		LaunchEditorModal($('#text_flyer_select option:selected').val(),'text', false);
+	});
+	
+	$('#text_remove').click(function() {
+		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'text', true);
+	});
+	
+	// text_image flyer menu click listeners
+	$('#text_image_preview').click(function() {
+		
+	});
+	
+	$('#text_image_edit').click(function() {
+		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'text_image', false);
+	});
+	$('#text_image_remove').click(function() {
+		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'text_image', true);
+	});
+	
+	// image flyer menu click listeners
+	$('#image_preview').click(function() {
+		
+	});
+	$('#image_edit').click(function() {
+		LaunchEditorModal($('#image_flyer_select option:selected').val(),'image', false);
+	});
+	$('#image_remove').click(function() {
+		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'image', true);
+	});
 }
 
 /*
  * Launches Modal Window to edit or remove flyers
  */
-function LaunchEditorModal(div_id, is_remove){
+function LaunchEditorModal(flyer_id, page, is_remove){
 	
 	if (is_remove == false)
 	{
 		// make an ajax call to render a form window screen
 		$.ajax({
-	       	url: "flyer_constructor.php",
+	       	url:  "flyer_editor.php",
 		   	type: 'post',
 		   	data: {
-					template: 'text'
+					template: page,
+					users_flyer_id: $('#' + page +'_flyer_select option:selected').val()
 		   	},
 	        success: function(data) {
-	 	   		$("#modal_editor").html(data);			
+				$("#modal_editor").html(data);		
 	       }
 		});
 		// render the dialog
 		$("#modal_editor").dialog({
 					autoOpen: false,
+					cache: false,
 					modal: true,
-					height: 800,
-					width: 600,
+					height: 565,
+					width:  550,
 					draggable: false,
 					resizable: false,
+					title: 'Updating Flyer: ' + $('#' + page +'_flyer_select option:selected').html(),
 					close: function() {
-						//revert dropped entity
-						dropped_editor.removeClass("ui-state-highlight").find("p").html("Drop here to edit flyer");
+					 	toggleManagerActionsOff();
 					}	
 		});
-	
 		// open the dialog
 		$( "#modal_editor" ).dialog( "open" );
 	
 	} 
 	else
 	{
+	
+		pending_purge_flyer(page);
+		
 		// render the dialog to commit flyer removal
 		$("#modal_remove").dialog({
 				resizable: false,
+				autoOpen: false,
 				height:250,
+				cache: false,
 				width: 250,
 				modal: true,
 				buttons: {
 					Delete: function() {
-						$( this ).dialog( "close" );
-						//revert dropped entity
-						dropped_remove.removeClass("ui-state-error").find("p").html("Drop here to remove flyer");
-						RemoveFlyer('item_one');
+							if (purge_flyer(flyer, page) == true) {					
+									$( this ).dialog( "close" );
+									toggleManagerActionsOff();
+									$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer removal was a success!</label>");
+									RequestPageByAjaxGet('flyer_manager');
+								}
+						
 					},
 					Cancel: function() {
-						$( this ).dialog( "close" );
-						//revert dropped entity
-						dropped_remove.removeClass("ui-state-error").find("p").html("Drop here to remove flyer");
+						toggleManagerActionsOff();
+						$( this ).dialog( "close" );						
 				}
 			}	
 		});
@@ -205,6 +252,59 @@ function LaunchEditorModal(div_id, is_remove){
 			
 	}
 
+}
+
+/*
+ * Prepares the deletion dialog for removal
+ */
+function pending_purge_flyer(page){
+		// make an ajax call to render a form window screen
+		$.ajax({
+	      	url:  "flyer_remove.php",
+		   	type: 'post',
+		   	data: {
+					template: page,
+					users_flyer_id: $('#' + page +'_flyer_select option:selected').val(),
+					is_purge: 'false'
+		   	},
+	        success: function(data) {
+				 	flyer = data;
+					flyer['type'] = page;		
+					$('#ltitle').html(flyer['title']);
+					$('#modal_remove').dialog("option","title",'Remove Flyer -> ' + flyer['title']);
+		    }
+		});
+}
+
+/*
+ *  It may actually remove the flyer
+ */
+function purge_flyer(data, page)
+{
+	// make an ajax call to render a form window screen
+	$.ajax({
+       	url:  "flyer_remove.php",
+	   	type: 'post',
+	   	data: {
+				template	: page,
+				flyer		: flyer,
+				is_purge	: 'true'
+	   	},
+		beforeSend: function(){
+			$("#modal_remove").mask("Removing...");
+		},
+		error: function(data)
+		{
+			$("#modal_remove").html(data);
+		},
+        success: function(data) {
+			$("#modal_remove").unmask();
+       }
+	});
+	
+	return true;
+	
+	
 }
 
 /*
@@ -356,15 +456,58 @@ function SubmitFormByAjaxPost(page){
 	       success: function(data){
 				$("#form_content").unmask();
 				$('#status_messages').toggleClass('ui-helper-hidden', false);
-				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer successfully inserted, go to flyer manager to edit or remove</label>");
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer successfully inserted, go to flyer manager to edit text or remove flyer, or Post Flyer to post to a board.</label>");
 	       },
 		   error:  function(data){
 				$("#form_content").unmask();
 				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer insertion failed, please try again later</label>");
 		   },
 		   complete: function(){
-				RequestFormByAjaxPost(page)
+				RequestFormByAjaxPost(page);
 				$('#form_content').unmask();
+
+		   }
+	});	
+	return false;
+}
+
+/*
+ * Submit Form using AJAX POST
+ */
+function UpdateFormByAjaxPost(page){	
+
+	$.ajax({
+	       url: "flyer_edit.php",
+		   cache: false,
+		   type: "post",
+		   data: {
+				title			: $("#title").val(),
+				description		: $("#description").val(),
+				location		: $("#location").val(),
+				event_date   	: $("#event_date").val(),
+				contact_id   	: $("#contact").val(),
+				contact_name   	: $("#contact_name").val(),
+				contact_info   	: $("#contact_info").val(),
+				enable_qr	   	: $("#enable_qr").val(),
+				flyer_id		: $("#flyer_id").val(),
+				flyer_type		: page
+		   },
+		   beforeSend: function(){
+				$("#modal_editor").mask("updating...");
+		   },
+	       success: function(data){
+				$("#modal_editor").unmask();
+				$('#status_messages').toggleClass('ui-helper-hidden', false);
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer update was a success!</label>");
+	       },
+		   error:  function(data){
+				$("#modal_editor").unmask();
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer update was fail, please try again later!</label>");
+		   },
+		   complete: function(){
+				$( "#modal_editor" ).dialog( "close" );
+				RequestPageByAjaxGet('flyer_manager');
+				$('#modal_editor').unmask();
 
 		   }
 	});	

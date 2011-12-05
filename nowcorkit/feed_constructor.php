@@ -1,5 +1,5 @@
 <?
-require_once('#!/common.php');
+require_once('includes/common.php');
 
 // based on the query string, obtain the property. 
 // Although the request is registered as POST, the variable will be in $_GET

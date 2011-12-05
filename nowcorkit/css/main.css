@@ -60,6 +60,31 @@
 	margin-bottom: 10px;
 }
 
+#text_flyer_select
+{
+	width: 	325px;
+	height: 40px;
+	font-size: 20px;
+	margin: 15px;
+}
+
+#text_image_flyer_select
+{
+	width: 325px;
+	height: 40px;
+	font-size: 20px;
+	margin: 15px;
+}
+
+
+#image_flyer_select
+{
+	width: 	325px;
+	height: 40px;
+	font-size: 20px;
+	margin: 15px;
+}
+
 #droppable_editor{
 	
 	position: absolute;
@@ -120,7 +145,14 @@ td.table_data,th.table_data
 }
 										 
 										
-										
+.column { width: 170px; float: left; padding-bottom: 100px; }
+.portlet { margin: 0 1em 1em 0; }
+.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+.portlet-header .ui-icon { float: right; }
+.portlet-content { padding: 0.4em; }
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+.ui-sortable-placeholder * { visibility: hidden; }
+
 #selectable .ui-selecting { background: #9BCC80; }
 #selectable .ui-selected  { background: #9BCC60; color: white; }
 #selectable    { list-style-type: none; margin: 0px; padding: 100px 0 0 0; width: 25%;}
