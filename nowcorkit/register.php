@@ -1,4 +1,10 @@
 <?
+	/***********************************************************************
+	 * XXX.php
+	 * Author		  : Christopher Bartholomew
+	 * Last Updated  : 
+	 * Purpose		  : 
+	 **********************************************************************/
 	require_once('includes/common.php');
 	
 	

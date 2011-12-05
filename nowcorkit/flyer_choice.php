@@ -1,4 +1,10 @@
 <?
+	/***********************************************************************
+	 * XXX.php
+	 * Author		  : Christopher Bartholomew
+	 * Last Updated  : 
+	 * Purpose		  : 
+	 **********************************************************************/
 echo "<select id='flyer_select' onchange='toggleDescriptionOn(this.value);' name='flyer_select' class='ui-widget-content'>";
 echo "<option value='0' selected='selected'>Select Template</option>";
 echo "<option value='text'>Text Flyer</option>";

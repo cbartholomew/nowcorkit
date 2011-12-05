@@ -1,4 +1,10 @@
 <?
+	/***********************************************************************
+	 * XXX.php
+	 * Author		  : Christopher Bartholomew
+	 * Last Updated  : 
+	 * Purpose		  : 
+	 **********************************************************************/
 	// place holder for ajax load
 	//$userid = $_POST["USER_ID"]
 	

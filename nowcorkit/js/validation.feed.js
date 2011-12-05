@@ -1,3 +1,10 @@
+/***********************************************************************
+ * XXX.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated  : 
+ * Purpose		  : 
+ **********************************************************************/
+
 $(document).ready(function() { 
     // validate signup form on keyup and submit 
     var validator = $("#general").validate({ 

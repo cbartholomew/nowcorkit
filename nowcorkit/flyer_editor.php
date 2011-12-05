@@ -1,9 +1,15 @@
 <?
+	/***********************************************************************
+	 * XXX.php
+	 * Author		  : Christopher Bartholomew
+	 * Last Updated  : 
+	 * Purpose		  : 
+	 **********************************************************************/
+	
+	require_once("includes/common.php");
 
-require_once("includes/common.php");
-
-$template 			= $_POST["template"];
-$users_flyer_id		= $_POST["users_flyer_id"];
+	$template 			= $_POST["template"];
+	$users_flyer_id		= $_POST["users_flyer_id"];
 
 switch($template)
 {

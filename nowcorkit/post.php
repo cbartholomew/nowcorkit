@@ -1,5 +1,10 @@
 <?
-
+	/***********************************************************************
+	 * XXX.php
+	 * Author		  : Christopher Bartholomew
+	 * Last Updated  : 
+	 * Purpose		  : 
+	 **********************************************************************/
 require_once('includes/common.php');
 echo "<form id='add_post' action='add_post.php' method='POST'>";
 	

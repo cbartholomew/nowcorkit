@@ -1,5 +1,11 @@
 <?
-
+	/***********************************************************************
+	 * XXX.php
+	 * Author		  : Christopher Bartholomew
+	 * Last Updated  : 
+	 * Purpose		  : 
+	 **********************************************************************/
+	
 $template = $_POST["template"];
 
 switch($template)

@@ -1,7 +1,16 @@
+
+
 <?
+/***********************************************************************
+ * XXX.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated  : 
+ * Purpose		  : 
+ **********************************************************************/
 	//require_once("#!/oauth_facebook.php");
 	//$user = Validate("http://nowcorkit.com/board.php");
 ?>
+
 <!DOCTYPE HTML>
 <html>
 <head>

@@ -1,3 +1,10 @@
+/***********************************************************************
+ * XXX.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated  : 
+ * Purpose		  : 
+ **********************************************************************/
+
 // global variable, i know bad, used as a switch
 current_selected_value = null;
 

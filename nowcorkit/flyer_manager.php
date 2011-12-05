@@ -1,4 +1,13 @@
 <?
+
+/***********************************************************************
+ * XXX.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated  : 
+ * Purpose		  : 
+ **********************************************************************/
+
+
 /*
  * Loads the user's flyers from the database
  */

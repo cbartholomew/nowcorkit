@@ -1,3 +1,10 @@
+/***********************************************************************
+ * XXX.js
+ * Author		  : Christopher Bartholomew
+ * Last Updated  : 
+ * Purpose		  : 
+ **********************************************************************/
+
 $(document).ready(function() { 
     /*
 	 * Builds Validation options for text forms
