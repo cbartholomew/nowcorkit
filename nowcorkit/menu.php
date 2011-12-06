@@ -43,7 +43,7 @@
 		<li id="flyer_choice" class="ui-widget-content ui-corner-all">Create Flyer</li>
 		<li id="flyer_manager" class="ui-widget-content ui-corner-all">Flyer Manager</li>		
 		<li id="post" class="ui-widget-content ui-corner-all">Post Flyer</li>
-		<li id="feed_manager" class="ui-widget-content ui-corner-all">Board Manager</li>
+		<li id="board_manager" class="ui-widget-content ui-corner-all">Board Manager</li>
 	</ol>
 </div>
 <div id="content">

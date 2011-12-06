@@ -264,7 +264,7 @@ function LaunchEditorModal(flyer_id, page, is_remove){
 	else
 	{
 	
-		pending_purge_flyer(page);
+		PendingPurgeFlyer(page);
 		
 		// render the dialog to commit flyer removal
 		$("#modal_remove").dialog({
@@ -276,7 +276,7 @@ function LaunchEditorModal(flyer_id, page, is_remove){
 				modal: true,
 				buttons: {
 					Delete: function() {
-							if (purge_flyer(flyer, page) == true) {					
+							if (PurgeFlyer(flyer, page) == true) {					
 									$( this ).dialog( "close" );
 									toggleManagerActionsOff();
 									$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer removal was a success!</label>");
@@ -301,7 +301,7 @@ function LaunchEditorModal(flyer_id, page, is_remove){
 /*
  * Prepares the deletion dialog for removal
  */
-function pending_purge_flyer(page){
+function PendingPurgeFlyer(page){
 		// make an ajax call to render a form window screen
 		$.ajax({
 	      	url:  "flyer_remove.php",
@@ -323,7 +323,7 @@ function pending_purge_flyer(page){
 /*
  *  It may actually remove the flyer
  */
-function purge_flyer(data, page)
+function PurgeFlyer(data, page)
 {
 	// make an ajax call to render a form window screen
 	$.ajax({
@@ -417,14 +417,16 @@ function LoadTableEntry(address){
 /*
  * Load and Toggle the Menu
  */
-function toggleAndLoadFeed(value){
-	$('#tabs').toggleClass('ui-helper-hidden', false);
+function toggleAndLoadBoard(value){
+	
+	if (value == 'create'){LoadNewBoardPreferences();} 
+	else { $('#tabs').toggleClass('ui-helper-hidden', false); }
 }
 
 /*
  * Load the tab container, and use ajax for each of the tabs
  */
-function LoadFeedManagerTabs(){
+function LoadBoardManagerTabs(){
  		$(function() {
 			$( "#tabs" ).tabs({
 				ajaxOptions: {
@@ -438,6 +440,31 @@ function LoadFeedManagerTabs(){
 			});
 		});
 }
+
+/*
+ * Load's modal for new board
+ */
+function LoadNewBoardPreferences(){
+		// render the dialog
+		
+		RequestBoardByAjaxPost('create');
+		$("#modal_board_preferences").dialog({
+					autoOpen: false,
+					cache: false,
+					modal: true,
+					height: 565,
+					width:  550,
+					draggable: false,
+					resizable: false,
+					title: 'New Board',
+					close: function() {
+						// probably load the new board here
+					}	
+		});
+		// open the dialog
+		$( "#modal_board_preferences" ).dialog( "open" );	
+}
+
 
 /*
  * Called by flyer constructor, loads date picker
@@ -506,6 +533,52 @@ function SubmitFormByAjaxPost(page){
 /*
  * Submit Form using AJAX POST
  */
+function SubmitBoardByAjaxPost(page){	
+	
+	$.ajax({
+	       url: "board_creation.php",
+		   type: "post",
+		   data: {
+				title			: $("#title").val(),
+				description		: $("#desc").val(),
+				address			: $("#address").val(),
+				city   			: $("#city").val(),
+				state   		: $("#state").val(),
+				zipcode   		: $("#zipcode").val(),
+				permissions   	: $("#permissions").val(),
+				flyerexpire	   	: $("#flyerexpire").val(),
+				shuffle   		: $("#shuffle").val(),
+				interval	   	: $("#interval").val(),
+				postperspace	: $("#postpayment").val(),
+				cashmount	   	: $("#cashamount").val(),
+				flyerdays	   	: $("#flyerdays").val()
+		   },
+		   beforeSend: function(){
+				$("#new_board").mask("creating...");
+		   },
+	       success: function(data){
+				$("#new_board").unmask();
+				$('#status_messages').toggleClass('ui-helper-hidden', false);
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Board successfully created</label>");
+	       },
+		   error:  function(data){
+				$("#new_board").unmask();
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Board creation failed, please try again later</label>");
+		   },
+		   complete: function(){
+				//make this load the preferences screen
+				//RequestFormByAjaxPost('board_manager');
+				$( "#modal_board_preferences" ).dialog( "close" );
+				$('#new_board').unmask();
+
+		   }
+	});	
+	return false;
+}
+
+/*
+ * Submit Form using AJAX POST
+ */
 function UpdateFormByAjaxPost(page){	
 
 	$.ajax({
@@ -564,4 +637,23 @@ function RequestFormByAjaxPost(page){
 	return false;
 }
 
+
+
+/*
+ * Load Page using AJAX post
+ */
+function RequestBoardByAjaxPost(page){	
+	$.ajax({
+	       url: "board_constructor.php",
+		   type: 'post',
+		   data: {
+				template: page
+		   },
+	       success: function(data) {
+				console.log(data);
+	 	   		$("#modal_board_preferences").html(data);			
+	       }
+	});	
+	return false;
+}
 

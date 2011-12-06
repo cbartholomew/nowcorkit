@@ -772,4 +772,115 @@ class Image
 	
 }
 
+
+
+
+class Board
+{
+	
+		public $id 						= NULL;
+		public $title 					= NULL;
+		public $description 			= NULL;
+		public $address 				= NULL;
+		public $city 					= NULL;
+		public $state_id 				= NULL;
+		public $zip 					= NULL;
+		public $permission_type_id	 	= NULL;
+		public $expiration_days 		= NULL;
+		public $enable_shuffle			= NULL;
+		public $shuffle_interval 		= NULL;
+		public $enable_pps				= NULL;
+		public $ppd_id					= NULL;
+		public $pps_cashmount			= NULL;
+		public $pps_flyerdays			= NULL;
+		public $cork_id 				= NULL;
+	
+		/*
+		 * __construct($_DATA) 
+		 * Contructs a user object based on the form data
+		 */
+	    function __construct($_DATA) 
+		{
+	
+				$this->title 							= mysql_real_escape_string($_DATA["title"]);
+				$this->description 					 	= mysql_real_escape_string($_DATA["description"]);
+				$this->address 							= mysql_real_escape_string($_DATA["address"]);
+				$this->city 							= mysql_real_escape_string($_DATA["city"]);
+				$this->state_id 						= mysql_real_escape_string($_DATA["stae"]);
+				$this->zip 								= mysql_real_escape_string($_DATA["zipcode"]);
+				$this->permission_type_id 				= mysql_real_escape_string($_DATA["permissions"]);
+				$this->expiration_days 					= mysql_real_escape_string($_DATA["flyerexpire"]);
+				$this->enable_shuffle					= mysql_real_escape_string($_DATA["shuffle"]);
+				$this->shuffle_interval					= mysql_real_escape_string($_DATA["interval"]);
+				$this->pps								= mysql_real_escape_string($_DATA["postperspace"]);
+				$this->pps_cashmount					= mysql_real_escape_string($_DATA["cashamount"]);
+				$this->pps_flyerdays					= mysql_real_escape_string($_DATA["flyerdays"]);
+				$this->cork_id 							= $_SESSION['users_cork_id'];
+
+	    }
+		
+		/*
+	     *
+		 */
+		function get_assoicated_flyers()
+		{
+			
+		}
+		
+		/*
+		 *
+		 */
+		function insert()
+		{
+		
+		}
+		
+		/*
+		 *
+		 */
+		function update()
+		{
+			
+		}
+		
+		/*
+		 *
+		 */
+		function delete()
+		{
+			
+			
+		}
+			
+		/*
+	     *
+		 */
+		function get_boards_by_state($state_id)
+		{
+
+
+
+		}
+
+			
+		/*
+		 *
+		 */
+		function approve($flyer){
+			
+			
+		}
+
+		/*
+	     *
+		 */
+		function post($flyer)
+		{
+			
+			
+		}
+	
+	
+	
+}
 ?>

@@ -54,7 +54,7 @@
 		</div>
 		</div>
 		<div id="footer" class="ui-widget-header">
-				<p>nowcorkit.com 2011, All Rights Reserved<p>
+				<p>nowcorkit.com 2011, All Rights Reserved - Founder Christopher Bartholomew<p>
 		</div>
 </body>
 </html>
