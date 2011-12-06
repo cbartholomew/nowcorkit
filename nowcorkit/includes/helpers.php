@@ -214,8 +214,8 @@
 			while($row = mysql_fetch_array($result))
 			{
 				// assign the flyer type to variable to be used later
-				$users_flyer_flyer_type_id = $row["users_flyers_flyers_type_id"];
-				
+				$users_flyer_flyer_type_id 		= $row["users_flyers_flyers_type_id"];
+				$flyer_type_desc				= $row["flyer_type_desc"];
 				// create new sql query to obtain the actual flyer
 				$sql = get_select_sql_specific($row["users_flyers_flyers_id"], $users_flyer_flyer_type_id);
 
@@ -245,8 +245,8 @@
 											$flyer->enable_qr				= $row["text_flyer_generate_qr_code"];
 											$flyer->qr_full_location		= $row["text_flyer_qr_code_location"];
 											$flyer->created_dttm 			= $row["text_flyer_created_dttm"];
-											$flyer->type					= $row["flyer_type_desc"];
-											$flyer->type_id					= $row["users_flyers_flyers_type_id"];
+											$flyer->type					= $flyer_type_desc;
+											$flyer->type_id					= $users_flyer_flyer_type_id;
 											$flyer->users_flyer_id			= $row["users_flyers_id"];
 										
 											return $flyer;
@@ -269,10 +269,11 @@
 										 	$flyer->enable_qr				= $row["text_image_flyer_generate_qr_code"];
 										 	$flyer->qr_full_location		= $row["text_image_flyer_qr_code_location"];
 										 	$flyer->created_dttm 			= $row["text_image_flyer_created_dttm"];
-										 	$flyer->type					= $row["flyer_type_desc"];
-									 		$flyer->type_id					= $row["users_flyers_flyers_type_id"];
+										 	$flyer->type					= $flyer_type_desc;
+									 		$flyer->type_id					= $users_flyer_flyer_type_id;
 									 		$flyer->users_flyer_id			= $row["users_flyers_id"];
 											$flyer->image_meta_data_id		= $row["text_image_flyer_image_meta_data_id"];
+											$flyer->image_path 				= $row["image_meta_data_image_location"] . $row["image_meta_data_file_name"];
 										
 											return $flyer;
 									break;
@@ -284,7 +285,8 @@
 											$flyer->flyer_error_id 			= 0;
 											$flyer->id 						= $row["image_flyer_id"];
 											$flyer->title 					= $row["image_flyer_title"];
-											$flyer->image_meta_data_id		= $row["image_flyer_image_meta_data_id"];	
+											$flyer->image_meta_data_id		= $row["image_flyer_image_meta_data_id"];
+											$flyer->type_id					= $users_flyer_flyer_type_id;	
 										
 											return $flyer;				
 									break;
@@ -378,6 +380,8 @@
 		// return array
 		return $flyer_array;		
 	}
+	
+
 	/*
 	 * 
 	 */

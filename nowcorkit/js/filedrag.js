@@ -106,7 +106,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 							type: 		file.type,
 							size: 		file.size,
 							name: 		file.name,
-							location:   "/flyers/images/" 
+							location:   "flyers/images/" 
 			};
 			
 			

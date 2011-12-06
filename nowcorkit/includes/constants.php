@@ -7,8 +7,8 @@
  	* Purpose		: Provides Global Constants for application
  	**********************************************************************/
 
-/* Production 
-	
+//Production /**/
+/*	
 	// your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");
 
@@ -22,6 +22,7 @@
     define("DB_PASSWORD", "N0wC0rk1t!");
 
 */
+// TEST /**/
 
     // your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");
@@ -41,7 +42,7 @@
 	
 	// facebook oAuth App Secret (shhh)
 	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
-	
+
 	
 	 
    

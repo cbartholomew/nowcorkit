@@ -257,8 +257,10 @@ class Flyer
 		public $type_id					= NULL;
 		public $users_flyer_id			= NULL;
 		public $qr_full_location		= NULL;
+		public $image_path				= NULL;
 		public $flyer_error_id			= NULL;
 		public $flyer_message			= NULL;
+		
 		/*
 		 * __construct($_DATA) 
 		 * Contructs a user object based on the form data
@@ -294,10 +296,7 @@ class Flyer
 				
 				// get the recent cork id
 				$this->id = mysql_insert_id();
-				
-				// If applicable, generate QR code image, save it, and update location in assoicated flyer table
-				if ($this->type != 'image') { if ($this->enable_qr == "on") { $this->generate_qr(); $this->update_qr_location();}}		
-
+			
 				return true;
 	}
 	/*
@@ -329,8 +328,11 @@ class Flyer
 				// other than an error, there was a problem submitting the user
 				if ($result == false) { return false; }
 				
-				// get the recent cork id
+				// get the recent users flyer id
 				$this->users_flyer_id = mysql_insert_id();
+				
+				// If applicable, generate QR code image, save it, and update location in assoicated flyer table
+				if ($this->type != 'image') { if ($this->enable_qr == "on") { $this->generate_qr(); $this->update_qr_location();}}
 				
 				return true;
 				
@@ -435,7 +437,7 @@ class Flyer
 		$this->qr_location_file = "qr" . "_" . $this->id . "_" . $this->cork_id . ".png";
 	
 		// use the google chart API to generate QR code
-		$url = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=http://nowcorkit.com/generate.php?flyerid=' . $this->id;
+		$url = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=http://nowcorkit.com/generate.php?flyerid=' . $this->users_flyer_id;
 			
 		// create the file based on the path and filename in generate_qr()
 		$img = $this->qr_location_path . $this->qr_location_file;	

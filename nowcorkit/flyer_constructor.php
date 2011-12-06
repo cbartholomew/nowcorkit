@@ -93,7 +93,7 @@ function buildTextForm()
 			
 			echo "<tr>";
 				echo "<td><label for='enable_qr'>Generate QR Code?</label></td>";
-				echo "<td><input id='enable_qr' type='checkbox' class='ui-widget-content template_text' name='enable_qr'></td>";
+				echo "<td><input id='enable_qr' type='checkbox' value='off' onclick='toggleCheckBox();'class='ui-widget-content template_text' name='enable_qr'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 						
@@ -111,6 +111,8 @@ function buildTextForm()
 	echo "</table>";
 	echo "</form>";	
 	echo "<br>";
+	
+	echo "<script>function toggleCheckBox(){ if ($('#enable_qr').val() == 'off'){ $('#enable_qr').val('on');} else { $('#enable_qr').val('off'); } }</script>";
 	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
 	echo "<script>loadDatePicker();</script>";
 	echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";

@@ -152,37 +152,74 @@ function ActivateSelectableContent(){
 	
 	// text flyer menu click listeners
 	$('#text_preview').click(function() {
-	 	alert($('#text_flyer_select option:selected').val());
+		if ($('#tex_flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
+		window.open('generate.php?flyerid=' + $('#text_flyer_select option:selected').val(),null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no'); 
+		self.close();
 	});
 	
 	$('#text_edit').click(function() {		
+		if ($('#text_flyer_select option:selected').val() == '0') { 			
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		} 
 		LaunchEditorModal($('#text_flyer_select option:selected').val(),'text', false);
 	});
 	
 	$('#text_remove').click(function() {
+		if ($('#text_flyer_select option:selected').val() == '0') { 				
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
 		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'text', true);
 	});
 	
 	// text_image flyer menu click listeners
 	$('#text_image_preview').click(function() {
-		
+		if ($('#text_image_flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
+		window.open('generate.php?flyerid=' + $('#text_image_flyer_select option:selected').val(),null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no');	
 	});
 	
 	$('#text_image_edit').click(function() {
+		if ($('#text_image_flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
 		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'text_image', false);
 	});
 	$('#text_image_remove').click(function() {
+		if ($('#text_image_flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
 		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'text_image', true);
 	});
 	
 	// image flyer menu click listeners
 	$('#image_preview').click(function() {
-		
+		if ($('#image_flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
+		window.open('generate.php?flyerid=' + $('#image_flyer_select option:selected').val(),null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no');
 	});
 	$('#image_edit').click(function() {
+		if ($('#image_flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
 		LaunchEditorModal($('#image_flyer_select option:selected').val(),'image', false);
 	});
 	$('#image_remove').click(function() {
+		if ($('#image_flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
 		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'image', true);
 	});
 }
@@ -409,18 +446,6 @@ function loadDatePicker(){
 	$(function(){
 		$('#event_date').datepicker();
 	});
-}
-
-/*
- * Remove Flyer Element
- */
-function RemoveFlyer(flyer_id){
-	// makes ajax call
-	
-	// remove from the element list
-	$("#" + flyer_id).remove();
-	
-	
 }
 
 /*
