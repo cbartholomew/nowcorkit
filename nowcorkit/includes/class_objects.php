@@ -790,8 +790,8 @@ class Board
 		public $enable_shuffle			= NULL;
 		public $shuffle_interval 		= NULL;
 		public $enable_pps				= NULL;
-		public $ppd_id					= NULL;
-		public $pps_cashmount			= NULL;
+		public $pps_id					= NULL;
+		public $pps_cashamount			= NULL;
 		public $pps_flyerdays			= NULL;
 		public $cork_id 				= NULL;
 	
@@ -806,14 +806,14 @@ class Board
 				$this->description 					 	= mysql_real_escape_string($_DATA["description"]);
 				$this->address 							= mysql_real_escape_string($_DATA["address"]);
 				$this->city 							= mysql_real_escape_string($_DATA["city"]);
-				$this->state_id 						= mysql_real_escape_string($_DATA["stae"]);
+				$this->state_id 						= mysql_real_escape_string($_DATA["state"]);
 				$this->zip 								= mysql_real_escape_string($_DATA["zipcode"]);
 				$this->permission_type_id 				= mysql_real_escape_string($_DATA["permissions"]);
 				$this->expiration_days 					= mysql_real_escape_string($_DATA["flyerexpire"]);
 				$this->enable_shuffle					= mysql_real_escape_string($_DATA["shuffle"]);
 				$this->shuffle_interval					= mysql_real_escape_string($_DATA["interval"]);
-				$this->pps								= mysql_real_escape_string($_DATA["postperspace"]);
-				$this->pps_cashmount					= mysql_real_escape_string($_DATA["cashamount"]);
+				$this->pps_id							= mysql_real_escape_string($_DATA["postperspace"]);
+				$this->pps_cashamount					= mysql_real_escape_string($_DATA["cashamount"]);
 				$this->pps_flyerdays					= mysql_real_escape_string($_DATA["flyerdays"]);
 				$this->cork_id 							= $_SESSION['users_cork_id'];
 
@@ -824,14 +824,66 @@ class Board
 		 */
 		function get_assoicated_flyers()
 		{
-			
+
+					 
 		}
-		
+				
 		/*
 		 *
 		 */
 		function insert()
 		{
+
+
+		// Prepare the statement to insert the new value
+		$date_time = date('Y-m-d H:i:s');
+		$sql = "INSERT INTO board_preferences 				\n"  
+				. " ( 										\n" 
+				. "board_title,   							\n" 
+				. "board_description, 						\n" 
+				. "board_address, 							\n" 
+				. "board_city, 								\n" 
+				. "board_state_id, 							\n" 
+				. "board_zip, 								\n" 
+				. "board_permission_type_id, 				\n"
+				. "board_expiration_days, 					\n" 
+				. "board_enable_shuffler, 					\n"
+				. "board_shuffler_interval, 				\n"
+				. "board_pps_id, 							\n" 
+				. "board_pps_cash_amount, 					\n" 
+				. "board_pps_flyerdays, 					\n" 
+				. "board_users_cork_id, 					\n" 
+				. "board_created_dttm 						\n" 
+				. ") 										\n" 
+				. "VALUES 									\n" 
+				. "(  										\n"
+				. " '$this->title', 						\n" 
+				. " '$this->description', 					\n" 
+				. " '$this->address', 						\n" 
+				. " '$this->city', 							\n" 
+				. " '$this->state_id', 						\n" 
+				. " '$this->zip', 							\n" 
+				. " '$this->permission_type_id', 			\n" 
+				. " '$this->expiration_days', 				\n" 
+				. " '$this->enable_shuffle', 				\n"
+				. " '$this->shuffle_interval', 				\n" 
+				. " '$this->pps_id', 						\n" 
+				. " '$this->pps_cashamount', 				\n" 
+				. " '$this->pps_flyerdays', 				\n" 
+				. " '$this->cork_id', 						\n" 
+				. " '$date_time' 							\n" 
+				. ")";
+		
+				// run statement or die
+				$result = mysql_query($sql) or die (show_error('Problem with inserting board into the database'));
+
+				// other than an error, there was a problem submitting the user
+				if ($result == false) { return false; }
+
+				// get the newly assigned cork id. 
+				$this->id = mysql_insert_id();
+
+				return true;
 		
 		}
 		
@@ -841,6 +893,29 @@ class Board
 		function update()
 		{
 			
+			$sql = "UPDATE board_preferences SET 													\n" 
+				. "board_title 									= ('$this->title'), 				\n" 
+				. "board_description 							= ('$this->description'),			\n" 
+				. "board_address 								= ('$this->addresss'), 				\n" 
+				. "board_city 									= ('$this->city'), 					\n"
+				. "board_state_id 								= ('$this->state_id'), 				\n" 
+				. "board_zip 									= ('$this->zip'), 					\n" 
+				. "board_permission_type_id 					= ('$this->permission_type_id'), 	\n" 
+				. "board_expiration_days						= ('$this->expiration_days'), 		\n" 
+				. "board_enable_shuffler 						= ('$this->enable_shuffle'), 		\n"
+				. "board_shuffler_interval 						= ('$this->shuffle_interval'), 		\n"
+				. "board_pps_id 								= ('$this->pps_id'), 				\n" 
+				. "board_pps_cash_amount 						= ('$this->pps_cashamount'), 		\n" 
+				. "board_pps_flyerdays 							= ('$this->pps_flyerdays')  		\n" 
+				. "WHERE board_id 								= ('$this->id')";
+
+				// run statement or die
+				$result = mysql_query($sql) or die (show_error('Problem with updating board into the database'));
+
+				// other than an error, there was a problem submitting the user
+				if ($result == false) { return false; }
+			
+				return true;
 		}
 		
 		/*
@@ -855,7 +930,7 @@ class Board
 		/*
 	     *
 		 */
-		function get_boards_by_state($state_id)
+		function get_boards_by_state_and_permissions($state_id)
 		{
 
 

@@ -98,6 +98,9 @@ function toggleShuffleFeature(value){
 	$('#label_interval').toggleClass('ui-helper-hidden', value); 
 }
 
+/*
+ * used for feed permissions settings
+ */
 function toggleManagerActionsOff()
 {
 	$('#ltext_preview').toggleClass('ui-state-active',false);
@@ -113,6 +116,7 @@ function toggleManagerActionsOff()
 	$('#limage_remove').toggleClass('ui-state-active',false);
 	
 }
+
 /*
  * used for feed permissions settings
  */
@@ -420,17 +424,30 @@ function LoadTableEntry(address){
 function toggleAndLoadBoard(value){
 	
 	if (value == 'create'){LoadNewBoardPreferences();} 
-	else { $('#tabs').toggleClass('ui-helper-hidden', false); }
+	else 
+	{ 
+		$('#tabs').toggleClass('ui-helper-hidden', false); 	 	
+		LoadBoardManagerTabs(value);
+		$('#tabs').tabs("option","selected",0);
+	}
+
 }
 
 /*
  * Load the tab container, and use ajax for each of the tabs
  */
-function LoadBoardManagerTabs(){
+function LoadBoardManagerTabs(value){
+	
  		$(function() {
 			$( "#tabs" ).tabs({
 				ajaxOptions: {
-				type: 'POST',
+				type: 'get',
+				data: {
+					board_id: value
+				},
+				success: function(data){
+
+				},
 				error: function( xhr, status, index, anchor ) {
 					$( anchor.hash ).html(
 						"Couldn't load this tab. We'll try to fix this as soon as possible. " +
@@ -464,7 +481,6 @@ function LoadNewBoardPreferences(){
 		// open the dialog
 		$( "#modal_board_preferences" ).dialog( "open" );	
 }
-
 
 /*
  * Called by flyer constructor, loads date picker
@@ -533,7 +549,7 @@ function SubmitFormByAjaxPost(page){
 /*
  * Submit Form using AJAX POST
  */
-function SubmitBoardByAjaxPost(page){	
+function SubmitBoardByAjaxPost(){	
 	
 	$.ajax({
 	       url: "board_creation.php",
@@ -545,11 +561,11 @@ function SubmitBoardByAjaxPost(page){
 				city   			: $("#city").val(),
 				state   		: $("#state").val(),
 				zipcode   		: $("#zipcode").val(),
-				permissions   	: $("#permissions").val(),
+				permissions   	: $('input[name=permissions]:checked').val(),
 				flyerexpire	   	: $("#flyerexpire").val(),
 				shuffle   		: $("#shuffle").val(),
 				interval	   	: $("#interval").val(),
-				postperspace	: $("#postpayment").val(),
+				postperspace	: $("#postpayment option:selected").val(),
 				cashmount	   	: $("#cashamount").val(),
 				flyerdays	   	: $("#flyerdays").val()
 		   },
@@ -565,15 +581,94 @@ function SubmitBoardByAjaxPost(page){
 				$("#new_board").unmask();
 				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Board creation failed, please try again later</label>");
 		   },
-		   complete: function(){
+		   complete: function(data){
 				//make this load the preferences screen
-				//RequestFormByAjaxPost('board_manager');
+				RequestPageByAjaxGet('board_manager');
 				$( "#modal_board_preferences" ).dialog( "close" );
 				$('#new_board').unmask();
 
 		   }
 	});	
 	return false;
+}
+
+/*
+ * Update Board using AJAX POST
+ */
+
+function UpdateBoardByAjaxPost(board_id, page)
+{	
+	var updates = [];
+	
+	switch(page){
+		case "general":
+				 updates = {
+						id				: $("#id").val(),
+						page			: page,
+						title			: $("#title").val(),
+						description		: $("#desc").val(),
+						address			: $("#address").val(),
+						city			: $("#city").val(),
+						state   		: $("#state").val(),
+						zipcode   		: $("#zipcode").val(),
+				}
+		break;
+		case "permission":
+				 updates = {
+						id				: $("#id").val(),
+						page			: page,
+						permissions   	: $('input[name=permissions]:checked').val()
+				}
+		break;
+		case "posting":
+				 updates = {
+						id				: $("#id").val(),
+						page			: page,
+						flyerexpire	   	: $("#flyerexpire").val(),
+						shuffle   		: $("#shuffle").val(),
+						interval	   	: $("#interval").val(),
+						postperspace	: $("#postpayment option:selected").val(),
+						cashamount	   	: $("#cashamount").val(),
+						flyerdays	   	: $("#flyerdays").val()
+				}
+		break;
+	}
+	
+		$.ajax({
+						       url: "board_update.php",
+							   type: "post",
+							   data: {
+								updates: updates
+							   },
+							   beforeSend: function(){
+									$("#tabs").mask("updating...");
+							   },
+						       success: function(data){
+									$("#tabs").unmask();
+									$('#status_messages').toggleClass('ui-helper-hidden', false);
+									$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Board successfully updated</label>");
+						       },
+							   error:  function(data){
+									$("#tabs").unmask();
+									$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Board update failed, please try again later</label>");
+							   },
+							   complete: function(data){
+								$("#dialog-message").html("<label style='color: #9BCC60;'>Board successfully updated</label>");
+									//make this load the preferences screen
+									$( "#dialog-message" ).dialog({
+												modal: true,
+												resizable: false,
+												buttons: {
+													ok: function() {
+														$( this ).dialog( "close" );
+													}
+											}
+									});
+									$('#tabs').unmask();
+						
+							   }
+						});	
+	return false;	
 }
 
 /*
@@ -627,6 +722,7 @@ function RequestFormByAjaxPost(page){
 	$.ajax({
 	       url: "flyer_constructor.php",
 		   type: 'post',
+		   cache: false,
 		   data: {
 				template: page
 		   },
@@ -638,19 +734,17 @@ function RequestFormByAjaxPost(page){
 }
 
 
-
 /*
  * Load Page using AJAX post
  */
 function RequestBoardByAjaxPost(page){	
 	$.ajax({
 	       url: "board_constructor.php",
-		   type: 'post',
+		   type: 'get',
 		   data: {
 				template: page
 		   },
 	       success: function(data) {
-				console.log(data);
 	 	   		$("#modal_board_preferences").html(data);			
 	       }
 	});	

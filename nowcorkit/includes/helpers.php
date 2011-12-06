@@ -286,7 +286,9 @@
 											$flyer->id 						= $row["image_flyer_id"];
 											$flyer->title 					= $row["image_flyer_title"];
 											$flyer->image_meta_data_id		= $row["image_flyer_image_meta_data_id"];
+											$flyer->type					= $flyer_type_desc;
 											$flyer->type_id					= $users_flyer_flyer_type_id;	
+											$flyer->image_path 				= $row["image_meta_data_image_location"] . $row["image_meta_data_file_name"];
 										
 											return $flyer;				
 									break;
@@ -317,9 +319,9 @@
 		$sql =  get_select_sql($cork_id, $flyer_type_id);
 			
 		// run statement or error
-		$result = mysql_query($sql) or die (show_error('Problem with pulling flyers' . $sql));
+		$result = mysql_query($sql) or die (show_error('Problem with pulling flyers'));
 		
-		// push the states onto the array stack LIFO. State ID 1-50.
+		// push the flyers onto the array stack LIFO. 
 		if (mysql_num_rows($result) > 0) 
 		{
 		   while($row = mysql_fetch_array($result))
@@ -381,6 +383,71 @@
 		return $flyer_array;		
 	}
 	
+	function get_users_boards($cork_id)
+	{
+		$board_array = array();
+		
+		$sql = "SELECT * FROM board_preferences WHERE board_users_cork_id = ('$cork_id') ORDER BY board_created_dttm DESC";
+		
+		// run statement or error
+		$result = mysql_query($sql) or die (show_error('Problem with pulling boards'));
+			// push the boards onto the array stack LIFO
+			if (mysql_num_rows($result) > 0) 
+			{
+			   while($row = mysql_fetch_array($result))
+			   {	   
+					// prepare new flyer object
+					$board 		 = new Board(null);					
+					// populate object
+					$board->id 	  = $row["board_id"];
+					$board->title = $row["board_title"];
+					// push onto stack
+				   array_push($board_array, $board);
+				}	
+			}
+			
+		// return array
+		return $board_array;
+		
+	}
+	
+	/*
+	 * 
+	 */
+	function get_specific_board($board_id)
+	{
+		$sql = "SELECT * FROM board_preferences WHERE board_id = ('$board_id')";
+			
+		// run statement or error
+		$result = mysql_query($sql) or die (show_error('Problem with pulling specific board'));
+			if (mysql_num_rows($result) > 0) 
+			{
+			   while($row = mysql_fetch_array($result))
+			   {	   
+					// prepare new flyer object
+					$board 		 = new Board(null);					
+					// populate object					
+					$board->id 						= $row["board_id"];
+					$board->title 					= $row["board_title"];
+					$board->description 			= $row["board_description"];
+					$board->address 				= $row["board_address"];
+					$board->city 					= $row["board_city"];
+					$board->state_id 				= $row["board_state_id"];
+					$board->zip 					= $row["board_zip"];
+					$board->permission_type_id	 	= $row["board_permission_type_id"];
+					$board->expiration_days 		= $row["board_expiration_days"];
+					$board->enable_shuffle			= $row["board_enable_shuffler"];
+					$board->shuffle_interval 		= $row["board_shuffler_interval"];
+					$board->pps_id					= $row["board_pps_id"];
+					$board->pps_cashmount			= $row["board_pps_cash_amount"];
+					$board->pps_flyerdays			= $row["board_pps_flyerdays"];
+					$board->cork_id 				= $row["board_users_cork_id"];
+				}	
+			}
+		
+		// return the object
+		return $board;
+	}
 
 	/*
 	 * 

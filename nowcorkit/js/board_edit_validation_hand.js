@@ -9,7 +9,7 @@ $(document).ready(function() {
     /*
 	 * Builds Validation options for text forms
 	 */
-    var new_board_validator = $("#new_board").validate({ 
+    var general_board_validator = $("#general").validate({ 
         rules: { 
             title: 		 {
 				required: true,
@@ -32,7 +32,66 @@ $(document).ready(function() {
 				required: true,
 				rangelength: [1,10],
 				digits: true
+			}
+        }, 
+        messages: { 
+            title: {
+				required: "Required",
+				rangelength: "Maximum character limit: 50"
+			}, 
+            desc:{
+				required: "Required",
+				rangelength: "Maximum character limit: 200"
 			},
+			city: {
+				required: "Required",
+				rangelength: "Maximum character limit: 50"
+			}, 
+			state: {
+				required: "Required",
+				min: "Required"
+ 			},
+			zipcode: {
+				required: "Required",
+				rangelength: "Maximum character limit: 10",
+				digits: "A valid zip code is numbers only"
+			}
+        }, 
+        // the errorPlacement has to take the table layout into account 
+        errorPlacement: function(error, element) { 			
+            if ( element.is(":radio") ) 
+                error.appendTo( element.parent().next().next() ); 
+            else if ( element.is(":checkbox") ) 
+                error.appendTo ( element.next() ); 
+            else 
+                error.appendTo( element.parent().next() ); 
+        },       
+		submitHandler: function() { 
+			UpdateBoardByAjaxPost($('#id').val(), 'general');
+		}
+    });
+
+	var permission_board_validator = $("#permission").validate({ 
+        rules: { 
+        }, 
+        messages: { 
+        }, 
+        // the errorPlacement has to take the table layout into account 
+        errorPlacement: function(error, element) { 			
+            if ( element.is(":radio") ) 
+                error.appendTo( element.parent().next().next() ); 
+            else if ( element.is(":checkbox") ) 
+                error.appendTo ( element.next() ); 
+            else 
+                error.appendTo( element.parent().next() ); 
+        },       
+		submitHandler: function() { 
+			UpdateBoardByAjaxPost($('#id').val(), 'permission');
+		}
+    });
+
+	var posting_board_validator = $("#posting").validate({ 
+        rules: { 
 			flyerexpire: 		 {
 				required: true,
 				digits: true,
@@ -61,27 +120,6 @@ $(document).ready(function() {
 			}
         }, 
         messages: { 
-            title: {
-				required: "Required",
-				rangelength: "Maximum character limit: 50"
-			}, 
-            desc:{
-				required: "Required",
-				rangelength: "Maximum character limit: 200"
-			},
-			city: {
-				required: "Required",
-				rangelength: "Maximum character limit: 50"
-			}, 
-			state: {
-				required: "Required",
-				min: "Required"
- 			},
-			zipcode: {
-				required: "Required",
-				rangelength: "Maximum character limit: 10",
-				digits: "A valid zip code is numbers only"
-			},
 			flyerexpire: {
 				required: "Must have a valid expire date on flyers",
 				digits: "Expire Days should only contain numbers",
@@ -114,9 +152,7 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },       
 		submitHandler: function() { 
-			SubmitBoardByAjaxPost();
+			UpdateBoardByAjaxPost($('#id').val(), 'posting');
 		}
     });
-
-
 });

@@ -161,7 +161,22 @@ function generate_text_image_flyer($flyer)
 }
 	
 function generate_image_flyer($flyer)
-{}
+{
+	echo "<html>";
+	echo "		<head>";
+	echo "			<title>" . $flyer->title . "</title>";
+	echo "		</head>";
+	echo "	<body>";
+	echo "	<div id='image'>";
+	echo "	<img style='width:300;height:388' src='". str_replace("\\","",$flyer->image_path) . "'/>";
+	echo "  </div>";
+	echo "	<div id='footer'></div>";
+	echo "	</body>";
+	echo "	</html>";
+	
+	
+	
+}
 
 
 
