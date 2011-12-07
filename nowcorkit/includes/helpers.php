@@ -193,6 +193,31 @@
 		return $state_array;		
 	}
 	
+	
+	/*
+	 * function, which returns a specific state id based on the users cork id
+ 	 */
+	function get_users_state($cork_id)
+	{
+			
+			// sql state to get the state_id by user's cork id
+			$sql = "select users_state_id from users where users_cork_id = ('$cork_id')";
+			
+			// run statement or error
+			$result = mysql_query($sql) or die (show_error('Problem with pulling States'));
+
+			// push the states onto the array stack LIFO. State ID 1-50.
+			if (mysql_num_rows($result) > 0) 
+			{
+			   while($row = mysql_fetch_array($result))
+			   {	   
+					// prepare new state object
+					$state_id = $row["users_state_id"];				
+			  		return $state_id;
+			   }
+			}		
+	}
+	
 	/*
 	 * function, which returns a specific flyer based on the users_flyer id
  	 */ 
@@ -383,6 +408,9 @@
 		return $flyer_array;		
 	}
 	
+	/*
+	 * 
+	 */
 	function get_users_boards($cork_id)
 	{
 		$board_array = array();
@@ -390,7 +418,7 @@
 		$sql = "SELECT * FROM board_preferences WHERE board_users_cork_id = ('$cork_id') ORDER BY board_created_dttm DESC";
 		
 		// run statement or error
-		$result = mysql_query($sql) or die (show_error('Problem with pulling boards'));
+		$result = mysql_query($sql) or die (show_error('Problem with pulling user specific boards'));
 			// push the boards onto the array stack LIFO
 			if (mysql_num_rows($result) > 0) 
 			{
@@ -411,6 +439,42 @@
 		
 	}
 	
+	/*
+	 * 
+	 */
+	function get_all_boards_by_state($state_id){
+		
+		$board_array = array();
+				
+		$sql = "SELECT * 																										\n"
+		    . "FROM board_preferences																						 	\n"
+		    . "INNER JOIN permission_type ON board_preferences.board_permission_type_id = permission_type.permission_type_id 	\n"
+		    . "INNER JOIN state ON board_preferences.board_state_id = state.state_id 											\n"
+		    . "WHERE state_id = ('$state_id')";
+		
+		
+		// run statement or error
+		$result = mysql_query($sql) or die (show_error('Problem with pulling boards by state'));
+			// push the boards onto the array stack LIFO
+			if (mysql_num_rows($result) > 0) 
+			{
+			   while($row = mysql_fetch_array($result))
+			   {	   
+					// prepare new flyer object
+					$board 		 	= new Board(null);					
+					// populate object
+					$board = get_specific_board($row["board_id"]);		
+					// add additional properties 
+					$board->state_desc 				= $row["state_desc"];
+					$board->permission_type_desc	= $row["permission_type_desc"]; 
+					// push onto stack
+				   	array_push($board_array, $board);
+				}	
+			}
+			
+		// return array
+		return $board_array;	
+	}
 	/*
 	 * 
 	 */
@@ -442,13 +506,104 @@
 					$board->pps_cashmount			= $row["board_pps_cash_amount"];
 					$board->pps_flyerdays			= $row["board_pps_flyerdays"];
 					$board->cork_id 				= $row["board_users_cork_id"];
+					
+					// return the object
+					return $board;
 				}	
 			}
-		
-		// return the object
-		return $board;
 	}
 
+	/*
+	 * 
+	 */
+	function get_all_posts_by_users_cork_id($users_cork_id)
+	{
+		// You have an object, which contains a set of boards that will be sent back to the user via json
+		$posts = array();
+	
+		// get all posts made by a specific user. 
+		$sql =   "SELECT * FROM board_posting													\n"
+		    	. "INNER JOIN board_preferences													\n"
+		    	. "ON board_posting.board_post_board_id = board_preferences.board_id			\n"
+		    	. "inner join post_status														\n"
+		    	. "ON board_post_post_status_id = post_status.post_status_id					\n"
+		    	. "WHERE board_posting.board_post_users_cork_id = ('$users_cork_id')			\n"
+				. "ORDER BY board_posting.board_post_expire_dttm desc";
+				
+		// run statement or error
+		$result = mysql_query($sql) or die (show_error('Problem with pulling posts by user'));
+		
+		// for every row, take the current board and populate both the board and flyer object. 
+		// contain the flyer within the board, and then push it onto the array
+				if (mysql_num_rows($result) > 0) 
+				{
+				   while($row = mysql_fetch_array($result))
+				   {	   
+						// create new board and flyer objects
+						$board 		 = new Board(null);	
+						$flyer		 = new Flyer(null);
+						
+						// construct board object
+						$board 		 = get_specific_board($row["board_post_board_id"]);
+						$board->board_post_id 			= $row["board_post_id"];
+												
+												
+						// construct flyer
+						$flyer		 					= GetFullFlyer($row["board_post_users_flyers_id"]);					
+						$flyer->users_flyers_id			= $row["board_post_users_flyers_id"];
+						$flyer->post_status_desc		= $row["post_status_desc"];
+						$flyer->post_expiration 		= $row["board_post_expire_dttm"];
+						// assoicate the flyer to the board 
+						$board->flyers = $flyer;
+						
+						// pop it on to the array
+						array_push($posts, $board);
+					}	
+				}
+				
+		return $posts;
+	}
+
+	/*
+	 *  Obtains all approved posts for a board
+	 */
+	function get_all_posts_by_board_id($board_id)
+	{
+		// You have an object, which contains a set of boards that will be sent back to the user via json
+		$posts = array();
+	
+		// get all posts made by a specific user. 
+		$sql =   "SELECT * FROM board_posting													\n"
+		    	. "INNER JOIN board_preferences													\n"
+		    	. "ON board_posting.board_post_board_id = board_preferences.board_id			\n"
+		    	. "inner join post_status														\n"
+		    	. "ON board_post_post_status_id = post_status.post_status_id					\n"
+		    	. "WHERE board_posting.board_post_board_id = ('$board_id')						\n"
+				. "AND board_posting.board_post_post_status_id = 1								\n"
+				. "ORDER BY board_posting.board_post_created_dttm";
+				
+		// run statement or error
+		$result = mysql_query($sql) or die (show_error('Problem with pulling posts by user'));
+		
+		// for every row, take the current board and populate both the board and flyer object. 
+		// contain the flyer within the board, and then push it onto the array
+				if (mysql_num_rows($result) > 0) 
+				{
+				   while($row = mysql_fetch_array($result))
+				   {	   
+						// create new board and flyer objects
+						$post		 = new Post();
+						$flyer		 = new Flyer(null);
+						$flyer		 = GetFullFlyer($row["board_post_users_flyers_id"]);
+							
+						$post->flyer = $flyer;
+						// pop it on to the array
+						array_push($posts, $post);
+					}	
+				}
+				
+		return $posts;
+	}
 	/*
 	 * 
 	 */

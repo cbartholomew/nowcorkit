@@ -1,47 +1,18 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+ * XXX.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated  : 
+ * Purpose		  : 
+ **********************************************************************/
+
 require_once('includes/common.php');
-echo "<form id='add_post' action='' method=''>";
-	
-	echo "<table id='table_content' class='ui-corner-all table_data ui-widget-content'>";
-	echo "<tbody>";
-		echo "<tr>";
-		
-		echo "<td></td>";
-		echo "<td><select id='state' onchange='UpdateLocationsByAjaxPost(this.value);' class='ui-corner-al ui-widget-content 'name='state'>";
-		echo "<option value='0' selected='selected'>Choose State...</option>";
-				// load the state to id select box
-				$user_state_id = get_users_state($_SESSION["users_cork_id"]);
-				
-				$state_array = GetStates();
-				for ($i=0; $i<50;$i++)
-				{
-					$state = new State();
-					$state = array_pop($state_array);
-					
-					if ($user_state_id == $state->id)
-					{
-						echo "<option selected='selected' value='" . $state->id . "'>" . $state->name . "</option>";
-						
-					} 
-					else
-					{
-						echo "<option value='" . $state->id . "'>" . $state->name . "</option>";
-					}
-				}								
-		echo "</select></td>";
-		echo "<td><label id='status'></label></td>";
-	echo "</table>";
-	echo "</tbody>";		
-	echo "<br>";
-	echo "<br>";
-	echo "<div id='locations'>";
-	echo "<table id='table_content' class='ui-corner-all table_data'>";
+
+// based on the query string, obtain the property. 
+// Although the request is registered as POST, the variable will be in $_GET
+$state_id = $_POST["state_id"];
+
+echo "<table id='table_content' class='ui-corner-all table_data'>";
 	echo "<tbody>";
 		echo "<tr>";
 			echo "<th class='ui-widget-header table_data'><label>Location Name</label></th>";
@@ -56,9 +27,9 @@ echo "<form id='add_post' action='' method=''>";
 				echo "<select id='location' name='location' onchange='InitializeMapsAPI(this.value);' class='ui-widget-content'>";
 					 echo "<option value='0' selected='selected'>Choose Location...</option>";
 					
-							if ($user_state_id != null)
+							if ($state_id != null)
 							{							
-								$boards_array = get_all_boards_by_state($user_state_id);
+								$boards_array = get_all_boards_by_state($state_id);
 								for ($i=0, $n=count($boards_array); $i<$n;$i++)
 								{
 									$board = new Board(null);
@@ -112,43 +83,11 @@ echo "<form id='add_post' action='' method=''>";
 							
 					echo "</select></td>";
 					
-				echo "<td class='ui-widget-content table_data'><button onclick='PostToLocation(this.value);' value='' type='button' id='add_button'>Add/Remove</button></td>";
+				echo "<td class='ui-widget-content table_data'><button onclick='PostToLocation(this.value);' value='' type='button id='add_button'>Add/Remove</button></td>";
 			echo "</tr>";
 		echo "<script>LoadAddButton()</script>";
 echo "</tbody>";
 echo "</table>";	
 echo "</form>";
-echo "</div>";
-
-echo "<div id='map_canvas' class='ui-corner-all'></div>";
-echo "<br><br><br>";
-
-echo "<div class='posting'>";
-
-echo "<div id='column_1' class='row''>";
-
-$posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
-
-for ($i=0,$n=count($posts); $i<$n; $i++)
-{
-	$board = new Board(null);
-	$board = array_pop($posts);
-
-	echo "	<div class='portlet' style='width:500px'>";
-	echo "		<div class='portlet-header'>Location: ". $board->title ."</div>";
-	echo "		<div class='portlet-content'><b>" . $board->flyers->title 
-												  . "</b> is in status <b>" 
-												  . $board->flyers->post_status_desc 
-												  . "</b> and will expire on <b>" 
-												  . $board->flyers->post_expiration ."</b></div>";
-												
-	echo "		<button style='float:right' onclick='RemovePost(this.value, this.id);' value='" . $board->flyers->users_flyers_id  . "'"
-	 																					  	    . "type='button' id='" . $board->board_post_id ."'"
-																							    . ">Remove</button>";
-	echo "		<script>LoadRemoveButton(" . $board->board_post_id . ")</script>";
-	echo "	</div>";
-} 
-
-echo "<script>LaunchFlyerPortables();</script>";
 
 ?>

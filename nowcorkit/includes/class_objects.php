@@ -18,6 +18,11 @@ class State
 	public $name = NULL;
 }
 
+class Post{
+	
+	public $flyer = NULL;
+	
+}
 
 /*
  * Object: User
@@ -233,7 +238,7 @@ class FacebookUser
 	
 }
 
- /* Object: FacebookUser
+ /* Object: Flyer
   * Used to contain information about the user. 
   */
 class Flyer
@@ -260,6 +265,8 @@ class Flyer
 		public $image_path				= NULL;
 		public $flyer_error_id			= NULL;
 		public $flyer_message			= NULL;
+		public $post_status_desc		= NULL;
+		public $post_expiration			= NULL;
 		
 		/*
 		 * __construct($_DATA) 
@@ -360,6 +367,25 @@ class Flyer
 			return true;	
 	}
 	
+	/*
+	 * delete_post_flyers()
+	 * this function inserts data into the table, which services as the relation of user and flyers
+	 */
+	function delete_post_from_flyers()
+	{
+			// delete the users_flyer in the database		
+			$sql = "DELETE FROM board_postings 									  				\n"
+				 . "WHERE board_postings.board_post_users_flyers_id = ('$this->users_flyer_id')";
+
+			 // run statement or die
+			$result = mysql_query($sql) or die (show_error("Problem with removing post from postings"));
+		
+			// other than an error, there was a problem submitting the user
+			if ($result == false) { return false; }
+				
+			return true;	
+	}
+	
 	function update()
 	{	
 		// get the sql invovled for updating the database
@@ -378,6 +404,7 @@ class Flyer
 	function delete()
 	{	
 		$this->delete_users_flyers();
+		$this->delete_post_from_flyers();
 		
 		$sql = $this->get_delete_form_sql();
 		
@@ -685,7 +712,9 @@ class Flyer
 	}
 		
 }
-	
+/* Object: Image
+ * Used to contain information about the user. 
+ */
 class Image
 {
 		
@@ -771,10 +800,9 @@ class Image
 		}
 	
 }
-
-
-
-
+/* Object: Board
+ * Used to contain information about the user. 
+ */
 class Board
 {
 	
@@ -784,8 +812,10 @@ class Board
 		public $address 				= NULL;
 		public $city 					= NULL;
 		public $state_id 				= NULL;
+		public $state_desc				= NULL;
 		public $zip 					= NULL;
 		public $permission_type_id	 	= NULL;
+		public $permission_type_desc	= NULL;
 		public $expiration_days 		= NULL;
 		public $enable_shuffle			= NULL;
 		public $shuffle_interval 		= NULL;
@@ -794,6 +824,10 @@ class Board
 		public $pps_cashamount			= NULL;
 		public $pps_flyerdays			= NULL;
 		public $cork_id 				= NULL;
+		public $flyers					= NULL;
+		public $users_flyers_id			= NULL;
+		public $post_status_id			= NULL;
+		public $board_post_id			= NULL;
 	
 		/*
 		 * __construct($_DATA) 
@@ -818,22 +852,12 @@ class Board
 				$this->cork_id 							= $_SESSION['users_cork_id'];
 
 	    }
-		
-		/*
-	     *
-		 */
-		function get_assoicated_flyers()
-		{
-
-					 
-		}
-				
+						
 		/*
 		 *
 		 */
 		function insert()
 		{
-
 
 		// Prepare the statement to insert the new value
 		$date_time = date('Y-m-d H:i:s');
@@ -896,7 +920,7 @@ class Board
 			$sql = "UPDATE board_preferences SET 													\n" 
 				. "board_title 									= ('$this->title'), 				\n" 
 				. "board_description 							= ('$this->description'),			\n" 
-				. "board_address 								= ('$this->addresss'), 				\n" 
+				. "board_address 								= ('$this->address'), 				\n" 
 				. "board_city 									= ('$this->city'), 					\n"
 				. "board_state_id 								= ('$this->state_id'), 				\n" 
 				. "board_zip 									= ('$this->zip'), 					\n" 
@@ -923,37 +947,67 @@ class Board
 		 */
 		function delete()
 		{
+			$sql = "DELETE FROM board_preferences WHERE board_id = ('$this->id')";
 			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with removing the board from the database'));
+
+			// other than an error, there was a problem submitting the user
+			if ($result == false) { return false; }
 			
+			return true;	
 		}
 			
-		/*
-	     *
-		 */
-		function get_boards_by_state_and_permissions($state_id)
-		{
+			/*
+		     *	post($posting)
+			 *
+			 */
+			function post()
+			{
+				// Prepare the statement to insert the new value
+				$date_time = date('Y-m-d H:i:s');
+				
 
+				$sql = "INSERT INTO board_posting 	\n" 
+				. " ( 								\n"  
+				. " board_post_board_id, 			\n" 
+				. " board_post_users_flyers_id, 	\n" 
+				. " board_post_users_cork_id,		\n"
+				. " board_post_post_status_id, 		\n"
+				. " board_post_expire_dttm, 		\n" 
+				. " board_post_created_dttm 		\n" 
+				. " ) 								\n" 
+				. " VALUES 							\n" 
+				. " ( 								\n"
+				. " '$this->id', 					\n"
+				. " '$this->users_flyers_id', 		\n"
+				. " '$this->cork_id', 				\n" 
+				. " '$this->post_status_id', 		\n" 
+				. " '$date_time', 					\n" 
+				. " '$date_time' 					\n"
+				. " )";
 
+				// run statement or die
+				$result = mysql_query($sql) or die (show_error('Problem with posting to a new board'));
+				
+				// get the new id
+				$new_id = mysql_insert_id();
+				
+				// populate the table w/ the expiration date
+				$sql = "UPDATE board_posting SET board_post_expire_dttm = DATE_ADD(board_post_created_dttm, INTERVAL $this->expiration_days DAY) WHERE board_post_id = ('$new_id')";
+				
+				// run the statement
+				$result = mysql_query($sql) or die (show_error('Problem with posting to a new board'));
+					
+				// return false if it doens't update
+				
+				// other than an error, there was a problem submitting the user
+				if ($result == false) { return false; }
 
-		}
-
-			
-		/*
-		 *
-		 */
-		function approve($flyer){
-			
-			
-		}
-
-		/*
-	     *
-		 */
-		function post($flyer)
-		{
-			
-			
-		}
+				// get the newly assigned cork id. 
+				return true;
+			}
+		
 	
 	
 	

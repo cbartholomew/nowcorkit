@@ -63,7 +63,7 @@ function build_general_form($board_id)
 
 			echo "<tr>";
 				echo "<td><label for='address'>Address (optional)</label></td>";
-				echo "<td><input id='desc' type='desc' class='ui-widget-content template_text'  name='desc'  value='" . $board->address . "'></td>";
+				echo "<td><input id='address' type='desc' class='ui-widget-content template_text'  name='address'  value='" . $board->address . "'></td>";
 				echo "<td></td>";
 			echo "</tr>";
 
@@ -254,12 +254,12 @@ function build_posting_form($board_id)
 			{
 				echo "<tr>";
 					echo "<td><label for='shuffle'>Enable Flyer Shuffle</label></td>";
-				echo "<td><input id='shuffle' type='checkbox' onchange='toggleShuffleFeature(this.value);' class='ui-widget-content template_text' name='shuffle' value='on' checked='checked'></td>";
+				echo "<td><input id='shuffle' type='checkbox' onchange='toggleShuffleFeature(this.value);' onclick='toggleShuffleCheckBox();' class='ui-widget-content template_text' name='shuffle' value='". $board->shuffle ."' checked='checked'></td>";
 					echo "<td><label id='status'></label></td>";
 				echo "</tr>";
 
 				echo "<tr>";
-					echo "<td><label id='label_interval' class='ui-helper-hidden'><i>Interval (in seconds)</i></label></td>";
+					echo "<td><label id='label_interval'><i>Interval (in seconds)</i></label></td>";
 					echo "<td><input id='interval' type='text' class='ui-widget-content template_text' name='interval' value='". $board->shuffle_interval . "'></td>";
 					echo "<td><label id='status'></label></td>";
 				echo "</tr>";
@@ -350,7 +350,7 @@ function build_posting_form($board_id)
 		echo "</tbody>";
 	echo "</table>";
 	echo "</form>";
-	
+	echo "<script>function toggleShuffleCheckBox(){ if ($('#shuffle').val() == 'off'){ $('#shuffle').val('on');} else { $('#shuffle').val('off'); } }</script>";
 	echo"<script src='js/board_edit_validation_hand.js' type='text/javascript' charset='utf-8'></script>";
 	
 }

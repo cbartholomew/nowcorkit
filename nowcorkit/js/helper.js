@@ -273,11 +273,11 @@ function LaunchEditorModal(flyer_id, page, is_remove){
 		// render the dialog to commit flyer removal
 		$("#modal_remove").dialog({
 				resizable: false,
-				autoOpen: false,
-				height:250,
-				cache: false,
-				width: 250,
-				modal: true,
+				autoOpen:  false,
+				height:    250,
+				cache:     false,
+				width:     250,
+				modal:     true,
 				buttons: {
 					Delete: function() {
 							if (PurgeFlyer(flyer, page) == true) {					
@@ -367,7 +367,28 @@ $(function() {
 	 text: false
 	})
 });
+}
 
+/*
+ * Enables "remove" button in table
+ */
+function LoadRemoveButton(id){
+$(function() {
+	$( "#" + id ).button({
+        icons: {
+            primary: "ui-icon-minus"
+        },
+	 text: true
+	})
+});
+}
+
+function RemovePost(value, id)
+{
+	
+	
+	alert(value + ' ' + id);
+	
 }
 
 /*
@@ -375,7 +396,6 @@ $(function() {
  */
 function InitializeMapsAPI(address){
   	// load the data 
-  	LoadTableEntry(address);
 	
   	var latlng = new google.maps.LatLng();
 	var geocoder = new google.maps.Geocoder();
@@ -399,22 +419,27 @@ function InitializeMapsAPI(address){
 
 		  marker.setMap(map);
 	});
+	
+	LoadTableEntry(address);
 }
 /*
  * Load the address inside of the table
  */
 function LoadTableEntry(address){	
-	var location = {
+ 	
+	// create location object
+   var location = {
 		address_line: address.toString().split(',')[0],
 		city		: address.toString().split(',')[1],
 		state		: address.toString().split(',')[2],
-		zip			: address.toString().split(',')[3]
+		zip			: address.toString().split(',')[3],
+		board_id	: address.toString().split(',')[4],
+		permission	: address.toString().split(',')[5]
 	}	
 
-	$("#table_address").html(location.address_line);
-	$("#table_city").html(location.city);
-	$("#table_state").html(location.state);
-	$("#table_zip").html(location.zip);
+	$("#table_address").html(location.address_line + "<br>" + location.city + ", " + location.state + "<br>" + location.zip);
+	$("#table_permission").html(location.permission);
+	$("#add_button").val(location.board_id);
 	$("#flyers").attr( "disabled", false );		
 }
 
@@ -497,6 +522,7 @@ function loadDatePicker(){
 function RequestPageByAjaxGet(page){	
 	$.ajax({
 	       url: page + ".php",
+		   cache: false,
 	       success: function(data) {
 				cleanContentAndFormFields();
 	 	   		$("#content").html(data);			
@@ -592,12 +618,90 @@ function SubmitBoardByAjaxPost(){
 	return false;
 }
 
+function PreparePurgeBoard(){	
+		var id = $('#board_select option:selected').val();		
+		// render the dialog to commit flyer removal
+		$("#modal_remove").dialog({
+				resizable: false,
+				autoOpen:  false,
+				height:    250,
+				cache:     false,
+				width:     250,
+				modal:     true,
+				buttons: {
+					Delete: function() {
+						if (PurgeBoard(id) == true) {					
+								$( this ).dialog( "close" );
+								toggleManagerActionsOff();
+								$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Board removal was a success!</label>");
+								RequestPageByAjaxGet('board_manager');
+							}
+					},
+					Cancel: function() {
+						$( this ).dialog( "close" );						
+				}
+			}	
+		});
+	
+		// open the dialog
+		$( "#modal_remove" ).dialog( "open" );		
+}
+
+/*
+ * Purge Board using AJAX POST
+ */
+function PurgeBoard(id){
+	// make an ajax call to render a form window screen
+	$.ajax({
+       	url:  "board_remove.php",
+	   	type: 'post',
+		cache: false,
+	   	data: {
+				id	: id
+	   	},
+		beforeSend: function(){
+			$("#modal_remove").mask("Removing...");
+		},
+		error: function(data)
+		{
+			$("#modal_remove").html(data);
+		},
+        success: function(data) {
+			$("#modal_remove").unmask();
+       }
+	});
+	return true;
+}
+
+function LaunchFlyerPortables(){
+	
+	$(function() {
+		$( ".column" ).sortable({
+			connectWith: ".column"
+		});
+
+		$( ".portlet" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+			.find( ".portlet-header" )
+				.addClass( "ui-widget-header ui-corner-all" )
+				.prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
+				.end()
+			.find( ".portlet-content" );
+
+		$( ".portlet-header .ui-icon" ).click(function() {
+			$( this ).toggleClass( "ui-icon-minusthick" ).toggleClass( "ui-icon-plusthick" );
+			$( this ).parents( ".portlet:first" ).find( ".portlet-content" ).toggle();
+		});
+
+		$( ".column" ).disableSelection();
+	});
+	
+	
+}
+
 /*
  * Update Board using AJAX POST
  */
-
-function UpdateBoardByAjaxPost(board_id, page)
-{	
+function UpdateBoardByAjaxPost(board_id, page){	
 	var updates = [];
 	
 	switch(page){
@@ -633,12 +737,12 @@ function UpdateBoardByAjaxPost(board_id, page)
 				}
 		break;
 	}
-	
+
 		$.ajax({
 						       url: "board_update.php",
 							   type: "post",
 							   data: {
-								updates: updates
+							   updates: updates
 							   },
 							   beforeSend: function(){
 									$("#tabs").mask("updating...");
@@ -670,6 +774,83 @@ function UpdateBoardByAjaxPost(board_id, page)
 						});	
 	return false;	
 }
+
+/*
+ * Update the location list when use switches his or her state
+ */
+function UpdateLocationsByAjaxPost(state_id)
+{
+		$.ajax({
+			url: "post_location_update.php",
+			type: "post",
+			data: {
+					state_id: state_id
+			},
+			beforeSend: function(){
+					$("#locations").mask("updating...");
+			},
+			success: function(data){
+					$("#locations").unmask();
+					$("#locations").html(data);
+			},
+			error:  function(data){
+					$("#locations").unmask();
+					$("#status_messages").html("<label style='color: #9BCC60;'>Messages: location update failed, please try again later</label>");
+			}
+		});
+}
+
+/*
+ * Submit Post by using AJAX POST
+ */
+function PostToLocation(board_id){
+	
+	if (board_id == 0) { alert("Please select a board to post to!"); return false; }
+	
+	if ($("#flyers option:selected").val() == 0) { alert("Please select a flyer to post!"); return false; }
+	
+	var post_status_desc = $("#table_permission").html();
+	var post_status_id = 1;
+		
+	switch (post_status_desc)
+	{
+		case "Public":
+		 	post_status_id = 1;
+		break;
+		
+		case "By Approval":
+			post_status_id = 2;
+		break;		
+	}
+
+	$.ajax({
+		url: "post_to_location.php",
+		type: "post",
+		data: {
+				boardid: 		board_id,
+				users_flyer_id: $("#flyers option:selected").val(),
+				post_status_id: post_status_id
+		},
+		beforeSend: function(){
+				$("#locations").mask("updating...");
+		},
+		success: function(data){
+				$("#locations").unmask();
+				console.log(data);
+				// LEFT OFF HERE
+		},
+		error:  function(data){
+				$("#locations").unmask();
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: location update failed, please try again later</label>");
+		}
+	});
+	
+}
+/*
+ * Populate Portable Flyers
+ */
+
+
 
 /*
  * Submit Form using AJAX POST
