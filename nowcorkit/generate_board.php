@@ -18,7 +18,7 @@
 $board_id = mysql_real_escape_string($_GET["boardid"]);
 
 
-$posts = get_all_posts_by_board_id($board_id);
+$posts = get_all_approved_posts_by_board_id($board_id);
 
 // return the object back as a json request
 header('Content-Type: application/json');

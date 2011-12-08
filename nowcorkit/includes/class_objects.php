@@ -267,6 +267,7 @@ class Flyer
 		public $flyer_message			= NULL;
 		public $post_status_desc		= NULL;
 		public $post_expiration			= NULL;
+		public $board_post_id			= NULL;
 		
 		/*
 		 * __construct($_DATA) 

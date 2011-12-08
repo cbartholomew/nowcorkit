@@ -33,15 +33,13 @@ input
 #header
 {
 	margin: 0px auto 30px auto;
-	padding-left: 45px;
-	padding-right: 45px;
-	width:   400px;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 }
+
 #login
 { 
-	margin: 0px auto 30px auto;
+	margin: 0px auto 0px auto;
 	padding: 45px;
 	width:   400px;
 	-moz-border-radius:5px;
@@ -54,6 +52,7 @@ input
 	padding-right: 45px;
 	width:   400px;
 	text-align: center;
+	font-size : 12px;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 }

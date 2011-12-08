@@ -135,6 +135,16 @@ function togglePayPerSpaceFeature(value){
 	}
 }
 
+
+/*
+ * Previews the flyer
+ */
+function preview_flyer(id)
+{
+	window.open('generate.php?flyerid=' + id,null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no'); 
+	self.close();
+}
+
 /*
  * used to reset the form divs on ajax get
  */
@@ -226,6 +236,33 @@ function ActivateSelectableContent(){
 		}
 		LaunchEditorModal($('#text_image_flyer_select option:selected').val(),'image', true);
 	});
+}
+
+/*
+ * Activate Board Version of flyer management
+ */
+function ActivateBoardSelectableContent()
+{
+	$(function() {		
+		// render button sets
+		$('#flyer_radio').buttonset();		
+	});
+	// flyer menu click listeners
+	$('#flyer_preview').click(function() {
+		if ($('#flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
+		window.open('generate.php?flyerid=' + $('#flyer_select option:selected').val(),null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no');
+	});
+	$('#flyer_remove').click(function() {
+		if ($('#flyer_select option:selected').val() == '0') { 
+				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+				return false;
+		}
+		RemoveManagerPost($('#flyer_select option:selected').attr('id'));
+	});
+	
 }
 
 /*
@@ -410,6 +447,35 @@ function RemovePost(id)
 	});
 	return true;	
 }
+
+/*
+ * initalize the map's api via an onchange event
+ */
+function RemoveManagerPost(id)
+{
+	// make an ajax call to render a form window screen
+	$.ajax({
+       	url:  "post_remove.php",
+	   	type: 'post',
+		cache: false,
+	   	data: {
+				id	: id
+	   	},
+		beforeSend: function(){
+			$("#tabs").mask("Removing...");
+		},
+		error: function(data)
+		{
+			$("#tabs").html(data);
+		},
+        success: function(data) {
+	 		$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post has been removed from this board</label>");
+			$("#tabs").tabs( "load" , 4 );
+			$("#tabs").unmask();
+       },
+	});
+	return true;	
+}
 /*
  * initalize the map's api via an onchange event
  */
@@ -508,7 +574,7 @@ function toggleAndLoadBoard(value){
  * Load the tab container, and use ajax for each of the tabs
  */
 function LoadBoardManagerTabs(value){
-	
+
  		$(function() {
 			$( "#tabs" ).tabs({
 				ajaxOptions: {
@@ -868,11 +934,11 @@ function PostToLocation(board_id){
 		 	post_status_id = 1;
 		break;
 		
-		case "By Approval":
+		case "By Approval ":
 			post_status_id = 2;
 		break;		
 	}
-
+	console.log(post_status_id);
 	$.ajax({
 		url: "post_to_location.php",
 		type: "post",
@@ -898,8 +964,6 @@ function PostToLocation(board_id){
 /*
  * Populate Portable Flyers
  */
-
-
 
 /*
  * Submit Form using AJAX POST

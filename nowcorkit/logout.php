@@ -10,5 +10,5 @@ require_once("includes/common.php");
 // log out current user, if any
 logout();
 // redirect back to index after session is destroyed.
-redirect("index.php");
+redirect("login.php");
 ?>

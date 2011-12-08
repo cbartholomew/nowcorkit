@@ -22,10 +22,12 @@
 	</script>
 </head>
 <html>
-	<body>			
-		<div id="header"  class="ui-widget-header">
-			<h2>You Made It, Now Cork It!</h2>
-		</div>
+	<body>	
+		<img src="images/pin.png" width="48" height="48" style="position: absolute;right:240px;z-index: 2; top:20px" alt="Pin2">		
+		<img src="images/pin.png" width="48" height="48" style="position: absolute;left:250px;z-index: 2;" alt="Pin">
+		<img src="images/message.png" class="ui-corner-all" width="400" height="400" alt="Message" style="position: absolute;right:50px;top:40px">
+		<img id='logo' class="ui-corner-all" src="images/logo.png" width="480" height="250" style="display:block;position: absolute;top:20px;z-index: 1;margin-left:auto;margin-right:auto;-webkit-transform: rotate(-25deg);-moz-transform:rotate(-25deg);" alt="Logo">
+		<br>
 		<div id="login" title="login" class="ui-widget-content ui-corner-all">
 			<form id="login_form" method="POST" action="login.php">	
 			<h1>Please Sign In, or <a href="register.php" style='color:#2B82AD'>Register</a>.</h1>	
@@ -47,10 +49,10 @@
 				<a class="right small bold" style="line-height: 38px; height: 38px;" id="forgot_password" href="#">Forgot your password?</a>
 			</fieldset>
 		  </form>
-		<hr class="seperator_login">
 		</div>
+		<br>
 		<div id="footer" class="ui-widget-header">
-				<p>nowcorkit.com 2011, All Rights Reserved - Created By Christopher Bartholomew<p>
+				<p>Created By Christopher Bartholomew<br>Logo designs by Hanna Solhee<br>nowcorkit.com 2011<br><p>
 		</div>
 </body>
 </html>

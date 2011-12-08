@@ -579,6 +579,50 @@
 		    	. "inner join post_status														\n"
 		    	. "ON board_post_post_status_id = post_status.post_status_id					\n"
 		    	. "WHERE board_posting.board_post_board_id = ('$board_id')						\n"
+				//. "AND board_posting.board_post_post_status_id = 1								\n"
+				. "ORDER BY board_posting.board_post_created_dttm";
+				
+		// run statement or error
+		$result = mysql_query($sql) or die (show_error('Problem with pulling posts by user'));
+		
+		// for every row, take the current board and populate both the board and flyer object. 
+		// contain the flyer within the board, and then push it onto the array
+				if (mysql_num_rows($result) > 0) 
+				{
+				   while($row = mysql_fetch_array($result))
+				   {	   
+						// create new board and flyer objects
+						$post		 = new Post();
+						$flyer		 = new Flyer(null);
+						$flyer		 = GetFullFlyer($row["board_post_users_flyers_id"]);
+						$flyer->users_flyers_id			= $row["board_post_users_flyers_id"];
+						$flyer->post_status_desc		= $row["post_status_desc"];
+						$flyer->post_expiration 		= $row["board_post_expire_dttm"];
+						$flyer->board_post_id			= $row["board_post_id"];
+						
+						$post->flyer = $flyer;
+						// pop it on to the array
+						array_push($posts, $post);
+					}	
+				}
+				
+		return $posts;
+	}
+	/*
+	 *  Obtains all approved posts for a board
+	 */
+	function get_all_approved_posts_by_board_id($board_id)
+	{
+		// You have an object, which contains a set of boards that will be sent back to the user via json
+		$posts = array();
+	
+		// get all posts made by a specific user. 
+		$sql =   "SELECT * FROM board_posting													\n"
+		    	. "INNER JOIN board_preferences													\n"
+		    	. "ON board_posting.board_post_board_id = board_preferences.board_id			\n"
+		    	. "inner join post_status														\n"
+		    	. "ON board_post_post_status_id = post_status.post_status_id					\n"
+		    	. "WHERE board_posting.board_post_board_id = ('$board_id')						\n"
 				. "AND board_posting.board_post_post_status_id = 1								\n"
 				. "ORDER BY board_posting.board_post_created_dttm";
 				
@@ -595,7 +639,11 @@
 						$post		 = new Post();
 						$flyer		 = new Flyer(null);
 						$flyer		 = GetFullFlyer($row["board_post_users_flyers_id"]);
-							
+						$flyer->users_flyers_id			= $row["board_post_users_flyers_id"];
+						$flyer->post_status_desc		= $row["post_status_desc"];
+						$flyer->post_expiration 		= $row["board_post_expire_dttm"];
+						$flyer->board_post_id			= $row["board_post_id"];
+						
 						$post->flyer = $flyer;
 						// pop it on to the array
 						array_push($posts, $post);
