@@ -382,13 +382,59 @@ $(function() {
 	})
 });
 }
-
-function RemovePost(value, id)
+/*
+ * initalize the map's api via an onchange event
+ */
+function RemovePost(id)
+{
+	// make an ajax call to render a form window screen
+	$.ajax({
+       	url:  "post_remove.php",
+	   	type: 'post',
+		cache: false,
+	   	data: {
+				id	: id
+	   	},
+		beforeSend: function(){
+			$("#column").mask("Removing...");
+		},
+		error: function(data)
+		{
+			$("#column").html(data);
+		},
+        success: function(data) {
+	 		$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post has been removed from this board</label>");
+			RefreshPostList();
+			$("#column").unmask();
+       },
+	});
+	return true;	
+}
+/*
+ * initalize the map's api via an onchange event
+ */
+function RefreshPostList()
 {
 	
-	
-	alert(value + ' ' + id);
-	
+	// make an ajax call to render a form window screen
+	$.ajax({
+       	url:  "post_refresh.php",
+	   	type: 'post',
+		cache: false,
+		beforeSend: function(){
+			$("#column").mask("Updating...");
+		},
+		error: function(data)
+		{
+			$("#column").html(data);
+		},
+        success: function(data) {
+			$("#column").html(data);
+			$("#column").unmask();
+       }
+	});
+	return true;
+		
 }
 
 /*
@@ -523,7 +569,11 @@ function RequestPageByAjaxGet(page){
 	$.ajax({
 	       url: page + ".php",
 		   cache: false,
+			beforeSend: function(){
+			$("#content").mask("loading...");
+		   },
 	       success: function(data) {
+				$("#content").unmask();
 				cleanContentAndFormFields();
 	 	   		$("#content").html(data);			
 	       }
@@ -836,8 +886,7 @@ function PostToLocation(board_id){
 		},
 		success: function(data){
 				$("#locations").unmask();
-				console.log(data);
-				// LEFT OFF HERE
+				RefreshPostList();
 		},
 		error:  function(data){
 				$("#locations").unmask();
@@ -907,7 +956,11 @@ function RequestFormByAjaxPost(page){
 		   data: {
 				template: page
 		   },
+			beforeSend: function(){
+				$("#form_content").mask("loading...");
+			},
 	       success: function(data) {
+				$("#form_content").unmask();
 	 	   		$("#form_content").html(data);			
 	       }
 	});	
@@ -925,7 +978,11 @@ function RequestBoardByAjaxPost(page){
 		   data: {
 				template: page
 		   },
+			beforeSend: function(){
+				$("#modal_board_preferences").mask("loading...");
+			},
 	       success: function(data) {
+				$("#form_content").unmask();
 	 	   		$("#modal_board_preferences").html(data);			
 	       }
 	});	

@@ -11,8 +11,8 @@
     ini_set("display_errors", true);
     error_reporting(E_ALL ^ E_NOTICE);
 
-	//enable sessions, restricting cookie to /nowcorkit
-    if (preg_match("{^(/nowcorkit/)}", $_SERVER["REQUEST_URI"], $matches))
+	//enable sessions, restricting cookie to /nowcorkit/
+    if (preg_match("{^(/)}", $_SERVER["REQUEST_URI"], $matches))
            session_set_cookie_params(0, $matches[1]);
         session_start();
 
@@ -23,10 +23,11 @@
 	require_once("class_objects.php");
 	
 	//require authentication for most pages
-    if (!preg_match("{/(:?index|register|register_user|logout)\d*\.php$}", $_SERVER["PHP_SELF"]))
+    if (!preg_match("{/(:?login|register|logout)\d*\.php$}", $_SERVER["PHP_SELF"]))
         {
            if (!isset($_SESSION["users_cork_id"]))
-               redirect("index.php");
-        }	
-	
+		   {
+               redirect("login.php");
+		   }
+        }		
 ?>

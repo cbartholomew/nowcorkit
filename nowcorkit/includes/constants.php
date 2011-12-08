@@ -8,7 +8,7 @@
  	**********************************************************************/
 
 //Production /**/
-/*	
+/*
 	// your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");
 
@@ -21,8 +21,14 @@
     // your database's password
     define("DB_PASSWORD", "N0wC0rk1t!");
 
+	// facebook oAuth App Id
+	define("APP_ID", "301835463167653");
+	
+	// facebook oAuth App Secret (shhh)
+	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
 */
-// TEST /**/
+// TEST 
+
 
     // your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");
@@ -43,7 +49,7 @@
 	// facebook oAuth App Secret (shhh)
 	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
 
-	
+
 	 
    
 ?>

@@ -125,7 +125,7 @@ echo "<br><br><br>";
 
 echo "<div class='posting'>";
 
-echo "<div id='column_1' class='row''>";
+echo "<div id='column' class='row''>";
 
 $posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
 
@@ -142,7 +142,7 @@ for ($i=0,$n=count($posts); $i<$n; $i++)
 												  . "</b> and will expire on <b>" 
 												  . $board->flyers->post_expiration ."</b></div>";
 												
-	echo "		<button style='float:right' onclick='RemovePost(this.value, this.id);' value='" . $board->flyers->users_flyers_id  . "'"
+	echo "		<button style='float:right' onclick='RemovePost(this.id);' value='" . $board->flyers->users_flyers_id  . "'"
 	 																					  	    . "type='button' id='" . $board->board_post_id ."'"
 																							    . ">Remove</button>";
 	echo "		<script>LoadRemoveButton(" . $board->board_post_id . ")</script>";
@@ -150,5 +150,5 @@ for ($i=0,$n=count($posts); $i<$n; $i++)
 } 
 
 echo "<script>LaunchFlyerPortables();</script>";
-
+echo "</div>";
 ?>

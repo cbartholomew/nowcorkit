@@ -35,7 +35,7 @@
 			  	  	$_SESSION["users_cork_id"] = $new_user->cork_id;
 
 			  	  	// redirect the user to the menu page
-			  	  	redirect("menu.php");
+			  	  	redirect("index.php");
 			}
 		
 	} 

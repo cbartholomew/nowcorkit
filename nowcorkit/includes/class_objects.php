@@ -374,8 +374,8 @@ class Flyer
 	function delete_post_from_flyers()
 	{
 			// delete the users_flyer in the database		
-			$sql = "DELETE FROM board_postings 									  				\n"
-				 . "WHERE board_postings.board_post_users_flyers_id = ('$this->users_flyer_id')";
+			$sql = "DELETE FROM board_posting 									  				\n"
+				 . "board_post_users_flyers_id = ('$this->users_flyer_id')";
 
 			 // run statement or die
 			$result = mysql_query($sql) or die (show_error("Problem with removing post from postings"));
@@ -957,6 +957,25 @@ class Board
 			
 			return true;	
 		}
+			
+			/*
+			 * delete_post_flyers()
+			 * this function inserts data into the table, which services as the relation of user and flyers
+			 */
+			function delete_post_from_board()
+			{
+					// delete the users_flyer in the database		
+					$sql = "DELETE FROM board_posting									  				\n"
+						 . "WHERE board_post_id	 = ('$this->board_post_id')";
+
+					 // run statement or die
+					$result = mysql_query($sql) or die (show_error("Problem with removing post from postings" . $sql));
+
+					// other than an error, there was a problem submitting the user
+					if ($result == false) { return false; }
+
+					return true;	
+			}
 			
 			/*
 		     *	post($posting)

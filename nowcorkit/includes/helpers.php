@@ -35,7 +35,7 @@
 	            $_SESSION["users_cork_id"] = $row["users_cork_id"];
 
 	            // redirect to portfolio
-	            redirect("/nowcorkit/menu.php");
+	            redirect("index.php");
 	        }
 	    }
 	
