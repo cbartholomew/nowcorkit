@@ -235,13 +235,20 @@ function ActivateBoardSelectableContent()
 				return false;
 		}
 		window.open('generate.php?flyerid=' + $('#flyer_select option:selected').val(),null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no');
+	});	
+	$('#flyer_approve').click(function() {
+			if ($('#flyer_select option:selected').val() == '0') { 
+					$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
+					return false;
+			}
+			ApprovePost(($('#flyer_select option:selected').attr('id')), true);
 	});
 	$('#flyer_remove').click(function() {
 		if ($('#flyer_select option:selected').val() == '0') { 
 				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
 				return false;
 		}
-		RemoveManagerPost($('#flyer_select option:selected').attr('id'));
+			ApprovePost(($('#flyer_select option:selected').attr('id')), false);
 	});
 	
 }
@@ -401,7 +408,7 @@ $(function() {
 });
 }
 /*
- * initalize the map's api via an onchange event
+ * Removes post from board
  */
 function RemovePost(id)
 {
@@ -428,9 +435,39 @@ function RemovePost(id)
 	});
 	return true;	
 }
+/*
+ * Will not approve post or approve post
+ */
+function ApprovePost(id, is_approve)
+{
+	// make an ajax call to render a form window screen
+	$.ajax({
+       	url:  "post_approve.php",
+	   	type: 'post',
+		cache: false,
+	   	data: {
+				id			: id,
+				is_approve  : is_approve
+	   	},
+		beforeSend: function(){
+			$("#tabs").mask("updating...");
+		},
+		error: function(data)
+		{
+			$("#tabs").html(data);
+		},
+        success: function(data) {
+			$("#tabs").unmask();
+	 		$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post has been removed from this board</label>");
+			RefreshPostList();
+
+       },
+	});
+	return true;	
+}
 
 /*
- * initalize the map's api via an onchange event
+ * Remove post from manager screen
  */
 function RemoveManagerPost(id)
 {
@@ -727,7 +764,7 @@ function PreparePurgeBoard(){
 				modal:     true,
 				buttons: {
 					Delete: function() {
-						if (PurgeBoard(id) == true) {					
+						if (PurgeBoard() == true) {					
 								$( this ).dialog( "close" );
 								toggleManagerActionsOff();
 								$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Board removal was a success!</label>");
@@ -747,7 +784,8 @@ function PreparePurgeBoard(){
 /*
  * Purge Board using AJAX POST
  */
-function PurgeBoard(id){
+function PurgeBoard(){
+	var id = $('#board_select option:selected').val();	
 	// make an ajax call to render a form window screen
 	$.ajax({
        	url:  "board_remove.php",

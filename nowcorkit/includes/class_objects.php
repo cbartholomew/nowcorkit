@@ -960,7 +960,7 @@ class Board
 		}
 			
 			/*
-			 * delete_post_flyers()
+			 * delete_post_from_board()
 			 * this function inserts data into the table, which services as the relation of user and flyers
 			 */
 			function delete_post_from_board()
@@ -1028,8 +1028,39 @@ class Board
 				return true;
 			}
 		
+		/*
+		 * approve()
+		 */
+		function approve(){
+
+			$sql = "update board_posting set board_post_post_status_id = 1 where board_post_id = $this->board_post_id";
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with approving flyer'));
+			
+				// other than an error, there was a problem submitting the user
+				if ($result == false) { return false; }
+
+				// get the newly assigned cork id. 
+				return true;
+			
+		}
 	
-	
+		/*
+		 * not_approve()
+		 */
+		function not_approve(){
+			
+			$sql = "update board_posting set board_post_post_status_id = 3 where board_post_id = $this->board_post_id";
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with not approving flyer'));
+			
+				// other than an error, there was a problem submitting the user
+				if ($result == false) { return false; }
+
+				// get the newly assigned cork id. 
+				return true;
+		}
+		
 	
 }
 ?>

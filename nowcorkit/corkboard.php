@@ -40,7 +40,7 @@
 			console.log(flyerCount);
 			console.log(data);
 			tackPos = (fWidth*.6) - (Math.ceil(Math.random()*(fWidth*.2)));
-		fHTML = "<div id='flyer" + flyerCount + "'><img src='images/tack.png' style='width:" + (fWidth*.10) + "px; position:absolute; top: 0px;  z-index: 10;  left: " + tackPos + "px;' ></img>";
+		fHTML = "<div  id='flyer" + flyerCount + "'><img src='images/tack.png' style='width:" + (fWidth*.10) + "px; position:absolute; top: 0px;  z-index: 10;  left: " + tackPos + "px;' ></img>";
 			if ( data[p].flyer.type_id ==  "1" ) {						
 				
 				fHTML += "<center><h3>" + data[p].flyer.title + "</h3></center><table>";
@@ -69,11 +69,11 @@
 				fHTML += "<img src='" + data[p].flyer.image_path + "' id='picFlyer" + flyerCount + "'></img>";
 		
 				flyerCount++;  
-				p++;							
+				p++;							style=''
 			}			
 			fHTML += "</div>";
 			$("#container" + containerCount).html(fHTML);
-			$("#flyer" + (flyerCount-1) ).css( {"width": fWidth, "height" : fHeight, "float" : "left", "margin" : "0px", "position" : "relative", "background-color" : "white"} );
+			$("#flyer" + (flyerCount-1) ).css( {"width": fWidth, "height" : fHeight, "float" : "left", "margin" : "0px", "position" : "relative", "background-image" : "url('images/paper.jpg')"  } );
 		    $("#picFlyer" + (flyerCount-1) ).css( {"width": fWidth, "height" : fHeight, "position" : "absolute", "top" : "0px", "left" : "0px", "z-index" : "1"} );	
 		    if (containerCount == (cNumber*rNumber) ) containerCount = 1;
 		
@@ -81,7 +81,10 @@
 		}
 	}	
 	
-	function GenerateBoard(board_id){        		
+	function GenerateBoard(board_id){ 
+		
+		setTimeout("location.reload(true);",60000);
+		       		
 		$.ajax({	
 				url: "generate_board.php",
 				type: 'get',			
@@ -136,14 +139,7 @@
 		
 		$("body").append(HTML);
 		
-		var refreshId = setInterval(function()
-		{
-
-		 $('body').fadeOut('slow').load('corkboard.php?boardid=' + board_id).fadeIn('fast');
-
-		}, 60000);
-		
-	<? echo "GenerateBoard(". $board_id .");"; ?>
+		<? echo "GenerateBoard(". $board_id .");"; ?>
 	
 	});
 
