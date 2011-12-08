@@ -26,9 +26,9 @@
 	
 	// facebook oAuth App Secret (shhh)
 	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
-*/
-// TEST 
 
+// TEST 
+*/
 
     // your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");

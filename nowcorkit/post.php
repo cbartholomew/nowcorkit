@@ -27,7 +27,7 @@ echo "<form id='add_post' action='' method=''>";
 					if ($user_state_id == $state->id)
 					{
 						echo "<option selected='selected' value='" . $state->id . "'>" . $state->name . "</option>";
-						
+							
 					} 
 					else
 					{

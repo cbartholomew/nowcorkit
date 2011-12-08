@@ -11,26 +11,8 @@ current_selected_value = null;
 /*
  * Renders the Corkboard
  */
-function BuildCork(first_name, last_name){
-    	// new object
-    	var o = new Object(); 
-    	o.first_name = first_name;
-    	o.last_name  = last_name;
-
-    	// standard list container 
-    	var ul = "<ul id='sortable'></ul>";
-    
-    	// list items
-    	var li = "<li class='ui-state-default'>" + o.first_name  + "</br>" +  o.last_name + "</li>";
-    	var li2 = "<li class='ui-state-default'>Oh Hai</br>blah, testing</li>";
-    	var li3 = "<li class='ui-state-default'>so ugly</li>";
-    
-    	// apply elements    
-    	$("body").append(ul);
-    	$("#sortable").append(li);
-    	$("#sortable").append(li2);
-    	$("#sortable").append(li3);
-    	$("#sortable").sortable();
+function BuildCork(){
+window.location = "corkboard.php?boardid=" + $('#board_select option:selected ').val();
 }
 
 /*
@@ -40,7 +22,6 @@ function BuildToolbar(page){
 	// build tool bar html
 	html =	'<span id="span_menu">';
 	html +=	'<input type="radio" id="menu" 	   	name="menu" />	<label for="menu">Menu</label>';
-	html +=	'<input type="radio" id="corkboard" name="menu" />  <label for="corkboard">Corkboard</label>';
 	html +=	'<input type="radio" id="help" name="menu" />  <label for="help">Help</label>';
 	html +=	'<input type="radio" id="logout"    name="menu" />	<label for="logout">Logout</label>';
 	html += '</span>';
@@ -1053,3 +1034,19 @@ function RequestBoardByAjaxPost(page){
 	return false;
 }
 
+function GenerateBoard(board_id)
+{	
+	$.ajax({
+	       url: "generate_board.php",
+		   type: 'get',
+		   data: {
+				board_id: board_id
+		   },
+			beforeSend: function(){
+			
+			},
+	       success: function(data) {
+				console.log(data);
+	       }
+	});
+}

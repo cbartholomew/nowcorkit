@@ -41,7 +41,7 @@
 <div id="toolbar">
 </div>
 	<img src="images/pin.png" width="48" height="48" style="position: absolute;left:120px;z-index: 2; top:375px" alt="Pin2">
-	<img src="images/header.png" width="270" height="150" style="position: absolute;left:10px;top:400px" class='ui-corner-all'alt="Header">
+	<img src="images/header.png" width="270" height="150" style="position: absolute;left:7px;top:400px" class='ui-corner-all'alt="Header">
 <div id="menu_items">
 	<ol id="selectable">
 		<li id="flyer_choice" class="ui-widget-content ui-corner-all">Create Flyer</li>
@@ -51,7 +51,6 @@
 	</ol>
 </div>
 <div id="content">
-	Select one of the options on the left, or choose "Help" above for more information.
 </div>
 <div id="form_content" class="ui-corner-all">
 </div>

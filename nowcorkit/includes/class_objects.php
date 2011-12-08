@@ -465,7 +465,7 @@ class Flyer
 		$this->qr_location_file = "qr" . "_" . $this->id . "_" . $this->cork_id . ".png";
 	
 		// use the google chart API to generate QR code
-		$url = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=http://nowcorkit.com/generate.php?flyerid=' . $this->users_flyer_id;
+		$url = 'https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=http://nowcorkit.com/generate.php?flyerid=' . $this->users_flyer_id;
 			
 		// create the file based on the path and filename in generate_qr()
 		$img = $this->qr_location_path . $this->qr_location_file;	

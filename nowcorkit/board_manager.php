@@ -31,6 +31,10 @@
 	echo "	</ul>";
 	echo "	<div id='tabs-1'>";
 	echo "		<p>Select an existing feed, or create a new feed from the drop down menu</p>";
+	echo "		<p>To display your board, click the display button below. </p>";
+	echo "		<button type='submit' onclick='BuildCork();' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
+	echo "		<span class='ui-button-text'>Display Board</span>";
+	echo "		</button>";
 	echo "		<p>To remove a board, click the remove button below. </p>";
 	echo "      <p>Note: Once you remove a board, all flyers that are associated to this board will be unlinked.</p>";
 	echo "		<button type='submit' onclick='PreparePurgeBoard();' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
@@ -46,11 +50,11 @@
 	echo "	</p>";
 	echo "</div>";
 	echo "<div id='modal_remove' class='ui-helper-hidden' title='Remove Board'>";
-		echo "<p><span class='ui-icon ui-icon-alert'></span>"; 
-		echo "Once committed, this board cannot be recovered.</p>";
-		echo "<b>Remove? </b>";
-		echo "<br>";
-		echo "<label id='ltitle'></label>";
+	echo "<p><span class='ui-icon ui-icon-alert'></span>"; 
+	echo "Once committed, this board cannot be recovered.</p>";
+	echo "<b>Remove? </b>";
+	echo "<br>";
+	echo "<label id='ltitle'></label>";
 	echo "</div>";
 	
 ?>

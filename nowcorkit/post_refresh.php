@@ -8,7 +8,7 @@
 
 require_once("includes/common.php");
 
-echo "<div id='column' class='row''>";
+echo "<div id='column' class='row'>";
 
 $posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
 

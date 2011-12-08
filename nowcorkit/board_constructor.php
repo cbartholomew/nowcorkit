@@ -370,6 +370,7 @@ function build_post_form($board_id)
 	echo "<table class='ui-widget' style='border-spacing:0;'>";
 		echo "<tr>";
 			echo "<th class='ui-widget-header ui-corner-tl'>Flyers</th>";
+
 			echo "<th class='ui-widget-header ui-corner-tl'>Action</th>";
 		echo "</tr>";
 	echo "<tbody>";
@@ -383,15 +384,17 @@ function build_post_form($board_id)
 					for ($i=0, $n=count($posts);$i<$n;$i++)
 					{
 							$post = array_pop($posts);
-							echo "<option class='ui-widget-content' value='". $post->flyer->users_flyers_id ."' id='" . $post->flyer->board_post_id .  "'>" . $post->flyer->title . "</option>";
+							echo "<option class='ui-widget-content' value='". $post->flyer->users_flyers_id ."' id='" . $post->flyer->board_post_id .  "'>" . $post->flyer->title . '-' . $post->flyer->post_status_desc . "</option>";
 					
 					}
 		echo "</select>";
 		echo "</td>";
 
+
 	echo "<td class='ui-widget-content ui-corner-br'>";
 		echo "<div id='flyer_radio' style='margin:15px'>";
 			echo "<input type='radio' id='flyer_preview' 	name='text' /><label for='flyer_preview' id='ltext_preview'>Preview</label>";
+			echo "<input type='radio' id='flyer_approve' 	name='text' /><label for='flyer_approve' id='ltext_preview'>Approve</label>";
 			echo "<input type='radio' id='flyer_remove' 	name='text' /><label for='flyer_remove'	id='ltext_remove'>Remove</label>";
 		echo "</div>";
 	echo "</td>";
@@ -400,57 +403,6 @@ function build_post_form($board_id)
 	echo "</tbody>";
 	echo "</table>";
 	echo "<script>ActivateBoardSelectableContent();</script>";
-	// echo "<form id='post' action='' method='POST'>";	
-	// echo "<table class='ui-widget-content ui-corner-all'>";
-	// 	echo "<tbody>";
-	// 
-	// 		echo "<tr>";
-	// 			echo "<td><label for='all_posts'>All Posts</label></td>";
-	// 			echo "<td><input id='all_posts' type='radio' checked='true' class='ui-widget-content template_text' name='post_selection'></td>";
-	// 			echo "<td><label id='status'></label></td>";
-	// 		echo "</tr>";
-	// 
-	// 
-	// 		// Will impliment this feature later
-	// 		// echo "<tr>";
-	// 		// 				echo "<td><label for='pending_approval'>Posts Pending Approval</label></td>";
-	// 		// 				echo "<td><input id='pending_approval' type='radio' checked='true'  class='ui-widget-content template_text' name='post_selection'></td>";
-	// 		// 				echo "<td><label id='status'></label></td>";
-	// 		// echo "</tr>";
-	// 		
-	// 	echo "</tbody>";
-	// echo "</table>";
-	// echo "<br>";
-	// echo "<table id='table_content' class='ui-corner-all table_data'>";
-	// 	echo "<tbody>";
-	// 
-	// 		echo "<tr>";
-	// 			echo "<th class='ui-widget-content table_data'><label>Post ID</label></th>";
-	// 			echo "<th class='ui-widget-content table_data'><label>Flyer Title</label></th>";
-	// 			echo "<th class='ui-widget-content table_data'><label>Flyer Preview</label></th>";
-	// 			echo "<th class='ui-widget-content table_data'><label>Status</label></th>";
-	// 			echo "<th class='ui-widget-content table_data'><label>Approve</label></th>";
-	// 			echo "<th class='ui-widget-content table_data'><label>Remove</label></th>";
-	// 		echo "</tr>";
-	// 	
-	// 		$posts = get_all_posts_by_board_id($board_id);
-	// 		for ($i=0, $n=count($posts);$i<$n;$i++)
-	// 		{
-	// 			$post = array_pop($posts);
-	// 			
-	// 			echo "<tr>";
-	// 				echo "<td class='ui-widget-content table_data'>". $post->flyer->board_post_id ."</td>";
-	// 				echo "<td class='ui-widget-content table_data'>" . $post->flyer->title . "</td>";
-	// 				echo "<td class='ui-widget-content table_data'><button onclick='preview_flyer(this.value);' type='button' value='" . $post->flyer->users_flyers_id ."'>Preview</button></td>";
-	// 				echo "<td class='ui-widget-content table_data'>" . $post->flyer->post_status_desc . "</td>";
-	// 				echo "<td class='ui-widget-content table_data'><input id='approve_". $post->flyer->board_post_id . "' type='checkbox'  class='ui-widget' name='approve'></td>";
-	// 				echo "<td class='ui-widget-content table_data'><input id='remove_". $post->flyer->board_post_id ."' type='checkbox'   class='ui-widget' name='remove'></td>";
-	// 			echo "</tr>";
-	// 		}
-	// 		
-	// echo "</tbody>";
-	// echo "</table>";	
-	// echo "</form>";
 }
 
 /*
