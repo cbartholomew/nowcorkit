@@ -8,7 +8,7 @@
  	**********************************************************************/
 
 //Production /**/
-/*
+
 	// your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");
 
@@ -28,8 +28,7 @@
 	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
 
 // TEST 
-*/
-
+/*
     // your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");
 
@@ -50,6 +49,7 @@
 	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
 
 
+*/
 	 
    
 ?>
