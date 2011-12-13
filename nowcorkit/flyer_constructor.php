@@ -1,13 +1,17 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+ * flyer_constructor.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated   : 12/08/2011
+ * Purpose		  : Based on the template sent form the post request, we will
+ * render the specific text form.
+ **********************************************************************/
 	
 $template = $_POST["template"];
 
+/*
+ * use case statement to determine the form type
+ */
 switch($template)
 {
 	case "text":
@@ -22,7 +26,9 @@ switch($template)
 	buildImageOnlyForm();
 	break;	
 }
-
+/* buildTextForm()
+ * Renders an html form used for text flyers only
+ */
 function buildTextForm()
 {	
 	
@@ -93,7 +99,7 @@ function buildTextForm()
 			
 			echo "<tr>";
 				echo "<td><label for='enable_qr'>Generate QR Code?</label></td>";
-				echo "<td><input id='enable_qr' type='checkbox' value='off' onclick='toggleCheckBox();'class='ui-widget-content template_text' name='enable_qr'></td>";
+				echo "<td><input id='enable_qr' type='checkbox' value='off' onclick='toggleCheckBox();' class='ui-widget-content template_text' name='enable_qr'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 						
@@ -117,7 +123,9 @@ function buildTextForm()
 	echo "<script>loadDatePicker();</script>";
 	echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";
 }
-
+/* buildTextImageForm()
+ * Renders a form used for Images and Text, size of 300,000 kb
+ */
 function buildTextImageForm()
 {
 	echo "<form id='upload' action='upload.php' method='POST' enctype='multipart/form-data'>";
@@ -135,6 +143,7 @@ function buildTextImageForm()
 	echo "</fieldset>";
 	echo "</form>";
 	echo "</div>";
+	echo "<div id='progress' class='ui-corner-all'></div>";
 	echo "<br>";
 		echo "<form id='text_image_form' action='' method='' novalidate='novalidate'>";
 		echo "<table class='ui-widget-content ui-corner-all'>";
@@ -203,7 +212,7 @@ function buildTextImageForm()
 
 				echo "<tr>";
 					echo "<td><label for='enable_qr'>Generate QR Code?</label></td>";
-					echo "<td><input id='enable_qr' type='checkbox' class='ui-widget-content template_text' name='enable_qr'></td>";
+					echo "<td><input id='enable_qr' type='checkbox' value='off' onclick='toggleCheckBox();' class='ui-widget-content template_text' name='enable_qr'></td>";
 					echo "<td><label id='status'></label></td>";
 				echo "</tr>";
 
@@ -220,16 +229,18 @@ function buildTextImageForm()
 			echo "</tbody>";
 		echo "</table>";
 		echo "</form>";
-		echo "<div id='progress' class='ui-corner-all'></div>";
 		echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
+		echo "<script>function toggleCheckBox(){ if ($('#enable_qr').val() == 'off'){ $('#enable_qr').val('on');} else { $('#enable_qr').val('off'); }}</script>";
 		echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
 		echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";
 		
 		
 		echo "<script>loadDatePicker();</script>";
-}	
-
-
+}
+	
+/* buildImageOnlyForm()
+ * Allows the uploading of images only, size of 300,000 kb
+ */
 function buildImageOnlyForm()
 {
 	echo "<form id='upload' action='upload.php' method='POST' enctype='multipart/form-data'>";
@@ -247,6 +258,7 @@ function buildImageOnlyForm()
 	echo "</fieldset>";
 	echo "</form>";
 	echo "</div>";
+	echo "<div id='progress' class='ui-corner-all'></div>";
 	echo "<br>";
 	echo "<form id='image_form' action='' method='' novalidate='novalidate'>";
 	echo "<table class='ui-widget-content ui-corner-all'>";
@@ -268,7 +280,6 @@ function buildImageOnlyForm()
 		echo "</tbody>";
 	echo "</table>";
 	echo "</form>";
-	echo "<div id='progress' class='ui-corner-all'></div>";
 	echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
 	echo "<p>Status Messages</p>";
 	echo "</div>";

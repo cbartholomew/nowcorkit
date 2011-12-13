@@ -1,8 +1,8 @@
 /***********************************************************************
- * XXX.php
+ * validation_feed.js
  * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * Last Updated   : 12/08/2011
+ * Purpose		  : The fileds, which are necessary in order to create a new board
  **********************************************************************/
 
 $(document).ready(function() { 

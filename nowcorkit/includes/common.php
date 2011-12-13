@@ -1,11 +1,12 @@
 <?
 
-    /***********************************************************************
-     * common.php
-	 * Author		: Christopher Bartholomew
-	 * Last Updated : 11/13/2011
-	 * Purpose		: Opens connection to MySQL server & Loads additional helpers
-     **********************************************************************/
+ /***********************************************************************
+ * common.php
+ * Author		: Christopher Bartholomew
+ * Last Updated : 12/08/2011
+ * Purpose		: Used to control sessions and loading of additional helpers. 
+ * this also includes the creating of session variables
+ **********************************************************************/
     
 	// display errors and warnings but not notices
     ini_set("display_errors", true);

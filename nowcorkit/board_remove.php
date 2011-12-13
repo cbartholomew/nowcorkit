@@ -1,9 +1,9 @@
 <?
   /***********************************************************************
-  * XXX.php
+  * board_remove.php
   * Author		  : Christopher Bartholomew
-  * Last Updated  : 
-  * Purpose		  : 
+  * Last Updated  : 12/8/2011
+  * Purpose		  : This will construct a specific class object, and then it will be deleted
   **********************************************************************/
 		require_once("includes/common.php");
 		

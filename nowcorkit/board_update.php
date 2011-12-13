@@ -1,9 +1,11 @@
 <?
   /***********************************************************************
-  * XXX.php
+  * board_update.php
   * Author		  : Christopher Bartholomew
-  * Last Updated  : 
-  * Purpose		  : 
+  * Last Updated  : 12/08/2011
+  * Purpose		  : based on the updates parameter (object) that is sent form
+  * the application. We will determine which of the "tabs" needed to be updated
+  * and thus, we shall update those accordingly
   **********************************************************************/
 		require_once("includes/common.php");
 		
@@ -42,8 +44,8 @@
 							
 			}
 			
+			// create update
 			$board->update();
-			
 			
 			// return the object back as a json request
 			header('Content-Type: application/json');

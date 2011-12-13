@@ -4,14 +4,17 @@
 	require_once("DAL.php");
 	require_once("class_objects.php");
 	
-	/***********************************************************************
-	* helpers.php
-	* Author		: Christopher Bartholomew
-	* Last Updated  : 11/13/2011
-	* Purpose		: Provides helper functions for application
-	**********************************************************************/
+/***********************************************************************
+* helpers.php
+* Author		: Christopher Bartholomew
+* Last Updated  : 12/8/2011
+* Purpose		: Provides helper functions for application - this is another
+* large file that should be a little smaller. I use the helpers to do anything
+* that involves no-object specific database handling - EXCEPT - select satements
+* All getter's of object information is done in this file. 
+**********************************************************************/
 
-	/*
+	/* ValidateNormalLogin($_FORMDATA)
 	 * Checks if user is in the user's table
 	 */
 	function ValidateNormalLogin($_FORMDATA)
@@ -34,6 +37,10 @@
 	            // remember that user's now logged in by caching user's ID in session
 	            $_SESSION["users_cork_id"] = $row["users_cork_id"];
 
+				$u = new User(NULL);
+				$u->cork_id = $_SESSION["users_cork_id"];
+				$u->update_login_time();
+				
 	            // redirect to portfolio
 	            redirect("index.php");
 	        }
@@ -42,7 +49,7 @@
 		return false;
 	}
 		
-	/*
+	/* ValidateNewRegistration($_FORMDATA)
 	 * Server Side Validation for Registration users
 	 */
 	function ValidateNewRegistration($_FORMDATA)
@@ -98,7 +105,7 @@
 		
 	}
 	
-    /*
+    /* ComparePasswords($password_one, $password_two)
      * Purpose: Based on the hashed passwords passed into function
      * check and make sure the password hashes match 
      */
@@ -111,7 +118,7 @@
       
     }
 	
-	/*
+	/* LookupEmail($email_address)
 	 * Checks if user's email is in the user's table
 	 */
 	function LookupEmail($email_address)
@@ -126,7 +133,7 @@
 		return $value;
 	}
 	
-	/*
+	/* ValidEmail($email_address)
 	 * Checks if user's email is valid
 	 */
 	function ValidEmail($email_address)
@@ -136,7 +143,7 @@
 	 	return false;
 	}
 	
-	/*
+	/* LookupFacebookUserIdInUsers($fbuser)
 	 * Checks to see if the user has already been created on the users table
 	 */
 	function LookupFacebookUserIdInUsers($fbuser)
@@ -161,7 +168,7 @@
 		
 	}
 
-	/*
+	/* GetStates()
 	 * function, which returns a list of states from database
 	 */
 	function GetStates()
@@ -194,7 +201,7 @@
 	}
 	
 	
-	/*
+	/* get_users_state($cork_id)
 	 * function, which returns a specific state id based on the users cork id
  	 */
 	function get_users_state($cork_id)
@@ -218,7 +225,7 @@
 			}		
 	}
 	
-	/*
+	/* GetFullFlyer($user_flyer_id)
 	 * function, which returns a specific flyer based on the users_flyer id
  	 */ 
 	function GetFullFlyer($user_flyer_id)
@@ -260,12 +267,12 @@
 											$flyer->flyer_error_id 			= 0;
 											$flyer->id 						= $row["text_flyer_id"];
 											$flyer->cork_id					= $row["text_flyer_users_cork_id"];
-											$flyer->title 					= $row["text_flyer_title"];
-											$flyer->description 			= $row["text_flyer_desc"];
-											$flyer->location				= $row["text_flyer_location"];
+											$flyer->title 					= str_replace("\\","",$row["text_flyer_title"]);
+											$flyer->description 			= str_replace("\\","",$row["text_flyer_desc"]);
+											$flyer->location				= str_replace("\\","",$row["text_flyer_location"]);
 											$flyer->event_date				= $row["text_flyer_event_date"];
 											$flyer->contact_id				= $row["text_flyer_contact_type_id"];
-											$flyer->contact_name			= $row["text_flyer_contact_name"];
+											$flyer->contact_name			= str_replace("\\","",$row["text_flyer_contact_name"]);
 											$flyer->contact_info			= $row["text_flyer_contact_information"];
 											$flyer->enable_qr				= $row["text_flyer_generate_qr_code"];
 											$flyer->qr_full_location		= $row["text_flyer_qr_code_location"];
@@ -284,12 +291,12 @@
 											$flyer->flyer_error_id 			= 0;
 											$flyer->id 						= $row["text_image_flyer_id"];
 											$flyer->cork_id					= $row["text_image_flyer_users_cork_id"];
-										 	$flyer->title 					= $row["text_image_flyer_title"];
-										 	$flyer->description 			= $row["text_image_flyer_desc"];
-										 	$flyer->location				= $row["text_image_flyer_location"];
+										 	$flyer->title 					= str_replace("\\","",$row["text_image_flyer_title"]);
+										 	$flyer->description 			= str_replace("\\","",$row["text_image_flyer_desc"]);
+										 	$flyer->location				= str_replace("\\","",$row["text_image_flyer_location"]);
 										 	$flyer->event_date				= $row["text_image_flyer_event_date"];
 								 			$flyer->contact_id				= $row["text_image_flyer_contact_type_id"];
-										 	$flyer->contact_name			= $row["text_image_flyer_contact_name"];
+										 	$flyer->contact_name			= str_replace("\\","",$row["text_image_flyer_contact_name"]);
 										 	$flyer->contact_info			= $row["text_image_flyer_contact_information"];
 										 	$flyer->enable_qr				= $row["text_image_flyer_generate_qr_code"];
 										 	$flyer->qr_full_location		= $row["text_image_flyer_qr_code_location"];
@@ -309,7 +316,7 @@
 											
 											$flyer->flyer_error_id 			= 0;
 											$flyer->id 						= $row["image_flyer_id"];
-											$flyer->title 					= $row["image_flyer_title"];
+											$flyer->title 					= str_replace("\\","",$row["image_flyer_title"]);
 											$flyer->image_meta_data_id		= $row["image_flyer_image_meta_data_id"];
 											$flyer->type					= $flyer_type_desc;
 											$flyer->type_id					= $users_flyer_flyer_type_id;	
@@ -332,7 +339,7 @@
 		}
 	
 	
-	/*
+	/* GetFlyers($cork_id, $flyer_type_id)
 	 * function, which returns a list of flyers from database
 	 */
 	function GetFlyers($cork_id, $flyer_type_id)
@@ -360,12 +367,12 @@
 					case "1":
 						$flyer->id 						= $row["text_flyer_id"];
 						$flyer->cork_id					= $row["text_flyer_users_cork_id"];
-					 	$flyer->title 					= $row["text_flyer_title"];
-					 	$flyer->description 			= $row["text_flyer_desc"];
-					 	$flyer->location				= $row["text_flyer_location"];
+					 	$flyer->title 					= str_replace("\\","",$row["text_flyer_title"]);
+					 	$flyer->description 			= str_replace("\\","",$row["text_flyer_desc"]);
+					 	$flyer->location				= str_replace("\\","",$row["text_flyer_location"]);
 					 	$flyer->event_date				= $row["text_flyer_event_date"];
 					 	$flyer->contact_id				= $row["text_flyer_contact_type_id"];
-					 	$flyer->contact_name			= $row["text_flyer_contact_name"];
+					 	$flyer->contact_name			= str_replace("\\","",$row["text_flyer_contact_name"]);
 					 	$flyer->contact_info			= $row["text_flyer_contact_information"];
 					 	$flyer->enable_qr				= $row["text_flyer_generate_qr_code"];
 					 	$flyer->qr_full_location		= $row["text_flyer_qr_code_location"];
@@ -376,12 +383,12 @@
 					case "2":
 						$flyer->id 						= $row["text_image_flyer_id"];
 						$flyer->cork_id					= $row["text_image_flyer_users_cork_id"];
-					 	$flyer->title 					= $row["text_image_flyer_title"];
-					 	$flyer->description 			= $row["text_image_flyer_desc"];
-					 	$flyer->location				= $row["text_image_flyer_location"];
+					 	$flyer->title 					= str_replace("\\","",$row["text_image_flyer_title"]);
+					 	$flyer->description 			= str_replace("\\","",$row["text_image_flyer_desc"]);
+					 	$flyer->location				= str_replace("\\","",$row["text_image_flyer_location"]);
 					 	$flyer->event_date				= $row["text_image_flyer_event_date"];
 					 	$flyer->contact_id				= $row["text_image_flyer_contact_type_id"];
-					 	$flyer->contact_name			= $row["text_image_flyer_contact_name"];
+					 	$flyer->contact_name			= str_replace("\\","",$row["text_image_flyer_contact_name"]);
 					 	$flyer->contact_info			= $row["text_image_flyer_contact_information"];
 					 	$flyer->enable_qr				= $row["text_image_flyer_generate_qr_code"];
 					 	$flyer->qr_full_location		= $row["text_image_flyer_qr_code_location"];
@@ -392,7 +399,7 @@
 					break;
 					case "3":
 						$flyer->id 						= $row["image_flyer_id"];
-						$flyer->title 					= $row["image_flyer_title"];
+						$flyer->title 					= str_replace("\\","",$row["image_flyer_title"]);
 						$flyer->image_meta_data_id		= $row["image_flyer_image_meta_data_id"];			
 						$flyer->users_flyer_id			= $row["users_flyers_id"];		
 					break;
@@ -408,8 +415,8 @@
 		return $flyer_array;		
 	}
 	
-	/*
-	 * 
+	/*  get_users_boards($cork_id)
+	 * This will get all the users's boards based on the cork id
 	 */
 	function get_users_boards($cork_id)
 	{
@@ -428,7 +435,7 @@
 					$board 		 = new Board(null);					
 					// populate object
 					$board->id 	  = $row["board_id"];
-					$board->title = $row["board_title"];
+					$board->title = str_replace("\\","",$row["board_title"]);
 					// push onto stack
 				   array_push($board_array, $board);
 				}	
@@ -439,8 +446,8 @@
 		
 	}
 	
-	/*
-	 * 
+	/* get_all_boards_by_state($state_id)
+	 * This  function will get all the boards assoicated to the state id
 	 */
 	function get_all_boards_by_state($state_id){
 		
@@ -475,8 +482,9 @@
 		// return array
 		return $board_array;	
 	}
-	/*
-	 * 
+	
+	/* get_specific_board($board_id)
+	 *  based on the board id, we will construct a board object that can be returned
 	 */
 	function get_specific_board($board_id)
 	{
@@ -492,8 +500,8 @@
 					$board 		 = new Board(null);					
 					// populate object					
 					$board->id 						= $row["board_id"];
-					$board->title 					= $row["board_title"];
-					$board->description 			= $row["board_description"];
+					$board->title 					= str_replace("\\","",$row["board_title"]);
+					$board->description 			= str_replace("\\","",$row["board_description"]);
 					$board->address 				= $row["board_address"];
 					$board->city 					= $row["board_city"];
 					$board->state_id 				= $row["board_state_id"];
@@ -513,8 +521,8 @@
 			}
 	}
 
-	/*
-	 * 
+	/* get_all_posts_by_users_cork_id($users_cork_id)
+	 * will return a post object that contains all the posts for a specific user
 	 */
 	function get_all_posts_by_users_cork_id($users_cork_id)
 	{
@@ -564,8 +572,8 @@
 		return $posts;
 	}
 
-	/*
-	 *  Obtains all approved posts for a board
+	/*  get_all_posts_by_board_id($board_id)
+	 *  Obtains all posts for a board - not including "approved"
 	 */
 	function get_all_posts_by_board_id($board_id)
 	{
@@ -609,7 +617,7 @@
 		return $posts;
 	}
 	/*
-	 *  Obtains all approved posts for a board
+	 *  Obtains all approved posts for a board that are only "approved"
 	 */
 	function get_all_approved_posts_by_board_id($board_id)
 	{
@@ -653,7 +661,8 @@
 		return $posts;
 	}
 	/*
-	 * 
+	 * get_select_sql($cork_id,$flyer_type_id)
+	 * This will get the specific "sql select txt" to use based on the flyer
 	 */
 	function get_select_sql($cork_id,$flyer_type_id)
 	{
@@ -704,8 +713,8 @@
 		
 	}
 	
-	/*
-	 * 
+	/* get_select_sql_specific($flyer_id,$flyer_type_id)
+	 * this function will obtain specific flyer id from a specific table
 	 */
 	function get_select_sql_specific($flyer_id,$flyer_type_id)
 	{
@@ -778,22 +787,8 @@
         exit;
     }
     
-	/*
-     * void
-     * dump($variable)
-     *
-     * Facilitates debugging by dumping contents of variable
-     * to browser.
-     */
-    function dump($variable)
-    {
-        // dump variable with some quick and dirty HTML
-        require("dump.php");
 
-        // exit immediately so that we can see what we printed
-        exit;
-    }
-	/*
+	/*  show_error($message)
 	 * function, which builds a show error page
 	 */
 	function show_error($message)
@@ -805,8 +800,9 @@
         exit;
 	}
 	
-	/*
+	/* logout()
 	 * function, which will logout the user and destroy its cookie
+	 * set the cookie time for 99,000 for the corkboard
 	 */
 	function logout()
     {

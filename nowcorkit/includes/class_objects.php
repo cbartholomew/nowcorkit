@@ -3,8 +3,11 @@
 /***********************************************************************
 * class_objects.php
 * Author		: Christopher Bartholomew
-* Last Updated  : 11/13/2011
+* Last Updated  : 12/08/2011
 * Purpose		: file, which holds my class objects and its functions
+* pretty much the most important file of this entire application. I should
+* eventually start splitting this file up, but I will not do it until after
+* the CS50 fair. I just didn't realize it would end up so big
 **********************************************************************/
 
 
@@ -27,6 +30,7 @@ class Post{
 /*
  * Object: User
  * Used to contain information about the user. 
+ * General User object
  */
 class User
 {	
@@ -77,7 +81,8 @@ class User
 			. "users_state_id, 				\n"
 			. "users_subscription_type, 	\n"
 			. "users_last_login, 			\n"
-			. "users_account_disable 		\n"
+			. "users_account_disable, 		\n"
+			. "users_created_dttm			\n"
 			. ") 							\n"
 			. " values 						\n"
 			. "( 							\n"
@@ -88,7 +93,8 @@ class User
 			. "'$this->state_id', 			\n"
 			. "'0',							\n"
 			. "'$date_time', 				\n"
-			. " '0' 						\n"
+			. " '0', 						\n"
+			. "'$date_time' 				\n"
 			. ")";
 				
 		// run statement or die
@@ -103,11 +109,27 @@ class User
 		return true;	
 	}
 	
+	function update_login_time()
+	{		
+		$date_time = date('Y-m-d H:i:s');
+		
+		// insert the user in the database		
+		$sql = "update users set users_last_login = ('$date_time') where users_cork_id = ('$this->cork_id')";	
+
+		// run statement or die
+		$result = mysql_query($sql) or die (show_error("Problem with updating user"));
+
+		// other than an error, there was a problem submitting the user
+		if ($result == false) { return false; }
+		
+		return true;
+	}
 }
 
 /*
  * Object: FacebookUser
  * Used to contain information about the user. 
+ * Not Used - at least until I get oAuth back up
  */
 class FacebookUser
 {	
@@ -239,7 +261,9 @@ class FacebookUser
 }
 
  /* Object: Flyer
-  * Used to contain information about the user. 
+  * Used to contain infomration and methods controlling flyers
+  * A very important object, and if one passed the entire $_POST request
+  * from a text/image flyer menu into the constructor, this would create the object
   */
 class Flyer
 {
@@ -348,7 +372,7 @@ class Flyer
 	
 	/*
 	 * delete_users_flyers()
-	 * this function inserts data into the table, which services as the relation of user and flyers
+	 * this function will delete the linkage between a user and a flyer
 	 */
 	function delete_users_flyers()
 	{
@@ -370,7 +394,7 @@ class Flyer
 	
 	/*
 	 * delete_post_flyers()
-	 * this function inserts data into the table, which services as the relation of user and flyers
+	 * this function will delete a flyer post, which has been already created
 	 */
 	function delete_post_from_flyers()
 	{
@@ -386,10 +410,12 @@ class Flyer
 				
 			return true;	
 	}
-	
+	/* update()
+	 * this function will update the text of a specific flyer with  new information
+	 */
 	function update()
 	{	
-		// get the sql invovled for updating the database
+		// get the sql invovled for updating the database, this depends on text/text/image/and image
 		$sql = $this->get_update_form_sql(); 					  	
 				
 		// run statement or die
@@ -401,7 +427,10 @@ class Flyer
 		return true;
 		
 	}
-	
+	/*
+	 * delete()
+	 * Used to remove flyers from the database and unlink users_flyers
+	 */
 	function delete()
 	{	
 		$this->delete_users_flyers();
@@ -465,7 +494,7 @@ class Flyer
 		$this->qr_location_file = "qr" . "_" . $this->id . "_" . $this->cork_id . ".png";
 	
 		// use the google chart API to generate QR code
-		$url = 'https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=http://nowcorkit.com/generate.php?flyerid=' . $this->users_flyer_id;
+		$url = 'https://chart.googleapis.com/chart?cht=qr&chs=100x100&chl=http://nowcorkit.com/generate.php?flyerid=' . $this->users_flyer_id;
 			
 		// create the file based on the path and filename in generate_qr()
 		$img = $this->qr_location_path . $this->qr_location_file;	
@@ -740,7 +769,9 @@ class Image
 			$this->location   				= $_DATA["image_meta_data"]["location"];
 			$this->cork_id					= $_SESSION["users_cork_id"];
 	    }
-		
+		/* delete($meta_id)
+		 * Will delete the image meta data from the database
+		 */
 		function delete($meta_id)
 		{
 					
@@ -758,7 +789,9 @@ class Image
 			return true;
 			
 		}
-		
+		/* insert()
+		 * Will insert a new row in the image_meta_data table
+		 */
 		function insert()
 		{
 			// append the user's cork_id to the image
@@ -854,8 +887,8 @@ class Board
 
 	    }
 						
-		/*
-		 *
+		/* insert()
+		 * Inserts a new "board" into the board preferences table
 		 */
 		function insert()
 		{
@@ -912,8 +945,8 @@ class Board
 		
 		}
 		
-		/*
-		 *
+		/* Update()
+		 * When given the correct values, this will update the board's data
 		 */
 		function update()
 		{
@@ -943,8 +976,8 @@ class Board
 				return true;
 		}
 		
-		/*
-		 *
+		/* delete()
+		 * Once removed, the entire board will be removed, and thus unlinking all flyers from it
 		 */
 		function delete()
 		{
@@ -959,28 +992,28 @@ class Board
 			return true;	
 		}
 			
-			/*
-			 * delete_post_from_board()
-			 * this function inserts data into the table, which services as the relation of user and flyers
-			 */
-			function delete_post_from_board()
-			{
-					// delete the users_flyer in the database		
-					$sql = "DELETE FROM board_posting									  				\n"
-						 . "WHERE board_post_id	 = ('$this->board_post_id')";
+		/*
+		 * delete_post_from_board()
+		 * this function will remove a specific post off the board from the manager level
+		 */
+		function delete_post_from_board()
+		{
+				// delete the users_flyer in the database		
+				$sql = "DELETE FROM board_posting									  				\n"
+				 . "WHERE board_post_id	 = ('$this->board_post_id')";
 
-					 // run statement or die
-					$result = mysql_query($sql) or die (show_error("Problem with removing post from postings" . $sql));
+				 // run statement or die
+				$result = mysql_query($sql) or die (show_error("Problem with removing post from postings" . $sql));
 
-					// other than an error, there was a problem submitting the user
-					if ($result == false) { return false; }
+				// other than an error, there was a problem submitting the user
+				if ($result == false) { return false; }
 
-					return true;	
-			}
+				return true;	
+		}
 			
 			/*
-		     *	post($posting)
-			 *
+		     *	post()
+			 *  Once the object is prepared, this will add a post to the posting table
 			 */
 			function post()
 			{
@@ -1030,6 +1063,7 @@ class Board
 		
 		/*
 		 * approve()
+		 * this will update the flyer's status to 1 on the board posting table which will determine if a post can be read
 		 */
 		function approve(){
 
@@ -1047,6 +1081,7 @@ class Board
 	
 		/*
 		 * not_approve()
+		 * this will update the flyer's status to 3 on the board posting table which will determine if a post can be read
 		 */
 		function not_approve(){
 			

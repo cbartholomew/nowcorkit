@@ -1,10 +1,12 @@
 <?
 
 /***********************************************************************
-* XXX.php
+* generate_board.php
 * Author		  : Christopher Bartholomew
-* Last Updated  : 
-* Purpose		  : 
+* Last Updated   :  12/08/2011  
+* Purpose		 : This will generate an entire post object for any board, 
+* every post object contains a list of flyers. This is returned back to the user
+* in the form of a json object
 **********************************************************************/
 
 
@@ -15,7 +17,7 @@
 
 
 // populate types from get request
-$board_id = mysql_real_escape_string($_GET["boardid"]);
+$board_id = mysql_real_escape_string($_POST["boardid"]);
 
 
 $posts = get_all_approved_posts_by_board_id($board_id);

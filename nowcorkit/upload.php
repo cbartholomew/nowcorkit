@@ -3,6 +3,9 @@
 Server-side PHP file upload code for HTML5 File Drag & Drop demonstration
 Featured on SitePoint.com
 Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
+
+Original Author above, I've modified this file slightly to edit the file name based on the users's session id before uploading
+Modifiy Date: 12/08/2011
 */
 
 require_once("includes/common.php");

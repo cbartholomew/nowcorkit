@@ -1,10 +1,12 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+ * register.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated   : 12/08/2011
+ * Purpose		  : Using server side validation (boo) that is managed from
+ * the helpers.php file. This will register a sepcific user if the criteria 
+ * of validation holds true.This is done by creating a user object.
+ **********************************************************************/
 	require_once('includes/common.php');
 	
 	

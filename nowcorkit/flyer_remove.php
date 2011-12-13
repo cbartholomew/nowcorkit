@@ -1,11 +1,12 @@
 <?
 
-	/***********************************************************************
- 	* XXX.php
- 	* Author		  : Christopher Bartholomew
- 	* Last Updated  : 
- 	* Purpose		  : 
- 	**********************************************************************/
+/***********************************************************************
+* flyer_remove.php
+* Author		  : Christopher Bartholomew
+* Last Updated    : 12/08/2011
+* Purpose		  : This script will determine which file needs to be removed or edited
+* when I prepare an object to be removed from the database, I sent it back via  json object
+**********************************************************************/
 
 
 		require_once("includes/common.php");

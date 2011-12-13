@@ -1,10 +1,11 @@
 <?
-	 /***********************************************************************
-	  * XXX.php
-	  * Author		  : Christopher Bartholomew
-	  * Last Updated  : 
-	  * Purpose		  : 
-	  **********************************************************************/
+/***********************************************************************
+* flyer_edit.php
+* Author		  : Christopher Bartholomew
+* Last Updated    : 12/08/2011 
+* Purpose		  : This file, depending on the flyer type, will update specific
+* flyers inside of the database
+ **********************************************************************/
 		require_once("includes/common.php");
 		
 		//  based on the passed in flyer type, execute the following procedures		
@@ -27,8 +28,6 @@
 				// insert the new text flyer in the database
 				$flyer->update();
 				
-				// make sure we didn't die here
-				echo "<p>$flyer->id</p>";
 			break;
 			
 		   /*
@@ -46,9 +45,7 @@
 				
 				// insert the new text/image in the database
 				$flyer->update();
-				
-				// make sure we didn't die here
-				echo "<p>where am i?</p>";
+
 			break;
 
 		   /*
@@ -66,9 +63,7 @@
 				
 				// insert the new text/image in the database
 				$flyer->update();
-							
-				// make sure we didn't die here
-				echo "<p>$flyer->id</p>";	
+	
 			break;
 		}
 

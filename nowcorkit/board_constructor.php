@@ -1,9 +1,10 @@
 <?
 /***********************************************************************
- * XXX.php
- * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * board_constructor.php
+ * Author		   : Christopher Bartholomew
+ * Last Updated    : 12/8/2011
+ * Purpose		   :  Based on an ajax get request parameter, this will render 
+ * the relevant html code to build a specific board
  **********************************************************************/
 
 require_once('includes/common.php');
@@ -31,14 +32,16 @@ switch($template)
 	case "create":
 		build_new_form();
 }
-/*
+/* build_general_form($board_id)
  *
+ * The general tab
  */
 function build_general_form($board_id)
 {
 	
 	// create the board object
 	$board = new Board(null);
+	// based on the board id, build a board object
 	$board = get_specific_board($board_id);
 	
 	echo "<form id='general' action='' method='POST'>";
@@ -52,13 +55,13 @@ function build_general_form($board_id)
 		echo "</tr>";
 
 			echo "<tr>";
-				echo "<td><label for='title'>Title</label></td>";
+				echo "<td><label for='title'>Title *</label></td>";
 				echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title' value='" . $board->title . "'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-				echo "<td><label for='desc'>Description</label></td>";
+				echo "<td><label for='desc'>Description *</label></td>";
 				echo "<td><input id='desc' type='desc' class='ui-widget-content template_text'  name='desc'  value='" . $board->description . "'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
@@ -120,8 +123,9 @@ function build_general_form($board_id)
 	
 	echo"<script src='js/board_edit_validation_hand.js' type='text/javascript' charset='utf-8'></script>";
 }
-/*
+/*  build_permission_form($board_id)
  *
+ *  The permissions tab
  */
 function build_permission_form($board_id)
 {
@@ -215,8 +219,9 @@ function build_permission_form($board_id)
 	
 	echo"<script src='js/board_edit_validation_hand.js' type='text/javascript' charset='utf-8'></script>";
 }
-/*
- *
+/* build_posting_form($board_id)
+ * 
+ * The posting tab
  */
 function build_posting_form($board_id)
 {
@@ -360,8 +365,9 @@ function build_posting_form($board_id)
 	echo"<script src='js/board_edit_validation_hand.js' type='text/javascript' charset='utf-8'></script>";
 	
 }
-/*
+/* build_post_form($board_id)
  *
+ * Post tab, used to display who has posted to you.
  */
 function build_post_form($board_id)
 {
@@ -405,8 +411,9 @@ function build_post_form($board_id)
 	echo "<script>ActivateBoardSelectableContent();</script>";
 }
 
-/*
+/* build_new_form()
  *
+ * This is a combonation of the above that is returned to a single modal window
  */
 function build_new_form()
 {
@@ -421,13 +428,13 @@ function build_new_form()
 			echo "</tr>";
 			
 			echo "<tr>";
-				echo "<td><label for='title'>Title</label></td>";
+				echo "<td><label for='title'>Title *</label></td>";
 				echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 
 			echo "<tr>";
-				echo "<td><label for='desc'>Description</label></td>";
+				echo "<td><label for='desc'>Description *</label></td>";
 				echo "<td><input id='desc' type='desc' class='ui-widget-content template_text' name='desc'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";

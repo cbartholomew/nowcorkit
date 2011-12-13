@@ -1,14 +1,15 @@
 <?
 
-	/***********************************************************************
- 	* constants.php
- 	* Author		: Christopher Bartholomew
- 	* Last Updated  : 11/13/2011
- 	* Purpose		: Provides Global Constants for application
- 	**********************************************************************/
+/***********************************************************************
+* constants.php
+* Author		: Christopher Bartholomew
+* Last Updated  : 11/28/2011
+* Purpose		: Provides Global Constants for application. 
+* For demo, please use test as the production is to my third party server. ;-(
+**********************************************************************/
 
 //Production /**/
-
+/*
 	// your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");
 
@@ -26,9 +27,9 @@
 	
 	// facebook oAuth App Secret (shhh)
 	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
-
+*/
 // TEST 
-/*
+
     // your database's name (i.e., )
     define("DB_NAME", "nowcorkitdb");
 
@@ -41,15 +42,12 @@
     // your database's password
     define("DB_PASSWORD", "root");
 
-
 	// facebook oAuth App Id
 	define("APP_ID", "301835463167653");
 	
 	// facebook oAuth App Secret (shhh)
 	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
 
-
-*/
 	 
    
 ?>

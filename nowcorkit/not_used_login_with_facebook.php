@@ -1,8 +1,15 @@
 <?
-	   			require_once('includes/common.php');
-	  	   			
-	  	   		if ($_SERVER['REQUEST_METHOD'] == 'POST'){ $login_correct = ValidateNormalLogin($_POST);} 
-	  	   		else { $login_correct = true; }		
+/***********************************************************************
+ * not_used_login_with_facebook.php
+ * Author		 : Christopher Bartholomew
+ * Last Updated  : 12/08/2011
+ * Purpose		 : no longer implmented due to session issues. this was my
+ * original login that used facbeook options. Not currently used.
+ **********************************************************************/
+ require_once('includes/common.php');
+  			
+ if ($_SERVER['REQUEST_METHOD'] == 'POST'){ $login_correct = ValidateNormalLogin($_POST);} 
+ else { $login_correct = true; }		
 ?>
 
 <!DOCTYPE html>

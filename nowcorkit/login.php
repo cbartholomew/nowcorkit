@@ -1,8 +1,19 @@
 <?
-	   			require_once('includes/common.php');
+
+/***********************************************************************
+ * login.php
+ * Author		 : Christopher Bartholomew
+ * Last Updated  : 12/08/2011
+ * Purpose		 : The login menu uses server side validation (boooo)
+ * to login users into the database. I would have rather used jquery, but 
+ * I didn't because of the registration & login used different methods than
+ * when I had orginally had designed for the facbeook login.
+ **********************************************************************/
+
+	require_once('includes/common.php');
 	  	   			
-	  	   		if ($_SERVER['REQUEST_METHOD'] == 'POST'){ $login_correct = ValidateNormalLogin($_POST);} 
-	  	   		else { $login_correct = true; }		
+	if ($_SERVER['REQUEST_METHOD'] == 'POST'){ $login_correct = ValidateNormalLogin($_POST);} 
+	else { $login_correct = true; }		
 ?>
 
 <!DOCTYPE html>

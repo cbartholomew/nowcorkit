@@ -1,10 +1,11 @@
 <?
 
 /***********************************************************************
- * XXX.php
+ * flyer_manager.php
  * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * Last Updated  :  12/08/2011
+ * Purpose		 :  This script will render the menu for people to view 
+ * and modify flyers of each type
  **********************************************************************/
 
 

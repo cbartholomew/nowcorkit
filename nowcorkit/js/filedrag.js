@@ -2,6 +2,10 @@
 filedrag.js - HTML5 File Drag & Drop demonstration
 Featured on SitePoint.com
 Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
+
+Credit to the original author for this file. But, Modified by christopher bartholomew, 
+to allow the building of an image_meta_data_object that allows me to construct an image object
+to be based via ajax. This allows me to obtain the meta data on the file
 */
 
 (function() {

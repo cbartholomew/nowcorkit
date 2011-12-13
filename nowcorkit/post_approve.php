@@ -1,10 +1,11 @@
 <?
-  /***********************************************************************
-  * XXX.php
-  * Author		  : Christopher Bartholomew
-  * Last Updated  : 
-  * Purpose		  : 
-  **********************************************************************/
+/***********************************************************************
+* post_approve.php
+* Author		  : Christopher Bartholomew
+* Last Updated    : 12/08/2011
+* Purpose		  : Based on the parameter, is_approve - this will send a request
+* that will ask the object to either approve a post in the database or not approve
+**********************************************************************/
 		require_once("includes/common.php");
 		
 			// create an empty board object object

@@ -1,9 +1,10 @@
 <?
 /***********************************************************************
- * XXX.php
+ * post_location_update.php
  * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * Last Updated  :  12/08/2011
+ * Purpose		 : This file, depending on the state, will render a new list of
+ * locations (boards) within a specific state. It will give the user the ability to add these
  **********************************************************************/
 
 require_once('includes/common.php');
@@ -27,8 +28,10 @@ echo "<table id='table_content' class='ui-corner-all table_data'>";
 				echo "<select id='location' name='location' onchange='InitializeMapsAPI(this.value);' class='ui-widget-content'>";
 					 echo "<option value='0' selected='selected'>Choose Location...</option>";
 					
+							// if the state isn't null, then look for all the boards associated by state.
 							if ($state_id != null)
 							{							
+								// build an object and start popping them off the array
 								$boards_array = get_all_boards_by_state($state_id);
 								for ($i=0, $n=count($boards_array); $i<$n;$i++)
 								{
@@ -58,6 +61,8 @@ echo "<table id='table_content' class='ui-corner-all table_data'>";
 						$text_image_flyer_array = GetFlyers($_SESSION["users_cork_id"], "2");
 						$image_flyer_array = GetFlyers($_SESSION["users_cork_id"], "3");
 						
+						// loads all different flyers in one box
+						// loads text
 						for ($i=0, $n=count($text_flyer_array); $i<$n;$i++)
 						{
 							$flyer = new Flyer(null);
@@ -65,7 +70,7 @@ echo "<table id='table_content' class='ui-corner-all table_data'>";
 							echo "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";	
 						}
 						
-						
+						//loads text and image
 						for ($i=0, $n=count($text_image_flyer_array); $i<$n;$i++)
 						{
 							$flyer = new Flyer(null);
@@ -73,7 +78,7 @@ echo "<table id='table_content' class='ui-corner-all table_data'>";
 							echo "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";	
 						}
 						
-						
+						//loads images
 						for ($i=0, $n=count($image_flyer_array); $i<$n;$i++)
 						{
 							$flyer = new Flyer(null);
@@ -92,7 +97,7 @@ echo "</form>";
 echo "<div class='posting'>";
 
 echo "<div id='column' class='row''>";
-
+// will update the div via ajax post and users'id to track which posts he or she had posted. 
 $posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
 
 for ($i=0,$n=count($posts); $i<$n; $i++)

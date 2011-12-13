@@ -1,9 +1,13 @@
 /***********************************************************************
- * XXX.php
+ * Board_Validation Handler
  * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * Last Updated  : 12/08/2011 
+ * Purpose		 : When a board is being created, based on the form ID - 
+ * this is the method, client side validation, that i'm using to validate the user.
+ * once all validation has passed below, this file will override the submit handler
+ * thus, allowing me to easily call my own ajax helper
  **********************************************************************/
+
 
 $(document).ready(function() { 
     /*

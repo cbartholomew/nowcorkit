@@ -1,10 +1,10 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+* flyer_editor.php
+* Author		: Christopher Bartholomew
+* Last Updated  : 12/08/2011
+* Purpose		: This code will render each of the forms, which need to be edited
+**********************************************************************/
 	
 	require_once("includes/common.php");
 
@@ -61,7 +61,7 @@ function editTextForm($users_flyer_id)
 			
 			echo "<tr>";
 				echo "<td><label for='location'>Location</label></td>";
-				echo "<td><input id='location' type='text' class='ui-widget-content template_text' name='location' value=" . $flyer->location . "></td>";
+				echo "<td><input id='location' type='text' class='ui-widget-content template_text' name='location' value='" . $flyer->location . "'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 			
@@ -79,7 +79,7 @@ function editTextForm($users_flyer_id)
 			
 			echo "<tr>";
 				echo "<td><label for='contact_name'>Name</label></td>";
-				echo "<td><input id='contact_name' type='text' class='ui-widget-content template_text' name='contact_name' value=" . $flyer->contact_name ."></td>";
+				echo "<td><input id='contact_name' type='text' class='ui-widget-content template_text' name='contact_name' value='" . $flyer->contact_name ."'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 			
@@ -200,7 +200,7 @@ function editTextImageForm($users_flyer_id)
 
 				echo "<tr>";
 					echo "<td><label for='location'>Location</label></td>";
-					echo "<td><input id='location' type='text' class='ui-widget-content template_text' name='location' value=" . $flyer->location . "></td>";
+					echo "<td><input id='location' type='text' class='ui-widget-content template_text' name='location' value='" . $flyer->location . "'></td>";
 					echo "<td><label id='status'></label></td>";
 				echo "</tr>";
 
@@ -218,7 +218,7 @@ function editTextImageForm($users_flyer_id)
 
 				echo "<tr>";
 					echo "<td><label for='contact_name'>Name</label></td>";
-					echo "<td><input id='contact_name' type='text' class='ui-widget-content template_text' name='contact_name' value=" . $flyer->contact_name ."></td>";
+					echo "<td><input id='contact_name' type='text' class='ui-widget-content template_text' name='contact_name' value='" . $flyer->contact_name ."'></td>";
 					echo "<td><label id='status'></label></td>";
 				echo "</tr>";
 
@@ -277,11 +277,11 @@ function editTextImageForm($users_flyer_id)
 				echo "<td><label for='enable_qr'>Generate QR Code?</label></td>";
 				if ($flyer->enable_qr == "on") 
 				{
-					echo "<td><input id='enable_qr' type='checkbox' class='ui-widget-content template_text' name='enable_qr' checked='checked' value=". $flyer->enable_qr ."></td>";
+					echo "<td><input id='enable_qr' type='checkbox' class='ui-widget-content template_text' name='enable_qr' checked='checked' value='". $flyer->enable_qr ."'></td>";
 				} 
 				else
 				{
-					echo "<td><input id='enable_qr' type='checkbox' class='ui-widget-content template_text' name='enable_qr' value=". $flyer->enable_qr ."></td>";				
+					echo "<td><input id='enable_qr' type='checkbox' class='ui-widget-content template_text' name='enable_qr' value='". $flyer->enable_qr ."></td>";				
 				}
 					echo "<td><label id='status'></label></td>";
 				echo "</tr>";

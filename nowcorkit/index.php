@@ -1,10 +1,11 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+ * index.php
+ * Author		 : Christopher Bartholomew
+ * Last Updated  : 12/08/2011
+ * Purpose		 : The main menu for the user. In change of loading all
+ * scripts and style sheets that are needed for the application
+ **********************************************************************/
  	require_once('includes/common.php');
 
 ?>
@@ -27,15 +28,13 @@
 		//ui.selected.id is the id of the list item
 		$(document).ready(function(){$(function() {$( "#selectable" ).selectable({selected: function(event, ui){RequestPageByAjaxGet(ui.selected.id);}});});});
 	</script>
-	<script type="text/javascript"
-	    src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDaVcENLnUcWYLoeoIQPAmpHNeZTON0ml0&sensor=false"> 
-		//maps api
+	<script type="text/javascript"src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDaVcENLnUcWYLoeoIQPAmpHNeZTON0ml0&sensor=false"> 
 	</script>
 	
 	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-23030076-2']);
+	  _gaq.push(['_setAccount', 'UA-27673016-1']);
 	  _gaq.push(['_trackPageview']);
 
 	  (function() {

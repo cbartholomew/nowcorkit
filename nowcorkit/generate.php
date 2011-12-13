@@ -1,9 +1,11 @@
 <?
 /***********************************************************************
- * XXX.php
- * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * generate.php
+ * Author	      : Christopher Bartholomew
+ * Last Updated  :  12/08/2011
+ * Purpose		 :  Used to generate /render a flyer on the fly based on users_flyers_id 
+ * if user adds &type=json at the end, this will create a json object instead of html.
+ * this is mostly used by the QR codes
  **********************************************************************/
 
 	require_once("includes/constants.php");
@@ -28,7 +30,9 @@ switch ($type)
 	break;
 	
 }
-
+/* echo_json($users_flyer_id)
+ * return json formatted
+ */
 function echo_json($users_flyer_id)
 {
 	// create new null object
@@ -44,7 +48,9 @@ function echo_json($users_flyer_id)
 	header('Content-Type: application/json');
 	echo json_encode($flyer);
 }
-
+/* echo_html($users_flyer_id)
+ * return html formatted data based on the type
+ */
 function echo_html($users_flyer_id)
 {
 	// create new null object
@@ -74,7 +80,9 @@ function echo_html($users_flyer_id)
 
 	
 }
-
+/* generate_text_flyer($flyer)
+ * create flyer w/ text template
+ */
 function generate_text_flyer($flyer)
 {
 // return the object back as a json request
@@ -110,7 +118,9 @@ echo "	<img src='". str_replace("\\","",$flyer->qr_full_location) . "'/>";
 echo "	</div>";
 echo "</body></html>";
 }
-
+/* generate_text_image_flyer($flyer)
+ * create flyer w/ text & image flyer
+ */
 function generate_text_image_flyer($flyer)
 {
 	echo "<html><body>";
@@ -148,7 +158,9 @@ function generate_text_image_flyer($flyer)
 	echo "</body></html>";
 	
 }
-	
+/* generate_image_flyer($flyer)
+ * create template for just image only
+ */	
 function generate_image_flyer($flyer)
 {
 	echo "<html><body>";

@@ -1,10 +1,11 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+ * flyer_choice.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated   :  12/08/2011
+ * Purpose		  :  This file will render the a dropdown box for a user to choose a form
+ **********************************************************************/
+
 echo "<select id='flyer_select' onchange='toggleDescriptionOn(this.value);' name='flyer_select' class='ui-widget-content'>";
 echo "<option value='0' selected='selected'>Select Template</option>";
 echo "<option value='text'>Text Flyer</option>";

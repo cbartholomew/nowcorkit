@@ -1,10 +1,10 @@
 <?
-  /***********************************************************************
-  * XXX.php
-  * Author		  : Christopher Bartholomew
-  * Last Updated  : 
-  * Purpose		  : 
-  **********************************************************************/
+ /***********************************************************************
+ * post_remove.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated   : 12/08/2011
+ * Purpose		  : when called, this will remove the post from any board
+ **********************************************************************/
 		require_once("includes/common.php");
 		
 			// create an empty board object object

@@ -1,13 +1,16 @@
 /***********************************************************************
- * XXX.php
+ * Board_Edit_Validation_Handler.js
  * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * Last Updated  : 12/08/2011 
+ * Purpose		 : When a board is being edited, based on the form ID - 
+ * this is the method, client side validation, that i'm using to validate the user.
+ * once all validation has passed below, this file will override the submit handler
+ * thus, allowing me to easily call my own ajax helper
  **********************************************************************/
 
 $(document).ready(function() { 
     /*
-	 * Builds Validation options for text forms
+	 * Builds Validation options for General
 	 */
     var general_board_validator = $("#general").validate({ 
         rules: { 
@@ -70,7 +73,9 @@ $(document).ready(function() {
 			UpdateBoardByAjaxPost($('#id').val(), 'general');
 		}
     });
-
+    /*
+	 * Builds Validation options for Permissions
+	 */
 	var permission_board_validator = $("#permission").validate({ 
         rules: { 
         }, 
@@ -90,6 +95,9 @@ $(document).ready(function() {
 		}
     });
 
+    /*
+	 * Builds Validation options for posting
+	 */
 	var posting_board_validator = $("#posting").validate({ 
         rules: { 
 			flyerexpire: 		 {

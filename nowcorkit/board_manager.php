@@ -1,10 +1,10 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+* board_manager.php
+* Author		  : Christopher Bartholomew
+* Last Updated   : 12/08/2011
+* Purpose		  : This will render the board manager screen, which contains various tabs and hidden modals
+**********************************************************************/
 
 	require_once("includes/common.php");
 	

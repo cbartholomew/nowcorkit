@@ -1,10 +1,10 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+ * post_refresh.php
+ * Author		  :  Christopher Bartholomew
+ * Last Updated   :  12/08/2011
+ * Purpose		  :  this script will refresh the portables that show what the user has posted to
+ **********************************************************************/
 
 require_once("includes/common.php");
 

@@ -3,8 +3,9 @@
 /***********************************************************************
  * DAL.php
  * Author		: Christopher Bartholomew
- * Last Updated : 11/13/2011
+ * Last Updated : 12/08/2011
  * Purpose		: Opens connection to MySQL server & Loads additional helpers
+ * seperated this because some of the calls don't require authentication
  **********************************************************************/
 
 // connect to database server

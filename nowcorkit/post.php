@@ -1,10 +1,13 @@
 <?
-	/***********************************************************************
-	 * XXX.php
-	 * Author		  : Christopher Bartholomew
-	 * Last Updated  : 
-	 * Purpose		  : 
-	 **********************************************************************/
+/***********************************************************************
+ * post.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated   : 12/08/2011
+ * Purpose		  : This code will render the posting screen. 
+ * this includes the google maps api, and ajax refresh on locations based on
+ * the state that was chosen from the database
+ **********************************************************************/
+
 require_once('includes/common.php');
 echo "<form id='add_post' action='' method=''>";
 	

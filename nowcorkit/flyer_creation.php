@@ -1,10 +1,12 @@
 <?
-  /***********************************************************************
-  * XXX.php
-  * Author		  : Christopher Bartholomew
-  * Last Updated  : 
-  * Purpose		  : 
-  **********************************************************************/
+/***********************************************************************
+* flyer_creation.php
+* Author		  	: Christopher Bartholomew
+* Last Updated  	: 12/08/2011
+* Purpose		  	: based on the flyer type sent from the application
+* the code will build a specific objects based on that request. Afterwards,
+* it will then save it to the database. 
+**********************************************************************/
 		require_once("includes/common.php");
 		
 		//  based on the passed in flyer type, execute the following procedures		

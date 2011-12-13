@@ -1,8 +1,8 @@
 /***********************************************************************
- * XXX.XXX
+ * validation.css
  * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * Last Updated   :  12/08/2011
+ * Purpose		  :  Used to construct server side validation for login and registraiton screens
  **********************************************************************/
 
 #signupform label.error {

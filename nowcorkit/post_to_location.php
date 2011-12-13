@@ -1,9 +1,11 @@
 <?
 /***********************************************************************
- * XXX.php
+ * post_to_location.php
  * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * Last Updated   :  12/08/2011
+ * Purpose		  : This script will find a specific board based on the id
+ * and then it will, depending on the post type, will post the specific status
+ * that the flyer should be in: public, pending, etc.
  **********************************************************************/
 
 require_once('includes/common.php');
@@ -20,6 +22,7 @@ require_once('includes/common.php');
 	$board->users_flyers_id		    	= $_POST["users_flyer_id"];
 	$board->post_status_id				= $_POST["post_status_id"];
 	
+	// post the object
 	$board->post();
 
 	// get all the 

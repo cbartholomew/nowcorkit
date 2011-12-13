@@ -1,8 +1,10 @@
 /***********************************************************************
- * XXX.php
+ * helper.js
  * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
+ * Last Updated  :  12/08/2011
+ * Purpose		 : The dreaded and heavy helpers file for the application. 
+ * I will probably endup not just combine similar functions in the future,
+ * but also I will probably minafy it as it's really heavy.
  **********************************************************************/
 
 // global variable, i know bad, used as a switch
@@ -99,7 +101,7 @@ function toggleManagerActionsOff()
 }
 
 /*
- * used for feed permissions settings
+ * used as a toggler for pay per space
  */
 function togglePayPerSpaceFeature(value){
 	if (value != ('none')){ 
@@ -118,7 +120,7 @@ function togglePayPerSpaceFeature(value){
 
 
 /*
- * Previews the flyer
+ * Previews the flyer based on the users cork id
  */
 function preview_flyer(id)
 {
@@ -135,6 +137,7 @@ function cleanContentAndFormFields(){
 }
 /*
  * Using these button sets, users will be able to edit/remove/preview flyers
+ * so large because it's rendering using jquery that builds thebutton sets
  */
 function ActivateSelectableContent(){
 	
@@ -220,7 +223,7 @@ function ActivateSelectableContent(){
 }
 
 /*
- * Activate Board Version of flyer management
+ * Activate Board Version of flyer management that allows a button set to be created
  */
 function ActivateBoardSelectableContent()
 {
@@ -436,7 +439,7 @@ function RemovePost(id)
 	return true;	
 }
 /*
- * Will not approve post or approve post
+ * Will not-approve post or approve post
  */
 function ApprovePost(id, is_approve)
 {
@@ -458,7 +461,7 @@ function ApprovePost(id, is_approve)
 		},
         success: function(data) {
 			$("#tabs").unmask();
-	 		$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post has been removed from this board</label>");
+	 		$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post has been approved for this board</label>");
 			RefreshPostList();
 
        },
@@ -752,6 +755,9 @@ function SubmitBoardByAjaxPost(){
 	return false;
 }
 
+/*
+ * Prepare Purge Board using AJAX POST
+ */
 function PreparePurgeBoard(){	
 		var id = $('#board_select option:selected').val();		
 		// render the dialog to commit flyer removal
@@ -808,6 +814,9 @@ function PurgeBoard(){
 	return true;
 }
 
+/*
+ * Rendres the portables for the flyers
+ */
 function LaunchFlyerPortables(){
 	
 	$(function() {
@@ -1027,7 +1036,6 @@ function UpdateFormByAjaxPost(page){
 	return false;
 }
 
-
 /*
  * Load Page using AJAX post
  */
@@ -1050,7 +1058,6 @@ function RequestFormByAjaxPost(page){
 	return false;
 }
 
-
 /*
  * Load Page using AJAX post
  */
@@ -1072,11 +1079,16 @@ function RequestBoardByAjaxPost(page){
 	return false;
 }
 
+/*
+ * Called from the manager menu allows the rendering
+ * of the actual corkboard. Will be modifying this to
+ * post after demo
+ */
 function GenerateBoard(board_id)
 {	
 	$.ajax({
 	       url: "generate_board.php",
-		   type: 'get',
+		   type: 'post',
 		   data: {
 				board_id: board_id
 		   },

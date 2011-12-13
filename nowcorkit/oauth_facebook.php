@@ -4,7 +4,7 @@
  * oauth_facebook.php
  * Author		: Christopher Bartholomew
  * Last Updated : 11/13/2011
- * Purpose		: manage facebook logins for application
+ * Purpose		: manage facebook logins for application Not used any longer.
  **********************************************************************/
 	
    	// requirements 
