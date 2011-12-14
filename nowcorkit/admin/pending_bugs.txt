@@ -1,7 +1,4 @@
-1. When people post to your board, they show up under the post flyer menu of the user.
-	-> Flyers posted to a board by user should show up in post flyer table (new), and posts 
-	   from other users should only show up in your board settings.
-	
+
 2. Image uploading doesn't work with safari and chrome
 	-> Perhaps adjust uploading method
 	
