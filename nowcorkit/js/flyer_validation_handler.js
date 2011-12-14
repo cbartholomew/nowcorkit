@@ -122,7 +122,7 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },       
 		submitHandler: function() { 				
-				if ($("#progress > p").size() != 0)
+				if ($('#fileselect').val() != "")
 				{
 					SubmitFormByAjaxPost('text_image');
 				}else{
@@ -157,7 +157,7 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },         // specifying a submitHandler prevents the default submit, good for the demo 
 		submitHandler: function() { 				
-				if ($("#progress > p").size() != 0)
+				if ($('#fileselect').val() != "")
 				{
 					SubmitFormByAjaxPost('image');
 				}else{

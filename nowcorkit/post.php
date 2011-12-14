@@ -9,14 +9,14 @@
  **********************************************************************/
 
 require_once('includes/common.php');
-echo "<form id='add_post' action='' method=''>";
-	
-	echo "<table id='table_content' class='ui-corner-all table_data ui-widget-content'>";
+
+echo "<h3 class='ui-widget-header ui-corner-tr ui-corner-tl' style='padding:5px'>Step 1 - View Boards' Locations by State</h3>";
+echo "<div id='state_choice' class='ui-widget' >";
+	echo "<table id='table_state' class='ui-corner-all' >";
 	echo "<tbody>";
-		echo "<tr>";
-		
-		echo "<td></td>";
-		echo "<td><select id='state' onchange='UpdateLocationsByAjaxPost(this.value);' class='ui-corner-al ui-widget-content 'name='state'>";
+		echo "<tr>";	
+		echo "<td colspan='2'>";
+		echo "<select id='state' onchange='UpdateLocationsByAjaxPost(this.value);' class='ui-corner-all ui-widget-content 'name='state'>";
 		echo "<option value='0' selected='selected'>Choose State...</option>";
 				// load the state to id select box
 				$user_state_id = get_users_state($_SESSION["users_cork_id"]);
@@ -38,25 +38,28 @@ echo "<form id='add_post' action='' method=''>";
 					}
 				}								
 		echo "</select></td>";
-		echo "<td><label id='status'></label></td>";
+		echo "<td></td>";	
+		echo "<td></td>";
+		echo "</tbody>";
 	echo "</table>";
-	echo "</tbody>";		
-	echo "<br>";
-	echo "<br>";
-	echo "<div id='locations'>";
-	echo "<table id='table_content' class='ui-corner-all table_data'>";
-	echo "<tbody>";
+echo "</div>";
+
+echo "<h3 class='ui-widget-header ui-corner-tr ui-corner-tl' style='padding:5px'>Step 2 - Choose a Location to Post a Flyer</h3>";
+echo "<div id='locations' class='ui-widget'>";
+	echo "<table id='table_location' class='ui-corner-all' style='border-collapse:collapse'>";
+	echo "<thead>";
 		echo "<tr>";
-			echo "<th class='ui-widget-header table_data'><label>Location Name</label></th>";
-			echo "<th class='ui-widget-header table_data'><label>Address</label></th>";
-			echo "<th class='ui-widget-header table_data'><label>Permission</label></th>";
-			echo "<th class='ui-widget-header table_data'><label>Flyer</label></th>";
-			echo "<th class='ui-widget-header table_data'><label>Add</label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Location Name</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Address</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Permission</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Flyer</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Add</i></label></th>";
 		echo "</tr>";
-		
+	echo "</thead>";
+	echo "<tbody>";		
 			echo "<tr>";
-				echo "<td class='ui-widget-content table_data'>";
-				echo "<select id='location' name='location' onchange='InitializeMapsAPI(this.value);' class='ui-widget-content'>";
+				echo "<td class='ui-widget-content table_data' style='border-collapse:collapse'>";
+				echo "<select id='location' name='location' onchange='InitializeMapsAPI(this.value);' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 					 echo "<option value='0' selected='selected'>Choose Location...</option>";
 					
 							if ($user_state_id != null)
@@ -75,20 +78,15 @@ echo "<form id='add_post' action='' method=''>";
 																					 . $board->title 					. "</option>";	
 								}			
 							}
-							else
-							{
-								echo "<option value='31 Church Street,Cambridge,MA,02138'>Starbucks: Cambridge</option>";						
-							}
-		
 				echo "</select></td>";
 				echo "<td id=table_address class='ui-widget-content table_data'></td>";
-				echo "<td id=table_permission class='ui-widget-content table_data'></td>";
-				echo "<td class='ui-widget-content table_data'><select id='flyers' name='flyers' class='ui-widget-content'>";
+				echo "<td id=table_permission class='ui-widget-content table_data' style='text-align: center;'></td>";
+				echo "<td class='ui-widget-content table_data'><select id='flyers' name='flyers' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 					echo "<option value='0' selected='selected'>Choose Flyer...</option>";
 						// load the flyers to id select box
-						$text_flyer_array = GetFlyers($_SESSION["users_cork_id"], "1");
+						$text_flyer_array 		= GetFlyers($_SESSION["users_cork_id"], "1");
 						$text_image_flyer_array = GetFlyers($_SESSION["users_cork_id"], "2");
-						$image_flyer_array = GetFlyers($_SESSION["users_cork_id"], "3");
+						$image_flyer_array 		= GetFlyers($_SESSION["users_cork_id"], "3");
 						
 						for ($i=0, $n=count($text_flyer_array); $i<$n;$i++)
 						{
@@ -96,8 +94,7 @@ echo "<form id='add_post' action='' method=''>";
 							$flyer = array_pop($text_flyer_array);
 							echo "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";	
 						}
-						
-						
+												
 						for ($i=0, $n=count($text_image_flyer_array); $i<$n;$i++)
 						{
 							$flyer = new Flyer(null);
@@ -105,53 +102,64 @@ echo "<form id='add_post' action='' method=''>";
 							echo "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";	
 						}
 						
-						
 						for ($i=0, $n=count($image_flyer_array); $i<$n;$i++)
 						{
 							$flyer = new Flyer(null);
 							$flyer = array_pop($image_flyer_array);
 							echo "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";	
-						}					
-							
+						}											
 					echo "</select></td>";
-					
-				echo "<td class='ui-widget-content table_data'><button onclick='PostToLocation(this.value);' value='' type='button' id='add_button'>Add/Remove</button></td>";
+				echo "<td class='ui-widget-content table_data'><button onclick='PostToLocation(this.value);' value='' type='button'
+					  id='add_button'>Add/Remove</button></td>";
 			echo "</tr>";
 		echo "<script>LoadAddButton()</script>";
-echo "</tbody>";
-echo "</table>";	
-echo "</form>";
+	echo "</tbody>";
+	echo "</table>";
 echo "</div>";
 
+echo "<h3 class='ui-widget-header ui-corner-tr ui-corner-tl' style='padding:5px'>Step 3 - View Flyers' Status or Remove Your Posts' </h3>";
+echo "<div id='posting' class='ui-widget'>";
+	echo "<table id='table_posts' style='border-collapse:collapse' class='ui-corner-all' >";
+	echo "<thead>";
+		echo "<tr>";
+			echo "<th class='ui-widget-content table_data'><label><i>Location Name</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Title</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Post Status</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Post Expiration</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>Remove</i></label></th>";
+		echo "</tr>";
+	echo "</thead>";
+	echo "<tbody>";	
+	$posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
+	
+	if (count($posts) > 0)
+	{
+		for ($i=0,$n=count($posts); $i<$n; $i++)
+		{
+			$board = new Board(null);
+			$board = array_pop($posts);
+
+			echo "<tr>";
+			echo "<td class='ui-widget-content table_data'>" . $board->title . "</td>";
+			echo "<td class='ui-widget-content table_data'>" . $board->flyers->title . "</td>";
+			echo "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_status_desc ."</td>";
+			echo "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_expiration  ."</td>";
+			echo "<td class='ui-widget-content table_data' style='text-align: center;'>";
+			echo "<button onclick='RemovePost(this.id);' value='". $board->flyers->users_flyers_id  . "'"
+			 													 . "type='button' id='" . $board->board_post_id ."'"
+																 . ">Remove</button></td>";
+			echo "</tr>";
+			echo "<script>LoadRemoveButton(" . $board->board_post_id . ")</script>";	
+		}
+	}
+	else
+	{
+		echo "<tr>";
+			echo "<td class='ui-widget-content table_data' colspan='5'>You have no flyers posted</td>";
+		echo "</tr>";
+	}
+	echo "</tbody>";
+	echo "</table>";
+echo "</div>";
 echo "<div id='map_canvas' class='ui-corner-all'></div>";
-echo "<br><br><br>";
-
-echo "<div class='posting'>";
-
-echo "<div id='column' class='row''>";
-
-$posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
-
-for ($i=0,$n=count($posts); $i<$n; $i++)
-{
-	$board = new Board(null);
-	$board = array_pop($posts);
-
-	echo "	<div class='portlet' style='width:500px'>";
-	echo "		<div class='portlet-header'>Location: ". $board->title ."</div>";
-	echo "		<div class='portlet-content'><b>" . $board->flyers->title 
-												  . "</b> is in status <b>" 
-												  . $board->flyers->post_status_desc 
-												  . "</b> and will expire on <b>" 
-												  . $board->flyers->post_expiration ."</b></div>";
-												
-	echo "		<button style='float:right' onclick='RemovePost(this.id);' value='" . $board->flyers->users_flyers_id  . "'"
-	 																					  	    . "type='button' id='" . $board->board_post_id ."'"
-																							    . ">Remove</button>";
-	echo "		<script>LoadRemoveButton(" . $board->board_post_id . ")</script>";
-	echo "	</div>";
-} 
-
-echo "<script>LaunchFlyerPortables();</script>";
-echo "</div>";
 ?>

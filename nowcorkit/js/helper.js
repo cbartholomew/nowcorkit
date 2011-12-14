@@ -406,7 +406,7 @@ $(function() {
         icons: {
             primary: "ui-icon-minus"
         },
-	 text: true
+	 text: false
 	})
 });
 }
@@ -461,7 +461,12 @@ function ApprovePost(id, is_approve)
 		},
         success: function(data) {
 			$("#tabs").unmask();
-	 		$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post has been approved for this board</label>");
+			if (is_approve == true)
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post has been <i>approved</i> for this board</label>");
+			else
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post is set to <i>not approved</i> for this board</label>");
+				
+			
 			RefreshPostList();
 
        },
@@ -509,15 +514,15 @@ function RefreshPostList()
 	   	type: 'post',
 		cache: false,
 		beforeSend: function(){
-			$("#column").mask("Updating...");
+			$("#posting").mask("Updating...");
 		},
 		error: function(data)
 		{
-			$("#column").html(data);
+			$("#posting").html(data);
 		},
         success: function(data) {
-			$("#column").html(data);
-			$("#column").unmask();
+			$("#posting").html(data);
+			$("#posting").unmask();
        }
 	});
 	return true;
@@ -547,7 +552,7 @@ function InitializeMapsAPI(address){
 		  var marker = new google.maps.Marker({
 		  	    position: latlng,
 		  		animation: google.maps.Animation.DROP,
-		  	    title:"Starbucks of Cambridge"
+		  	    title:""
 		  });
 
 		  marker.setMap(map);
@@ -966,7 +971,7 @@ function PostToLocation(board_id){
 			post_status_id = 2;
 		break;		
 	}
-	console.log(post_status_id);
+
 	$.ajax({
 		url: "post_to_location.php",
 		type: "post",

@@ -26,7 +26,6 @@
 		left: 485px;
 }
 
-
 #map_canvas{
 		
 		display: inline-block;
@@ -40,17 +39,8 @@
 
 #manager
 {
-	
 	width: 500px;
-	
 }
-
-/*#messages {
-	position: absolute;
-	top: -15px;
-	left: 410px;
-	width: 300px;
-}*/
 
 #flyer_select
 {
@@ -58,6 +48,8 @@
 	height: 50px;
 	font-size: 20px;
 	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
 }
 
 #board_select
@@ -67,6 +59,8 @@
 	font-size: 20px;
 	margin-bottom: 10px;
 	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
 }
 
 #text_flyer_select
@@ -76,6 +70,8 @@
 	font-size: 20px;
 	margin: 15px;
 	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
 }
 
 #text_image_flyer_select
@@ -85,6 +81,8 @@
 	font-size: 20px;
 	margin: 15px;
 	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
 }
 
 
@@ -95,28 +93,18 @@
 	font-size: 20px;
 	margin: 15px;
 	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
 }
 
-#droppable_editor{
-	
-	position: absolute;
-	top: 5px;
-	left: 500px;
-	width: 200px;
-	height: 200px;
-	z-index: -1;
-	
-}
 
-#droppable_remover{
-	
-	position: absolute;
-	top: 210px;
-	left: 500px;
-	width: 200px;
-	height: 200px;
-	z-index: -1;
-	
+#state
+{
+	width: 	250px;
+	font-size: 20px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
 }
 
 table.table_data
@@ -127,7 +115,7 @@ table.table_data
     margin-left     : auto;
     margin-right    : auto;
     text-align      : left;
-	padding: 10;
+	padding: 5px;
 }
 
 td.table_data,th.table_data
@@ -143,18 +131,10 @@ td.table_data,th.table_data
 
 .template_text
 {
-	
 	width:	190px; 
-	font-size: 15px;
-		
+	font-size: 15px;	
 }
 
-
-#state
-{
-	width: 	250px;
-	font-size: 20px;
-}
 										 
 										
 										

@@ -35,7 +35,7 @@
 	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-23030076-2']);
+	  _gaq.push(['_setAccount', 'UA-27673016-1']);
 	  _gaq.push(['_trackPageview']);
 
 	  (function() {
@@ -47,11 +47,10 @@
 	</script>
 </head>
 <html>
-	<body>	
-		<img src="images/pin.png" width="48" height="48" style="position: absolute;right:240px;z-index: 2; top:20px" alt="Pin2">		
+	<body>		
+		<img src="images/pin.png" width="48" height="48" style="position: absolute;left:725px;z-index: 2;" alt="Pin2">
 		<img src="images/pin.png" width="48" height="48" style="position: absolute;left:250px;z-index: 2;" alt="Pin">
-		<img src="images/message.png" class="ui-corner-all" width="400" height="400" alt="Message" style="position: absolute;right:50px;top:40px">
-		<img id='logo' class="ui-corner-all" src="images/logo.png" width="480" height="250" style="display:block;position: absolute;top:20px;z-index: 1;margin-left:auto;margin-right:auto;-webkit-transform: rotate(-25deg);-moz-transform:rotate(-25deg);" alt="Logo">
+		<img id='logo' class="ui-corner-all" src="images/logo.png" width="480" height="250" style="display:block;position: absolute;top:20px;z-index: -1;margin-left:auto;margin-right:auto;-webkit-transform: rotate(-25deg);-moz-transform:rotate(-25deg);" alt="Logo">
 		<br>
 		<div id="login" title="login" class="ui-widget-content ui-corner-all">
 			<form id="login_form" method="POST" action="login.php">	
@@ -77,7 +76,7 @@
 		</div>
 		<br>
 		<div id="footer" class="ui-widget-header">
-				<p>Created By Christopher Bartholomew<br>Logo designs by Hanna Solhee<br>nowcorkit.com 2011<br><p>
+				<p>Created By Christopher Bartholomew<br>Cute pictures by Hannah Solhee<br>nowcorkit.com - the digital corkboard app<br><p>
 		</div>
 </body>
 </html>

@@ -8,31 +8,46 @@
 
 require_once("includes/common.php");
 
-echo "<div id='column' class='row'>";
-
+echo "<table id='table_posts' style='border-collapse:collapse' class='ui-corner-all' >";
+echo "<thead>";
+	echo "<tr>";
+		echo "<th class='ui-widget-content table_data'><label><i>Location Name</i></label></th>";
+		echo "<th class='ui-widget-content table_data'><label><i>Title</i></label></th>";
+		echo "<th class='ui-widget-content table_data'><label><i>Post Status</i></label></th>";
+		echo "<th class='ui-widget-content table_data'><label><i>Post Expiration</i></label></th>";
+		echo "<th class='ui-widget-content table_data'><label><i>Remove</i></label></th>";
+	echo "</tr>";
+echo "</thead>";
+echo "<tbody>";	
 $posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
 
-for ($i=0,$n=count($posts); $i<$n; $i++)
+if (count($posts) > 0)
 {
-	$board = new Board(null);
-	$board = array_pop($posts);
+	for ($i=0,$n=count($posts); $i<$n; $i++)
+	{
+		$board = new Board(null);
+		$board = array_pop($posts);
 
-	echo "	<div class='portlet' style='width:500px'>";
-	echo "		<div class='portlet-header'>Location: ". $board->title ."</div>";
-	echo "		<div class='portlet-content'><b>" . $board->flyers->title 
-												  . "</b> is in status <b>" 
-												  . $board->flyers->post_status_desc 
-												  . "</b> and will expire on <b>" 
-												  . $board->flyers->post_expiration ."</b></div>";
-												
-	echo "		<button style='float:right' onclick='RemovePost(this.id);' value='" . $board->flyers->users_flyers_id  . "'"
-	 																					  	    . "type='button' id='" 
-																								. $board->board_post_id ."'"
-																							    . ">Remove</button>";
-	echo "		<script>LoadRemoveButton(" . $board->board_post_id . ")</script>";
-	echo "	</div>";
-} 
-
-echo "<script>LaunchFlyerPortables();</script>";
+		echo "<tr>";
+		echo "<td class='ui-widget-content table_data'>" . $board->title . "</td>";
+		echo "<td class='ui-widget-content table_data'>" . $board->flyers->title . "</td>";
+		echo "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_status_desc ."</td>";
+		echo "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_expiration  ."</td>";
+		echo "<td class='ui-widget-content table_data' style='text-align: center;'>";
+		echo "<button onclick='RemovePost(this.id);' value='". $board->flyers->users_flyers_id  . "'"
+		 													 . "type='button' id='" . $board->board_post_id ."'"
+															 . ">Remove</button></td>";
+		echo "</tr>";
+		echo "<script>LoadRemoveButton(" . $board->board_post_id . ")</script>";	
+	}
+}
+else
+{
+	echo "<tr>";
+		echo "<td class='ui-widget-content table_data' colspan='5'>You have no flyers posted</td>";
+	echo "</tr>";
+}
+echo "</tbody>";
+echo "</table>";
 
 ?>

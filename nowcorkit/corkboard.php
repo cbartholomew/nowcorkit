@@ -53,24 +53,26 @@
 			
 			if ( data[p].flyer.type_id ==  "1" ) {						
 				// text only
+
 				fHTML += "<center><h3>" + data[p].flyer.title + "</h3></center><table>";
 				fHTML += "<tr><td><b><label>Location<label><b></td><td><i>" + data[p].flyer.location + "</i></td></tr>";
 				fHTML += "<tr><td><b><label>Contact<label><b></td><td><i>" + data[p].flyer.contact_name + "</i></td></tr>";
 				fHTML += "<tr><td></td><td><i>" + data[p].flyer.contact_info + "</i></td></tr>";
 				fHTML += "<tr><td><b><label>Event Date<label><b></td><td><i>" + data[p].flyer.event_date + "</i></td></tr>";
 				fHTML += "<tr><td><b><label>Additional Info<label><b></td><td><i>" + data[p].flyer.description + "</i></td></tr></table>";			
-				
 				// only create QR Code if enable_qr is "on"
 				if (data[p].flyer.enable_qr == "on"){
-					fHTML += "<img src='" + data[p].flyer.qr_full_location + "' style='height:100px;width:100px;'></img>";
+					fHTML += "<img src='" + data[p].flyer.qr_full_location + "' style='height:100px;width:100px;z-index:9;'></img>";
 				}
+
 				//fHTML += "<center><img src='" + data[p].flyer.qr_full_location + "' style='height: " + fHeight*.4 + "px;'></img></center>";								
 				
 				flyerCount++;  
 				p++;			
 				
 			} else if ( data[p].flyer.type_id ==  "2" ) {	
-				// text & image
+				
+				// text & image				
 				fHTML += "<center><h3>" + data[p].flyer.title + "</h3></center><table>";
 				fHTML += "<tr><td><b><label>Location<label><b></td><td><i>" + data[p].flyer.location + "</i></td><td></td></tr>";
 				fHTML += "<tr><td><b><label>Contact<label><b></td><td><i>" + data[p].flyer.contact_name + "</i></td></tr>";
@@ -78,13 +80,12 @@
 				fHTML += "<tr><td><b><label>Event Date<label><b></td><td><i>" + data[p].flyer.event_date + "</i></td></tr>";
 				fHTML += "<tr><td><b><label>Additional Info<label><b></td><td><i>" + data[p].flyer.description + "</i></td></tr></table>";
 				fHTML += "<center><img src='" + data[p].flyer.image_path + "' style='height: " + fHeight*.4 + "px;'></img></center>";
-				
 				// only create QR Code if enable_qr is "on"
 				if (data[p].flyer.enable_qr == "on"){
-					fHTML += "<img src='" + data[p].flyer.qr_full_location + "' style='height:100px;width:100px;'></img>";
+					fHTML += "<img src='" + data[p].flyer.qr_full_location + "' style='height:100px;width:100px;z-index:9;'></img>";
 				}
-				//fHTML += "<img src='" + data[p].flyer.qr_full_location + "' style='height: " + fHeight*.4 + "px;'></img></center>";		
-				
+				//fHTML += "<img src='" + data[p].flyer.qr_full_location + "' style='height: " + fHeight*.4 + "px;'></img></center>";
+						
 				flyerCount++;
 				p++;			
 			} else {

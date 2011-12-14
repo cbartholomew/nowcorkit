@@ -18,13 +18,13 @@ require_once("includes/common.php");
 	echo "<table class='ui-widget' style='border-spacing:0;'>";
 		echo "<tr>";
 			echo "<th class='ui-widget-header ui-corner-tl'>Text Flyers</th>";
-			echo "<th class='ui-widget-header ui-corner-tl'>Action</th>";
+			echo "<th class='ui-widget-header ui-corner-tl'>Actions</th>";
 		echo "</tr>";
 	echo "<tbody>";
 	
 	echo "<tr class='ui-widget-content'>";
 		echo "<td class='ui-widget-content ui-corner-bl'>";
-		echo "<select id='text_flyer_select' class='ui-widget-content'>";
+		echo "<select id='text_flyer_select' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 			echo "<option class='ui-widget-content' value='0'>Choose Flyer</option>";	
 			// load the flyers to id select box
 			$text_flyer_array = GetFlyers($_SESSION["users_cork_id"], "1");
@@ -59,8 +59,8 @@ require_once("includes/common.php");
 	echo "<tbody>";
 	
 	echo "<tr class='ui-widget-content'>";
-		echo "<td class='ui-widget-content ui-corner-bl'>";
-		echo "<select id='text_image_flyer_select' class='ui-widget-content'>";
+	echo "<td class='ui-widget-content ui-corner-bl'>";
+		echo "<select id='text_image_flyer_select' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 			echo "<option class='ui-widget-content' value='0'>Choose Flyer</option>";	
 			// load the flyers to id select box
 			$text_image_flyer_array = GetFlyers($_SESSION["users_cork_id"], "2");
@@ -70,8 +70,8 @@ require_once("includes/common.php");
 				$flyer = array_pop($text_image_flyer_array);
 				echo "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";
 			}
-			echo "</select>";
-			echo "</td>";
+		echo "</select>";
+	echo "</td>";
 	
 	echo "<td class='ui-widget-content ui-corner-br'>";
 		echo "<div id='text_image_radio' style='margin:15px'>";
@@ -95,7 +95,7 @@ require_once("includes/common.php");
 	
 	echo "<tr class='ui-widget-content'>";
 		echo "<td class='ui-widget-content ui-corner-bl'>";
-		echo "<select id='image_flyer_select' class='ui-widget-content'>";
+		echo "<select id='image_flyer_select' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 		echo "<option class='ui-widget-content' value='0'>Choose Flyer</option>";	
 		// load the flyers to id select box
 		$image_flyer_array = GetFlyers($_SESSION["users_cork_id"], "3");

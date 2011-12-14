@@ -21,6 +21,7 @@ require_once('includes/common.php');
 	// create the posting temp object
 	$board->users_flyers_id		    	= $_POST["users_flyer_id"];
 	$board->post_status_id				= $_POST["post_status_id"];
+	$board->cork_id						= $_SESSION["users_cork_id"];
 	
 	// post the object
 	$board->post();

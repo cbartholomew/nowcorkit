@@ -122,6 +122,7 @@ function build_general_form($board_id)
 	echo "</form>";
 	
 	echo"<script src='js/board_edit_validation_hand.js' type='text/javascript' charset='utf-8'></script>";
+	//echo"<script src='js/board_edit_validation_hand.min.js' type='text/javascript' charset='utf-8'></script>";
 }
 /*  build_permission_form($board_id)
  *
@@ -218,6 +219,7 @@ function build_permission_form($board_id)
 	echo "</form>";
 	
 	echo"<script src='js/board_edit_validation_hand.js' type='text/javascript' charset='utf-8'></script>";
+	//echo"<script src='js/board_edit_validation_hand.min.js' type='text/javascript' charset='utf-8'></script>";
 }
 /* build_posting_form($board_id)
  * 
@@ -246,12 +248,13 @@ function build_posting_form($board_id)
 				echo "<td><input id='flyerexpire' type='text' class='ui-widget-content template_text' name='flyerexpire' style='text-align:right'value='" . $board->expiration_days ."'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
-			
+/*			
 			if ($board->enable_shuffle != 'on')
 			{
 			echo "<tr>";
 				echo "<td><label for='shuffle'>Enable Flyer Shuffle</label></td>";
-			echo "<td><input id='shuffle' type='checkbox' onchange='toggleShuffleFeature(this.value);' class='ui-widget-content template_text' name='shuffle'></td>";
+			echo "<td><input id='shuffle' type='checkbox' onchange='toggleShuffleFeature(this.value);' class='ui-widget-content template_text' 		
+			name='shuffle'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 			
@@ -265,24 +268,26 @@ function build_posting_form($board_id)
 			{
 				echo "<tr>";
 					echo "<td><label for='shuffle'>Enable Flyer Shuffle</label></td>";
-				echo "<td><input id='shuffle' type='checkbox' onchange='toggleShuffleFeature(this.value);' onclick='toggleShuffleCheckBox();' class='ui-widget-content template_text' name='shuffle' value='". $board->shuffle ."' checked='checked'></td>";
+				echo "<td><input id='shuffle' type='checkbox' onchange='toggleShuffleFeature(this.value);' onclick='toggleShuffleCheckBox();' 
+				class='ui-widget-content template_text' name='shuffle' value='". $board->shuffle ."' checked='checked'></td>";
 					echo "<td><label id='status'></label></td>";
 				echo "</tr>";
 
 				echo "<tr>";
 					echo "<td><label id='label_interval'><i>Interval (in seconds)</i></label></td>";
-					echo "<td><input id='interval' type='text' class='ui-widget-content template_text' name='interval' value='". $board->shuffle_interval . "'></td>";
+					echo "<td><input id='interval' type='text' class='ui-widget-content template_text' name='interval' value='". $board->shuffle_interval . 
+					"'></td>";
 					echo "<td><label id='status'></label></td>";
 				echo "</tr>";
 			
 			}
-			
+*/			
 			if ($board->pps_id == 1)
 			{
 				echo "<tr>";
 					echo "<td><label id='lpostpayment'>Pay Per Space Features</label></td>";
 					echo "<td>";
-						echo "<select id='postpayment' onchange='togglePayPerSpaceFeature(this.value);' class='ui-widget-content'>";
+						echo "<select id='postpayment' onchange='togglePayPerSpaceFeature(this.value);' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 						echo "<option value='1' selected='selected'>None</option>";
 					    echo "<option value='2'>By Donation</option>";
 						echo "<option value='3'>By Payment</option>";
@@ -308,7 +313,7 @@ function build_posting_form($board_id)
 				echo "<tr>";
 					echo "<td><label id='lpostpayment'>Pay Per Space Features</label></td>";
 					echo "<td>";
-						echo "<select id='postpayment' onchange='togglePayPerSpaceFeature(this.value);' class='ui-widget-content'>";
+						echo "<select id='postpayment' onchange='togglePayPerSpaceFeature(this.value);' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 					
 					switch($board->pps_id)
 					{
@@ -363,7 +368,7 @@ function build_posting_form($board_id)
 	echo "</form>";
 	echo "<script>function toggleShuffleCheckBox(){ if ($('#shuffle').val() == 'off'){ $('#shuffle').val('on');} else { $('#shuffle').val('off'); } }</script>";
 	echo"<script src='js/board_edit_validation_hand.js' type='text/javascript' charset='utf-8'></script>";
-	
+	//echo"<script src='js/board_edit_validation_hand.min.js' type='text/javascript' charset='utf-8'></script>";
 }
 /* build_post_form($board_id)
  *
@@ -383,7 +388,7 @@ function build_post_form($board_id)
 	
 	echo "<tr class='ui-widget-content'>";
 		echo "<td class='ui-widget-content ui-corner-bl'>";
-		echo "<select id='flyer_select' class='ui-widget-content'>";
+		echo "<select id='flyer_select' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 			echo "<option class='ui-widget-content' value='0'>Choose Flyer</option>";	
 			// load the flyers to id select box
 			$posts = get_all_posts_by_board_id($board_id);
@@ -511,9 +516,11 @@ function build_new_form()
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 
+/*
 			echo "<tr>";
 				echo "<td><label for='shuffle'>Enable Flyer Shuffle</label></td>";
-				echo "<td><input id='shuffle' type='checkbox' onchange='toggleShuffleFeature(this.value);' onclick='toggleShuffleCheckBox();' value='off' class='ui-widget-content template_text' name='shuffle'></td>";
+				echo "<td><input id='shuffle' type='checkbox' onchange='toggleShuffleFeature(this.value);' onclick='toggleShuffleCheckBox();' value='off' 	
+				class='ui-widget-content template_text' name='shuffle'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 
@@ -522,11 +529,11 @@ function build_new_form()
 				echo "<td><input id='interval' type='text' class='ui-widget-content template_text ui-helper-hidden' name='interval'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
-
+*/
 			echo "<tr>";
 				echo "<td><label id='lpostpayment'>Pay Per Space Features</label></td>";
 				echo "<td>";
-					echo "<select id='postpayment' onchange='togglePayPerSpaceFeature(this.value);' class='ui-widget-content'>";
+					echo "<select id='postpayment' onchange='togglePayPerSpaceFeature(this.value);' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 					echo "<option value='1' selected='selected'>None</option>";
 				    echo "<option value='2'>By Donation</option>";
 					echo "<option value='3'>By Payment</option>";
@@ -562,6 +569,7 @@ function build_new_form()
 		
 		echo "<script>function toggleShuffleCheckBox(){ if ($('#shuffle').val() == 'off'){ $('#shuffle').val('on');} else { $('#shuffle').val('off'); } }</script>";
 		echo "<script src='js/board_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
+		//echo "<script src='js/board_validation_handler.min.js' type='text/javascript' charset='utf-8'></script>";
 
 }
 

@@ -8,7 +8,7 @@
 
 	require_once("includes/common.php");
 	
-	echo "<select id='board_select' onchange='toggleAndLoadBoard(this.value);' name='board_select' class='ui-widget-content'>";
+	echo "<select id='board_select' onchange='toggleAndLoadBoard(this.value);' name='board_select' style='color: rgb(155, 204, 96);' class='ui-widget-content'>";
 	echo "<option value='0' selected='selected'>Select Board...</option>";
 	echo "<option value='create'>Create Board</option>";
 			// load the state to id select box

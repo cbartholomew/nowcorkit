@@ -81,7 +81,7 @@ function buildTextForm()
 			echo "<tr>";
 				echo "<td><label for='contact'>Contact Type</label></td>";
 				echo "<td>";
-					echo "<select id='contact' onchange='toggleContactType(this.value)' name='contact' class='ui-widget-content'>";
+					echo "<select id='contact' onchange='toggleContactType(this.value)' name='contact' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 					echo "<option value='0' selected='selected'>None</option>";
 				    echo "<option value='1'>Email</option>";
 					echo "<option value='2'>Phone</option>";
@@ -120,8 +120,10 @@ function buildTextForm()
 	
 	echo "<script>function toggleCheckBox(){ if ($('#enable_qr').val() == 'off'){ $('#enable_qr').val('on');} else { $('#enable_qr').val('off'); } }</script>";
 	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
-	echo "<script>loadDatePicker();</script>";
+	//echo "<script src='js/flyer_validation_handler.min.js' type='text/javascript' charset='utf-8'></script>";
 	echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";
+	//echo "<script src='js/filedrag.min.js' type='text/javascript' charset='utf-8'></script>";
+	echo "<script>loadDatePicker();</script>";
 }
 /* buildTextImageForm()
  * Renders a form used for Images and Text, size of 300,000 kb
@@ -194,7 +196,7 @@ function buildTextImageForm()
 				echo "<tr>";
 					echo "<td><label for='contact'>Contact Type</label></td>";
 					echo "<td>";
-						echo "<select id='contact' onchange='toggleContactType(this.value)' name='contact' class='ui-widget-content'>";
+						echo "<select id='contact' onchange='toggleContactType(this.value)' name='contact' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 						echo "<option value='0' selected='selected'>None</option>";
 					    echo "<option value='1'>Email</option>";
 						echo "<option value='2'>Phone</option>";
@@ -231,9 +233,10 @@ function buildTextImageForm()
 		echo "</form>";
 		echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
 		echo "<script>function toggleCheckBox(){ if ($('#enable_qr').val() == 'off'){ $('#enable_qr').val('on');} else { $('#enable_qr').val('off'); }}</script>";
+		//echo "<script src='js/flyer_validation_handler.min.js' type='text/javascript' charset='utf-8'></script>";
+		//echo "<script src='js/filedrag.min.js' type='text/javascript' charset='utf-8'></script>";
 		echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
 		echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";
-		
 		
 		echo "<script>loadDatePicker();</script>";
 }
@@ -285,7 +288,8 @@ function buildImageOnlyForm()
 	echo "</div>";
 	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
 	echo "<script src='js/filedrag.js'></script>";
-	
+	//echo "<script src='js/flyer_validation_handler.min.js' type='text/javascript' charset='utf-8'></script>";
+	//echo "<script src='js/filedrag.min.js'></script>";
 }	
 
 ?>
