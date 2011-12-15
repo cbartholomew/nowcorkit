@@ -22,21 +22,15 @@ if ($fn) {
 	echo "$fn uploaded";
 	exit();
 
-}
-else {
+} else {
 
-	// form submit
-	$files = $_FILES['fileselect'];
-
-	foreach ($files['error'] as $id => $err) {
-		if ($err == UPLOAD_ERR_OK) {
-			$fn = $files['name'][$id];
+			// form submit
+			$files = $_FILES['fileselect'];
+			$fn = $files['name'];
+			$fn = $_SESSION["users_cork_id"] . "_" . $fn;
 			move_uploaded_file(
-				$files['tmp_name'][$id],
+				$files['tmp_name'],
 				'flyers/images/' . $fn
 			);
 			echo "<p>File $fn uploaded.</p>";
-		}
-	}
-
 }

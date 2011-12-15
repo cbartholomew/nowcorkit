@@ -101,7 +101,7 @@ to be based via ajax. This allows me to obtain the meta data on the file
 
 		var xhr = new XMLHttpRequest();
 
-		if (xhr.upload && file.type == "image/jpeg" || "image/png" || "image/gif" && file.size <= $id("MAX_FILE_SIZE").value) {
+		if (xhr.upload && file.type == "image/jpg" || "image/jpeg" || "image/png" || "image/gif" && file.size <= $id("MAX_FILE_SIZE").value) {
 
 			
 		 	image_meta_data = {

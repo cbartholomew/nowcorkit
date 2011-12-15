@@ -130,6 +130,7 @@ function buildTextForm()
  */
 function buildTextImageForm()
 {
+
 	echo "<form id='upload' action='upload.php' method='POST' enctype='multipart/form-data'>";
 	echo "<fieldset class='ui-widget-content ui-corner-all'>";
 	echo "<label id='lupload'><i><b>Step 1: Upload Image (jpeg/jpg/png/gif)</b></i></label>";
@@ -144,7 +145,8 @@ function buildTextImageForm()
 	echo "</div>";
 	echo "</fieldset>";
 	echo "</form>";
-	echo "</div>";
+
+	
 	echo "<div id='progress' class='ui-corner-all'></div>";
 	echo "<br>";
 		echo "<form id='text_image_form' action='' method='' novalidate='novalidate'>";
@@ -260,7 +262,7 @@ function buildImageOnlyForm()
 	echo "</div>";
 	echo "</fieldset>";
 	echo "</form>";
-	echo "</div>";
+
 	echo "<div id='progress' class='ui-corner-all'></div>";
 	echo "<br>";
 	echo "<form id='image_form' action='' method='' novalidate='novalidate'>";

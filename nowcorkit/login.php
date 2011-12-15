@@ -25,6 +25,7 @@
 	<!--Load Javascript Libraries-->
 	<script src="lib/src/jquery-1.7.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/src/jquery-ui-1.8.16.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/detectbrowser.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 	//Render Submit Button
 		$(function() {
@@ -33,7 +34,6 @@
 	</script>
 	
 	<script type="text/javascript">
-
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-27673016-1']);
 	  _gaq.push(['_trackPageview']);

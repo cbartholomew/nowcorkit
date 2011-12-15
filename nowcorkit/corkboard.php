@@ -7,7 +7,7 @@
   * based on the screen resolution. Once it determines this, it renders a specific set of
   * containers that will be used to render the json data and create html
   **********************************************************************/
-	
+  require_once("includes/common.php");
   // pass the request a GET request - will be changed to POST after testing.
   $board_id = $_GET["boardid"];
 
