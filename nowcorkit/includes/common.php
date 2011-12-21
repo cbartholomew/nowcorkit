@@ -19,9 +19,10 @@
 
  	// requirements 
  	require_once("constants.php");
+	require_once("class_objects.php");
 	require_once("DAL.php");
 	require_once("helpers.php");
-	require_once("class_objects.php");
+
 	
 	//require authentication for most pages
     if (!preg_match("{/(:?login|register|logout)\d*\.php$}", $_SERVER["PHP_SELF"]))

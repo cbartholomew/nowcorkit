@@ -15,4 +15,10 @@ if (($connection = @mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD)) === fals
 // select database
 if (@mysql_select_db(DB_NAME, $connection) === false)
     echo "Could not select database (" . DB_NAME . ").";
+
+function close_connection()
+{
+	mysql_close($connection);
+}
+
 ?>

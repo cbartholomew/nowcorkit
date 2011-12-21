@@ -20,6 +20,7 @@ class User
 	public $last_name			= NULL;
 	public $state_id			= NULL;
 	public $subscription_type   = NULL;
+	public $session_id			= NULL;
 	
 	/*
 	 * __construct($_DATA) 
@@ -43,11 +44,75 @@ class User
 		$this->password_hash = crypt($this->password_hash);		
 	}
 	
-	
+		
+	/*
+	 * insert_forgot_password($session_id) 
+	 * Inserts a new passowrd into the forgot_password table
+	 */
+	function insert_forgot_password()
+	{ 		
+		$date_time = date('Y-m-d H:i:s');
+		$sql = "";
+		
+	}
 	
 	/*
-	 * 
+	 * check_session_expired()
 	 */
+	function check_session_expired()
+	{
+		// create new object to pass back
+		$user_session   		 = array();
+		
+		$user_session["fpid"]	 = 0;
+		$user_session["found"]   = false;
+		$user_session["expired"] = false;
+	
+		$sql	   = "SELECT * FROM forgot_password WHERE forgot_password_session_id = ('$this->session_id') AND forgot_password_users_email = ('$this->email')";		
+		$result    = mysql_query($sql) or die (show_error('Problem with gathering session information'));
+	   		
+	    // if we found user, check password
+	    if (mysql_num_rows($result) > 0)
+	    {
+	        // grab row
+	        $row = mysql_fetch_array($result);
+	        
+			// compare the date time of the expired date
+			// date time of now 
+			$date_time 	     = new DateTime('now');
+			
+			// date time of created
+			$expired_time    = new DateTime($row["forgot_password_session_expire"]);
+
+			// interval date time
+			$interval = $expired_time->diff($date_time);
+			
+			// check minutes
+			$minutes = $interval->format('%I');
+			
+			// update ther user_session object
+			$user_session["fpid"]	 = $row["forgot_password_id"];
+			$user_session["found"]	 = true;
+			$user_session["expired"] = ($minutes > 5) ? true : false;
+			
+			// return back object			
+			return $user_session;
+		}
+		
+		// return back default object
+		return $user_session;	
+	}
+	
+	/*
+	 * update_expired_session()
+	 * when user requesting a password, he or she's session will be updated
+	 */
+	function update_session()
+	{	
+		$date_time = date('Y-m-d H:i:s');
+		$sql = "";
+		
+	}
 	
 	/*
 	 * insert()

@@ -14,7 +14,12 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	{ 
 		$email_correct = LookupEmail($_POST["email"]);
-		if ($email_correct == 'false') {redirect("forgot_password.php");}		
+		if ($email_correct == 'false')
+		{ 
+			session_start();
+			$_SESSION["email"] = $_POST["email"];
+			redirect("forgot_password.php");
+		}		
 	} 
 	else { $email_correct = 'false'; }		
 ?>

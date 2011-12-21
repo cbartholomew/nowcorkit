@@ -1,9 +1,8 @@
 <?
-
+	require_once("class_objects.php");
 	require_once("constants.php");
 	require_once("DAL.php");
-	require_once("class_objects.php");
-	
+
 /***********************************************************************
 * helpers.php
 * Author		: Christopher Bartholomew
