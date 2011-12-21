@@ -32,10 +32,11 @@
 			  	  	$new_user->hash_password();	
 			  	  	// insert the new user into the database;
 			  	  	$new_user->insert();
-
+					$new_user->update_login_time_and_count();
 			  	  	// set the session to the newly registered id
 			  	  	$_SESSION["users_cork_id"] = $new_user->cork_id;
-
+					
+					
 			  	  	// redirect the user to the menu page
 			  	  	redirect("index.php");
 			}

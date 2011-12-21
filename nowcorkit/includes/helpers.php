@@ -39,7 +39,7 @@
 
 				$u = new User(NULL);
 				$u->cork_id = $_SESSION["users_cork_id"];
-				$u->update_login_time();
+				$u->update_login_time_and_count();
 				
 	            // redirect to portfolio
 	            redirect("index.php");

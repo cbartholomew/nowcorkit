@@ -170,8 +170,6 @@ function generate_image_flyer($flyer)
 	echo "	<div id='footer'></div>";
 	echo "</body></html>";
 	
-	
-	
 }
 
 

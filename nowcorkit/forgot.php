@@ -1,7 +1,7 @@
 <?
 
 /***********************************************************************
- * login.php
+ * forgot.php
  * Author		 : Christopher Bartholomew
  * Last Updated  : 12/08/2011
  * Purpose		 : The login menu uses server side validation (boooo)
@@ -10,10 +10,13 @@
  * when I had orginally had designed for the facbeook login.
  **********************************************************************/
 
-	require_once('includes/common.php');
-	  	   			
-	if ($_SERVER['REQUEST_METHOD'] == 'POST'){ $login_correct = ValidateNormalLogin($_POST);} 
-	else { $login_correct = true; }		
+	require_once('includes/helpers.php');	   			
+	if ($_SERVER['REQUEST_METHOD'] == 'POST')
+	{ 
+		$email_correct = LookupEmail($_POST["email"]);
+		if ($email_correct == 'false') {redirect("forgot_password.php");}		
+	} 
+	else { $email_correct = 'false'; }		
 ?>
 
 <!DOCTYPE html>
@@ -28,22 +31,9 @@
 	<script src="js/detectbrowser.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 	//Render Submit Button
-		$(function() {
+	$(function() {
 			$( "input:submit", "login-form" ).button();
 	});
-	</script>
-	
-	<script type="text/javascript">
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-27673016-1']);
-	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-
 	</script>
 </head>
 <html>
@@ -53,24 +43,20 @@
 		<img id='logo' class="ui-corner-all" src="images/logo.png" width="480" height="250" style="display:block;position: absolute;top:20px;z-index: -1;margin-left:auto;margin-right:auto;-webkit-transform: rotate(-25deg);-moz-transform:rotate(-25deg);" alt="Logo">
 		<br>
 		<div id="login" title="login" class="ui-widget-content ui-corner-all">
-			<form id="login_form" method="POST" action="login.php">	
-			<h1>Please Sign In, or <a href="register.php" style='color:#2B82AD'>Register</a>.</h1>	
+			<form id="login_form" method="POST" action="forgot.php">	
+			<h1>Password Retrieval, or <a href="login.php" style='color:#2B82AD'>Login</a>.</h1>	
 			<fieldset>
-					<label for="email">Email</label>
-					<?				
-					if (!$login_correct) { echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' value='" . $_POST["email"] . "'/>";}
-					else { echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' required/>";}
-					?>
-					
-				<label for="password">Password</label>
-					<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
-					<?
-					if (!$login_correct){ echo "<label id='error' style='color:red'>The username and password combination is not correct!</label><br>";}
-					?>
+				<label for="email">Email</label>
+				<?				
+				if ($email_correct == 'true') 
+				{ 
+				echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' value='" . $_POST["email"] . "'/>
+					  <label style='color:red'>You're e-mail was not found!</label>";}
+				else { echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' required/>";}
+				?>
 				<button type="submit" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all" value="submit">
-				   <span class="ui-button-text">Sign In</span>
+				<span class="ui-button-text">Email Me</span>
 				</button>
-				<a class="right small bold" style="line-height: 38px; height: 38px;" id="forgot_password" href="forgot.php">Forgot your password?</a>
 			</fieldset>
 		  </form>
 		</div>

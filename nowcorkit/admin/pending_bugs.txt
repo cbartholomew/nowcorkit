@@ -1,9 +1,1 @@
-
-2. Image uploading doesn't work with safari and chrome
-	-> Perhaps adjust uploading method
-	
-3. Other People's Private Boards will show up in location
-
-4. When uploading an image, the div should stay the same size
-
-5. Corkboard can be access w/o logging in.
+1. When uploading an image, the div should stay the same size

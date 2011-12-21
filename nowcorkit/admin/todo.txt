@@ -9,3 +9,5 @@ For Go Live:
 4. Error Handling on older browsers
 
 5. Help Menu
+
+6. Content Text

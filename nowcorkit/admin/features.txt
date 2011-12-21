@@ -1,6 +1,6 @@
 
 
-1. Group Posting
+2. Group Posting
 
-2. QR Counter
+3. QR Counter
 
