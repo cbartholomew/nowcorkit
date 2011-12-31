@@ -8,10 +8,11 @@
 
 require_once("includes/Encryption.php");
 require_once("includes/class_objects.php");
+require_once("includes/helpers.php");
 require_once("includes/constants.php");
 require_once("includes/DAL.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') { ChangeUserPassword($_POST); } 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { change_password($_POST); } 
 else { $is_post = false; }
 session_start();
 // initalize new user
@@ -19,7 +20,6 @@ $u = new User(null);
 
 // assign email to object
 $url_hash = mysql_real_escape_string($_GET["id"]);
-//$url_hash = mysql_real_escape_string($_GET["id"]);
 
 // create user_session array
 $user_session = array();
@@ -44,18 +44,30 @@ $u->session_id = $encryption->plain_text;
 // check if the session is expired
 $user_session = $u->check_session_expired_by_url();
 
+// expire the token
+update_email_sent($user_session["fpid"]);
+
 // decide if it's expired or found
 if ($user_session["found"] == true)
 {	
-	switch ($user_session["expired"])
+	if($user_session["is_done"] == false)
 	{
-		case true:
-			 build_error_page();
-		break;
+		switch ($user_session["expired"])
+		{
+			case true:
+				 build_error_page();
+			break;
 				
-		case false:
-			 build_password_reset();
-		break;
+			case false:
+				 build_password_reset($user_session);
+			break;
+		}
+	} 
+	else
+	{
+		//already expired because it was sent out
+		build_error_page();
+		
 	}
 }
 else 
@@ -108,7 +120,7 @@ echo "	</html>";
  * function build_password_reset()
  *
  */
-function build_password_reset()
+function build_password_reset($user_session)
 {
 	echo "<!DOCTYPE html>";
 	echo "	<head>";		
@@ -129,6 +141,7 @@ function build_password_reset()
 	echo "				<form id='login_form' method='POST' action='recover.php'>";
 	echo "				<h1>Reset Password</h1>";
 	echo "				<fieldset>";
+	echo "				<input type='hidden' name='email' value='" . $user_session["email"] . "'/>";
 	echo "				<label id='lpassword'  name='lpassword' style='color:white'>Password</label>";
 	echo "				<input type='password' name='password' id='password' class='ui-widget-content ui-corner-all' />";
 	echo "				<label id='lpasswordconfirm'  name='lpasswordconfirm' style='color:white'>Confirm Password</label>";

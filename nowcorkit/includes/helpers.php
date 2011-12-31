@@ -47,6 +47,30 @@
 	
 		return false;
 	}
+	
+	/* change_password($email)
+	 * 
+	 * changes the user's password
+	 */
+	function change_password($form)
+	{
+		// create new user object
+		$u = new User(null);
+		
+		// assign e-mail and password from form data
+		$u->email 		  = $form["email"];
+		$u->password_hash = $form["password"];
+		
+		// hash the password
+		$u->hash_password();
+		
+		// update the hashed password
+		$did_change = $u->update_password();
+		
+		if ($did_change) { redirect("recover_confirm.php"); } 
+		else { show_error("Problem with updating password, please try again later."); }
+		
+	}
 		
 	/* ValidateNewRegistration($_FORMDATA)
 	 * Server Side Validation for Registration users
@@ -117,20 +141,30 @@
 			// return the value back to the validator. false means no user found, true means user is found
 			while($row = mysql_fetch_array($result))
 			{
-				$forgot_password_id = $row["forgot_password_id"];
 				$url_hash 		 	= $row["forgot_password_url_hash"];
-			}
-			
-			// build additional SQL update statement
-			$sql = "UPDATE forgot_password SET forgot_password_email_sent = 1 where forgot_password_id = ('$forgot_password_id')";
-			
-			// update the database to notify that the password has been sent
-			$result = mysql_query($sql) or die (show_error('Problem with updating email sent'));
-			
+			}			
 			// generate link
 			$link = "http://localhost/nowcorkit/recover.php?id=" . $url_hash;
 					
 			return $link;
+	}
+	/* update_email_sent()
+	 * 
+	 * When user clicks link, we update the field to show that the e-mail has been sent, and thus, expiring the token
+	 */
+	function update_email_sent($forgot_password_id)
+	{
+		// build additional SQL update statement
+		$sql = "UPDATE forgot_password SET forgot_password_email_sent = 1 where forgot_password_id = ('$forgot_password_id')";
+		
+		// update the database to notify that the password has been sent
+		$result = mysql_query($sql) or die (show_error('Problem with updating email sent'));
+		
+		// other than an error, there was a problem submitting the user
+		if ($result == false) { return false; }
+		
+		return true;
+		
 	}
 	
 	

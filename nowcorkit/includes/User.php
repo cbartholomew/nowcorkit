@@ -49,11 +49,18 @@ class User
 	 * insert_forgot_password($session_id) 
 	 * Inserts a new passowrd into the forgot_password table
 	 */
-	function insert_forgot_password()
+	function update_password()
 	{ 		
-		$date_time = date('Y-m-d H:i:s');
-		$sql = "";
+	
+		// update the user's password
+		$sql = "UPDATE users SET users_hash = ('$this->password_hash') where users_email = ('$this->email')";
 		
+		$result = mysql_query($sql) or die (show_error('Problem with updating your password'));
+			
+		// other than an error, there was a problem submitting the user
+		if ($result == false) { return false; }
+		
+		return true;
 	}
 	
 	/*
@@ -68,6 +75,7 @@ class User
 		$user_session["fpid"]	 = 0;
 		$user_session["found"]   = false;
 		$user_session["expired"] = false;
+		$user_session["email"]	 = $email;
 	
 		$sql	   = "SELECT * FROM forgot_password WHERE forgot_password_session_id = ('$this->session_id') AND forgot_password_users_email = ('$this->email')";		
 		$result    = mysql_query($sql) or die (show_error('Problem with gathering session information'));
@@ -95,7 +103,6 @@ class User
 			$user_session["fpid"]	 = $row["forgot_password_id"];
 			$user_session["found"]	 = true;
 			$user_session["expired"] = ($minutes > 4) ? true : false;
-			
 			// return back object			
 			return $user_session;
 		}
@@ -116,6 +123,8 @@ class User
 		$user_session["fpid"]	 = 0;
 		$user_session["found"]   = false;
 		$user_session["expired"] = false;
+		$user_session["is_done"] = false;
+		$user_session["email"]	 = "";
 	
 		
 		$sql	   = "SELECT * FROM forgot_password WHERE forgot_password_session_id = ('$this->session_id')";		
@@ -144,7 +153,8 @@ class User
 			$user_session["fpid"]	 = $row["forgot_password_id"];
 			$user_session["found"]	 = true;
 			$user_session["expired"] = ($minutes > 4) ? true : false;
-			
+			$user_session["is_done"] = ($row["forgot_password_email_sent"] == 0) ? false : true;
+			$user_session["email"] = $row["forgot_password_users_email"];
 			// return back object			
 			return $user_session;
 		}
@@ -161,13 +171,13 @@ class User
 	function update_existing_session($fpid, $urlhash)
 	{	
 		$date_time = date('Y-m-d H:i:s');	
-		
+
 		$urlhash = urlencode($urlhash);
 		
 		$sql = "UPDATE forgot_password SET 																		 \n"
 				. "forgot_password_session_id = '$this->session_id', 							 				 \n"	 
 				. "forgot_password_session_expire = DATE_ADD('$date_time', INTERVAL 5 MINUTE), 					 \n"
-				. "forgot_password_email_sent = 0,															 	 \n"
+				. "forgot_password_email_sent = 0,														 		 \n"
 			    . "forgot_password_url_hash = '$urlhash'	 				  									 \n"
 			    . "WHERE forgot_password_id = '$fpid'";
 		

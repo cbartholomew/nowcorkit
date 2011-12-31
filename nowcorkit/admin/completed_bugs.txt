@@ -9,3 +9,5 @@
 
 
 	5. Corkboard can be access w/o logging in.
+	
+	1. Forgot Password Page - now completed

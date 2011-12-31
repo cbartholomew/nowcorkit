@@ -1,12 +1,8 @@
 For Go Live:
 
-1. Forgot Password Page
+1. redo posting options
 
 2. Pay Per Space 
-
-3. Remove Interval
-
-4. Error Handling on older browsers
 
 5. Help Menu
 
