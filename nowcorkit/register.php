@@ -65,9 +65,9 @@
 </head>
 <html>
 	<body>			
-		<div id="header"  class="ui-widget-header">
-			<h2>You Made It, Now Cork It!</h2>
-		</div>
+		<img src="images/pin.png" width="48" height="48" style="position: absolute;left:725px;z-index: 2;" alt="Pin2">
+		<img id='logo' class="ui-corner-all" src="images/logo.png" width="480" height="180" style="display:block;z-index:-1;margin-left:auto;margin-right:auto;"alt="Logo">
+				<br>
 		<div id="login" title="login" class="ui-widget-content ui-corner-all">
 			<form id="signupform" method="POST" action="register.php">	
 			<h1>Register</h1>	
@@ -183,8 +183,9 @@
 				</button>
 		  </form>
 		</div>
+		<br>
 		<div id="footer" class="ui-widget-header">
-				<p>nowcorkit.com 2011, All Rights Reserved<p>
+				<p>Created By Christopher Bartholomew<br>Cute pictures by Hannah Solhee<br>nowcorkit.com - the digital corkboard app<br><p>
 		</div>
 
 

@@ -48,9 +48,8 @@
 </head>
 <html>
 	<body>		
-		<img src="images/pin.png" width="48" height="48" style="position: absolute;left:725px;z-index: 2;" alt="Pin2">
-		<img src="images/pin.png" width="48" height="48" style="position: absolute;left:250px;z-index: 2;" alt="Pin">
-		<img id='logo' class="ui-corner-all" src="images/logo.png" width="480" height="250" style="display:block;position: absolute;top:20px;z-index: -1;margin-left:auto;margin-right:auto;-webkit-transform: rotate(-25deg);-moz-transform:rotate(-25deg);" alt="Logo">
+<img src="images/pin.png" width="48" height="48" style="position: absolute;left:725px;z-index: 2;" alt="Pin2">
+<img id='logo' class="ui-corner-all" src="images/logo.png" width="480" height="180" style="display:block;z-index:-1;margin-left:auto;margin-right:auto;"alt="Logo">
 		<br>
 		<div id="login" title="login" class="ui-widget-content ui-corner-all">
 			<form id="login_form" method="POST" action="login.php">	

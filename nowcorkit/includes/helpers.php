@@ -54,7 +54,7 @@
 	function ValidateNewRegistration($_FORMDATA)
 	{
 		// instantiate new user based on form data
-		$user_reg = new User($_FORMDATA);
+		$user_reg = new User($_FORMDATA);	
 		
 		$user_reg->hash_password();
 		
