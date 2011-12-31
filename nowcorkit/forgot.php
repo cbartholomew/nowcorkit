@@ -55,7 +55,7 @@
 				if ($email_correct == 'true') 
 				{ 
 				echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' value='" . $_POST["email"] . "'/>
-					  <label style='color:red'>You're e-mail was not found!</label>";}
+					  <label style='color:red'>Your e-mail was not found!</label>";}
 				else { echo "<input type='text' name='email' id='email' class='text ui-widget-content ui-corner-all' required/>";}
 				?>
 				<button type="submit" class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all" value="submit">

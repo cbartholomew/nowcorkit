@@ -7,16 +7,17 @@
  **********************************************************************/
 	
 	require_once("includes/Encryption.php");
+	require_once("includes/helpers.php");
 	require_once("includes/class_objects.php");
 	require_once("includes/constants.php");
 	require_once("includes/DAL.php");
-
+	require_once("includes/PHPMailer/class.phpmailer.php");
+	
 	session_start();
 	// initalize new user
 	$u = new User(null);
 	// assign email to object
 	$u->email = mysql_real_escape_string($_SESSION["email"]);
-	$u->email = "cbartholomew@gmail.com";
 	
 	// create user_session array
 	$user_session = array();
@@ -69,52 +70,53 @@
 		$encryption->base64_encode();
 								
 		// update database w/ new session
-		$u->update_existing_session($user_session["fpid"], $encryption->base64_encode);
-		
+		$u->update_existing_session($user_session["fpid"], $encryption->base64_encode);	
 	}
-	// $saved_session = '3dc5b88934a53794f4740a466c8966e1';
-	// 	$is_expired = false;
-	// 	// start session
-	// 	session_start();
-	// 	// obtain my session id
-	// 	$my_session = session_id();
-	// 	
-	// 	// 	check if the user's the session is the same (probably should go into the insert)
-	// 	// 	$is_expire = true;
-	// 	// incase they need another e-mail sent to them, and if the session expired - then regengerate a new id - kill the old one
-	// 	// 1. ask for session expire dttm - if dttm is past, generate new id & update the dttm. 
-	// 	if ($my_session == $saved_session)
-	// 	{
-	// 		// is the flag expired?
-	// 		if ($is_expired == true)
-	// 		{	
-	// 	 		session_regenerate_id();
-	// 		}
-	// 	}
-	// 	
-	// 	// 	check if the user's the session is the same based on the GET?
-	// 	//  check if it has expired.
-	// 	// 	$is_expire = true;
-	// 	// is the flag expired? 
-	// 	if ($my_session == $saved_session) { if (!$is_expired) { RenderResetPassword() } }
-	// 	
-	// 	
-	// 	// echo out the session
 	
-	// // call decode to decode the base64 from the database
-	// $encryption->base64_decode();
-	// 
-	// // call decrypt to compare 
-	// $encryption->decrypt();
-    //echo "base 64 Decode: " . $encryption->base64_decode . "<br>";
-    //echo "decrypt: " 		. $encryption->plain_text    . "<br>";
-	// print data
-	// echo "Same session: " 	    . $u->session_id . "<br>";
-	// 		echo "encrypt: " 			. $encryption->cipher_text . "<br>";
-	// 		echo "base 64 Encode: " 	. $encryption->base64_encode . "<br>";
-	// 		
-	// 		echo "fpid : " . $user_session["fpid"];
+	$generated_link = generate_forgot_password($u->email);
 	
+	// instantiate mailer
+	$mail = new PHPMailer();
+	
+	// switch to smtp
+	$mail->IsSMTP();
+	
+	// authentication enabled
+	$mail->SMTPAuth = true; 
+	
+	// go daddy servers
+	$mail->Host = "smtpout.secureserver.net";
+	$mail->Port = 3535; 
+	
+	// username and password
+	$mail->Username = "administrator@nowcorkit.com";  
+	$mail->Password = "N0wC0rk1t!";
+	
+	// set From:
+	$mail->SetFrom("noreply@nowcorkit.com");
+	
+	// set To:
+	$mail->AddAddress($u->email);
+	
+	// set Subject:
+	$mail->Subject = "Password Recovery Link";
+	
+	// set body
+	$mail->Body = "<html><body><center><h1>NowCorkIt.com</h1><h2>Password Recovery Link</h2></center><p>
+				   You are receiving this email because you have requested that your password be reset.
+				   This link will expire in 10 minutes. If this is a mistake, please e-mail administrator@nowcorkit.com.
+				   To reset your password, please click: <a href='" . $generated_link . "'>here</a>
+				   </p></body></html>";
+	
+	// set alternative body, in case user's mail client doesn't support HTML
+	$mail->AltBody = "NowCorkIt.com Password Recovery Link \n You are receiving this email because you have requested that your password be reset. \n
+	   			      This link will expire in 10 minutes. If this is a mistake, please e-mail administrator@nowcorkit.com. \n
+	   				  To reset your password, please go here:" . $generated_link;
+	
+	// send mail
+	if ($mail->Send() === false)
+	    die($mail->ErrorInfo . "\n");
+	 
 	
 ?>	
 
@@ -138,7 +140,7 @@
 				<form id="login_form" method="" action="">	
 				<h1>Recovery Email Sent</h1>	
 				<fieldset>
-					<label for="email">A link to reset your password has been sent to your associated e-mail address.</label>
+					<label for="email">A link to reset your password has been sent to your associated e-mail address. If an e-mail is not sent, please return to 			the <a href='forgot.php' style='color:#2B82AD'>Forgot Password Page</a> to resubmit your request.</label>
 				</fieldset>
 			  </form>
 			</div>

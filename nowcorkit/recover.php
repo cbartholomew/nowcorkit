@@ -10,7 +10,7 @@ require_once("includes/Encryption.php");
 require_once("includes/class_objects.php");
 require_once("includes/constants.php");
 require_once("includes/DAL.php");
-//UPDATE forgot_password SET  `forgot_password_session_expire` = DATE_ADD(  `forgot_password_session_expire` , INTERVAL -10 MINUTE )
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { ChangeUserPassword($_POST); } 
 else { $is_post = false; }
 session_start();

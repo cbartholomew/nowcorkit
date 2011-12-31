@@ -104,6 +104,36 @@
 		
 	}
 	
+	/*
+	 * generate_forgot_passsword($email)
+	 * Generates the hashed link that will be sent to the user so they can reset his or her password
+	 */
+	function generate_forgot_password($email)
+	{
+			// check the database for the user
+			$sql = "SELECT * FROM forgot_password WHERE forgot_password_users_email = ('$email') AND forgot_password_email_sent = 0";
+			$result = mysql_query($sql) or die (show_error('Problem with generating link'));
+
+			// return the value back to the validator. false means no user found, true means user is found
+			while($row = mysql_fetch_array($result))
+			{
+				$forgot_password_id = $row["forgot_password_id"];
+				$url_hash 		 	= $row["forgot_password_url_hash"];
+			}
+			
+			// build additional SQL update statement
+			$sql = "UPDATE forgot_password SET forgot_password_email_sent = 1 where forgot_password_id = ('$forgot_password_id')";
+			
+			// update the database to notify that the password has been sent
+			$result = mysql_query($sql) or die (show_error('Problem with updating email sent'));
+			
+			// generate link
+			$link = "http://localhost/nowcorkit/recover.php?id=" . $url_hash;
+					
+			return $link;
+	}
+	
+	
     /* ComparePasswords($password_one, $password_two)
      * Purpose: Based on the hashed passwords passed into function
      * check and make sure the password hashes match 

@@ -167,6 +167,7 @@ class User
 		$sql = "UPDATE forgot_password SET 																		 \n"
 				. "forgot_password_session_id = '$this->session_id', 							 				 \n"	 
 				. "forgot_password_session_expire = DATE_ADD('$date_time', INTERVAL 5 MINUTE), 					 \n"
+				. "forgot_password_email_sent = 0,															 	 \n"
 			    . "forgot_password_url_hash = '$urlhash'	 				  									 \n"
 			    . "WHERE forgot_password_id = '$fpid'";
 		
