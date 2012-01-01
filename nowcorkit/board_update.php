@@ -40,6 +40,7 @@
 					$board->pps_id						= $_POST["updates"]["postperspace"];
 					$board->pps_cashamount				= $_POST["updates"]["cashamount"];
 					$board->pps_flyerdays				= $_POST["updates"]["flyerdays"];
+					$board->pps_payment					= $_POST["updates"]["pay_handle"];
 				break;
 							
 			}

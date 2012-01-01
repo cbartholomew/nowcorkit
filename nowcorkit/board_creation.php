@@ -6,7 +6,7 @@
 * Purpose		  : based on the post request, we construct an object to insert
 * into the application.
 **********************************************************************/
-		require_once("includes/common.php");
+			require_once("includes/common.php");
 		
 			// create new flyer object
 			$board = new Board($_POST);

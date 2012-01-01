@@ -12,6 +12,8 @@ require_once("includes/common.php");
 
 $fn = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SESSION["users_cork_id"] . "_" . $_SERVER['HTTP_X_FILENAME'] : false);
 
+$fn = str_replace(' ','_',$fn);
+
 if ($fn) {
 
 	// AJAX call
@@ -28,6 +30,7 @@ if ($fn) {
 			$files = $_FILES['fileselect'];
 			$fn = $files['name'];
 			$fn = $_SESSION["users_cork_id"] . "_" . $fn;
+			$fn = str_replace(' ','_',$fn);
 			move_uploaded_file(
 				$files['tmp_name'],
 				'flyers/images/' . $fn

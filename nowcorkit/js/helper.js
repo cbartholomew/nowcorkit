@@ -104,17 +104,22 @@ function toggleManagerActionsOff()
  * used as a toggler for pay per space
  */
 function togglePayPerSpaceFeature(value){
-	if (value != ('none')){ 
+	if (value != ('1')){ 
 		$('#cashamount').toggleClass('ui-helper-hidden', false);
 		$('#label_cashamount').toggleClass('ui-helper-hidden', false);
 		$('#flyerdays').toggleClass('ui-helper-hidden', false);
 		$('#label_flyerdays').toggleClass('ui-helper-hidden', false);
+		$('#pay_handle').toggleClass('ui-helper-hidden', false);
+		$('#label_pay_handle').toggleClass('ui-helper-hidden',false);
 	} 
-	else { 
+	else 
+	{ 
 		$('#cashamount').toggleClass('ui-helper-hidden', true);
 		$('#label_cashamount').toggleClass('ui-helper-hidden', true);
 		$('#flyerdays').toggleClass('ui-helper-hidden',  true);
 		$('#label_flyerdays').toggleClass('ui-helper-hidden',  true);
+		$('#pay_handle').toggleClass('ui-helper-hidden', true);
+		$('#label_pay_handle').toggleClass('ui-helper-hidden',true);
 	}
 }
 
@@ -223,36 +228,87 @@ function ActivateSelectableContent(){
 }
 
 /*
- * Activate Board Version of flyer management that allows a button set to be created
+ * used for rendering buttons specific to post menu
  */
-function ActivateBoardSelectableContent()
+function RenderPostActionButtons(id)
 {
-	$(function() {		
-		// render button sets
-		$('#flyer_radio').buttonset();		
+	//var flyer_id = id.split('_')[1];
+	$(function() {
+		// preview
+		$( "#preview_" + id ).button({
+	        icons: {
+	            primary: "ui-icon-search"
+	        },
+		 label: "Preview",
+		 text: false
+		}),
+		$("#preview_" + id ).click(function() {
+			window.open('generate.php?flyerid=' + id,null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no');
+		}),
+		$( "#approve_" + id ).button({
+	        icons: {
+	            primary: "ui-icon-check"
+	        },
+		 label: "Approve",
+		 text: false
+		}),
+		$("#approve_" + id).click(function() {
+				ApprovePost(id, true);
+				var filter_id = $('input[name=filter]:checked', '#filters').val();
+				UpdatePostFilterByAjaxPost(filter_id);
+		}),
+		$( "#remove_" + id ).button({
+	        icons: {
+	            primary: "ui-icon-minus"
+	        },
+		 label: "Remove",
+		 text: false
+		}),
+		$("#remove_" + id).click(function() {			
+				ApprovePost(id, false);
+				var filter_id = $('input[name=filter]:checked', '#filters').val();
+				UpdatePostFilterByAjaxPost(filter_id);
+		}),
+		$( "#pps_" + id ).button({
+	        icons: {
+	            primary: "ui-icon-pin-s"
+	        },
+		 label: "Begin PPS",
+		 text: false
+		}),
+		$("#pps_" + id ).click(function() {
+				alert('pps enabled');
+				// var filter_id = $('input[name=filter]:checked', '#filters').val();
+				// UpdatePostFilterByAjaxPost(filter_id);
+		});
 	});
-	// flyer menu click listeners
-	$('#flyer_preview').click(function() {
-		if ($('#flyer_select option:selected').val() == '0') { 
-				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
-				return false;
-		}
-		window.open('generate.php?flyerid=' + $('#flyer_select option:selected').val(),null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no');
+	
+}
+
+/*
+ *
+ * Updates the post field cotent with filtered data
+ */
+function UpdatePostFilterByAjaxPost(filter_id)
+{
+	$.ajax({
+	       url: "board_constructor.php",
+		   type: 'get',
+		   data: {
+				template	: "render_posts",
+				board_id	: $("#board_id").val(),
+				filter_value: filter_id
+		   },
+			beforeSend: function(){
+				$("#post_content").mask("loading...");
+			},
+	       success: function(data) {
+				$("#post_content").unmask();
+	 	   		$("#post_content").html(data);			
+	       }
 	});	
-	$('#flyer_approve').click(function() {
-			if ($('#flyer_select option:selected').val() == '0') { 
-					$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
-					return false;
-			}
-			ApprovePost(($('#flyer_select option:selected').attr('id')), true);
-	});
-	$('#flyer_remove').click(function() {
-		if ($('#flyer_select option:selected').val() == '0') { 
-				$('#status_messages').html("<label style='color: #9BCC60;'>Messages: Please select a flyer first!</label>"); 
-				return false;
-		}
-			ApprovePost(($('#flyer_select option:selected').attr('id')), false);
-	});
+	return false;
+	
 	
 }
 
@@ -391,6 +447,12 @@ $(function() {
 	$( "#add_button" ).button({
         icons: {
             primary: "ui-icon-plus"
+        },
+	 text: false
+	}),
+	$( "#pps_button" ).button({
+        icons: {
+            primary: "ui-icon-notice"
         },
 	 text: false
 	})
@@ -622,7 +684,7 @@ function LoadBoardManagerTabs(value){
 }
 
 /*
- * Load's modal for new board
+ * Loads modal for new board
  */
 function LoadNewBoardPreferences(){
 		// render the dialog
@@ -632,7 +694,7 @@ function LoadNewBoardPreferences(){
 					autoOpen: false,
 					cache: false,
 					modal: true,
-					height: 565,
+					height: 670,
 					width:  550,
 					draggable: false,
 					resizable: false,
@@ -643,6 +705,68 @@ function LoadNewBoardPreferences(){
 		});
 		// open the dialog
 		$( "#modal_board_preferences" ).dialog( "open" );	
+}
+
+/* 
+ * Shows the PPS Information about this location
+ */ 
+function LoadModalPPSInformation()
+{
+	
+	$("#pps_modal").dialog({
+				autoOpen: false,
+				cache: false,
+				modal: true,
+				height: 350,
+				width:  350,
+				draggable: false,
+				resizable: false,
+				title: 'PPS Information',
+				close: function() {
+					// nothing
+				}	
+	});
+		
+	var pps_info = $('#location option:selected').val();
+	
+	if (pps_info == "0") { return alert('Please select a location first'); }
+	
+		
+	var pps = 
+	{
+		pps_id 	   : pps_info.toString().split(',')[6].split('|')[0],
+		pps_cash   : pps_info.toString().split(',')[6].split('|')[1],
+		pps_flyer  : pps_info.toString().split(',')[6].split('|')[2],
+		pps_payment: pps_info.toString().split(',')[6].split('|')[3]
+	};
+		
+	var pps_html = "";	
+	
+	switch(pps.pps_id)
+	{
+		case "1":
+			pps_html += "This board does not have PPS enabled.";
+		break;
+		default:
+			var type_desc = (pps.pps_id == "2") ? "By Donation" : "By Payment";
+			 
+			pps_html += "<table>";
+		 	pps_html += "<tr><td><i>Type:</i></td><td>"    	             		       + type_desc       + "</td></tr>";
+		 	pps_html += "<tr><td><i>This Amount:</td><td></i>"  			     	   + pps.pps_cash    + "</td></tr>";
+		 	pps_html += "<tr><td><i>For Days:</td><td></i>" 	 		     	 	   + pps.pps_flyer   + "</td></tr>";
+			pps_html += "<tr><td><i>Slots:</td><td></i>0</td></tr>";
+			pps_html += "<tr><td><i>Queue:</td><td></i>0</td></tr>";
+		 	pps_html += "<tr><td colspan='2'><i>Paymenet Handling:</i><br><br>"         + pps.pps_payment + "</td></tr>";	 
+		 	pps_html += "</table>";
+		break;
+		
+	}
+			 
+	$('#pps_modal').html(pps_html);
+		
+	// open the dialog
+	$( "#pps_modal" ).dialog( "open" );
+	
 }
 
 /*
@@ -677,6 +801,8 @@ function RequestPageByAjaxGet(page){
  * Submit Form using AJAX POST
  */
 function SubmitFormByAjaxPost(page){	
+	
+	image_meta_data["name"] = image_meta_data["name"].replace(' ', '_');
 	
 	$.ajax({
 	       url: "flyer_creation.php",
@@ -735,7 +861,8 @@ function SubmitBoardByAjaxPost(){
 				interval	   	: $("#interval").val(),
 				postperspace	: $("#postpayment option:selected").val(),
 				cashmount	   	: $("#cashamount").val(),
-				flyerdays	   	: $("#flyerdays").val()
+				flyerdays	   	: $("#flyerdays").val(),
+				pay_handle		: $("#pay_handle").val()
 		   },
 		   beforeSend: function(){
 				$("#new_board").mask("creating...");
@@ -882,7 +1009,8 @@ function UpdateBoardByAjaxPost(board_id, page){
 						interval	   	: $("#interval").val(),
 						postperspace	: $("#postpayment option:selected").val(),
 						cashamount	   	: $("#cashamount").val(),
-						flyerdays	   	: $("#flyerdays").val()
+						flyerdays	   	: $("#flyerdays").val(),
+						pay_handle		: $("#pay_handle").val()		
 				}
 		break;
 	}

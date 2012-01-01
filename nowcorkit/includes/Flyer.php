@@ -36,6 +36,7 @@ class Flyer
 		public $flyer_error_id			= NULL;
 		public $flyer_message			= NULL;
 		public $post_status_desc		= NULL;
+		public $post_status_id			= NULL;
 		public $post_expiration			= NULL;
 		public $board_post_id			= NULL;
 		

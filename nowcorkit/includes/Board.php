@@ -30,6 +30,7 @@ class Board
 		public $pps_id					= NULL;
 		public $pps_cashamount			= NULL;
 		public $pps_flyerdays			= NULL;
+		public $pps_payment				= NULL;
 		public $cork_id 				= NULL;
 		public $flyers					= NULL;
 		public $users_flyers_id			= NULL;
@@ -56,6 +57,7 @@ class Board
 				$this->pps_id							= mysql_real_escape_string($_DATA["postperspace"]);
 				$this->pps_cashamount					= mysql_real_escape_string($_DATA["cashamount"]);
 				$this->pps_flyerdays					= mysql_real_escape_string($_DATA["flyerdays"]);
+				$this->pps_payment						= mysql_real_escape_string($_DATA["pay_handle"]);
 				$this->cork_id 							= $_SESSION['users_cork_id'];
 
 	    }
@@ -83,6 +85,7 @@ class Board
 				. "board_pps_id, 							\n" 
 				. "board_pps_cash_amount, 					\n" 
 				. "board_pps_flyerdays, 					\n" 
+				. "board_pps_payment,						\n"
 				. "board_users_cork_id, 					\n" 
 				. "board_created_dttm 						\n" 
 				. ") 										\n" 
@@ -101,12 +104,13 @@ class Board
 				. " '$this->pps_id', 						\n" 
 				. " '$this->pps_cashamount', 				\n" 
 				. " '$this->pps_flyerdays', 				\n" 
+				. "	'$this->pps_payment',					\n"
 				. " '$this->cork_id', 						\n" 
 				. " '$date_time' 							\n" 
 				. ")";
 		
 				// run statement or die
-				$result = mysql_query($sql) or die (show_error('Problem with inserting board into the database'));
+				$result = mysql_query($sql) or die (show_error('Problem with inserting board into the database' . $sql));
 
 				// other than an error, there was a problem submitting the user
 				if ($result == false) { return false; }
@@ -137,7 +141,8 @@ class Board
 				. "board_shuffler_interval 						= ('$this->shuffle_interval'), 		\n"
 				. "board_pps_id 								= ('$this->pps_id'), 				\n" 
 				. "board_pps_cash_amount 						= ('$this->pps_cashamount'), 		\n" 
-				. "board_pps_flyerdays 							= ('$this->pps_flyerdays')  		\n" 
+				. "board_pps_flyerdays 							= ('$this->pps_flyerdays'),   		\n" 
+				. "board_pps_payment							= ('$this->pps_payment')			\n"
 				. "WHERE board_id 								= ('$this->id')";
 
 				// run statement or die

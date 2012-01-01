@@ -537,6 +537,11 @@
 					// add additional properties 
 					$board->state_desc 				= $row["state_desc"];
 					$board->permission_type_desc	= $row["permission_type_desc"]; 
+					$board->pps_id					= $row["board_pps_id"]; 	 
+					$board->pps_cashamount			= $row["board_pps_cash_amount"];
+					$board->pps_flyerdays			= $row["board_pps_flyerdays"];	
+					$board->pps_payment				= $row["board_pps_payment"];							 	 	
+													 	 	 	 	 	 					 	 	 	 	 	 	
 					// push onto stack
 				   	array_push($board_array, $board);
 				}	
@@ -576,6 +581,7 @@
 					$board->pps_id					= $row["board_pps_id"];
 					$board->pps_cashmount			= $row["board_pps_cash_amount"];
 					$board->pps_flyerdays			= $row["board_pps_flyerdays"];
+					$board->pps_payment				= $row["board_pps_payment"];
 					$board->cork_id 				= $row["board_users_cork_id"];
 					
 					// return the object
@@ -650,7 +656,6 @@
 		    	. "inner join post_status														\n"
 		    	. "ON board_post_post_status_id = post_status.post_status_id					\n"
 		    	. "WHERE board_posting.board_post_board_id = ('$board_id')						\n"
-				//. "AND board_posting.board_post_post_status_id = 1								\n"
 				. "ORDER BY board_posting.board_post_created_dttm";
 				
 		// run statement or error
@@ -668,8 +673,10 @@
 						$flyer		 = GetFullFlyer($row["board_post_users_flyers_id"]);
 						$flyer->users_flyers_id			= $row["board_post_users_flyers_id"];
 						$flyer->post_status_desc		= $row["post_status_desc"];
+						$flyer->post_status_id			= $row["post_status_id"];
 						$flyer->post_expiration 		= $row["board_post_expire_dttm"];
 						$flyer->board_post_id			= $row["board_post_id"];
+						
 						
 						$post->flyer = $flyer;
 						// pop it on to the array

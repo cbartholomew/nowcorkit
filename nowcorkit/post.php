@@ -52,6 +52,7 @@ echo "<div id='locations' class='ui-widget'>";
 			echo "<th class='ui-widget-content table_data'><label><i>Location Name</i></label></th>";
 			echo "<th class='ui-widget-content table_data'><label><i>Address</i></label></th>";
 			echo "<th class='ui-widget-content table_data'><label><i>Permission</i></label></th>";
+			echo "<th class='ui-widget-content table_data'><label><i>PPS Info</i></label></th>";
 			echo "<th class='ui-widget-content table_data'><label><i>Flyer</i></label></th>";
 			echo "<th class='ui-widget-content table_data'><label><i>Add</i></label></th>";
 		echo "</tr>";
@@ -74,13 +75,18 @@ echo "<div id='locations' class='ui-widget'>";
 																					 . $board->state_desc   			. ","
 																					 . $board->zip     					. ","
 																					 . $board->id     					. ","
-																					 . $board->permission_type_desc 	. "'>" 
+																					 . $board->permission_type_desc 	. ","
+																					 . $board->pps_id					. "|"
+																					 . $board->pps_cashamount			. "|"
+																					 . $board->pps_flyerdays		    . "|"
+																					 . $board->pps_payment				."'>" 																
 																					 . $board->title 					. "</option>";	
 								}			
 							}
 				echo "</select></td>";
-				echo "<td id=table_address class='ui-widget-content table_data'></td>";
-				echo "<td id=table_permission class='ui-widget-content table_data' style='text-align: center;'></td>";
+				echo "<td id='table_address' class='ui-widget-content table_data'></td>";
+				echo "<td id='table_permission' class='ui-widget-content table_data' style='text-align: center;'></td>";
+				echo "<td id='table_pps' class='ui-widget-content table_data' style='text-align: center;'><button onclick='LoadModalPPSInformation();' value='' type='button' id='pps_button'>Show</button></td>";
 				echo "<td class='ui-widget-content table_data'><select id='flyers' name='flyers' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
 					echo "<option value='0' selected='selected'>Choose Flyer...</option>";
 						// load the flyers to id select box
@@ -155,11 +161,12 @@ echo "<div id='posting' class='ui-widget'>";
 	else
 	{
 		echo "<tr>";
-			echo "<td class='ui-widget-content table_data' colspan='5'>You have no flyers posted</td>";
+		echo "<td class='ui-widget-content table_data' colspan='5'>You have no flyers posted</td>";
 		echo "</tr>";
 	}
 	echo "</tbody>";
 	echo "</table>";
 echo "</div>";
 echo "<div id='map_canvas' class='ui-corner-all'></div>";
+echo "<div id='pps_modal'  class='ui-corner-all'></div>";
 ?>
