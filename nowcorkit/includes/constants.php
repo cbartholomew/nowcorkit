@@ -47,6 +47,9 @@
 	
 	// facebook oAuth App Secret (shhh)
 	define("APP_SECRET","0aff787b4958291bcd00416674f08110");
+	
+	// constants for max flyers
+	define("MAX_FLYERS", 4);
 
 	 
    

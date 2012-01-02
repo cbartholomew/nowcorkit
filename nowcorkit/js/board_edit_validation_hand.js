@@ -106,17 +106,11 @@ $(document).ready(function() {
 				min: 1,
 				max: 365
 			},	
-			interval:{
-				required: {
-					depends: function(element) { return ( $("#shuffle").val() == 'off' ) ? false : true; }
-				},
-				max: 60,
-				min: 5
-			},
 			cashamount: {
 					required: {
 						depends: function(element) { return ( $("#postpayment option:selected").val() == 'none' ) ? false : true; }
 					},
+					min: 1,
 					number: true
 			},
 			flyerdays: {
@@ -125,6 +119,12 @@ $(document).ready(function() {
 					},
 					min: 1,
 					max: 365
+			},
+					pay_handle: {
+						required: {
+							depends: function(element) { return ( $("#postpayment option:selected").val() == '1' ) ? false : true; }
+						},
+						rangelength: [1,255]
 			}
         }, 
         messages: { 
@@ -135,19 +135,19 @@ $(document).ready(function() {
 				min: "Must have a range from 1 to 365 days"
 				
 			},
-			interval: {
-				required: "The interval is required if shuffle enabled",
-				max: "Must have a range from 5-60 seconds",
-				min: "Must have a range from 5-60 seconds"
-			},
 			cashamount: {
 				required: "The cash amount is required if PPS is not none",
-				number: "The value must be a currency value" 
+				number: "The value must be a currency value",
+				min:    "Must be a positive number" 
 			},
 			flyerdays: {
 				required: "The flyer day amount is required if PPS is not none",
 				min: "Must have a range from 1 to 365 days",
 				max: "Must have a range from 1 to 365 days"
+			},
+				pay_handle: {
+					required: "Required, PPS Enabled",
+					rangelength: "Maximum character limit: 255"
 			}
         }, 
         // the errorPlacement has to take the table layout into account 
@@ -160,7 +160,9 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },       
 		submitHandler: function() { 
-			UpdateBoardByAjaxPost($('#id').val(), 'posting');
+			if ($("#flyerexpire").val() < $("#flyerdays").val()) { alert("Flyer PPS day amount must be less than the Flyer expiration day amount!");}
+ 			else { UpdateBoardByAjaxPost($('#id').val(), 'posting');}
+	
 		}
     });
 });

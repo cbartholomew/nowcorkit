@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 01, 2012 at 04:54 PM
+-- Generation Time: Jan 02, 2012 at 11:46 AM
 -- Server version: 5.5.9
 -- PHP Version: 5.3.6
 
@@ -34,14 +34,14 @@ CREATE TABLE `board_posting` (
   `board_post_expire_dttm` date NOT NULL,
   `board_post_created_dttm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`board_post_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `board_posting`
 --
 
 INSERT INTO `board_posting` VALUES(8, 1, 5, 0, 3, '2012-01-12', '2011-12-13 19:34:10');
-INSERT INTO `board_posting` VALUES(9, 2, 5, 3, 1, '2012-01-12', '2011-12-13 19:36:03');
+INSERT INTO `board_posting` VALUES(9, 2, 5, 3, 4, '2012-01-12', '2011-12-13 19:36:03');
 INSERT INTO `board_posting` VALUES(10, 2, 2, 2, 3, '2012-01-31', '2012-01-01 15:38:55');
 INSERT INTO `board_posting` VALUES(11, 2, 7, 2, 1, '2012-01-31', '2012-01-01 15:38:59');
 INSERT INTO `board_posting` VALUES(12, 2, 9, 2, 1, '2012-01-31', '2012-01-01 15:39:02');
@@ -71,15 +71,17 @@ CREATE TABLE `board_preferences` (
   `board_users_cork_id` int(11) NOT NULL,
   `board_created_dttm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`board_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `board_preferences`
 --
 
 INSERT INTO `board_preferences` VALUES(1, 'Test Board', 'This is a test board', '', 'Rockland', '21', '02370', 3, 30, 'off', 0, 1, 0.00, 0, '', 2, '2011-12-12 18:26:41');
-INSERT INTO `board_preferences` VALUES(2, 'Chris Test Chrome', 'testing chrome', '51 Maple Street', 'Rockland ', '21', '02370', 1, 30, '', 0, 2, 0.00, 10, 'Paypal invoice : cbartholomew@gmail.com', 2, '2011-12-12 20:36:56');
+INSERT INTO `board_preferences` VALUES(2, 'Chris Test Chrome', 'testing chrome', '51 Maple Street', 'Rockland ', '21', '02370', 1, 30, '', 0, 2, 1.50, 10, 'Please send paypal invoice to this email address - cbartholomew@gmail.com', 2, '2011-12-12 20:36:56');
 INSERT INTO `board_preferences` VALUES(3, 'New Test', 'This is a test ', '', 'rockland', '21', '02370', 3, 30, '', 0, 3, 0.00, 12, 'This is a test to see if this can be handled. \n\nNow for the update.', 2, '2012-01-01 11:25:26');
+INSERT INTO `board_preferences` VALUES(4, 'a', 'a123', '', 'a', '1', '0', 1, 30, '', 0, 1, 0.00, 0, '', 2, '2012-01-02 09:41:18');
+INSERT INTO `board_preferences` VALUES(5, 'My Test Board', 'This is my test board', '', 'Rockland ', '21', '02380', 3, 30, '', 0, 2, 1.00, 10, 'Testing', 2, '2012-01-02 09:45:29');
 
 -- --------------------------------------------------------
 
@@ -429,7 +431,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` VALUES(2, NULL, 'cbartholomew@gmail.com', '$1$c00w5vkb$IM8VxY4kyAvqbxVzqG.12.', 'Christopher', 'Bartholomew', 21, 0, '2012-01-01 12:31:51', 0, '0000-00-00 00:00:00', 6);
+INSERT INTO `users` VALUES(2, NULL, 'cbartholomew@gmail.com', '$1$c00w5vkb$IM8VxY4kyAvqbxVzqG.12.', 'Christopher', 'Bartholomew', 21, 0, '2012-01-02 09:00:12', 0, '0000-00-00 00:00:00', 8);
 INSERT INTO `users` VALUES(3, NULL, 'bartc@u.washington.edu', '$1$N/VXWqQI$t.tsaQ3g3VUhggGPOeJif.', 'Christopher', 'Bartholomew', 47, 0, '2011-12-13 19:29:45', 0, '2011-12-12 19:10:04', 0);
 INSERT INTO `users` VALUES(4, NULL, 'newtest@gmail.com', '$1$0uAaQBYF$Q4YVz1ymOh.2yyFAchUhN0', 'Christopher', 'Bartholomew', 47, 0, '2011-12-12 19:12:55', 0, '2011-12-12 19:12:55', 0);
 

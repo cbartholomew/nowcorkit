@@ -32,6 +32,7 @@ switch($template)
 		break;
 	case "create":
 		build_new_form();
+		break;
 	case "render_posts":
 		render_posts_table($board_id, $filter_value);
 		break;	
@@ -358,8 +359,8 @@ function build_post_form($board_id)
 	echo "<tr>";
 	echo "<td><label for='all'>All</label></td>";
 	echo "<td><input id='all' type='radio' name='filter' onclick='UpdatePostFilterByAjaxPost(this.value);' checked='true' value='0'/></td>";
-	echo "<td><label for='pps'>PPS Queue</label></td>";
-	echo "<td><input id='pps' type='radio' name='filter' onclick='UpdatePostFilterByAjaxPost(this.value);' value='5'/></td>";
+	echo "<td><label for='pending'>Pending</label></td>";
+	echo "<td><input id='pending' type='radio' name='filter' onclick='UpdatePostFilterByAjaxPost(this.value);' value='2'/></td>";
 	echo "</tr>";
 	echo "<tr>";
 	echo "<td><label for='posted'>Posted</label></td>";
@@ -368,8 +369,6 @@ function build_post_form($board_id)
 	echo "<td><input id='pps_posted' type='radio' name='filter' onclick='UpdatePostFilterByAjaxPost(this.value);' value='4'/></td>";
 	echo "</tr>";
 	echo "<tr>";
-	echo "<td><label for='pending'>Pending</label></td>";
-	echo "<td><input id='pending' type='radio' name='filter' onclick='UpdatePostFilterByAjaxPost(this.value);' value='2'/></td>";
 	echo "<td><label for='notapproved'>Not Approved</label></td>";
 	echo "<td><input id='notapproved' type='radio' name='filter' onclick='UpdatePostFilterByAjaxPost(this.value);' value='3'/></td>";
 	echo "</tr>";

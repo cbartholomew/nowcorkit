@@ -31,6 +31,7 @@ class Board
 		public $pps_cashamount			= NULL;
 		public $pps_flyerdays			= NULL;
 		public $pps_payment				= NULL;
+		public $pps_count				= NULL;
 		public $cork_id 				= NULL;
 		public $flyers					= NULL;
 		public $users_flyers_id			= NULL;
@@ -267,11 +268,45 @@ class Board
 			// run statement or die
 			$result = mysql_query($sql) or die (show_error('Problem with not approving flyer'));
 			
-				// other than an error, there was a problem submitting the user
-				if ($result == false) { return false; }
+			// other than an error, there was a problem submitting the user
+			if ($result == false) { return false; }
 
-				// get the newly assigned cork id. 
-				return true;
+			// get the newly assigned cork id. 
+			return true;
+		}
+		
+		/*
+		 * check_pps()
+		 * this will check if the board is eligable for pps
+		 */
+		function check_pps()
+		{
+			$sql = "SELECT count(board_post_id) AS PPS FROM board_posting WHERE board_post_post_status_id = 4";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with obtaining pps count'));
+			
+			if (mysql_num_rows($result) > 0) { while($row = mysql_fetch_array($result)){ $this->$pps_count = $row["PPS"];}}			
+		}
+		
+		/*
+		 * enable_pps()
+		 * this will set the status to pps enabled
+		 */
+		function enable_pps()
+		{
+			// update sql statement
+			$sql = "UPDATE board_posting SET board_post_post_status_id = 4 WHERE board_post_id = ('$this->board_post_id')";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with updating pps'));
+			
+			// other than an error, there was a problem submitting the user
+			if ($result == false) { return false; }
+
+			// get the newly assigned cork id. 
+			return true;
+			
 		}
 		
 	
