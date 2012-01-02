@@ -243,7 +243,7 @@ function RenderPostActionButtons(id)
 		 text: false
 		}),
 		$("#preview_" + id ).click(function() {
-			window.open('generate.php?flyerid=' + id,null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no');
+			window.open('generate.php?flyerid=' + $('#preview_' + id).attr('name'),null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no');
 		}),
 		$( "#approve_" + id ).button({
 	        icons: {
@@ -595,31 +595,39 @@ function RefreshPostList()
  * initalize the map's api via an onchange event
  */
 function InitializeMapsAPI(address){
-  	// load the data 
-	
-  	var latlng = new google.maps.LatLng();
-	var geocoder = new google.maps.Geocoder();
-	
-	geocoder.geocode( {'address': address },
-	function(data, status) { 
-		 latlng = data[0].geometry.location;
-		  
-		 var myOptions = {
-		    zoom: 10,
-		    center: latlng,
-		    mapTypeId: google.maps.MapTypeId.ROADMAP
-		  };
+  		
+		// load the data 
+	  	var latlng = new google.maps.LatLng();
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode( {'address': address },
+		function(data, status) { 
+			try
+			{
+			 	latlng = data[0].geometry.location;
+			}
+		  	catch(ex)
+			{
+				console.log(ex);
+			}
+			
+			 var myOptions = {
+			    zoom: 10,
+			    center: latlng,
+			    mapTypeId: google.maps.MapTypeId.ROADMAP
+			  };
 
-		  var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-		  var marker = new google.maps.Marker({
-		  	    position: latlng,
-		  		animation: google.maps.Animation.DROP,
-		  	    title:""
-		  });
+			  var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+			  var marker = new google.maps.Marker({
+			  	    position: latlng,
+			  		animation: google.maps.Animation.DROP,
+			  	    title:""
+			  });
 
-		  marker.setMap(map);
-	});
-	
+			  marker.setMap(map);
+		});
+
+
+
 	LoadTableEntry(address);
 }
 /*
@@ -754,7 +762,7 @@ function LoadModalPPSInformation()
 		 	pps_html += "<tr><td><i>Type:</i></td><td>"    	             		       + type_desc       + "</td></tr>";
 		 	pps_html += "<tr><td><i>This Amount:</td><td></i>"  			     	   + pps.pps_cash    + "</td></tr>";
 		 	pps_html += "<tr><td><i>For Days:</td><td></i>" 	 		     	 	   + pps.pps_flyer   + "</td></tr>";
-			pps_html += "<tr><td><i>Slots:</td><td></i>0</td></tr>";
+			pps_html += "<tr><td><i>Slots:</td><td></i>4</td></tr>";
 			pps_html += "<tr><td><i>Queue:</td><td></i>0</td></tr>";
 		 	pps_html += "<tr><td colspan='2'><i>Paymenet Handling:</i><br><br>"         + pps.pps_payment + "</td></tr>";	 
 		 	pps_html += "</table>";

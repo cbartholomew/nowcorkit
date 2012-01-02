@@ -438,7 +438,7 @@ echo "<td class='ui-widget-content table_data'>" . $post->flyer->board_post_id  
 echo "<td class='ui-widget-content table_data'>" . $post->flyer->title 		   . "</td>";
 echo "<td class='ui-widget-content table_data'>" . $post->flyer->post_status_desc . "</td>";
 echo "<td class='ui-widget-content table_data'>" . $post->flyer->post_expiration  . "</td>";
-echo "<td class='ui-widget-content table_data'><center><button type='button' id='preview_" . $post->flyer->board_post_id . "'>Preview</button></center></td>";
+echo "<td class='ui-widget-content table_data'><center><button type='button' name='" . $post->flyer->users_flyers_id . "' id='preview_" . $post->flyer->board_post_id  . "'>Preview</button></center></td>";
 echo "<td class='ui-widget-content table_data'><center><button type='button' id='remove_"  . $post->flyer->board_post_id . "'>Remove</button></center></td>";
 echo "<td class='ui-widget-content table_data'><center><button type='button' id='approve_" . $post->flyer->board_post_id . "'>Approve</button></center></td>";
 echo "<td class='ui-widget-content table_data'><center><button type='button' id='pps_" 	   . $post->flyer->board_post_id . "'>Enable PPS</button></center></td>";
