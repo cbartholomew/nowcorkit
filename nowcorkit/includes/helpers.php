@@ -541,7 +541,8 @@
 					$board->pps_cashamount			= $row["board_pps_cash_amount"];
 					$board->pps_flyerdays			= $row["board_pps_flyerdays"];	
 					$board->pps_payment				= $row["board_pps_payment"];							 	 	
-													 	 	 	 	 	 					 	 	 	 	 	 	
+					$board->check_pps();	
+											 	 	 	 	 	 					 	 	 	 	 	 	
 					// push onto stack
 				   	array_push($board_array, $board);
 				}	
@@ -579,10 +580,11 @@
 					$board->enable_shuffle			= $row["board_enable_shuffler"];
 					$board->shuffle_interval 		= $row["board_shuffler_interval"];
 					$board->pps_id					= $row["board_pps_id"];
-					$board->pps_cashmount			= $row["board_pps_cash_amount"];
+					$board->pps_cashamount			= $row["board_pps_cash_amount"];
 					$board->pps_flyerdays			= $row["board_pps_flyerdays"];
 					$board->pps_payment				= $row["board_pps_payment"];
 					$board->cork_id 				= $row["board_users_cork_id"];
+					$board->check_pps();
 					
 					// return the object
 					return $board;
@@ -630,6 +632,7 @@
 						$flyer->users_flyers_id			= $row["board_post_users_flyers_id"];
 						$flyer->post_status_desc		= $row["post_status_desc"];
 						$flyer->post_expiration 		= $row["board_post_expire_dttm"];
+
 						// assoicate the flyer to the board 
 						$board->flyers = $flyer;
 						
@@ -676,7 +679,7 @@
 						$flyer->post_status_id			= $row["post_status_id"];
 						$flyer->post_expiration 		= $row["board_post_expire_dttm"];
 						$flyer->board_post_id			= $row["board_post_id"];
-						
+						$flyer->post_flyerdays			= $row["board_pps_flyerdays"];
 						
 						$post->flyer = $flyer;
 						// pop it on to the array
@@ -817,7 +820,7 @@
 		return $sql;
 		
 	}
-	
+		
 	/*
      * void
      * redirect($destination)

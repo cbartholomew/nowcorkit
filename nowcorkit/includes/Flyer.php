@@ -39,6 +39,7 @@ class Flyer
 		public $post_status_id			= NULL;
 		public $post_expiration			= NULL;
 		public $board_post_id			= NULL;
+		public $post_flyerdays			= NULL;
 		
 		/*
 		 * __construct($_DATA) 

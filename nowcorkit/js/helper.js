@@ -277,9 +277,8 @@ function RenderPostActionButtons(id)
 		 text: false
 		}),
 		$("#pps_" + id ).click(function() {
-				alert('pps enabled');
-				// var filter_id = $('input[name=filter]:checked', '#filters').val();
-				// UpdatePostFilterByAjaxPost(filter_id);
+				// make request to begin pps
+				BeginPPS(id);
 		});
 	});
 	
@@ -534,6 +533,75 @@ function ApprovePost(id, is_approve)
        },
 	});
 	return true;	
+}
+
+/*
+ * Execute the modal to begin pps mobile
+ */
+function BeginPPS(id)
+{	
+	var now 		=  new Date();
+	var expire_date =  new Date($("#pps_" + id ).attr("expire"));
+	
+	expire_date.add('d',1);
+	now.add('d',1);
+	
+	var flyerdays   =  $("#pps_" + id ).attr("flyerdays");	
+	var diff		=  expire_date.getDate() - now.getDate();
+	
+	if 	(flyerdays > diff) { expire_date.add("d", (flyerdays - diff)); }
+		
+	$("#dialog-message").html("<label style='color: #9BCC60;'>Enabling PPS will keep this flyer visable until " + expire_date.toDateString() + ". Once posted, it can only be removed by the person who posted it.<br><br>Continue?</label>");
+		//make this load the preferences screen
+	$( "#dialog-message" ).dialog({
+					modal: true,
+					title: "Enabling PPS",
+					resizable: false,
+					buttons: {
+						ok: function() {
+							RequestPPSEnabled(id);
+							$( this ).dialog( "close" );
+						},
+						cancel: function() {
+							$( this ).dialog( "close" );
+						}
+				}
+	});	
+	return false;
+}
+
+/* 
+ * Makes ajax request to enable pps
+ */
+function RequestPPSEnabled(id)
+{
+		console.log(id);
+		console.log($('#board_select option:selected').val());
+		// make an ajax call to render a form window screen
+		$.ajax({
+	       	url:  "post_pps.php",
+		   	type: 'post',
+			cache: false,
+		   	data: {
+					board_id	   : $('#board_select option:selected').val(),
+					board_post_id  : id
+		   	},
+			beforeSend: function(){
+				$("#tabs").mask("updating...");
+			},
+			error: function(data)
+			{
+				$("#tabs").html(data);
+			},
+	        success: function(data) {
+			    console.log(data);
+				$("#tabs").unmask();
+				$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Post has been set to <i>PPS - Posted</i> for this board</label>");
+				var filter_id = $('input[name=filter]:checked', '#filters').val();
+				UpdatePostFilterByAjaxPost(filter_id);
+	       },
+		});
+		return false;	
 }
 
 /*
@@ -949,7 +1017,10 @@ function PurgeBoard(){
 		},
         success: function(data) {
 			$("#modal_remove").unmask();
-       }
+        },
+		completed: function(data) {
+			$("#modal_remove").unmask();
+		}
 	});
 	return true;
 }

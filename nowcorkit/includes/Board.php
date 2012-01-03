@@ -24,6 +24,7 @@ class Board
 		public $permission_type_id	 	= NULL;
 		public $permission_type_desc	= NULL;
 		public $expiration_days 		= NULL;
+		public $board_post_expire_dttm	= NULL;
 		public $enable_shuffle			= NULL;
 		public $shuffle_interval 		= NULL;
 		public $enable_pps				= NULL;
@@ -281,12 +282,13 @@ class Board
 		 */
 		function check_pps()
 		{
-			$sql = "SELECT count(board_post_id) AS PPS FROM board_posting WHERE board_post_post_status_id = 4";
+			$sql = "SELECT count(board_post_id) AS PPS FROM board_posting WHERE board_post_post_status_id = 4 AND board_post_board_id = ('$this->id')";
 			
 			// run statement or die
 			$result = mysql_query($sql) or die (show_error('Problem with obtaining pps count'));
 			
-			if (mysql_num_rows($result) > 0) { while($row = mysql_fetch_array($result)){ $this->$pps_count = $row["PPS"];}}			
+			// row pps
+			if (mysql_num_rows($result) > 0) { while($row = mysql_fetch_array($result)){ $this->pps_count = $row["PPS"];}}			
 		}
 		
 		/*
@@ -308,6 +310,75 @@ class Board
 			return true;
 			
 		}
+		
+		/*
+		 * update_expire_date()
+		 * this will update the expire date and time to the boards
+		 * We do this because if someone tries to apply a pps before the
+		 * flyer actually expires, we extend it.
+		 */
+		function update_pps_expire_date()
+		{
+			// get the current date & time
+			$date_time 	     = new DateTime('now');
+			
+			// interval date time
+			$interval = $this->board_post_expire_dttm->diff($date_time);
+
+		    // check minutes
+			$days = $interval->format('%d');
+			
+			// get the difference to add on
+			$days = $this->pps_flyerdays - $days;
+			
+			// update sql statement
+			$sql = "UPDATE board_posting SET \n"
+				 . "board_post_expire_dttm	= DATE_ADD(board_post_expire_dttm, INTERVAL '$days' DAY) \n"
+				 . "WHERE board_post_id    = ('$this->board_post_id')";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with updating expire date'));
+			
+			// other than an error, there was a problem submitting the user
+			if ($result == false) { return false; }
+
+			// get the newly assigned cork id.  
+			return true;
+			
+		}
+		
+		/*
+		 * determine_pps_extension()
+		 * This is will make a check against the current date & time
+		 * and the flyer expire date and to determine if extension is needed for pps
+		 */
+		function determine_pps_extension()
+		{
+			$date_time 	     = new DateTime('now');
+			
+			$sql = "SELECT board_post_expire_dttm FROM board_posting WHERE board_post_id = ('$this->board_post_id')";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with obtaining expire date'));	
+			
+			if (mysql_num_rows($result) > 0) 
+			{
+			   while($row = mysql_fetch_array($result))
+			   {
+			   		$this->board_post_expire_dttm = new DateTime($row["board_post_expire_dttm"]);
+			   }
+			}
+				
+    		// interval date time
+			$interval = $this->board_post_expire_dttm->diff($date_time);
+
+		    // check minutes
+			$days = $interval->format('%d');
+			
+			return ($days < $this->pps_flyerdays) ? true : false;
+	
+		}
+		
 		
 	
 }

@@ -307,10 +307,16 @@ function build_posting_form($board_id)
 	echo "</td>";
 	echo "<td><label id='status'></label></td>";
 	echo "</tr>";
+	
+	echo "<tr>";
+	echo "<td><label for='pps_slots' id='label_cashamount' class=''><i>PPS Slots</i></label></td>";
+	echo "<td><input id='pps_slots' type='text' disabled='true' class='ui-widget-content ui-state-disable template_text ' name='pps_slots' value='" . $board->pps_count . "/" . MAX_FLYERS . "'></td>";
+	echo "<td><label id='status'></label></td>";
+	echo "</tr>";
 			
 	echo "<tr>";
 	echo "<td><label for='cashamount' id='label_cashamount' class=''><i>For this Cash Amount</i></label></td>";
-	echo "<td><input id='cashamount' type='text' class='ui-widget-content template_text ' name='cashamount' value='" . $board->pps_cashmount . "'></td>";
+	echo "<td><input id='cashamount' type='text' class='ui-widget-content template_text ' name='cashamount' value='" . $board->pps_cashamount . "'></td>";
 	echo "<td><label id='status'></label></td>";
 	echo "</tr>";
 			
@@ -341,7 +347,7 @@ function build_posting_form($board_id)
 		echo "</form>";
 	echo "<script>function toggleShuffleCheckBox(){ if ($('#shuffle').val() == 'off'){ $('#shuffle').val('on');} else { $('#shuffle').val('off'); } }</script>";
 	echo"<script src='js/board_edit_validation_hand.js' type='text/javascript' charset='utf-8'></script>";
-	//echo"<script src='js/board_edit_validation_hand.min.js' type='text/javascript' charset='utf-8'></script>";
+
 }
 /* build_post_form($board_id)
  *
@@ -350,6 +356,7 @@ function build_posting_form($board_id)
 function build_post_form($board_id)
 {
 	echo "<script src='js/helper.js' type='text/javascript' charset='utf-8'></script>";
+	echo "<script src='js/date.js' type='text/javascript' charset='utf-8'></script>";
 	echo "<link rel='stylesheet' href='css/main.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
 	echo "<input type='hidden' id='board_id' value='" . $board_id . "'/>";
 	echo "<form id='filters' method='' action=''>";
@@ -440,10 +447,11 @@ echo "<td class='ui-widget-content table_data'>" . $post->flyer->post_expiration
 echo "<td class='ui-widget-content table_data'><center><button type='button' name='" . $post->flyer->users_flyers_id . "' id='preview_" . $post->flyer->board_post_id  . "'>Preview</button></center></td>";
 echo "<td class='ui-widget-content table_data'><center><button type='button' id='remove_"  . $post->flyer->board_post_id . "'>Remove</button></center></td>";
 echo "<td class='ui-widget-content table_data'><center><button type='button' id='approve_" . $post->flyer->board_post_id . "'>Approve</button></center></td>";
-echo "<td class='ui-widget-content table_data'><center><button type='button' id='pps_" 	   . $post->flyer->board_post_id . "'>Enable PPS</button></center></td>";
+echo "<td class='ui-widget-content table_data'><center><button type='button' flyerdays='"  . $post->flyer->post_flyerdays ."' expire='". $post->flyer->post_expiration  ."' id='pps_" . $post->flyer->board_post_id . "'>Enable PPS</button></center></td>";
 echo "</tr>";
 echo "<script>RenderPostActionButtons(" . $post->flyer->board_post_id . ");</script>";
 }
+
 	
 // unset post since we don't need any more
 unset($post);
