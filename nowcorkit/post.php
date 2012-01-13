@@ -78,8 +78,9 @@ echo "<div id='locations' class='ui-widget'>";
 																					 . $board->permission_type_desc 	. ","
 																					 . $board->pps_id					. "|"
 																					 . $board->pps_cashamount			. "|"
-																					 . $board->pps_flyerdays		    . "|"
-																					 . $board->pps_payment				."'>" 																
+																					 . $board->pps_flyerdays		    . "|"																				 
+																					 . $board->pps_payment				. "|" 
+																					 . $board->pps_count				. "'>"																
 																					 . $board->title 					. "</option>";	
 								}			
 							}

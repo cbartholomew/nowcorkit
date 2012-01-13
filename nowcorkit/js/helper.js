@@ -24,7 +24,8 @@ function BuildToolbar(page){
 	// build tool bar html
 	html =	'<span id="span_menu">';
 	html +=	'<input type="radio" id="menu" 	   	name="menu" />	<label for="menu">Menu</label>';
-	html +=	'<input type="radio" id="help" name="menu" />  <label for="help">Help</label>';
+	html +=	'<input type="radio" id="help" 		name="menu" />  <label for="help">Help</label>';
+	html +=	'<input type="radio" id="user" 		name="menu" />  <label for="user">Preferences</label>';
 	html +=	'<input type="radio" id="logout"    name="menu" />	<label for="logout">Logout</label>';
 	html += '</span>';
 	
@@ -44,8 +45,33 @@ function BuildToolbar(page){
 			window.location = "logout.php";
 		});
 		
+		$('$help').click(function() {
+			//left off here
+			//LaunchHelpModal();	
+		});
+		
+		$('#menu').click(function(){			
+			cleanContentAndFormFields();		
+		});
+		
+		$('#user').click(function() {
+			$.ajax({
+			       url: "update_registration.php",
+				   type: "post",
+				   beforeSend: function(){
+						$("#content").mask("pulling...");
+				   },
+			       success: function(data){
+						$("#content").unmask();
+						$('#content').html(data);
+			       },
+				   error:  function(data){
+						$("#content").unmask();
+						$("#content").html(data);
+				   }
+			});
+		});	
 	});
-	
 }
 
 /*
@@ -665,9 +691,14 @@ function RefreshPostList()
 function InitializeMapsAPI(address){
   		
 		// load the data 
+		
+		var a = address.split(',');
+		var map_address = "";
+		for (i=0;i<4;i++) { map_address += a[i].toString() + ",";  }
+		
 	  	var latlng = new google.maps.LatLng();
 		var geocoder = new google.maps.Geocoder();
-		geocoder.geocode( {'address': address },
+		geocoder.geocode( {'address': map_address },
 		function(data, status) { 
 			try
 			{
@@ -693,8 +724,6 @@ function InitializeMapsAPI(address){
 
 			  marker.setMap(map);
 		});
-
-
 
 	LoadTableEntry(address);
 }
@@ -807,13 +836,13 @@ function LoadModalPPSInformation()
 	
 	if (pps_info == "0") { return alert('Please select a location first'); }
 	
-		
 	var pps = 
 	{
 		pps_id 	   : pps_info.toString().split(',')[6].split('|')[0],
 		pps_cash   : pps_info.toString().split(',')[6].split('|')[1],
 		pps_flyer  : pps_info.toString().split(',')[6].split('|')[2],
-		pps_payment: pps_info.toString().split(',')[6].split('|')[3]
+		pps_payment: pps_info.toString().split(',')[6].split('|')[3],
+		pps_slots  : pps_info.toString().split(',')[6].split('|')[4]
 	};
 		
 	var pps_html = "";	
@@ -830,9 +859,8 @@ function LoadModalPPSInformation()
 		 	pps_html += "<tr><td><i>Type:</i></td><td>"    	             		       + type_desc       + "</td></tr>";
 		 	pps_html += "<tr><td><i>This Amount:</td><td></i>"  			     	   + pps.pps_cash    + "</td></tr>";
 		 	pps_html += "<tr><td><i>For Days:</td><td></i>" 	 		     	 	   + pps.pps_flyer   + "</td></tr>";
-			pps_html += "<tr><td><i>Slots:</td><td></i>4</td></tr>";
-			pps_html += "<tr><td><i>Queue:</td><td></i>0</td></tr>";
-		 	pps_html += "<tr><td colspan='2'><i>Paymenet Handling:</i><br><br>"         + pps.pps_payment + "</td></tr>";	 
+			pps_html += "<tr><td><i>Slots:</td><td></i>"					   		   + pps.pps_slots   + "</td></tr>";		
+		 	pps_html += "<tr><td colspan='2'><i>Paymenet Handling:</i><br><br>"        + pps.pps_payment + "</td></tr>";	 
 		 	pps_html += "</table>";
 		break;
 		

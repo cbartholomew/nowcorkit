@@ -28,7 +28,7 @@
 	<script src="js/helper.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">	
 		//ui.selected.id is the id of the list item
-		$(document).ready(function(){$(function() {$( "#selectable" ).selectable({selected: function(event, ui){RequestPageByAjaxGet(ui.selected.id);}});});});
+$(document).ready(function(){$(function() {$( "#selectable" ).selectable({selected: function(event, ui){RequestPageByAjaxGet(ui.selected.id);}});});});
 	</script>
 	<script type="text/javascript"src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDaVcENLnUcWYLoeoIQPAmpHNeZTON0ml0&sensor=false"> 
 	</script>
@@ -52,12 +52,7 @@
 	<div id='status_messages' class='ui-widget-content ui-corner-all'>
 		<label style="color: #9BCC60;">Messages:</label>
 	</div>
-	
 <div id="toolbar"></div>
-<!--
-	<img src="images/pin.png" width="48" height="48" style="position: absolute;left:120px;z-index: 2; top:375px" alt="Pin2">
-	<img src="images/header.png" width="270" height="150" style="position: absolute;left:7px;top:400px" class='ui-corner-all'alt="Header">
--->
 <div id="menu_items">
 	<ol id="selectable">
 		<li id="flyer_choice" class="ui-widget-content ui-corner-all">Create Flyer</li>

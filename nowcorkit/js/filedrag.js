@@ -74,7 +74,7 @@ to be based via ajax. This allows me to obtain the meta data on the file
 			reader.onload = function(e) {
 				Output(
 					"<p><strong>" + file.name + ":</strong><br />" +
-					'<img src="' + e.target.result + '" /></p>'
+					'<img style="width:100%;" src="' + e.target.result + '" /></p>'
 				);
 			}
 			reader.readAsDataURL(file);

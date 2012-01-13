@@ -233,7 +233,7 @@ function buildTextImageForm()
 			echo "</tbody>";
 		echo "</table>";
 		echo "</form>";
-		echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
+		echo "<div id='messages' class='ui-widget-content ui-corner-all' style='width:510px'>";
 		echo "<script>function toggleCheckBox(){ if ($('#enable_qr').val() == 'off'){ $('#enable_qr').val('on');} else { $('#enable_qr').val('off'); }}</script>";
 		//echo "<script src='js/flyer_validation_handler.min.js' type='text/javascript' charset='utf-8'></script>";
 		//echo "<script src='js/filedrag.min.js' type='text/javascript' charset='utf-8'></script>";
@@ -266,7 +266,7 @@ function buildImageOnlyForm()
 	echo "<div id='progress' class='ui-corner-all'></div>";
 	echo "<br>";
 	echo "<form id='image_form' action='' method='' novalidate='novalidate'>";
-	echo "<table class='ui-widget-content ui-corner-all'>";
+	echo "<table class='ui-widget-content ui-corner-all' style='width:532px'>";
 		echo "<tbody>";
 			echo "<tr>";
 				echo "<td><label id='ltitle' for='title'>Title</label></td>";
@@ -285,7 +285,7 @@ function buildImageOnlyForm()
 		echo "</tbody>";
 	echo "</table>";
 	echo "</form>";
-	echo "<div id='messages' class='ui-widget-content ui-corner-all'>";
+	echo "<div id='messages' class='ui-widget-content ui-corner-all' style='width:510px'>";
 	echo "<p>Status Messages</p>";
 	echo "</div>";
 	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";

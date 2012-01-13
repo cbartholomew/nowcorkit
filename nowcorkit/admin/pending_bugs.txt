@@ -1,1 +1,0 @@
-1. When uploading an image, the div should stay the same size

@@ -71,6 +71,43 @@
 		else { show_error("Problem with updating password, please try again later."); }
 		
 	}
+	
+	/* change_password($email)
+	 * 
+	 * changes the user's password
+	 */
+	function update_user_info($form)
+	{
+		// create new user object
+		$u = new User(null);
+		$case = 0;
+		// assign e-mail and password from form data
+		$u->cork_id 		  = $_SESSION['users_cork_id'];
+		$u->password_hash 	  = $form["password"];
+		$u->state_id		  = $form["state"];
+		
+		if ($u->password_hash != "")
+		{
+			$case = 1;
+			// hash the password
+			$u->hash_password();
+		}
+		
+		if ($u->state_id != 0)
+		{
+			// update the hashed password
+			$did_change = $u->update_registration_info_by_cork_id($case);									
+		} 
+		else
+		{
+			$case = 2;
+			// update the hashed password
+			$did_change = $u->update_registration_info_by_cork_id($case);							
+		}
+		
+		return $did_change;
+	}
+	
 		
 	/* ValidateNewRegistration($_FORMDATA)
 	 * Server Side Validation for Registration users
@@ -167,6 +204,49 @@
 		
 	}
 	
+
+	/* get_set_expire()
+	 *
+	 */
+	function get_set_expire()
+	{
+		$date_time = date('Y-m-d H:i:s');
+		/*	update the board posting table on a nightly basis*/
+		$sql = "UPDATE board_posting SET board_post_post_status_id = 6 where board_post_expire_dttm	>= '$date_time'";
+		
+		$result = mysql_query($sql) or die (showerror('Problem with pulling users flyer id'));
+		if ($result == false) { return false; }		
+	
+		return true;
+	}
+	
+	/* insert_maintenance_entry($job_id, $status_id, $notes)
+	 *
+	 */
+	function insert_maintenance_entry($job_id, $status_id, $notes)
+	{
+		$date_time = date('Y-m-d H:i:s');
+		switch($job_id)
+		{
+			case 0:
+				$sql = "INSERT INTO board_maintenance (maintenance_name, maintenance_dttm, is_successful, maintenance_notes)
+						VALUES 						  (('Expire Postings'), ('$datetime'), ('$status_id'), ('$notes'))";
+			break;
+			
+		}
+		
+		if ($sql != null || $sql != "")
+		{
+			$result = mysql_query($sql) or die ();
+			// other than an error, there was a problem submitting the user
+			if ($result == false) { return false; }
+
+			// get the newly assigned cork id. 
+			$id = mysql_insert_id();
+		
+			return $id;
+		}
+	}
 	
     /* ComparePasswords($password_one, $password_two)
      * Purpose: Based on the hashed passwords passed into function
@@ -859,8 +939,8 @@
         // exit immediately since we're redirecting anyway
         exit;
     }
-    
-
+   
+	
 	/*  show_error($message)
 	 * function, which builds a show error page
 	 */

@@ -1,9 +1,5 @@
 For Go Live:
 
-1. redo posting options
-
-2. Pay Per Space 
-
 5. Help Menu
 
 6. Content Text

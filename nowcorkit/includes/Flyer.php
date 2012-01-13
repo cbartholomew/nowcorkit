@@ -488,7 +488,16 @@ class Flyer
 		}		
 		return $SQL;	
 	}
+	
+	
+	/*
+	 *
+	 */	
+	function set_expire()
+	{
 		
+		
+	}
 }
 
 ?>

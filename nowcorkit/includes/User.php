@@ -64,6 +64,38 @@ class User
 	}
 	
 	/*
+	 * update_registration_info_by_cork_id($session_id) 
+	 * 
+	 */
+	function update_registration_info_by_cork_id($case)
+	{ 		
+				// update the user's password	
+		$sql = "";
+		switch($case)
+		{
+			// state only
+			case 0:
+			$sql = "UPDATE users SET users_state_id = ('$this->state_id') where users_cork_id = ('$this->cork_id')";
+			break;
+			// password and state
+			case 1:
+			$sql = "UPDATE users SET users_hash = ('$this->password_hash'), users_state_id = ('$this->state_id') where users_cork_id = ('$this->cork_id')";
+			break;
+			// just password
+			case 2:
+			$sql = "UPDATE users SET users_hash = ('$this->password_hash') where users_cork_id = ('$this->cork_id')";
+			break;			
+		}
+	
+		$result = mysql_query($sql) or die (show_error('Problem with updating your account info'));
+			
+		// other than an error, there was a problem submitting the user
+		if ($result == false) { return false; }
+		
+		return true;
+	}
+	
+	/*
 	 * check_session_expired()
 	 *
 	 */

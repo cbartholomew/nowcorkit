@@ -11,7 +11,7 @@
       <h2><?= $message ?></h2>
     </div>
     <div id="bottom">
-      <a href="javascript:history.go(-1);">Back</a>
+	<img src="../images/logo.png" width="480" height="180" alt="Logo">
     </div>
 
   </body>

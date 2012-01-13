@@ -282,7 +282,11 @@ class Board
 		 */
 		function check_pps()
 		{
-			$sql = "SELECT count(board_post_id) AS PPS FROM board_posting WHERE board_post_post_status_id = 4 AND board_post_board_id = ('$this->id')";
+			// Prepare the statement to insert the new value
+			$date_time = date('Y-m-d H:i:s');
+			
+			$sql = "SELECT count(board_post_id) AS PPS FROM board_posting WHERE board_post_post_status_id = 4 AND board_post_board_id = ('$this->id') 
+					AND board_post_expire_dttm >= '$date_time'";
 			
 			// run statement or die
 			$result = mysql_query($sql) or die (show_error('Problem with obtaining pps count'));

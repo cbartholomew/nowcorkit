@@ -11,3 +11,11 @@
 	5. Corkboard can be access w/o logging in.
 	
 	1. Forgot Password Page - now completed
+	
+	1. When uploading an image, the div should stay the same size
+	
+	
+	1. redo posting options
+
+	2. Pay Per Space 
+
