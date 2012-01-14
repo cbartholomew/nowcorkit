@@ -45,7 +45,7 @@ function BuildToolbar(page){
 			window.location = "logout.php";
 		});
 		
-		$('$help').click(function() {
+		$('#help').click(function() {
 			//left off here
 			//LaunchHelpModal();	
 		});

@@ -89,7 +89,7 @@
 	$mail->Port = 3535; 
 	
 	// username and password
-	$mail->Username = "administrator@nowcorkit.com";  
+	$mail->Username = "cbartholomew@nowcorkit.com";  
 	$mail->Password = "N0wC0rk1t!";
 	
 	// set From:
