@@ -155,7 +155,7 @@ function build_password_reset($user_session)
 	echo "			</div>";
 	echo "			<br>";
 	echo "			<div id='footer' class='ui-widget-header'>";
-	echo "					<p>Created By Christopher Bartholomew<br>Cute pictures by Hannah Solhee<br>nowcorkit.com - the digital corkboard app<br><p>";
+	echo "					<p>nowcorkit.com 2012 - the digital corkboard app<br><p>";
 	echo "			</div>";
 	echo "		</body>";
 	echo "	</html>";

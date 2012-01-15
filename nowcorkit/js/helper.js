@@ -47,7 +47,7 @@ function BuildToolbar(page){
 		
 		$('#help').click(function() {
 			//left off here
-			//LaunchHelpModal();	
+			LaunchHelpModal();	
 		});
 		
 		$('#menu').click(function(){			
@@ -337,6 +337,37 @@ function UpdatePostFilterByAjaxPost(filter_id)
 	
 }
 
+/* 
+ * Launches and Renders Modal for Help
+ */ 
+function LaunchHelpModal(){	
+	
+	$(function(){
+		$.ajax({
+			url: 'help.php',
+			type: 'GET',
+			success: function(data){
+				$('#modal_help').html(data);	
+			},
+			failure: function(){
+				$('#modal_help').html("Problem loading content");
+			}
+		});
+	});
+	// render the dialog
+	$("#modal_help").dialog({
+				autoOpen: false,
+				cache: false,
+				modal: true,
+				height: 600,
+				width:  550,
+				draggable: false,
+				resizable: false,
+				title: 'Help Menu',
+	});
+	// open the dialog
+	$( "#modal_help" ).dialog( "open" );	
+}
 /*
  * Launches Modal Window to edit or remove flyers
  */
@@ -1229,9 +1260,6 @@ function PostToLocation(board_id){
 	});
 	
 }
-/*
- * Populate Portable Flyers
- */
 
 /*
  * Submit Form using AJAX POST

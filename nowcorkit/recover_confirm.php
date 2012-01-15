@@ -31,7 +31,7 @@
 		</div>
 		<br>
 		<div id="footer" class="ui-widget-header">
-				<p>Created By Christopher Bartholomew<br>Cute pictures by Hannah Solhee<br>nowcorkit.com - the digital corkboard app<br><p>
+				<p>nowcorkit.com - the digital corkboard app<p>
 		</div>
 
 	</body>

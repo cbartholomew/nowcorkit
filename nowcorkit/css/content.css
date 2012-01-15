@@ -7,3 +7,13 @@
 {
 	font-size: 13px;
 }
+
+#help_accordion
+{
+	width: 500px;
+}
+
+#help_accordion p li	
+{
+	font-size: 13px;
+}

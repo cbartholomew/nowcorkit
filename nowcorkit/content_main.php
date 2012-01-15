@@ -2,8 +2,8 @@
 <script type="text/javascript">
 $(function() {
 	$('#content_accordion').accordion({
-		autoHeight: false,
-		fillSpace : true
+		fillSpace : true,
+		collapsible  : true,
 	});
 });
 </script>
@@ -62,9 +62,9 @@ $(function() {
 	<h3><a href="#">About</a></h3>
 	<div>
 		<p>
-			Nowcorkit was founded by <a href="http://christopherbartholomew.me">Christopher Bartholomew</a> in Cambridge, MA. Nowcorkit was
-			a way to help push the world forward in a more digital age. By using the corkboard as an example, nowcorkit exposes an obvious challenge 
-			in software development: If one is to provide new software, it must solve a problem more <b>efficiently</b> than before.
+		Nowcorkit was founded by <a href="http://christopherbartholomew.me">Christopher Bartholomew</a> in Cambridge, MA. Nowcorkit was
+		a way to help push the world forward to a more digital age. By using the corkboard as an example, nowcorkit exposes an obvious challenge 
+		in software development: If one is to provide new software, it must solve a problem more <b>efficiently</b> than before.
 		</p>
 	</div>
 </div>

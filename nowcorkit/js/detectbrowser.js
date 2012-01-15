@@ -113,22 +113,13 @@ var BrowserDetect = {
 		}
 	],
 	checkBrowser: function(){
-		if (this.browser == 'Explorer' || this.browser == "Safari"){		
+		if (this.browser == 'Explorer'){		
 		return false;
 		}
 		else{
 		return true;
 		}	
-	}// ,
-	// 	checkOS: function()
-	// 	{
-	// 		if (this.OS != 'Windows'){
-	// 		console.log('Not Windows');
-	// 		return false;	
-	// 		}else{
-	// 		return true;
-	// 		}
-	// 	}
+	}
 };
 //initialize my browser
 BrowserDetect.init();
@@ -137,6 +128,6 @@ BrowserDetect.init();
 isCompatible = BrowserDetect.checkBrowser();
 if (isCompatible == false)
 {
-window.location = "error415.html"
+window.location = "error_pages/error415.html"
 }
 

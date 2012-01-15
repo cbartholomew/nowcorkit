@@ -50,7 +50,9 @@
 	<!--Load CSS Libraries-->
 	<link rel="stylesheet" href="css/validation.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	<link rel="stylesheet" href="css/login.css" type="text/css" media="screen" title="no title" charset="utf-8">	
+	<link rel="stylesheet" href="css/login.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="css/content.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
 	<link rel="stylesheet" href="css/theme/jquery-ui-1.8.16.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<!--Load Javascript Libraries-->
 	<script src="lib/src/jquery-1.7.min.js" type="text/javascript" charset="utf-8"></script>
@@ -59,6 +61,19 @@
 	//Render Submit Button
 		$(function() {
 			$( "input:submit", "dialog-form" ).button();
+	});
+	
+	$(function(){
+		$.ajax({
+			url: 'content_main.php',
+			type: 'GET',
+			success: function(data){
+				$('#home_content').html(data);	
+			},
+			failure: function(){
+				$('#home_content').html("Problem loading content");
+			}
+		});
 	});
 	</script>
 	
@@ -184,8 +199,9 @@
 		  </form>
 		</div>
 		<br>
+		<div id="home_content" style="position:absolute;left:10px;top:10px;"></div>
 		<div id="footer" class="ui-widget-header">
-				<p>Created By Christopher Bartholomew<br>Cute pictures by Hannah Solhee<br>nowcorkit.com - the digital corkboard app<br><p>
+			<p>nowcorkit.com 2012 - the digital corkboard app<br><p>
 		</div>
 
 
