@@ -296,6 +296,21 @@ class Board
 		}
 		
 		/*
+		 * get_post_status()
+		 * This will get the status of the current post
+		 */
+		function get_post_status()
+		{
+			$sql = "SELECT board_post_post_status_id FROM board_posting WHERE board_post_id = ('$this->board_post_id')";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with checking post status'));
+			
+			// row pps
+			if (mysql_num_rows($result) > 0) { while($row = mysql_fetch_array($result)){ $this->post_status_id = $row["board_post_post_status_id"];}}
+		}
+		
+		/*
 		 * enable_pps()
 		 * this will set the status to pps enabled
 		 */

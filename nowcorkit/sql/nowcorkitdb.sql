@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2012 at 02:35 PM
+-- Generation Time: Jan 15, 2012 at 04:29 PM
 -- Server version: 5.5.9
 -- PHP Version: 5.3.6
 
@@ -54,19 +54,12 @@ CREATE TABLE `board_posting` (
   `board_post_expire_dttm` date NOT NULL,
   `board_post_created_dttm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`board_post_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `board_posting`
 --
 
-INSERT INTO `board_posting` VALUES(8, 1, 5, 0, 4, '2012-01-12', '2011-12-13 19:34:10');
-INSERT INTO `board_posting` VALUES(9, 2, 5, 3, 4, '2012-01-12', '2011-12-13 19:36:03');
-INSERT INTO `board_posting` VALUES(10, 2, 2, 2, 1, '2012-01-31', '2012-01-01 15:38:55');
-INSERT INTO `board_posting` VALUES(11, 2, 7, 2, 4, '2012-01-31', '2012-01-01 15:38:59');
-INSERT INTO `board_posting` VALUES(12, 2, 9, 2, 1, '2012-01-31', '2012-01-01 15:39:02');
-INSERT INTO `board_posting` VALUES(13, 4, 4, 2, 4, '2012-01-15', '2012-01-02 20:08:14');
-INSERT INTO `board_posting` VALUES(14, 4, 8, 2, 4, '2012-01-12', '2012-01-02 20:10:13');
 
 -- --------------------------------------------------------
 
@@ -99,10 +92,6 @@ CREATE TABLE `board_preferences` (
 -- Dumping data for table `board_preferences`
 --
 
-INSERT INTO `board_preferences` VALUES(1, 'Test Board', 'This is a test board', '', 'Rockland', '21', '02370', 3, 30, 'off', 0, 1, 0.00, 0, '', 2, '2011-12-12 18:26:41');
-INSERT INTO `board_preferences` VALUES(2, 'Chris Test Chrome', 'testing chrome', '51 Maple Street', 'Rockland ', '21', '02370', 1, 30, '', 0, 2, 1.50, 7, 'Please send paypal invoice to this email address - cbartholomew@gmail.com', 2, '2011-12-12 20:36:56');
-INSERT INTO `board_preferences` VALUES(3, 'New Test', 'This is a test ', '', 'rockland', '21', '02370', 3, 30, '', 0, 3, 0.00, 12, 'This is a test to see if this can be handled. \n\nNow for the update.', 2, '2012-01-01 11:25:26');
-INSERT INTO `board_preferences` VALUES(4, 'Testing Board', 'Testing', '', 'Rockland', '21', '02370', 3, 10, '', 0, 2, 1.00, 9, 'Testing', 2, '2012-01-02 20:07:45');
 
 -- --------------------------------------------------------
 
@@ -184,18 +173,12 @@ CREATE TABLE `forgot_password` (
   `forgot_password_email_sent` int(8) NOT NULL,
   `forgot_password_url_hash` char(255) NOT NULL,
   PRIMARY KEY (`forgot_password_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `forgot_password`
 --
 
-INSERT INTO `forgot_password` VALUES(13, '0f7296e2fb2542ec588a300633c7430a', '2011-12-27 20:42:30', 'cbartholomew@gmail.com', 1, 'xfxClNK+7u+rgM500VprqxI9zG3ysjOb7diy+0QqQX8=');
-INSERT INTO `forgot_password` VALUES(14, 'a6510f951c6e29d02a02b4ba60add214', '2011-12-27 20:42:30', 'cbartholomew@gmail.com', 1, 'gNbJ%2FyfCk0u2%2BD8n%2F69IRpgnMdiJjS8%2BXEywRs%2B17Xk%3D');
-INSERT INTO `forgot_password` VALUES(15, 'ef5c272f60dc6f51e445879345f29985', '2011-12-27 20:42:30', 'cbartholomew@gmail.com', 1, '4pPq0UTvVukVj%2B8rM9wMElt2%2F8whaYhSEh2%2FoAQJvsY%3D');
-INSERT INTO `forgot_password` VALUES(16, '2e7329c35bbc96d8dfd0e485eff34cff', '2011-12-27 20:42:30', 'cbartholomew@gmail.com', 1, '%2FmNQz0mQT1%2FdxKMnNmlZVIDiSNZPMRpJapcc4rYnegw%3D');
-INSERT INTO `forgot_password` VALUES(17, '1fad3924246e9e3fdd048d706c5280dc', '2011-12-31 12:44:16', 'cbartholomew@gmail.com', 1, 'YmyqdljGkjmXRDI8ILbnrkpZekVhjvL2BsEwCoT7m8A%3D');
-INSERT INTO `forgot_password` VALUES(18, '8d3c6ac19d7bc894cf08915e881a043e', '2011-12-31 16:27:14', 'cbartholomew@gmail.com', 1, 'rGvDEhmH3E8TW2%2BiamHyIY93VPwYSPaWB1bK7Pw3ync%3D');
 
 -- --------------------------------------------------------
 
@@ -210,14 +193,12 @@ CREATE TABLE `image_flyers` (
   `image_flyer_users_cork_id` int(11) NOT NULL,
   `image_flyer_created_dttm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`image_flyer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `image_flyers`
 --
 
-INSERT INTO `image_flyers` VALUES(1, 'CS50 Fair', 2, 2, '2011-12-08 11:00:52');
-INSERT INTO `image_flyers` VALUES(2, 'Owl', 3, 2, '2011-12-08 11:08:39');
 
 -- --------------------------------------------------------
 
@@ -234,21 +215,12 @@ CREATE TABLE `image_meta_data` (
   `image_meta_data_users_cork_id` int(11) NOT NULL,
   `image_meta_data_created_dttm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`image_meta_data_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `image_meta_data`
 --
 
-INSERT INTO `image_meta_data` VALUES(1, '2_beaver_mask_august14.jpg', 'image/jpeg', 17545, 'flyers/images/', 2, '2011-12-08 11:00:18');
-INSERT INTO `image_meta_data` VALUES(2, '2_balloon_poster_outlined_150x150_p1.png', 'image/png', 38108, 'flyers/images/', 2, '2011-12-08 11:00:52');
-INSERT INTO `image_meta_data` VALUES(3, '2_374706_10100707866586588_10728273_59733166_561711987_n.jpg', 'image/jpeg', 73241, 'flyers/images/', 2, '2011-12-08 11:08:39');
-INSERT INTO `image_meta_data` VALUES(5, '2_owl.jpg', 'image/jpeg', 58455, 'flyers/images/', 2, '2011-12-12 18:33:25');
-INSERT INTO `image_meta_data` VALUES(6, '2_selbillboard.png', 'image/png', 6790, 'flyers/images/', 2, '2011-12-12 20:35:53');
-INSERT INTO `image_meta_data` VALUES(7, '2_null', 'null', 0, 'null', 2, '2011-12-14 19:05:45');
-INSERT INTO `image_meta_data` VALUES(8, '2_null', 'null', 0, 'null', 2, '2011-12-14 19:18:46');
-INSERT INTO `image_meta_data` VALUES(9, '2_beaver_mask_august14.jpg', 'image/jpeg', 17545, 'flyers/images/', 2, '2011-12-31 17:40:13');
-INSERT INTO `image_meta_data` VALUES(10, '2_wallstreet460.jpg', 'image/jpeg', 50458, 'flyers/images/', 2, '2011-12-31 18:14:46');
 
 -- --------------------------------------------------------
 
@@ -380,16 +352,12 @@ CREATE TABLE `text_flyers` (
   `text_flyer_users_cork_id` int(11) NOT NULL,
   `text_flyer_created_dttm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`text_flyer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `text_flyers`
 --
 
-INSERT INTO `text_flyers` VALUES(1, 'Heyo This is a Text Flyer', 'Text Flyer ', 'My Location', '12/08/2011', 1, 'Christopher Bartholomew', 'cbartholomew@gmail.com', 'on', 'flyers/qrcodes/qr_1_2.png', 2, '2011-12-08 10:52:12');
-INSERT INTO `text_flyers` VALUES(2, 'Testing QR Codes', 'This is a test for QR codes', 'location', '12/09/2011', 0, '', '', 'on', 'flyers/qrcodes/qr_2_2.png', 2, '2011-12-08 12:43:30');
-INSERT INTO `text_flyers` VALUES(3, 'This is a text flyer', 'Hello, this is my special test text file that i will be using to test', 'Home', '12/14/2011', 1, 'Christopher Bartholomew', 'cbartholomew@gmail.com', 'on', 'flyers/qrcodes/qr_3_2.png', 2, '2011-12-12 20:27:51');
-INSERT INTO `text_flyers` VALUES(4, 'Text Flyer', 'This is a text flyer', 'Testing', '', 0, '', '', 'off', '', 3, '2011-12-13 19:30:16');
 
 -- --------------------------------------------------------
 
@@ -412,20 +380,12 @@ CREATE TABLE `text_image_flyers` (
   `text_image_flyer_image_meta_data_id` int(11) NOT NULL,
   `text_image_flyer_created_dttm` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`text_image_flyer_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `text_image_flyers`
 --
 
-INSERT INTO `text_image_flyers` VALUES(1, 'Testing text and Image', 'text and Image flyer', 'some location', '12/16/2011', 1, 'Christopher Bartholomew', 'cbartholomew@gmail.com', 'on', 'flyers/qrcodes/qr_1_2.png', 2, 1, '2011-12-08 11:00:18');
-INSERT INTO `text_image_flyers` VALUES(2, 'Testing Owl', 'This is a test Owl', 'Some Location', '', 0, '', '', 'on', 'flyers/qrcodes/qr_2_2.png', 2, 4, '2011-12-12 18:25:34');
-INSERT INTO `text_image_flyers` VALUES(3, 'Test Image Flyer', 'Test Image Flyer', 'some location', '12/03/2011', 0, '', '', 'on', 'flyers/qrcodes/qr_3_2.png', 2, 5, '2011-12-12 18:33:25');
-INSERT INTO `text_image_flyers` VALUES(4, 'Shield\\''s MRI blah ', 'Blah Testing Image & Text flyers for chrome os', 'Home', '12/12/2011', 1, 'Christopher Bartholomew', 'cbartholomew@gmail.com', 'off', '', 2, 6, '2011-12-12 20:35:53');
-INSERT INTO `text_image_flyers` VALUES(5, 'test', 'test', 'test', '', 0, '', '', 'off', '', 2, 7, '2011-12-14 19:05:45');
-INSERT INTO `text_image_flyers` VALUES(6, 'test', 'test', 'test', '', 0, '', '', 'off', '', 2, 8, '2011-12-14 19:18:46');
-INSERT INTO `text_image_flyers` VALUES(7, 'Test Image', 'Test Image', 'Some Location', '12/31/2011', 0, 'Christopher Bartholomew', '', 'off', '', 2, 9, '2011-12-31 17:40:13');
-INSERT INTO `text_image_flyers` VALUES(8, 'WallStreet Image', 'This is a test to see if the QR Code freaks out on the board after the recent adjustments', 'here', '12/31/2011', 1, 'Christopher Bartholomew', 'cbartholomew@gmail.com', 'on', 'flyers/qrcodes/qr_8_2.png', 2, 10, '2011-12-31 18:14:46');
 
 -- --------------------------------------------------------
 
@@ -447,15 +407,12 @@ CREATE TABLE `users` (
   `users_created_dttm` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `users_login_count` int(11) NOT NULL,
   PRIMARY KEY (`users_cork_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` VALUES(2, NULL, 'cbartholomew@gmail.com', '$1$c00w5vkb$IM8VxY4kyAvqbxVzqG.12.', 'Christopher', 'Bartholomew', 21, 0, '2012-01-13 14:27:41', 0, '0000-00-00 00:00:00', 15);
-INSERT INTO `users` VALUES(3, NULL, 'bartc@u.washington.edu', '$1$N/VXWqQI$t.tsaQ3g3VUhggGPOeJif.', 'Christopher', 'Bartholomew', 47, 0, '2011-12-13 19:29:45', 0, '2011-12-12 19:10:04', 0);
-INSERT INTO `users` VALUES(4, NULL, 'newtest@gmail.com', '$1$0uAaQBYF$Q4YVz1ymOh.2yyFAchUhN0', 'Christopher', 'Bartholomew', 47, 0, '2011-12-12 19:12:55', 0, '2011-12-12 19:12:55', 0);
 
 -- --------------------------------------------------------
 
@@ -475,11 +432,3 @@ CREATE TABLE `users_flyers` (
 -- Dumping data for table `users_flyers`
 --
 
-INSERT INTO `users_flyers` VALUES(2, 2, 2, 3);
-INSERT INTO `users_flyers` VALUES(3, 2, 1, 3);
-INSERT INTO `users_flyers` VALUES(4, 2, 2, 4);
-INSERT INTO `users_flyers` VALUES(5, 3, 1, 4);
-INSERT INTO `users_flyers` VALUES(6, 2, 2, 5);
-INSERT INTO `users_flyers` VALUES(7, 2, 2, 6);
-INSERT INTO `users_flyers` VALUES(8, 2, 2, 7);
-INSERT INTO `users_flyers` VALUES(9, 2, 2, 8);

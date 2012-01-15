@@ -26,6 +26,8 @@
 	<script src="js/date.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/detectbrowser.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/helper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/modal.js" type="text/javascript" charset="utf-8"></script>
+	
 	<script type="text/javascript">	
 	$(document).ready(function(){$(function() {$( "#selectable" ).selectable({selected: function(event, ui){RequestPageByAjaxGet(ui.selected.id);}});});});
 	</script>
@@ -62,5 +64,6 @@
 </div>
 <div id="form_content" class="ui-corner-all"></div>
 <div id="modal_help"></div>
+<div id="modal_dialog"></div>
 </body>
 </html>

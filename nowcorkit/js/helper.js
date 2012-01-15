@@ -291,9 +291,23 @@ function RenderPostActionButtons(id)
 		 text: false
 		}),
 		$("#remove_" + id).click(function() {			
-				ApprovePost(id, false);
-				var filter_id = $('input[name=filter]:checked', '#filters').val();
-				UpdatePostFilterByAjaxPost(filter_id);
+				
+				var m = new ModalDialog({
+					div: "modal_dialog",
+					title: "Problem Removing",
+					height: "300",
+					width: "300",
+					text: "Can't remove flyer because its status is 'PPS - Posted'. Only the poster may remove."
+				});
+				
+				var pps = CheckPPS(id);			
+				if (pps["is_pps"] == true) {m.open();}
+				else 
+				{
+					ApprovePost(id, false);
+					var filter_id = $('input[name=filter]:checked', '#filters').val();
+					UpdatePostFilterByAjaxPost(filter_id);
+				}
 		}),
 		$( "#pps_" + id ).button({
 	        icons: {
@@ -303,13 +317,58 @@ function RenderPostActionButtons(id)
 		 text: false
 		}),
 		$("#pps_" + id ).click(function() {
-				// make request to begin pps
-				BeginPPS(id);
+				// make request to begin pps			
+				var pps = CheckPPS(id);	
+				
+				// prepare dialog
+				var m = new ModalDialog({
+					div: "modal_dialog",
+					title: "Problem Adding PPS",
+					height: "300",
+					width: "300",
+					text: "Can't enable PPS because you have no more slots avaliable. Please wait until a PPS Posted Flyer expires!"
+				});	
+				
+				if (pps["is_max"] == true) { m.open(); }
+				else if (pps["is_pps"] == true)
+				{
+					// reset the modal info
+					m.setInfo({
+						title: "Already PPS",
+						text: "This post is already in PPS Status"
+					});
+					
+					m.open();					
+				}
+				else 
+				{		
+					BeginPPS(id);
+				}
 		});
 	});
 	
 }
 
+function CheckPPS(id)
+{
+	var result = [];
+	$.ajax({
+		async: false,
+		url: "pps_check.php",
+		type: 'POST',
+		data:{
+			board_id: 	$('#board_select option:selected').val(),
+			board_post_id: id,
+		},
+		success: function(data){
+			result = data;
+		},
+		error: function(data){
+			console.log("problem");
+		}
+	});
+	return result
+}
 /*
  *
  * Updates the post field cotent with filtered data
@@ -632,8 +691,6 @@ function BeginPPS(id)
  */
 function RequestPPSEnabled(id)
 {
-		console.log(id);
-		console.log($('#board_select option:selected').val());
 		// make an ajax call to render a form window screen
 		$.ajax({
 	       	url:  "post_pps.php",
@@ -865,7 +922,15 @@ function LoadModalPPSInformation()
 		
 	var pps_info = $('#location option:selected').val();
 	
-	if (pps_info == "0") { return alert('Please select a location first'); }
+	var m = new ModalDialog({
+		div: "modal_dialog",
+		title: "No Location",
+		height: "300",
+		width: "300",
+		text: "Please select a location first!"
+	});
+	
+	if (pps_info == "0") { return m.open(); }
 	
 	var pps = 
 	{
@@ -1220,9 +1285,22 @@ function UpdateLocationsByAjaxPost(state_id)
  */
 function PostToLocation(board_id){
 	
-	if (board_id == 0) { alert("Please select a board to post to!"); return false; }
+	var m = new ModalDialog({
+		div: "modal_dialog",
+		title: "No Board",
+		height: "300",
+		width: "300",
+		text: "Please select a board to post to!"
+	});
 	
-	if ($("#flyers option:selected").val() == 0) { alert("Please select a flyer to post!"); return false; }
+	if (board_id == 0) { m.open(); return false; }
+	
+	m.setInfo({
+		title: "No Flyer",
+		text:  "Please select a flyer to post!"
+	});
+	
+	if ($("#flyers option:selected").val() == 0) { m.open(); return false; }
 	
 	var post_status_desc = $("#table_permission").html();
 	var post_status_id = 1;

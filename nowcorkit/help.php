@@ -130,16 +130,54 @@ you have additional questions, comments, or concerns please e-mail
 				and start a PPS campaign on any of the flyers. This menu also provides a filter option for the users to quickly find, which type of posts they are looking for.</li>
 		</ul>
 		<h3>Board Features</h3>
-		<p>This help segment describes some of the board features in more depth. It will also explain how nowcorkit intended for the users to user these featres.</p>
-		
+		<p>This help segment describes some of the board features in more depth. It will also explain how nowcorkit intended for the users to use these features.</p>
+
+		<p><b>Pay Per Space Feature (PPS)</b> - PPS provides the board host the ability to charge or accept donations for four slots on their corkboard. There is no difference 
+			between "By Donation" and "By Payment" functionally. Though, if the user chooses "By Donation", it's recommended in the payment handling space provided that the user 
+			describe how the donation will be used, if applicable. When setting up PPS in Board Management the board host should fill out the following fields.</p>
 		<ul>
-		<li>Pay Per Space Feature - <p></p></li>
+		<li>For This Cash Amount - The amount of cash that the board host wants in order for the PPS campaign to start.</li>
+		<br>
+		<li>Flyer won't be covered for this many days - The amount of days whereby the PPS campaign will last. </li>
+		<br>
+		<li>Payment Handling - This field is viewable to the people who are posting to your board from the Cork Flyer menu. Use this space to describe how people will get money to you
+			such as an e-mail address for pay-pal, in store instructions or who to contact, and also anything related to donation information.</li>
 		<br>
 		</ul>
 		
+		<p>Please note that once PPS has been enabled in the "Post" tab for a specific flyer. This flyer can only be removed by the person who posted it. So, make sure that before you 
+			enable a PPS campaign for a client that you preview the flyer. Furthermore, If you have an issue with abuse or that someone has failed to set your post to PPS after payment 
+			has been exchanged, please contact us at report@nowcorkit.com.
+		</p>
+		
+		<p>The following is a set of statuses that a flyer can be set to at any time:
+		<ul>
+			<li>Posted - Your flyer has been posted on the board, and it is currently viewable</li>
+			<br>
+			<li>Pending Approval - Your flyer has been posted to a board that requires the board owner's approval. Once approved, it will show as "Posted"</li>
+			<br>
+			<li>Not Approved - Your flyer was not approved, and your post has been removed from the board owner's queue.</li>
+			<br>
+			<li>PPS Posted - Your flyer's PPS campaign has started. It will set itself back to Posted status when the PPS expiration date is met.</li>	
+			<br>		
+			<li>Expired - Your flyer's expiration date has been met and is no longer viewable on the board</li>	
+		</ul>
+		
+		<p>Each location has three distinct permissions:</p>
+		<ul>
+		<li>Public - Anyone can post to this board with no wait time. The post will show up immediately.</li>
+		<br>
+		<li>By Approval - The corkbord host must first approve your flyer in their board's post control. Once completed, the flyer will post immediately.</li>
+		<br>
+		<li>Private - Private means that only the corkboard host can post to this board. This is used mostly for organizations.</li>
+		</ul>
+		
 		<h3>Displaying Board</h3>
+		<p>This page refreshes itself every 60 seconds to capture any new images that have been posted on it. The interesting part about this is that it will adjust depending on the screen 				size. For example, a 21 inch wide screen will let you display eight at a time. Interestingly enough, when new posts are added (and if the display is filled), the oldest posts are covered, however, they are not gone. They are z-indexed - behind the old ones (like a corkboard). If you created a text flyer w/ a qrcode from the beginning, you should have a text flyer that contains a qr code. If you scan this QR code, it will go to an API created that will generate this exact flyer on the fly - think of this as those "paper tabs" with phone numbers, to figure out how to contact this person. Now, you can take the flyer with you :).
+		</p>
+		
 	</div>
-	<h3><a href="#">Additional Support</a></h3>
+	<h3><a href="#">Additional Support and Contact</a></h3>
 	<div>
 		<p>In this menu, you will find the following information:</p>
 		<ul>
@@ -149,11 +187,17 @@ you have additional questions, comments, or concerns please e-mail
 			<li>Additional Support</li>
 		</ul>
 		<h3>Reporting Users</h3>
+		<p>If a board host has either not enabled PPS after payment exchange or your board is receiving a large amount 
+		   of spam by an unknown party that is irrelevant - please contact us at <a href="mailto:report@nowcorkit.com">report@nowcorkit.com</a>
 		<h3>Bug Submission</h3>
+		<p>If you wish to report a bug, please email a description of the bug, the browser you were using, and how to 
+		   reproduce to: <a href="mailto:bug-report@nowcorkit.com">bug-report@nowcorkit.com</a> It is appreciated, and in the future we will do our best to reward you.</p>
 		<h3>Public Relations and Press</h3>
+		<p>If you have any questions that are related to public relations or press, please contact us via <a href="mailto:pr@nowcorkit.com">pr@nowcorkit.com</a></p>
 		<h3>Additional Support</h3>
-		<p>
-		</p>
+		<p>If there is any additional support you need or any comments, ideas, questions, or concerns - including photos of how you are using nowcorkit - 
+			please contact <a href="mailto:administrator@nowcorkit.com">administrator@nowcorkit.com</a> 
+			or Christopher Bartholomew - <a href="mailto:cbartholomew@nowcorkit.com">cbartholomew@nowcorkit.com</a></p> 
 	</div>
 	<h3><a href="#">Users</a></h3>
 	<div>
@@ -163,7 +207,9 @@ you have additional questions, comments, or concerns please e-mail
 		</ul>
 		<h3>Users Preferences</h3>
 		<p>
+			In the top right menu, users can change their password or the default state they belong to. We will be implementing a more functional user preference menu in the future.
 		</p>
+		<p><b>Note: We do not know your password - they are hashed using a one - way hash algorithm</b><p> 
 	</div>
 	<h3><a href="#">About</a></h3>
 	<div>

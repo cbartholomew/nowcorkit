@@ -776,7 +776,7 @@
 	{
 		// You have an object, which contains a set of boards that will be sent back to the user via json
 		$posts = array();
-	
+		$date_time = date('Y-m-d H:i:s');
 		// get all posts made by a specific user. 
 		$sql =   "SELECT * FROM board_posting													\n"
 		    	. "INNER JOIN board_preferences													\n"
@@ -784,8 +784,9 @@
 		    	. "inner join post_status														\n"
 		    	. "ON board_post_post_status_id = post_status.post_status_id					\n"
 		    	. "WHERE board_posting.board_post_board_id = ('$board_id')						\n"
-				. "AND board_posting.board_post_post_status_id = 1								\n"
-				. "ORDER BY board_posting.board_post_created_dttm";
+				. "AND board_posting.board_post_post_status_id IN (4, 1)						\n"
+				. "AND board_posting.board_post_expire_dttm >= '$date_time'						\n"
+				. "ORDER BY board_posting.board_post_post_status_id DESC, board_posting.board_post_expire_dttm";
 				
 		// run statement or error
 		$result = mysql_query($sql) or die (show_error('Problem with pulling posts by user'));
