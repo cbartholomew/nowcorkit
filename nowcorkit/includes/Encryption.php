@@ -35,9 +35,10 @@ class Encryption
 		 */
 		function encrypt()
 		{
+			srand();
 			$this->iv_size   	= mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
-			$this->iv 	   		= mcrypt_create_iv($iv_size, MCRYPT_RAND);
-			$this->cipher_text 	= mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->key, $this->plain_text, MCRYPT_MODE_ECB, $iv);			
+			$this->iv 	   		= mcrypt_create_iv($this->iv_size, MCRYPT_RAND);
+			$this->cipher_text 	= mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->key, $this->plain_text, MCRYPT_MODE_ECB, $this->iv);			
 		}
 		
 		/*
@@ -46,9 +47,10 @@ class Encryption
 		 */
 		function decrypt()
 		{
+				srand();
 			$this->iv_size 		= mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
-			$this->iv 	   		= mcrypt_create_iv($iv_size, MCRYPT_RAND);
-			$this->plain_text 	= mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->key, $this->cipher_text, MCRYPT_MODE_ECB, $iv);
+			$this->iv 	   		= mcrypt_create_iv($this->iv_size, MCRYPT_RAND);
+			$this->plain_text 	= mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->key, $this->cipher_text, MCRYPT_MODE_ECB, $this->iv);
 		}
 	
 		/*

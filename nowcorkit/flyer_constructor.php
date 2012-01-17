@@ -1,3 +1,6 @@
+<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>
+<script src="js/image.js" type="text/javascript" charset="utf-8"></script>
+<script src='js/filedrag.js'></script>
 <?
 /***********************************************************************
  * flyer_constructor.php
@@ -31,8 +34,8 @@ switch($template)
  */
 function buildTextForm()
 {	
-	
-	echo "<form id='text_form' action='' method='' novalidate='novalidate'>";
+
+	echo "<form id='text_form' action='' method='POST' novalidate='novalidate'>";
 	echo "<table class='ui-widget-content ui-corner-all'>";
 		echo "<tbody>";
 		
@@ -98,8 +101,8 @@ function buildTextForm()
 			echo "</tr>";
 			
 			echo "<tr>";
-				echo "<td><label for='enable_qr'>Generate QR Code?</label></td>";
-				echo "<td><input id='enable_qr' type='checkbox' value='off' onclick='toggleCheckBox();' class='ui-widget-content template_text' name='enable_qr'></td>";
+			echo "<td><label for='enable_qr'>Generate QR Code?</label></td>";
+			echo "<td><input id='enable_qr' type='checkbox' value='off' onclick='toggleCheckBox();' class='ui-widget-content template_text' name='enable_qr'></td>";
 				echo "<td><label id='status'></label></td>";
 			echo "</tr>";
 						
@@ -117,13 +120,9 @@ function buildTextForm()
 	echo "</table>";
 	echo "</form>";	
 	echo "<br>";
-	
-	echo "<script>function toggleCheckBox(){ if ($('#enable_qr').val() == 'off'){ $('#enable_qr').val('on');} else { $('#enable_qr').val('off'); } }</script>";
-	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
-	//echo "<script src='js/flyer_validation_handler.min.js' type='text/javascript' charset='utf-8'></script>";
-	echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";
-	//echo "<script src='js/filedrag.min.js' type='text/javascript' charset='utf-8'></script>";
 	echo "<script>loadDatePicker();</script>";
+	echo "<script>function toggleCheckBox(){ if ($('#enable_qr').val() == 'off'){ $('#enable_qr').val('on');} else { $('#enable_qr').val('off');}}</script>";
+
 }
 /* buildTextImageForm()
  * Renders a form used for Images and Text, size of 300,000 kb
@@ -235,11 +234,6 @@ function buildTextImageForm()
 		echo "</form>";
 		echo "<div id='messages' class='ui-widget-content ui-corner-all' style='width:510px'>";
 		echo "<script>function toggleCheckBox(){ if ($('#enable_qr').val() == 'off'){ $('#enable_qr').val('on');} else { $('#enable_qr').val('off'); }}</script>";
-		//echo "<script src='js/flyer_validation_handler.min.js' type='text/javascript' charset='utf-8'></script>";
-		//echo "<script src='js/filedrag.min.js' type='text/javascript' charset='utf-8'></script>";
-		echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
-		echo "<script src='js/filedrag.js' type='text/javascript' charset='utf-8'></script>";
-		
 		echo "<script>loadDatePicker();</script>";
 }
 	
@@ -288,10 +282,6 @@ function buildImageOnlyForm()
 	echo "<div id='messages' class='ui-widget-content ui-corner-all' style='width:510px'>";
 	echo "<p>Status Messages</p>";
 	echo "</div>";
-	echo "<script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
-	echo "<script src='js/filedrag.js'></script>";
-	//echo "<script src='js/flyer_validation_handler.min.js' type='text/javascript' charset='utf-8'></script>";
-	//echo "<script src='js/filedrag.min.js'></script>";
 }	
 
 ?>

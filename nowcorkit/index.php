@@ -23,10 +23,11 @@
 	<script src="lib/src/jquery-ui-1.8.16.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/src/jquery.loadmask.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/src/jquery.validate.min.js" type="text/javascript" charset="utf-8"></script>
+	
 	<script src="js/date.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/detectbrowser.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/helper.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/modal.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/modal.js" type="text/javascript" charset="utf-8"></script>	
 	
 	<script type="text/javascript">	
 	$(document).ready(function(){$(function() {$( "#selectable" ).selectable({selected: function(event, ui){RequestPageByAjaxGet(ui.selected.id);}});});});

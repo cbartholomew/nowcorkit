@@ -101,7 +101,7 @@ echo "					<td><i>" . $flyer->location . "</i></td>";
 echo "				</tr>";
 echo "				<tr>";
 echo "					<td><b><label>Contact Name<label><b></td>";
-echo "					<td><i>" . $flyer->contact_table . "</i></td>";
+echo "					<td><i>" . $flyer->contact_name . "</i></td>";
 echo "				</tr>";
 echo "				<tr>";
 echo "					<td><b><label>Contact Information<label><b></td>";
@@ -136,7 +136,7 @@ function generate_text_image_flyer($flyer)
 	echo "				</tr>";
 	echo "				<tr>";
 	echo "					<td><b><label>Contact Name<label><b></td>";
-	echo "					<td><i>" . $flyer->contact_table . "</i></td>";
+	echo "					<td><i>" . $flyer->contact_name . "</i></td>";
 	echo "				</tr>";
 	echo "				<tr>";
 	echo "					<td><b><label>Contact Information<label><b></td>";

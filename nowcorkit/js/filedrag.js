@@ -9,16 +9,15 @@ to be based via ajax. This allows me to obtain the meta data on the file
 */
 
 (function() {
-
 			
-	image_meta_data = {
+	image_meta_data = new Image({
 		id:         null,
 		cork_id:	null, 
 		type: 		null,
 		size: 		null,
 		name: 		null,
 		location:   null
-	};	
+	});	
 	
 	// getElementById
 	function $id(id) {
@@ -104,14 +103,14 @@ to be based via ajax. This allows me to obtain the meta data on the file
 		if (xhr.upload && file.type == "image/jpg" || "image/jpeg" || "image/png" || "image/gif" && file.size <= $id("MAX_FILE_SIZE").value) {
 
 			
-		 	image_meta_data = {
+		 	image_meta_data.setProperties({
 							id:         null,
 							cork_id:	null, 
 							type: 		file.type,
 							size: 		file.size,
 							name: 		file.name,
 							location:   "flyers/images/" 
-			};
+			});
 			
 			
 			// create progress bar

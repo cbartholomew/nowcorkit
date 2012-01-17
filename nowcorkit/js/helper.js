@@ -1002,8 +1002,6 @@ function RequestPageByAjaxGet(page){
  */
 function SubmitFormByAjaxPost(page){	
 	
-	image_meta_data["name"] = image_meta_data["name"].replace(' ', '_');
-	
 	$.ajax({
 	       url: "flyer_creation.php",
 		   type: "post",
@@ -1016,7 +1014,7 @@ function SubmitFormByAjaxPost(page){
 				contact_name   	: $("#contact_name").val(),
 				contact_info   	: $("#contact_info").val(),
 				enable_qr	   	: $("#enable_qr").val(),
-				image_meta_data	: image_meta_data,
+				image_meta_data	: image_meta_data.createOutput(),
 				flyer_type		: page
 		   },
 		   beforeSend: function(){
