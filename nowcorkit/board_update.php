@@ -21,12 +21,12 @@
 			{
 				
 				case "general":
-					$board->address 					= $_POST["updates"]["address"];
-					$board->city 						= $_POST["updates"]["city"];
-					$board->description					= $_POST["updates"]["description"];
-					$board->state_id					= $_POST["updates"]["state"];
-					$board->title 						= $_POST["updates"]["title"];
-					$board->zip							= $_POST["updates"]["zipcode"];				
+					$board->address 					= mysql_real_escape_string($_POST["updates"]["address"]);
+					$board->city 						= mysql_real_escape_string($_POST["updates"]["city"]);
+					$board->description					= mysql_real_escape_string($_POST["updates"]["description"]);
+					$board->state_id					= mysql_real_escape_string($_POST["updates"]["state"]);
+					$board->title 						= mysql_real_escape_string($_POST["updates"]["title"]);
+					$board->zip							= mysql_real_escape_string($_POST["updates"]["zipcode"]);				
 				break;
 				
 				case "permission":
@@ -34,12 +34,12 @@
 				break;
 				
 				case "posting":
-					$board->expiration_days 			= $_POST["updates"]["flyerexpire"];
+					$board->expiration_days 			= mysql_real_escape_string($_POST["updates"]["flyerexpire"]);
 					$board->enable_shuffle				= $_POST["updates"]["shuffle"];
 					$board->shuffle_interval 			= $_POST["updates"]["interval"];
 					$board->pps_id						= $_POST["updates"]["postperspace"];
-					$board->pps_cashamount				= $_POST["updates"]["cashamount"];
-					$board->pps_flyerdays				= $_POST["updates"]["flyerdays"];
+					$board->pps_cashamount				= mysql_real_escape_string($_POST["updates"]["cashamount"]);
+					$board->pps_flyerdays				= mysql_real_escape_string($_POST["updates"]["flyerdays"]);
 					$board->pps_payment					= $_POST["updates"]["pay_handle"];
 				break;
 							

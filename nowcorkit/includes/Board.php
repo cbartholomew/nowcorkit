@@ -161,15 +161,19 @@ class Board
 		 */
 		function delete()
 		{
-			$sql = "DELETE FROM board_preferences WHERE board_id = ('$this->id')";
+			if ($this->cork_id == $_SESSION["users_cork_id"])
+			{
+				$sql = "DELETE FROM board_preferences WHERE board_id = ('$this->id')";
 			
-			// run statement or die
-			$result = mysql_query($sql) or die (show_error('Problem with removing the board from the database'));
+				// run statement or die
+				$result = mysql_query($sql) or die (show_error('Problem with removing the board from the database'));
 
-			// other than an error, there was a problem submitting the user
-			if ($result == false) { return false; }
-			
-			return true;	
+				// other than an error, there was a problem submitting the user
+				if ($result == false) { return false; }
+				
+				return true;	
+			}
+			return false;	
 		}
 			
 		/*

@@ -28,6 +28,8 @@ $(function() {
 		<p>
 		If we can't sever our dependency on a simple paper flyer, how do we expect to completely move away from paper entirely? 
 		</p>
+		
+		<p>Keep Updated at the <a href="http://nowcorkit.blogspot.com/">Nowcorkit Blog</a>
 	</div>
 	<h3><a href="#">What can Nowcorkit do for me?</a></h3>
 	<div>

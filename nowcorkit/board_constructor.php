@@ -61,7 +61,7 @@ function build_general_form($board_id)
 
 	echo "<tr>";
 	echo "<td><label for='title'>Title *</label></td>";
-	echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title' value='" . $board->title . "'></td>";
+	echo "<td><input id='title' type='text' class='ui-widget-content template_text' name='title' value='" . str_replace("'","&#39;",$board->title) . "'></td>";
 	echo "<td><label id='status'></label></td>";
 	echo "</tr>";
 
@@ -73,13 +73,13 @@ function build_general_form($board_id)
 
 	echo "<tr>";
 	echo "<td><label for='address'>Address (optional)</label></td>";
-	echo "<td><input id='address' type='desc' class='ui-widget-content template_text'  name='address'  value='" . $board->address . "'></td>";
+	echo "<td><input id='address' type='desc' class='ui-widget-content template_text'  name='address'  value='" . str_replace("\\", "",$board->address) . "'></td>";
 	echo "<td></td>";
 	echo "</tr>";
 
 	echo "<tr>";
 	echo "<td><label for='city'>City *</label></td>";
-	echo "<td><input id='city' type='text' class='ui-widget-content template_text' name='city'   value='" . $board->city . "'></td>";
+	echo "<td><input id='city' type='text' class='ui-widget-content template_text' name='city'   value='" . str_replace("\\", "",$board->city) . "'></td>";
 	echo "<td><label id='status'></label></td>";
 	echo "</tr>";
 
@@ -104,7 +104,7 @@ function build_general_form($board_id)
 
 	echo "<tr>";
 	echo "<td><label for='zipcode'>Zip Code *</label></td>";
-	echo "<td><input id='zipcode' type='text' class='ui-widget-content template_text' name='zipcode' value='" . $board->zip . "'></td>";
+	echo "<td><input id='zipcode' type='text' class='ui-widget-content template_text' name='zipcode' value='" . str_replace("\\", "",$board->zip) . "'></td>";
 	echo "<td><label id='status'></label></td>";
 	echo "</tr>";
 			
@@ -245,7 +245,7 @@ function build_posting_form($board_id)
 		
 	echo "<tr>";
 	echo "<td><label for='flyerexpire'>Flyer Expiration in Days</label></td>";
-    echo "<td><input id='flyerexpire' type='text' class='ui-widget-content template_text' name='flyerexpire' style='text-align:right'value='" . $board->expiration_days ."'></td>";
+    echo "<td><input id='flyerexpire' type='text' class='ui-widget-content template_text' name='flyerexpire' style='text-align:right'value='" . str_replace("\\", "",$board->expiration_days) ."'></td>";
 	echo "<td><label id='status'></label></td>";
 	echo "</tr>";
 		
@@ -572,13 +572,13 @@ function build_new_form()
 		echo "</tr>";
 
 		echo "<tr>";
-		echo "<td><label for='cashamount' id='label_cashamount' class='ui-helper-hidden'><i>For this Cash Amount</i></label></td>";
+		echo "<td><label for='cashamount' id='label_cashamount' class='ui-helper-hidden'><i>Cash Amount</i></label></td>";
 		echo "<td><input id='cashamount' type='text' class='ui-widget-content template_text ui-helper-hidden' name='cashamount'></td>";
 		echo "<td><label id='status'></label></td>";
 		echo "</tr>";
 
 		echo "<tr>";
-		echo "<td><label for='flyerdays' id='label_flyerdays' class='ui-helper-hidden'><i>Flyer won't be covered for this many days</i></label></td>";
+		echo "<td><label for='flyerdays' id='label_flyerdays' class='ui-helper-hidden'><i>Number of Days</i></label></td>";
 		echo "<td><input id='flyerdays' type='text' class='ui-widget-content template_text ui-helper-hidden' name='flyerdays'></td>";
 		echo "<td><label id='status'></label></td>";
 		echo "</tr>";

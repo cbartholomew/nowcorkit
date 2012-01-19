@@ -14,6 +14,6 @@
 			$board = get_specific_board($_POST["id"]);
 			
 			// remove the board	
-			$board->delete();
+			$confim = $board->delete();
 			
 ?>

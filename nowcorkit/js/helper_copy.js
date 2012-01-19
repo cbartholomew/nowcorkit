@@ -14,7 +14,7 @@ current_selected_value = null;
  * Renders the Corkboard
  */
 function BuildCork(){
-	window.location = "corkboard.php?boardid=" + $('#board_select option:selected ').val();
+window.location = "corkboard.php?boardid=" + $('#board_select option:selected ').val();
 }
 
 /*
@@ -887,9 +887,9 @@ function LoadNewBoardPreferences(){
 					autoOpen: false,
 					cache: false,
 					modal: true,
-					//height: 500,
+					height: 670,
 					width:  550,
-					draggable: true,
+					draggable: false,
 					resizable: false,
 					title: 'New Board',
 					close: function() {
@@ -979,23 +979,23 @@ function loadDatePicker(){
 }
 
 /*
-		 * Load Page using AJAX GET
-		 */
-		function RequestPageByAjaxGet(page){	
-			$.ajax({
-			       url: page + ".php",
-				   cache: false,
-					beforeSend: function(){
-					$("#content").mask("loading...");
-				   },
-			       success: function(data) {
-						$("#content").unmask();
-						cleanContentAndFormFields();
-			 	   		$("#content").html(data);			
-			       }
-			});	
-			return false;
-		}
+ * Load Page using AJAX GET
+ */
+function RequestPageByAjaxGet(page){	
+	$.ajax({
+	       url: page + ".php",
+		   cache: false,
+			beforeSend: function(){
+			$("#content").mask("loading...");
+		   },
+	       success: function(data) {
+				$("#content").unmask();
+				cleanContentAndFormFields();
+	 	   		$("#content").html(data);			
+	       }
+	});	
+	return false;
+}
 
 /*
  * Submit Form using AJAX POST
