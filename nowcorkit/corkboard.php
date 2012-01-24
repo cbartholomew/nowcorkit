@@ -8,15 +8,19 @@
   * containers that will be used to render the json data and create html
   **********************************************************************/
   require_once("includes/common.php");
-  // pass the request a GET request - will be changed to POST after testing.
-  $board_id = $_GET["boardid"];
+  $board_id = $_POST["board_id"];
+	
+  if ($_SERVER['REQUEST_METHOD'] == 'GET') { echo "<h1>We're sorry, you can only access this board by logging into your account!</h1>"; return;}
 
 ?>
 <!DOCTYPE html>
-
 <html>
 <head>
+<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="css/theme/jquery-ui-1.8.16.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
 <script src="lib/src/jquery-1.7.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/src/jquery-ui-1.8.16.js" type="text/javascript" charset="utf-8"></script>
+
 <script type="text/javascript">
 	// build screen variables
 	var sWidth;
@@ -46,8 +50,7 @@
 		
 		// we have the data(board objects, which contain flyers) - start rendering them
 		for(flyer in data){
-			console.log(flyerCount);
-			console.log(data);
+
 			tackPos = (fWidth*.6) - (Math.ceil(Math.random()*(fWidth*.2)));
 			fHTML = "<div  id='flyer" + flyerCount + "'><img src='images/tack.png' style='width:" + (fWidth*.10) + "px; position:absolute; top: 0px;  z-index: 10;left: " + tackPos + "px;' ></img>";
 			
@@ -102,13 +105,20 @@
 		    containerCount++;
 		}
 	}	
+	function reload_board(board_id)
+	{
+		$.getScript('js/board.js', function(){
+			var b = new Board({param:'create', page:''});
+			b.load_corkboard(board_id);
+		});	
+	}
 	/* GenerateBoard(board_id)
 	 * used to make the json request to the script for board objects
 	 */
 	function GenerateBoard(board_id){ 
 		
 		// ghetto refresh the page every 60 seconds, for jquery fade-in breaks
-		setTimeout("location.reload(true);",60000);
+		setTimeout("reload_board(" + board_id + ");",60000);
 		       		
 		$.ajax({	
 			url: "generate_board.php",
@@ -168,10 +178,24 @@
 	
 	});
 
+	var html = "";
+	html =	'<span id="span_menu">';
+	html +=	'<input type="radio" id="home" name="home" /><label for="home">Home</label>';
+	html += '</span>';
 	
+	$("#toolbar").html(html);
+
+	$(function(){
+		$("#span_menu").buttonset();
+		$("#home").click(function(){
+			window.location = "index.php";
+		});
+	});
+	
+
 </script>
-<link rel="stylesheet" href="css/main.css" type="text/css" media="screen" title="no title" charset="utf-8">
 <body>
+<div id="toolbar" style="float:top;float:right;"></div>
 </body>
 </html>
 

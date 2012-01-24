@@ -1,10 +1,3 @@
-/***********************************************************************
- * XXX.php
- * Author		  : Christopher Bartholomew
- * Last Updated  : 
- * Purpose		  : 
- **********************************************************************/
-
 $(document).ready(function() { 
     /*
 	 * Builds Validation options for text forms
@@ -69,14 +62,10 @@ $(document).ready(function() {
         },       
 		submitHandler: function() 
 		{ 
-			SubmitFormByAjaxPost('text');
+			var f = new Flyer({param:'1'});
+			f.submit();
 		}
     });
-
-
-	/*
-	 * Builds Validation options for text forms with Images
-	 */
   	  var text_image_validator = $("#text_image_form").validate({ 
    	        rules: { 
    	            title: 		 {
@@ -132,16 +121,13 @@ $(document).ready(function() {
    		submitHandler: function() { 				
    				if ($('#fileselect').val() != "")
    				{
-   					SubmitFormByAjaxPost('text_image');
+   					var f = new Flyer({param:'2'});
+					f.submit();
    				}else{
    					$("#messages").html("<label style='color: #9BCC60;'>Image must be accompanied with this flyer type</label>");
    				}
    		}
    	    });
-   	
-   	/*
-   	 * Builds Validation options for Image upload only
-   	 */
    	    var upload_image_validator = $("#image_form").validate({ 
    		rules: { 
    	            title: 		 {
@@ -164,15 +150,14 @@ $(document).ready(function() {
    	            else 
    	                error.appendTo( element.parent().next() ); 
    	        },         // specifying a submitHandler prevents the default submit, good for the demo 
-   		submitHandler: function() { 				
+   			submitHandler: function() { 				
    				if ($('#fileselect').val() != "")
    				{
-   					SubmitFormByAjaxPost('image');
+   					var f = new Flyer({param:'3'});
+					f.submit();
    				}else{
    					$("#messages").html("<label style='color: #9BCC60;'>Image must be accompanied with this flyer type</label>");
    				}
    		}
    	    });
- 	
-
 });

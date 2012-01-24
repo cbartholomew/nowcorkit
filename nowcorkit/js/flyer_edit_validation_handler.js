@@ -60,8 +60,10 @@ $(document).ready(function() {
             else 
                 error.appendTo( element.parent().next() ); 
         },       
-		submitHandler: function() { 
-			UpdateFormByAjaxPost('text');
+		submitHandler: function() { 					
+			var f = new Flyer({param:'1'});
+			f.edit_submit();
+	
 		}
     });
 
@@ -122,7 +124,8 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },       
 		submitHandler: function() { 				
-			UpdateFormByAjaxPost('text_image');
+			var f = new Flyer({param:'2'});
+			f.edit_submit();
 		}
     });
 
@@ -152,7 +155,8 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },         // specifying a submitHandler prevents the default submit, good for the demo 
 		submitHandler: function() { 				
-				UpdateFormByAjaxPost('image');
+				var f = new Flyer({param:'3'});
+				f.edit_submit();
 		}
     });
 	

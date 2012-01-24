@@ -120,7 +120,11 @@ $(document).ready(function() {
         },       
 		submitHandler: function() { 
 			if ($("#flyerexpire").val() < $("#flyerdays").val()) { alert("Flyer PPS day amount must be less than the Flyer expiration day amount!");}
- 			else {SubmitBoardByAjaxPost();}			
+ 			else 
+			{
+				var b = new Board({param: '', page: ''});
+				b.board_manager('create');
+			}			
 		}
     });
 

@@ -5,7 +5,9 @@ function ModalDialog(config)
 	this.title 	= config.title,
 	this.height = config.height,
 	this.width 	= config.width,
-	this.text   = config.text	
+	this.text   = config.text,
+	
+	this.buttons =	{ ok: function() { $( this ).dialog( "close" ); } };
 	
 	this.init();
 }
@@ -13,25 +15,30 @@ function ModalDialog(config)
 ModalDialog.prototype.init = function()
 {
 	this.modal = $( "#" + this.div).dialog({
-					modal: true,
+					modal:    true,
+					cache:    false,
 					autoOpen: false,
-					title: this.title,
+					height: this.height,
+					width:  this.width,
+					title:  this.title,
 					resizable: false,
 					draggable: false,
-					buttons: {
-						ok: function() {
-							$( this ).dialog( "close" );
-						}
-					}
+					buttons: this.buttons
 				});
 	
 	$("#" + this.div).html(this.text);
 }
 
-ModalDialog.prototype.setInfo = function(config){
+ModalDialog.prototype.set_info = function(config){
 	this.title = config.title;
 	this.text  = config.text;
+	this.height = config.height,
+	this.width 	= config.width,
 	
+	this.init();
+}
+ModalDialog.prototype.set_button = function(config){
+	this.buttons = config;
 	this.init();
 }
 

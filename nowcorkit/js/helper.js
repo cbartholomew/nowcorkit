@@ -11,14 +11,14 @@
 current_selected_value = null;
 
 /*
- * Renders the Corkboard
+ * Renders the Corkboard [converted]
  */
 function BuildCork(){
 	window.location = "corkboard.php?boardid=" + $('#board_select option:selected ').val();
 }
 
 /*
- * Builds Toolbar and Checks for which page you are currently on
+ * Builds Toolbar and Checks for which page you are currently on [converted]
  */
 function BuildToolbar(page){
 	// build tool bar html
@@ -75,7 +75,7 @@ function BuildToolbar(page){
 }
 
 /*
- * Used to toggle description fields on 
+ * Used to toggle description fields on [converted]
  */
 function toggleDescriptionOn(div_id){
 	 toggleDescriptionOff();
@@ -85,14 +85,14 @@ function toggleDescriptionOn(div_id){
 }
 
 /*
- * Used to toggle description fields off
+ * Used to toggle description fields off [converted]
  */
 function toggleDescriptionOff(){
 	if (current_selected_value != null) { $('#' + current_selected_value).toggleClass('ui-helper-hidden', true) ; }
 }
 
 /*
- * used for contact type screen
+ * used for contact type screen [converted]
  */
 function toggleContactType(value){
 	if (value != ('0')) { $('#contact_info').toggleClass('ui-helper-hidden', false);} 
@@ -100,7 +100,7 @@ function toggleContactType(value){
 }
 
 /*
- * used for feed permissions settings
+ * used for feed permissions settings [dead]
  */
 function toggleShuffleFeature(value){
 	$('#interval').toggleClass('ui-helper-hidden', value); 
@@ -108,7 +108,7 @@ function toggleShuffleFeature(value){
 }
 
 /*
- * used for feed permissions settings
+ * used for feed permissions settings [converted]
  */
 function toggleManagerActionsOff()
 {
@@ -127,7 +127,7 @@ function toggleManagerActionsOff()
 }
 
 /*
- * used as a toggler for pay per space
+ * used as a toggler for pay per space [converted]
  */
 function togglePayPerSpaceFeature(value){
 	if (value != ('1')){ 
@@ -151,7 +151,7 @@ function togglePayPerSpaceFeature(value){
 
 
 /*
- * Previews the flyer based on the users cork id
+ * Previews the flyer based on the users cork id [Converted]
  */
 function preview_flyer(id)
 {
@@ -160,14 +160,14 @@ function preview_flyer(id)
 }
 
 /*
- * used to reset the form divs on ajax get
+ * used to reset the form divs on ajax get [Converted]
  */
 function cleanContentAndFormFields(){
 	$('#content').html("");
 	$('#form_content').html("");
 }
 /*
- * Using these button sets, users will be able to edit/remove/preview flyers
+ * Using these button sets, users will be able to edit/remove/preview flyers [Converted]
  * so large because it's rendering using jquery that builds thebutton sets
  */
 function ActivateSelectableContent(){
@@ -254,7 +254,7 @@ function ActivateSelectableContent(){
 }
 
 /*
- * used for rendering buttons specific to post menu
+ * used for rendering buttons specific to post menu [TODO]
  */
 function RenderPostActionButtons(id)
 {
@@ -336,8 +336,7 @@ function RenderPostActionButtons(id)
 					m.setInfo({
 						title: "Already PPS",
 						text: "This post is already in PPS Status"
-					});
-					
+					});					
 					m.open();					
 				}
 				else 
@@ -346,9 +345,11 @@ function RenderPostActionButtons(id)
 				}
 		});
 	});
-	
 }
 
+/*
+ * used to check pps [converted]
+ */
 function CheckPPS(id)
 {
 	var result = [];
@@ -371,7 +372,7 @@ function CheckPPS(id)
 }
 /*
  *
- * Updates the post field cotent with filtered data
+ * Updates the post field cotent with filtered data [converted]
  */
 function UpdatePostFilterByAjaxPost(filter_id)
 {
@@ -397,7 +398,7 @@ function UpdatePostFilterByAjaxPost(filter_id)
 }
 
 /* 
- * Launches and Renders Modal for Help
+ * Launches and Renders Modal for Help [Converted]
  */ 
 function LaunchHelpModal(){	
 	
@@ -428,7 +429,7 @@ function LaunchHelpModal(){
 	$( "#modal_help" ).dialog( "open" );	
 }
 /*
- * Launches Modal Window to edit or remove flyers
+ * Launches Modal Window to edit or remove flyers [Converted]
  */
 function LaunchEditorModal(flyer_id, page, is_remove){
 	
@@ -446,6 +447,7 @@ function LaunchEditorModal(flyer_id, page, is_remove){
 				$("#modal_editor").html(data);		
 	       }
 		});
+		
 		// render the dialog
 		$("#modal_editor").dialog({
 					autoOpen: false,
@@ -502,7 +504,7 @@ function LaunchEditorModal(flyer_id, page, is_remove){
 }
 
 /*
- * Prepares the deletion dialog for removal
+ * Prepares the deletion dialog for removal [Converted]
  */
 function PendingPurgeFlyer(page){
 		// make an ajax call to render a form window screen
@@ -524,7 +526,7 @@ function PendingPurgeFlyer(page){
 }
 
 /*
- *  It may actually remove the flyer
+ *  It may actually remove the flyer [Converted]
  */
 function PurgeFlyer(data, page)
 {
@@ -555,29 +557,29 @@ function PurgeFlyer(data, page)
 }
 
 /*
- * Enables "add" button in table
+ * Enables "add" button in table [TODO]
  */
 function LoadAddButton(){
-$(function() {
-	$( "#add_button" ).button({
-        icons: {
-            primary: "ui-icon-plus"
-        },
-	 text: false
-	}),
-	$( "#pps_button" ).button({
-        icons: {
-            primary: "ui-icon-notice"
-        },
-	 text: false
-	})
-});
+	$(function() {
+		$( "#add_button" ).button({
+	        icons: {
+	            primary: "ui-icon-plus"
+	        },
+		 text: false
+		}),
+		$( "#pps_button" ).button({
+	        icons: {
+	            primary: "ui-icon-notice"
+	        },
+		 text: false
+		})
+	});
 }
 
 /*
- * Enables "remove" button in table
+ * Enables "remove" button in table [TODO]
  */
-function LoadRemoveButton(id){
+function LoadRemoveButton(id){ 
 $(function() {
 	$( "#" + id ).button({
         icons: {
@@ -588,7 +590,7 @@ $(function() {
 });
 }
 /*
- * Removes post from board
+ * Removes post from board [TODO]
  */
 function RemovePost(id)
 {
@@ -616,7 +618,7 @@ function RemovePost(id)
 	return true;	
 }
 /*
- * Will not-approve post or approve post
+ * Will not-approve post or approve post [converted]
  */
 function ApprovePost(id, is_approve)
 {
@@ -652,7 +654,7 @@ function ApprovePost(id, is_approve)
 }
 
 /*
- * Execute the modal to begin pps mobile
+ * Execute the modal to begin pps mobile [converted]
  */
 function BeginPPS(id)
 {	
@@ -687,7 +689,7 @@ function BeginPPS(id)
 }
 
 /* 
- * Makes ajax request to enable pps
+ * Makes ajax request to enable pps [converted]
  */
 function RequestPPSEnabled(id)
 {
@@ -700,7 +702,7 @@ function RequestPPSEnabled(id)
 					board_id	   : $('#board_select option:selected').val(),
 					board_post_id  : id
 		   	},
-			beforeSend: function(){
+				beforeSend: function(){
 				$("#tabs").mask("updating...");
 			},
 			error: function(data)
@@ -719,9 +721,9 @@ function RequestPPSEnabled(id)
 }
 
 /*
- * Remove post from manager screen
+ * Remove post from manager screen [converted]
  */
-function RemoveManagerPost(id)
+function RemoveManagerPost(id) 
 {
 	// make an ajax call to render a form window screen
 	$.ajax({
@@ -747,7 +749,7 @@ function RemoveManagerPost(id)
 	return true;	
 }
 /*
- * initalize the map's api via an onchange event
+ * initalize the map's api via an onchange event [TODO]
  */
 function RefreshPostList()
 {
@@ -816,7 +818,7 @@ function InitializeMapsAPI(address){
 	LoadTableEntry(address);
 }
 /*
- * Load the address inside of the table
+ * Load the address inside of the table [TODO]
  */
 function LoadTableEntry(address){	
  	
@@ -837,7 +839,7 @@ function LoadTableEntry(address){
 }
 
 /*
- * Load and Toggle the Menu
+ * Load and Toggle the Menu [converted]
  */
 function toggleAndLoadBoard(value){
 	
@@ -852,7 +854,7 @@ function toggleAndLoadBoard(value){
 }
 
 /*
- * Load the tab container, and use ajax for each of the tabs
+ * Load the tab container, and use ajax for each of the tabs [converted]
  */
 function LoadBoardManagerTabs(value){
 
@@ -877,7 +879,7 @@ function LoadBoardManagerTabs(value){
 }
 
 /*
- * Loads modal for new board
+ * Loads modal for new board  [converted]
  */
 function LoadNewBoardPreferences(){
 		// render the dialog
@@ -901,7 +903,7 @@ function LoadNewBoardPreferences(){
 }
 
 /* 
- * Shows the PPS Information about this location
+ * Shows the PPS Information about this location  [TODO]
  */ 
 function LoadModalPPSInformation()
 {
@@ -910,8 +912,8 @@ function LoadModalPPSInformation()
 				autoOpen: false,
 				cache: false,
 				modal: true,
-				height: 350,
-				width:  350,
+				height: 200,
+				width:  600,
 				draggable: false,
 				resizable: false,
 				title: 'PPS Information',
@@ -970,7 +972,7 @@ function LoadModalPPSInformation()
 }
 
 /*
- * Called by flyer constructor, loads date picker
+ * Called by flyer constructor, loads date picker [CONVERTED]
  */
 function loadDatePicker(){
 	$(function(){
@@ -979,9 +981,9 @@ function loadDatePicker(){
 }
 
 /*
-		 * Load Page using AJAX GET
-		 */
-		function RequestPageByAjaxGet(page){	
+* Load Page using AJAX GET [CONVERTED]
+*/
+function RequestPageByAjaxGet(page){	
 			$.ajax({
 			       url: page + ".php",
 				   cache: false,
@@ -998,7 +1000,7 @@ function loadDatePicker(){
 		}
 
 /*
- * Submit Form using AJAX POST
+ * Submit Form using AJAX POST [Converted]
  */
 function SubmitFormByAjaxPost(page){	
 	
@@ -1014,7 +1016,7 @@ function SubmitFormByAjaxPost(page){
 				contact_name   	: $("#contact_name").val(),
 				contact_info   	: $("#contact_info").val(),
 				enable_qr	   	: $("#enable_qr").val(),
-				image_meta_data	: image_meta_data.createOutput(),
+				image_meta_data	: image_meta_data.create_output(),
 				flyer_type		: page
 		   },
 		   beforeSend: function(){
@@ -1039,7 +1041,7 @@ function SubmitFormByAjaxPost(page){
 }
 
 /*
- * Submit Form using AJAX POST
+ * Submit Board using AJAX POST [converted]
  */
 function SubmitBoardByAjaxPost(){	
 	
@@ -1086,7 +1088,7 @@ function SubmitBoardByAjaxPost(){
 }
 
 /*
- * Prepare Purge Board using AJAX POST
+ * Prepare Purge Board using AJAX POST [converted]
  */
 function PreparePurgeBoard(){	
 		var id = $('#board_select option:selected').val();		
@@ -1118,7 +1120,7 @@ function PreparePurgeBoard(){
 }
 
 /*
- * Purge Board using AJAX POST
+ * Purge Board using AJAX POST [converted]
  */
 function PurgeBoard(){
 	var id = $('#board_select option:selected').val();	
@@ -1148,7 +1150,7 @@ function PurgeBoard(){
 }
 
 /*
- * Rendres the portables for the flyers
+ * Rendres the portables for the flyers [Taken Out]
  */
 function LaunchFlyerPortables(){
 	
@@ -1176,7 +1178,7 @@ function LaunchFlyerPortables(){
 }
 
 /*
- * Update Board using AJAX POST
+ * Update Board using AJAX POST  [converted]
  */
 function UpdateBoardByAjaxPost(board_id, page){	
 	var updates = [];
@@ -1254,9 +1256,9 @@ function UpdateBoardByAjaxPost(board_id, page){
 }
 
 /*
- * Update the location list when use switches his or her state
+ * Update the location list when use switches his or her state  [TODO]
  */
-function UpdateLocationsByAjaxPost(state_id)
+function UpdateLocationsByAjaxPost(state_id) 
 {
 		$.ajax({
 			url: "post_location_update.php",
@@ -1279,15 +1281,15 @@ function UpdateLocationsByAjaxPost(state_id)
 }
 
 /*
- * Submit Post by using AJAX POST
+ * Submit Post by using AJAX POST  [TODO]
  */
 function PostToLocation(board_id){
 	
 	var m = new ModalDialog({
 		div: "modal_dialog",
 		title: "No Board",
-		height: "300",
-		width: "300",
+		height: "200",
+		width: "600",
 		text: "Please select a board to post to!"
 	});
 	
@@ -1338,7 +1340,7 @@ function PostToLocation(board_id){
 }
 
 /*
- * Submit Form using AJAX POST
+ * Submit Form using AJAX POST [CONVERTED]
  */
 function UpdateFormByAjaxPost(page){	
 
@@ -1381,7 +1383,7 @@ function UpdateFormByAjaxPost(page){
 }
 
 /*
- * Load Page using AJAX post
+ * Load Page using AJAX post [CONVERTED]
  */
 function RequestFormByAjaxPost(page){	
 	$.ajax({
@@ -1403,7 +1405,7 @@ function RequestFormByAjaxPost(page){
 }
 
 /*
- * Load Page using AJAX post
+ * Load Page using AJAX post  [converted]
  */
 function RequestBoardByAjaxPost(page){	
 	$.ajax({
@@ -1426,7 +1428,7 @@ function RequestBoardByAjaxPost(page){
 /*
  * Called from the manager menu allows the rendering
  * of the actual corkboard. Will be modifying this to
- * post after demo
+ * post after demo  [TODO]
  */
 function GenerateBoard(board_id)
 {	

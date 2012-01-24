@@ -16,7 +16,7 @@ Image.prototype.init = function()
 		if(this.name != "") { this.name = this.name.replace(' ', '_')};
 }
 
-Image.prototype.setProperties = function(config)
+Image.prototype.set_properties = function(config)
 {
 	
 	this.id 		=   config.id;
@@ -30,7 +30,7 @@ Image.prototype.setProperties = function(config)
 
 }
 
-Image.prototype.createOutput = function(){	
+Image.prototype.create_output = function(){	
 	this.output = {
 		id : 			this.id,
 		cork_id : 		this.cork_id,

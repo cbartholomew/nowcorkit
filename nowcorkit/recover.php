@@ -83,36 +83,40 @@ else
  */
 function build_error_page()
 {
-	
-echo "<!DOCTYPE html>";
-echo "	<head>";		
-echo "		<link rel='stylesheet' href='css/main.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
-echo "		<link rel='stylesheet' href='css/login.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
-echo "		<link rel='stylesheet' href='css/theme/jquery-ui-1.8.16.custom.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
-echo "		<!--Load Javascript Libraries-->";
-echo "		<script src='lib/src/jquery-1.7.min.js' type='text/javascript' charset='utf-8'></script>";
-echo "		<script src='lib/src/jquery-ui-1.8.16.js' type='text/javascript' charset='utf-8'></script>";
-echo "		<title>Password Recovery</title>";
-echo "	</head>";
-echo "	<html>";
-echo "		<body>";
-echo "			<img src='images/pin.png' width='48' height='48' style='position: absolute;left:50%;z-index: 2;' alt='Pin'>";
-echo "			<center><img src='images/header.png' width='480' height='200' alt='Header' class='ui-corner-all'></center>";
-echo "			<br>";
-echo "			<div id='login' title='login' class='ui-widget-content ui-corner-all'>";
-echo "				<form id='login_form' method='' action=''>";
-echo "				<h1>Token Expired or Not Found</h1>";
-echo "				<fieldset>";
-echo "					<label>The token that has led you here is either expired or not found. Please return to the <a href='forgot.php' style='color:#2B82AD'>Forgot Password</a> page and request a new email be sent.</label>";
-echo "				</fieldset>";
-echo "			  </form>";
-echo "			</div>";
-echo "			<br>";
-echo "			<div id='footer' class='ui-widget-header'>";
-echo "					<p>Created By Christopher Bartholomew<br>Cute pictures by Hannah Solhee<br>nowcorkit.com - the digital corkboard app<br><p>";
-echo "			</div>";
-echo "		</body>";
-echo "	</html>";
+
+$html = "";
+
+$html .=  "<!DOCTYPE html>";
+$html .=  "	<head>";		
+$html .=  "		<link rel='stylesheet' href='css/main.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
+$html .=  "		<link rel='stylesheet' href='css/login.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
+$html .=  "		<link rel='stylesheet' href='css/theme/jquery-ui-1.8.16.custom.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
+$html .=  "		<!--Load Javascript Libraries-->";
+$html .=  "		<script src='lib/src/jquery-1.7.min.js' type='text/javascript' charset='utf-8'></script>";
+$html .=  "		<script src='lib/src/jquery-ui-1.8.16.js' type='text/javascript' charset='utf-8'></script>";
+$html .=  "		<title>Password Recovery</title>";
+$html .=  "	</head>";
+$html .=  "	<html>";
+$html .=  "		<body>";
+$html .=  "			<img src='images/pin.png' width='48' height='48' style='position: absolute;left:50%;z-index: 2;' alt='Pin'>";
+$html .=  "			<center><img src='images/header.png' width='480' height='200' alt='Header' class='ui-corner-all'></center>";
+$html .=  "			<br>";
+$html .=  "			<div id='login' title='login' class='ui-widget-content ui-corner-all'>";
+$html .=  "				<form id='login_form' method='' action=''>";
+$html .=  "				<h1>Token Expired or Not Found</h1>";
+$html .=  "				<fieldset>";
+$html .=  "				<label>The token that has led you here is either expired or not found. Please return to the <a href='forgot.php' style='color:#2B82AD'>Forgot Password</a> page and request a new email be sent.</label>";
+$html .=  "				</fieldset>";
+$html .=  "			  </form>";
+$html .=  "			</div>";
+$html .=  "			<br>";
+$html .=  "			<div id='footer' class='ui-widget-header'>";
+$html .=  "					<p>Created By Christopher Bartholomew<br>Cute pictures by Hannah Solhee<br>nowcorkit.com - the digital corkboard app<br><p>";
+$html .=  "			</div>";
+$html .=  "		</body>";
+$html .=  "	</html>";
+
+echo $html;
 
 }
 
@@ -122,43 +126,45 @@ echo "	</html>";
  */
 function build_password_reset($user_session)
 {
-	echo "<!DOCTYPE html>";
-	echo "	<head>";		
-	echo "		<link rel='stylesheet' href='css/main.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
-	echo "		<link rel='stylesheet' href='css/login.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
-	echo "		<link rel='stylesheet' href='css/theme/jquery-ui-1.8.16.custom.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
-	echo "		<!--Load Javascript Libraries-->";
-	echo "		<script src='lib/src/jquery-1.7.min.js' type='text/javascript' charset='utf-8'></script>";
-	echo "		<script src='lib/src/jquery-ui-1.8.16.js' type='text/javascript' charset='utf-8'></script>";
-	echo "		<title>Password Recovery</title>";
-	echo "	</head>";
-	echo "	<html>";
-	echo "		<body>";
-	echo "			<img src='images/pin.png' width='48' height='48' style='position: absolute;left:50%;z-index: 2;' alt='Pin'>";
-	echo "			<center><img src='images/header.png' width='480' height='200' alt='Header' class='ui-corner-all'></center>";
-	echo "			<br>";
-	echo "			<div id='login' title='login' class='ui-widget-content ui-corner-all'>";
-	echo "				<form id='login_form' method='POST' action='recover.php'>";
-	echo "				<h1>Reset Password</h1>";
-	echo "				<fieldset>";
-	echo "				<input type='hidden' name='email' value='" . $user_session["email"] . "'/>";
-	echo "				<label id='lpassword'  name='lpassword' style='color:white'>Password</label>";
-	echo "				<input type='password' name='password' id='password' class='ui-widget-content ui-corner-all' />";
-	echo "				<label id='lpasswordconfirm'  name='lpasswordconfirm' style='color:white'>Confirm Password</label>";
-	echo "				<input type='password' name='password_confirm' id='password_confirm' class='ui-widget-content ui-corner-all' required='required'/>";
-	echo "				</fieldset>";
-	echo "			<br>";
-	echo "			<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
-	echo "   			<span class='ui-button-text'>Reset Password</span>";
-	echo "			</button>";
-	echo "			  </form>";
-	echo "			</div>";
-	echo "			<br>";
-	echo "			<div id='footer' class='ui-widget-header'>";
-	echo "					<p>nowcorkit.com 2012 - the digital corkboard app<br><p>";
-	echo "			</div>";
-	echo "		</body>";
-	echo "	</html>";
+	$html = "";
+	
+	$html .=  "<!DOCTYPE html>";
+	$html .=  "	<head>";		
+	$html .=  "		<link rel='stylesheet' href='css/main.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
+	$html .=  "		<link rel='stylesheet' href='css/login.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
+	$html .=  "		<link rel='stylesheet' href='css/theme/jquery-ui-1.8.16.custom.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
+	$html .=  "		<!--Load Javascript Libraries-->";
+	$html .=  "		<script src='lib/src/jquery-1.7.min.js' type='text/javascript' charset='utf-8'></script>";
+	$html .=  "		<script src='lib/src/jquery-ui-1.8.16.js' type='text/javascript' charset='utf-8'></script>";
+	$html .=  "		<title>Password Recovery</title>";
+	$html .=  "	</head>";
+	$html .=  "	<html>";
+	$html .=  "		<body>";
+	$html .=  "			<img src='images/pin.png' width='48' height='48' style='position: absolute;left:50%;z-index: 2;' alt='Pin'>";
+	$html .=  "			<center><img src='images/header.png' width='480' height='200' alt='Header' class='ui-corner-all'></center>";
+	$html .=  "			<br>";
+	$html .=  "			<div id='login' title='login' class='ui-widget-content ui-corner-all'>";
+	$html .=  "				<form id='login_form' method='POST' action='recover.php'>";
+	$html .=  "				<h1>Reset Password</h1>";
+	$html .=  "				<fieldset>";
+	$html .=  "				<input type='hidden' name='email' value='" . $user_session["email"] . "'/>";
+	$html .=  "				<label id='lpassword'  name='lpassword' style='color:white'>Password</label>";
+	$html .=  "				<input type='password' name='password' id='password' class='ui-widget-content ui-corner-all' />";
+	$html .=  "				<label id='lpasswordconfirm'  name='lpasswordconfirm' style='color:white'>Confirm Password</label>";
+	$html .=  "				<input type='password' name='password_confirm' id='password_confirm' class='ui-widget-content ui-corner-all' required='required'/>";
+	$html .=  "				</fieldset>";
+	$html .=  "			<br>";
+	$html .=  "			<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
+	$html .=  "   			<span class='ui-button-text'>Reset Password</span>";
+	$html .=  "			</button>";
+	$html .=  "			  </form>";
+	$html .=  "			</div>";
+	$html .=  "			<br>";
+	$html .=  "			<div id='footer' class='ui-widget-header'>";
+	$html .=  "					<p>nowcorkit.com 2012 - the digital corkboard app<br><p>";
+	$html .=  "			</div>";
+	$html .=  "		</body>";
+	$html .=  "	</html>";
 }
 
 ?>

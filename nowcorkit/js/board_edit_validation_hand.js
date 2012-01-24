@@ -70,7 +70,8 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },       
 		submitHandler: function() { 
-			UpdateBoardByAjaxPost($('#id').val(), 'general');
+			var b = new Board({param: $('#id').val(), page: 'general'});
+			b.board_manager('update');
 		}
     });
     /*
@@ -91,7 +92,8 @@ $(document).ready(function() {
                 error.appendTo( element.parent().next() ); 
         },       
 		submitHandler: function() { 
-			UpdateBoardByAjaxPost($('#id').val(), 'permission');
+			var b = new Board({param: $('#id').val(), page: 'permission'});
+			b.board_manager('update');
 		}
     });
 
@@ -161,7 +163,11 @@ $(document).ready(function() {
         },       
 		submitHandler: function() { 
 			if ($("#flyerexpire").val() < $("#flyerdays").val()) { alert("Flyer PPS day amount must be less than the Flyer expiration day amount!");}
- 			else { UpdateBoardByAjaxPost($('#id').val(), 'posting');}
+ 			else 
+			{ 
+				var b = new Board({param: $('#id').val(), page: 'posting'}); 
+				b.board_manager('update'); 
+			}
 	
 		}
     });
