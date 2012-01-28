@@ -47,7 +47,7 @@
 		var p = 0;
 		var fHTML = "";
 		var tackPos;
-		
+		console.log(data);
 		// we have the data(board objects, which contain flyers) - start rendering them
 		for(flyer in data){
 

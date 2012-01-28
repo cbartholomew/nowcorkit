@@ -88,11 +88,11 @@ function generate_text_flyer($flyer)
 // return the object back as a json request
 header('Content-Type: text/html');
 	
-echo "<html><body>";
-echo "		<div id='header' style='background-color: white'>";
+echo "<html><body style='width:300px;height:388px'>";
+echo "		<div id='header'>";
 echo "			<h1>" . $flyer->title . " </h1>";
 echo "		</div>	";
-echo "		<div id='content' style='background-color: white'>";
+echo "		<div id='flyer_content'>";
 echo "			<p style='text-align:justify'>" . $flyer->description . "</p>";
 echo "			<table>";
 echo "				<tr>";
@@ -127,7 +127,7 @@ function generate_text_image_flyer($flyer)
 	echo "		<div id='header'>";
 	echo "			<h1>" 	. $flyer->title . " </h1>";
 	echo "		</div>	";
-	echo "		<div id='content'>";
+	echo "		<div id='flyer_content'>";
 	echo "			<p style='text-align:justify'>" . $flyer->description . "</p>";
 	echo "			<table>";
 	echo "				<tr>";
@@ -149,7 +149,7 @@ function generate_text_image_flyer($flyer)
 	echo "			</table>";
 	echo "		</div>";
 	echo "	<div id='image'>";
-	echo "	<img src='". str_replace("\\","",$flyer->image_path) . "'/>";
+	echo "	<img style='width:300px;height:388px' src='". str_replace("\\","",$flyer->image_path) . "'/>";
 	echo "  </div>";
 	echo "	<div id='qrcode' style='float:left'>";
 	echo "	<img src='". str_replace("\\","",$flyer->qr_full_location) . "'/>";
@@ -165,7 +165,7 @@ function generate_image_flyer($flyer)
 {
 	echo "<html><body>";
 	echo "	<div id='image'>";
-	echo "	<img style='width:300;height:388' src='". str_replace("\\","",$flyer->image_path) . "'/>";
+	echo "	<img style='width:300px;height:388px' src='". str_replace("\\","",$flyer->image_path) . "'/>";
 	echo "  </div>";
 	echo "	<div id='footer'></div>";
 	echo "</body></html>";

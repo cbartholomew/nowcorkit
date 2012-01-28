@@ -3,7 +3,6 @@ function initialize_page()
 	$(document).ready(function(){
 		$.getScript('js/menu.js', function(){	
 			var m = new Menu({param:'0'});
-			console.log(m);
 			m.get_toolbar();
 		
 			$(function(){
@@ -22,7 +21,6 @@ function initialize_create_flyer()
 	$(document).ready(function(){
 		$.getScript('js/flyer.js', function(){
 			var f = new Flyer({param:'0'});
-			console.log(f);
 			$(function(){ 
 				$("#flyer_select").change(function(){				
 					f.load_template($(this).val());
@@ -33,7 +31,6 @@ function initialize_create_flyer()
 }
 function initialize_flyer_manager()
 {
-	console.log("loading");
 	$(document).ready(function(){
 		$.getScript('js/flyer.js', function(){
 			$(function() {		
@@ -300,7 +297,7 @@ function render_action_buttons(id)
 		});
 	});
 }
-function render_remove_button(id)
+function render_remove_button(id,board_id)
 {
 $(document).ready(function(){
 	$.getScript('js/post.js', function(){
@@ -311,10 +308,21 @@ $(document).ready(function(){
 		            primary: "ui-icon-minus"
 		        },
 			 text: false
-			})
+			});
 			$( "#" + id ).click(function(){
 				p.post_remove($(this).attr('id'));
 			});
+			
+			$( "#" + board_id + "_" + id ).button({
+	        icons: {
+	            primary: "ui-icon-search"
+	        },
+			 text: false
+			});
+			$( "#" + board_id + "_" + id ).click(function(){
+				//p.post_remove($(this).attr('id'));
+			});
+			
 		});
 	});
 });
