@@ -48,6 +48,38 @@
 		return false;
 	}
 	
+	/* check_ownership()
+	 *
+	 * Check's the ownership of the person who owns the board or flyer. 
+	 */
+	function check_ownership($owner_cork_id)
+	{
+		return ($owner_cork_id == $_SESSION["users_cork_id"]) ? true : false;			
+	}
+	
+	/* check_ownership_by_type()
+	 *
+	 * obtains the owner if cork id is not present
+	 */
+	function check_ownership_by_type($type, $id)
+	{
+		switch($type)
+		{
+			case 'flyer':
+			    $flyer = new Flyer(null);
+				$flyer = GetFullFlyer($id);	
+				return ($flyer->cork_id == $_SESSION["users_cork_id"]) ? true : false;					
+			break;
+			
+			case 'board':
+				$board = new Board(null);
+				$board = get_specific_board($id);
+				return ($board->cork_id == $_SESSION["users_cork_id"]) ? true : false;	
+			break;
+
+		}				
+	}
+	
 	/* change_password($email)
 	 * 
 	 * changes the user's password
@@ -464,6 +496,7 @@
 											$flyer->type					= $flyer_type_desc;
 											$flyer->type_id					= $users_flyer_flyer_type_id;	
 											$flyer->image_path 				= $row["image_meta_data_image_location"] . $row["image_meta_data_file_name"];
+											$flyer->cork_id 				= $row["image_flyer_users_cork_id"];
 										
 											return $flyer;				
 									break;
@@ -739,7 +772,7 @@
 		    	. "inner join post_status														\n"
 		    	. "ON board_post_post_status_id = post_status.post_status_id					\n"
 		    	. "WHERE board_posting.board_post_board_id = ('$board_id')						\n"
-				. "ORDER BY board_posting.board_post_created_dttm";
+				. "ORDER BY board_posting.board_post_post_status_id DESC, board_posting.board_post_board_id DESC";
 				
 		// run statement or error
 		$result = mysql_query($sql) or die (show_error('Problem with pulling posts by user'));
@@ -786,7 +819,7 @@
 		    	. "WHERE board_posting.board_post_board_id = ('$board_id')						\n"
 				. "AND board_posting.board_post_post_status_id IN (4, 1)						\n"
 				. "AND board_posting.board_post_expire_dttm >= '$date_time'						\n"
-				. "ORDER BY board_posting.board_post_post_status_id DESC, board_posting.board_post_expire_dttm";
+				. "ORDER BY board_posting.board_post_post_status_id DESC, board_posting.board_post_board_id DESC";
 				
 		// run statement or error
 		$result = mysql_query($sql) or die (show_error('Problem with pulling posts by user'));

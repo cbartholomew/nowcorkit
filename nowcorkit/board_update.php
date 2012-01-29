@@ -14,6 +14,10 @@
 			
 			// get the current values for the board object
 			$board = get_specific_board($_POST["updates"]["id"]);
+			
+			// check ownership
+			$is_owner = check_ownership($board->cork_id);			
+			if ($is_owner == false) { show_error("Tsk, Tsk, Tsk - You are trying to modify something that does not belong to you. Your IP & Activity has been logged."); }
 				
 			//based on which page is making the postback, update that specific data set
 			// only assign, which is applicable for this specific update

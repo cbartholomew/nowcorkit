@@ -113,9 +113,9 @@ echo "					<td><i>" . $flyer->event_date . "</i></td>";
 echo "				</tr>";
 echo "			</table>";
 echo "		</div>";
-echo "	<div id='qrcode' style='float:left' style='background-color: white'>";
-echo "	<img src='". str_replace("\\","",$flyer->qr_full_location) . "'/>";
-echo "	</div>";
+echo " <center>";
+echo "	<img style='padding: 10px 0 0 0'src='". str_replace("\\","",$flyer->qr_full_location) . "'/>";
+echo " <center>";
 echo "</body></html>";
 }
 /* generate_text_image_flyer($flyer)
@@ -123,7 +123,6 @@ echo "</body></html>";
  */
 function generate_text_image_flyer($flyer)
 {
-	echo "<html><body>";
 	echo "		<div id='header'>";
 	echo "			<h1>" 	. $flyer->title . " </h1>";
 	echo "		</div>	";
@@ -148,14 +147,12 @@ function generate_text_image_flyer($flyer)
 	echo "				</tr>";
 	echo "			</table>";
 	echo "		</div>";
-	echo "	<div id='image'>";
-	echo "	<img style='width:300px;height:388px' src='". str_replace("\\","",$flyer->image_path) . "'/>";
-	echo "  </div>";
-	echo "	<div id='qrcode' style='float:left'>";
+	echo "	<div id='image' style='padding: 10px 0 0 0'>";
+	echo "  <center>";
 	echo "	<img src='". str_replace("\\","",$flyer->qr_full_location) . "'/>";
-	echo "	</div>";
-	echo "	<div id='footer'></div>";
-	echo "</body></html>";
+	echo "	<img style='width:100px;height:100px;' src='". str_replace("\\","",$flyer->image_path) . "'/>";
+	echo " </center";
+	echo "  </div>";
 	
 }
 /* generate_image_flyer($flyer)
@@ -163,12 +160,9 @@ function generate_text_image_flyer($flyer)
  */	
 function generate_image_flyer($flyer)
 {
-	echo "<html><body>";
 	echo "	<div id='image'>";
 	echo "	<img style='width:300px;height:388px' src='". str_replace("\\","",$flyer->image_path) . "'/>";
 	echo "  </div>";
-	echo "	<div id='footer'></div>";
-	echo "</body></html>";
 	
 }
 

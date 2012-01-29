@@ -195,7 +195,7 @@
 
 </script>
 <body>
-<div id="toolbar" style="float:top;float:right;"></div>
+<div id="toolbar" style="position:absolute;bottom:0px;right:0px;z-index:-99;"></div>
 </body>
 </html>
 

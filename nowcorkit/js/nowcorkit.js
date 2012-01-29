@@ -184,7 +184,8 @@ function initialize_cork_flyer()
 				 	text: false
 				});	
 				
-				/*attach button listeners*/			
+				/*attach button listeners*/		
+					
 				$("#add_button").click(function(){
 					p.actions('post_to_location');				
 				});
@@ -320,7 +321,7 @@ $(document).ready(function(){
 			 text: false
 			});
 			$( "#" + board_id + "_" + id ).click(function(){
-				//p.post_remove($(this).attr('id'));
+					window.open('scoutboard.php?boardid=' + board_id + "&title=" + $("#board_title").html(),null,'height=900,width=975,status=no,toolbar=no,menubar=no,location=no');
 			});
 			
 		});

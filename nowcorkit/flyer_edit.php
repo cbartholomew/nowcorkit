@@ -5,6 +5,8 @@
 * Last Updated    : 12/08/2011 
 * Purpose		  : This file, depending on the flyer type, will update specific
 * flyers inside of the database
+
+**** at some point please add ownership helper to this
  **********************************************************************/
 		require_once("includes/common.php");
 		

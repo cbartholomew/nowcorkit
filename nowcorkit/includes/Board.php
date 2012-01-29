@@ -38,6 +38,8 @@ class Board
 		public $users_flyers_id			= NULL;
 		public $post_status_id			= NULL;
 		public $board_post_id			= NULL;
+		public $board_status_id			= NULL;
+		public $board_status_is_displaying = NULL;
 	
 		/*
 		 * __construct($_DATA) 
@@ -401,6 +403,106 @@ class Board
 			return ($days < $this->pps_flyerdays) ? true : false;
 	
 		}
+		/*
+		 * board_status_exist()
+		 * Checks if board_status table has an entry for this board already
+		 */
+		function board_status_exist()
+		{
+			$sql = "SELECT board_status_id FROM board_status WHERE board_preferences_id = ('$this->id')";
+			
+			$result = mysql_query($sql) or die (show_error('Problem with checking board\'s existence'));
+			
+			if (mysql_num_rows($result) > 0 )
+			{	
+				while($row = mysql_fetch_array($result))
+			   {
+			   		$this->board_status_id = $row["board_status_id"];
+					return true;
+			   }			
+			}
+			return false;
+		}
+				
+		/*
+		 * board_status_insert()
+		 * inserts a new board_status ID, when one doesn't exsist 
+		 */
+		function board_status_insert()
+		{
+			$date_time 	     =  date('Y-m-d H:i:s');
+			
+			$sql = "INSERT INTO board_status ('board_preferences_id','board_status_last_updated_dttm','board_status_is_displaying') \n"
+				 . "VALUES ('$this->id','$date_time','0')";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with inserting board status'));
+			
+			if ($result == false) {return false;}
+			
+			// get the new id
+			$this->board_status_id = mysql_insert_id();
+			
+			return true;
+			
+		}
+		
+		/*
+		 * board_status_check()
+		 * Checks if board_status table for the current board's status
+		 */
+		function board_status_check()
+		{
+			$sql = "SELECT board_status_is_displaying FROM board_status WHERE board_preferences_id = ('$this->id')";
+			
+			$result = mysql_query($sql) or die (show_error('Problem with checking board status'));
+			
+			if (mysql_num_rows($result) > 0 )
+			{	
+				while($row = mysql_fetch_array($result))
+			   {
+			   		$this->board_status_is_displaying = $row["board_status_is_displaying"];
+					return true;
+			   }			
+			}
+			return false;
+		}
+		
+		/*
+		 * board_status_update()
+		 * updates the board w/ the new status
+		 */
+		function board_status_update()
+		{
+			$date_time  = date('Y-m-d H:i:s');
+			
+			$sql = "UPDATE board_status SET board_status_last_updated_dttm = ('$date_time'), board_status_is_displaying = ('$this->board_status_is_displaying') \n" 
+				   ." WHERE board_preferences_id = ('$this->id')";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with updating board status'));
+			
+			if ($result == false) {return false;}
+						
+			return true;			
+		}
+		
+		/*
+		 * board_status_remove()
+		 * removes the status entry for this board upon board removal
+		 */
+		function board_status_remove()
+		{			
+			$sql = "DELETE FROM board_status WHERE board_prefernces_id = ('$this->id')";
+			
+			// run statement or die
+			$result = mysql_query($sql) or die (show_error('Problem with removing board status'));
+			
+			if ($result == false) {return false;}
+						
+			return true;			
+		}
+
 		
 		
 	

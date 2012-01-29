@@ -51,7 +51,7 @@ $html .=  "<option value='0' selected='selected'>Choose Location...</option>";
 																  . $board->title 					. "</option>";	
 		}			
 	}
-$html .=  "</select></td>";
+$html .=  "</select>/td>";
 $html .=  "<td id='table_address' class='ui-widget-content table_data'></td>";
 $html .=  "<td id='table_permission' class='ui-widget-content table_data' style='text-align: center;'></td>";
 $html .=  "<td id='table_pps' class='ui-widget-content table_data' style='text-align: center;'><button value='' type='button' id='pps_button'>Show</button></td>";
@@ -86,9 +86,10 @@ $html .=  "<option value='0' selected='selected'>Choose Flyer...</option>";
 $html .=  "</select></td>";
 $html .=  "<td class='ui-widget-content table_data'><button value='' type='button' id='add_button'>Add/Remove</button></td>";
 $html .=  "</tr>";
-$html .=  "<script>initialize_cork_flyer();</script>";
 $html .=  "</tbody>";
 $html .=  "</table>";
+$html .=  "<script>initialize_cork_flyer();</script>";
+
 
 echo $html;
 ?>

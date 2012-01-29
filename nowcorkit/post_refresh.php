@@ -12,10 +12,12 @@ $html = "";
 $html .=  "<table id='table_posts' style='border-collapse:collapse' class='ui-corner-all' >";
 $html .=  "<thead>";
 $html .=  "<tr>";
+$html .=  "<th class='ui-widget-content table_data'><label><i>Board Status</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Location Name</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Title</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Post Status</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Post Expiration</i></label></th>";
+$html .=  "<th class='ui-widget-content table_data'><label><i>Scout</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Remove</i></label></th>";
 $html .=  "</tr>";
 $html .=  "</thead>";
@@ -30,16 +32,21 @@ $posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
 			$board = array_pop($posts);
 
 			$html .=  "<tr>";
-			$html .=  "<td class='ui-widget-content table_data'>" . $board->title . "</td>";
+			$html .=  "<td id='board_status'class='ui-widget-content table_data'><img src='images/offline.png' width='50' height='50' alt='offline'/></td>";
+			$html .=  "<td id='board_title' class='ui-widget-content table_data'>" . $board->title . "</td>";
 			$html .=  "<td class='ui-widget-content table_data'>" . $board->flyers->title . "</td>";
 			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_status_desc ."</td>";
 			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_expiration  ."</td>";
+			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>";
+			$html .=  "<button value='". $board->id  . "'"
+										 . "type='button' id='" . $board->id . "_" . $board->board_post_id ."'"
+									 . ">Scout</button></td>";
 			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>";
 			$html .=  "<button value='". $board->flyers->users_flyers_id  . "'"
 																 	  	  . "type='button' id='" . $board->board_post_id ."'"
 															 		      . ">Remove</button></td>";
 			$html .=  "</tr>";
-			$html .=  "<script>render_remove_button(" . $board->board_post_id . ")</script>";	
+			$html .=  "<script>render_remove_button(" . $board->board_post_id . "," . $board->id .");</script>";	
 		}
 	}
 	else

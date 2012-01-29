@@ -14,6 +14,9 @@
 			// insert the new text flyer in the database
 			$board->insert();
 			
+			// create a new entry on board_status
+			$board->board_status_insert();
+			
 			// return the object back as a json response
 			header('Content-Type: application/json');
 			echo json_encode($board);
