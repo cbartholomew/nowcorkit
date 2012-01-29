@@ -128,8 +128,8 @@ $html .=  "<div id='posting' class='ui-widget'>";
 $html .=  "<table id='table_posts' style='border-collapse:collapse' class='ui-corner-all' >";
 $html .=  "<thead>";
 $html .=  "<tr>";
-$html .=  "<th class='ui-widget-content table_data'><label><i>Status</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Location Name</i></label></th>";
+$html .=  "<th class='ui-widget-content table_data'><label><i>Status</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Title</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Post Status</i></label></th>";
 $html .=  "<th class='ui-widget-content table_data'><label><i>Post Expiration</i></label></th>";
@@ -146,10 +146,12 @@ $html .=  "<tbody>";
 		{
 			$board = new Board(null);
 			$board = array_pop($posts);
-
+			
+			$status_image = ($board->board_status_is_displaying == 0) ? "offline.png" : "online.png";
+		
 			$html .=  "<tr>";
-			$html .=  "<td id='board_status'class='ui-widget-content table_data'><img src='images/offline.png' width='50' height='50' alt='offline'/></td>";
 			$html .=  "<td id='board_title' class='ui-widget-content table_data'>" . $board->title . "</td>";
+			$html .=  "<td id='board_status'class='ui-widget-content table_data'><img src='images/" . $status_image . "' width='50' height='50' alt='status_image'/></td>";
 			$html .=  "<td class='ui-widget-content table_data'>" . $board->flyers->title . "</td>";
 			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_status_desc ."</td>";
 			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_expiration  ."</td>";

@@ -22,6 +22,8 @@
 <script src="lib/src/jquery-ui-1.8.16.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript">
+
+	
 	// build screen variables
 	var sWidth;
 	var sHeight;
@@ -47,7 +49,7 @@
 		var p = 0;
 		var fHTML = "";
 		var tackPos;
-		console.log(data);
+		//console.log(data);
 		// we have the data(board objects, which contain flyers) - start rendering them
 		for(flyer in data){
 
@@ -131,6 +133,15 @@
 				insertFlyers(data);		
 			}
 		});	
+		
+			$.ajax({
+				url: "board_status_update.php",
+				type: "POST",
+				data:{
+					boardid: board_id,
+					board_status: 1
+				}
+			});
 	}
 				
 	// when document is loased, start constructing the containers				
@@ -175,6 +186,20 @@
 		$("body").append(HTML);
 		// php code writing in the board id from the get request
 		<? echo "GenerateBoard(". $board_id .");"; ?>
+		
+		$(function(){
+			$(window).unload(function(){
+				$.ajax({
+					async: false,
+					url: "board_status_update.php",
+					type: "POST",
+					data:{
+						boardid: <? echo " " . $board_id ?>,
+						board_status: 0
+					}
+				});			
+			});
+		});
 	
 	});
 
@@ -187,10 +212,13 @@
 
 	$(function(){
 		$("#span_menu").buttonset();
+		
 		$("#home").click(function(){
 			window.location = "index.php";
 		});
 	});
+	
+	
 	
 
 </script>

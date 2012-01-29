@@ -515,13 +515,6 @@ function Board(config)
 
 }
 
-Board.prototype.scout_board = function(board_id)
-{
-
-	
-	
-	
-}
 
 Board.prototype.toggle_features = function(div_list, val, count)
 {

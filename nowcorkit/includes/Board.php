@@ -430,10 +430,8 @@ class Board
 		 */
 		function board_status_insert()
 		{
-			$date_time 	     =  date('Y-m-d H:i:s');
-			
-			$sql = "INSERT INTO board_status ('board_preferences_id','board_status_last_updated_dttm','board_status_is_displaying') \n"
-				 . "VALUES ('$this->id','$date_time','0')";
+			$sql = "INSERT INTO board_status (board_preferences_id,board_status_is_displaying) \n"
+				 . "VALUES ('$this->id','0')";
 			
 			// run statement or die
 			$result = mysql_query($sql) or die (show_error('Problem with inserting board status'));
@@ -465,6 +463,7 @@ class Board
 					return true;
 			   }			
 			}
+			$this->board_status_is_displaying = 0;
 			return false;
 		}
 		
@@ -474,9 +473,8 @@ class Board
 		 */
 		function board_status_update()
 		{
-			$date_time  = date('Y-m-d H:i:s');
-			
-			$sql = "UPDATE board_status SET board_status_last_updated_dttm = ('$date_time'), board_status_is_displaying = ('$this->board_status_is_displaying') \n" 
+			$date_time = date('Y-m-d H:i:s');
+			$sql = "UPDATE board_status SET board_status_is_displaying = ('$this->board_status_is_displaying'), board_status_last_updated_dttm = ('$date_time') \n" 
 				   ." WHERE board_preferences_id = ('$this->id')";
 			
 			// run statement or die
@@ -493,7 +491,7 @@ class Board
 		 */
 		function board_status_remove()
 		{			
-			$sql = "DELETE FROM board_status WHERE board_prefernces_id = ('$this->id')";
+			$sql = "DELETE FROM board_status WHERE board_preferences_id = ('$this->id')";
 			
 			// run statement or die
 			$result = mysql_query($sql) or die (show_error('Problem with removing board status'));

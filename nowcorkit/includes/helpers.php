@@ -655,7 +655,7 @@
 					$board->pps_flyerdays			= $row["board_pps_flyerdays"];	
 					$board->pps_payment				= $row["board_pps_payment"];							 	 	
 					$board->check_pps();	
-											 	 	 	 	 	 					 	 	 	 	 	 	
+					$board->board_status_check();			 	 	 	 	 	 					 	 	 	 	 	 	
 					// push onto stack
 				   	array_push($board_array, $board);
 				}	
@@ -698,6 +698,7 @@
 					$board->pps_payment				= $row["board_pps_payment"];
 					$board->cork_id 				= $row["board_users_cork_id"];
 					$board->check_pps();
+					$board->board_status_check();
 					
 					// return the object
 					return $board;
