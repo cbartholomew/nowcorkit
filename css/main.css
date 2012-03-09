@@ -1,0 +1,169 @@
+/***********************************************************************
+ * main.css
+ * Author		  : Christopher Bartholomew
+ * Last Updated   :  12/08/2011
+ * Purpose		  : Main style sheet used throughout the application
+ **********************************************************************/
+
+#toolbar {
+	padding: 10px 4px;
+	float: right;
+}
+#menu_items {
+	display: inline-block;
+	}
+	
+#content {
+	display: inline-block;
+	position: absolute;
+	top: 135px;
+	}
+	
+#form_content {
+		display: inline-block;
+		position: absolute;
+		top: 135px;
+		left: 485px;
+}
+
+#map_canvas{
+		
+		display: inline-block;
+ 		position: absolute;
+		top: 120px;
+		left: 910px;
+		width: 200px;
+		height: 200px;
+}
+
+.login
+{
+	float: left;
+}
+
+#manager
+{
+	width: 500px;
+}
+
+#flyer_select
+{
+	width: 	200px;
+	height: 50px;
+	font-size: 20px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
+}
+
+#board_select
+{
+	width: 	300px;
+	height: 50px;
+	font-size: 20px;
+	margin-bottom: 10px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
+}
+
+#text_flyer_select
+{
+	width: 	325px;
+	height: 40px;
+	font-size: 20px;
+	margin: 15px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
+}
+
+#text_image_flyer_select
+{
+	width: 325px;
+	height: 40px;
+	font-size: 20px;
+	margin: 15px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
+}
+
+
+#image_flyer_select
+{
+	width: 	325px;
+	height: 40px;
+	font-size: 20px;
+	margin: 15px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
+}
+
+
+#state
+{
+	width: 	250px;
+	font-size: 20px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
+}
+
+table.table_data
+{
+    border-style    : none;
+    border-color    : #FFF;
+    border-spacing  : 0;
+    margin-left     : auto;
+    margin-right    : auto;
+    text-align      : left;
+	padding: 5px;
+}
+
+td.table_data,th.table_data
+{
+    padding: 5px;
+}
+
+.template_div
+{
+	width:190px;
+	padding:5px;
+}
+
+.template_text
+{
+	width:	190px; 
+	font-size: 15px;	
+}
+
+										 
+										
+										
+.column { width: 170px; float: left; padding-bottom: 100px; }
+.portlet { margin: 0 1em 1em 0; }
+.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+.portlet-header .ui-icon { float: right; }
+.portlet-content { padding: 0.4em; }
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+.ui-sortable-placeholder * { visibility: hidden; }
+
+#selectable .ui-selecting { background: #9BCC80; }
+#selectable .ui-selected  { background: #9BCC60; color: white; }
+#selectable    { list-style-type: none; margin: 0px; padding: 100px 0 0 0; width: 25%;}
+#selectable li { margin: 5px; padding: 15px 0 15px 5px; font-size: 20px; width:250px}
+
+#feedback { font-size: 1.4em; }
+#selectable_content .ui-selecting { background: #9BCC80; }
+#selectable_content .ui-selected { background: #9BCC60; color: white; }
+#selectable_content { list-style-type: none; margin: 0; padding: 0; }
+#selectable_content li { margin: 3px; padding: 1px; float: left; width: 100px; height: 80px; font-size: 4em; text-align: center; }
+
+body {
+    	background-image: url(../images/bg.jpg);
+    	background-repeat: repeat;
+    	color: black;
+		font-family :"proxima-nova-1","proxima-nova-2",sans-serif,Tahoma,Helvetica,Verdana;
+}

@@ -1,0 +1,82 @@
+/***********************************************************************
+ * XXX.php
+ * Author		  : Christopher Bartholomew
+ * Last Updated   : 
+ * Purpose		  : 
+ **********************************************************************/
+
+h1	 				{ font-size: 30px;}
+hr 					{ margin: 30px auto 30px auto; width: 400px; }
+label, #login.input {display:block;}
+label 				{font-size:16px;}
+a 					{color: #2B82AD;}
+
+#submit {width: "130px";}
+
+fieldset 
+{ 
+	padding:0; 
+	border:0; 
+	margin-top:25px; 
+}
+input 
+{ 
+	margin: 10px 10px 10px 10px;
+	width:  400px;
+	height: 42px;
+	padding:0;
+	font-size:24px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+
+#header
+{
+	margin: 0px auto 30px auto;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+#login
+{ 
+	margin: 0px auto 0px auto;
+	padding: 45px;
+	width:   400px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+#footer
+{
+	margin: 0px auto 30px auto;
+	padding-left: 45px;
+	padding-right: 45px;
+	width:   400px;
+	text-align: center;
+	font-size : 12px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+#forgot_password
+{
+	
+	font-size: 12!important;
+	float: right;
+	color: #2B82AD;	
+}
+
+#sortable 
+{ 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}         
+#sortable li 
+{ 
+    margin: 3px 3px 3px 0px; 
+    padding: 10px; 
+    float: left; 
+    width: auto; 
+    height: auto; 
+    font-size: 4em; 
+    text-align: center; 
+}
