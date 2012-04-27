@@ -1,7 +1,0 @@
-For Go Live:
-
-1. Add Icons to signify what the action is 
-
-2. Add welcome text to the opening screen
-
-3. Add modal for successful flyer creation

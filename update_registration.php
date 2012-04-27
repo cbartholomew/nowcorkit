@@ -1,59 +1,45 @@
 <?
 require_once("includes/common.php");
-
 $u = new User(null);
 $u->state_id = get_users_state($_SESSION["users_cork_id"]);
-
-$html = "";
-$html .=  "<div id='login' title='login' class='ui-widget-content ui-corner-all' style='padding:10px'>";
-$html .=  "<form id='login_form' method='POST' action='update_registration_info.php'>";
-$html .=  "<h1>Update Preferences</h1>";
-$html .=  "<fieldset>";
-$html .=  "<table>";
-$html .=  "<tr>";
-$html .=  "<td><label id='lpassword'  name='lpassword' style='color:white'>Password</label></td>";
-$html .=  "<td><input type='password' name='password' id='password' class='ui-widget-content ui-corner-all' /><td>";
-$html .=  "</tr>";
-$html .=  "<tr>";
-$html .=  "<td><label id='lpasswordconfirm'  name='lpasswordconfirm' style='color:white'>Confirm Password</label></td>";
-$html .=  "<td><input type='password' name='password_confirm' id='password_confirm' class='ui-widget-content ui-corner-all'/></td>";
-$html .=  "</tr><tr>"; 
-$html .=  "<tr><td colspan='2'>Or</td></tr>";
-$html .=  "<td><label id='lstate' name='lstate' style='color:white'>Choose State</label></td>";
-
-echo $html;
 ?>
+<div id='login' title='login' class='ui-widget-content ui-corner-all leftContainer' style='padding:10px'>
+	<h3 class="ui-widget-header ui-corner-all leftContainerHead">Location Update</h3>
+<div class='ui-widget-content ui-corner-all' style='padding:10px'>
+You may not always be in the location that your G+ has set you to. If you'd like to update your	location, you may do so below.	
+</div>
+<br>
+<form id='login_form' method='POST' action='update_registration_info.php' >
+<table>
+<tr>
+<td><label id='lstate' name='lstate' style='color:white'>Choose State: </label></td>    
+</tr>
 <td>
-<select id="state" name="state" class="ui-widget-content">
+<select id="state" name="state" style='width:240px' class="ui-widget-content" >
 <option value="0" >Please Choose...</option>
 <?
-$html = "";
-
 // load the state to id select box
-$state_array = GetStates();
+$states = GetStates();
 for ($i=0; $i<50;$i++)
 {
 	$state = new State();
-	$state = array_pop($state_array);
-	if ($state->id == $u->state_id)
-	{
+	$state = array_pop($states);
+	if ($state->id == $u->state_id) {
 		$html .=  "<option value='" . $state->id . "' selected='selected'>" . $state->name . "</option>";
-	}
-	else
-	{
+	} else {
 		$html .=  "<option value='" . $state->id . "'>" . $state->name . "</option>";
 	}
 }		
-
 echo $html;						
 ?>		 
 </select>
 </td>
-</table>
-<button type="submit" style="float:right"class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all" value="submit">
-<span class="ui-button-text" >Update Account</span>
+<td>
+<button type="submit" style="float:right"class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all template_button" value="submit">
+<span class="ui-button-text">Update</span>
 </button>
-</fieldset>
-<br>
+</td>
+</tr>
+</table>
 </form>
 </div>

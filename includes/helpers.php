@@ -12,6 +12,7 @@
 * that involves no-object specific database handling - EXCEPT - select satements
 * All getter's of object information is done in this file. 
 **********************************************************************/
+          
 
 	/* ValidateNormalLogin($_FORMDATA)
 	 * Checks if user is in the user's table
@@ -115,7 +116,6 @@
 		$case = 0;
 		// assign e-mail and password from form data
 		$u->cork_id 		  = $_SESSION['users_cork_id'];
-		$u->password_hash 	  = $form["password"];
 		$u->state_id		  = $form["state"];
 		
 		if ($u->password_hash != "")

@@ -317,6 +317,20 @@ class User
 		if ($result == false) { return false; }
 		
 		return true;
+	}       
+	
+	function oAuthTradeAccessToken()
+	{
+		
+		
+		
+	}    
+	
+	function oAuthStoreToken()
+	{
+		
+		
+		
 	}
 }
 

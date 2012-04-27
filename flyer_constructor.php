@@ -1,6 +1,20 @@
 <script src='js/flyer_validation_handler.js' type='text/javascript' charset='utf-8'></script>
 <script src="js/image.js" type="text/javascript" charset="utf-8"></script>
-<script src='js/filedrag.js'></script>
+<script src='js/filedrag.js'></script> 
+
+<script> 
+$(function() {
+	var div = ["form_content"];
+	
+	// run the currently selected effect
+	function runEffect() {
+		// run the effect
+		$( "#" + div[0] ).removeAttr( "style" ).hide().fadeIn("slow");    
+	};  
+	runEffect();
+});	
+</script> 
+
 <?
 /***********************************************************************
  * flyer_constructor.php
@@ -18,17 +32,17 @@ $template = $_POST["template"];
 switch($template)
 {
 	case "text":
-	buildTextForm();
+	$html = buildTextForm();
 	break;
 	
 	case "text_image":
-    buildTextImageForm();
+    $html = buildTextImageForm();
 	break;
 	
 	case "image":
-	buildImageOnlyForm();
+	$html = buildImageOnlyForm();
 	break;	
-}
+}    
 
 /* buildTextForm()
  * Renders an html form used for text flyers only
@@ -40,7 +54,7 @@ $html .= "<form id='text_form' action='' method='POST' novalidate='novalidate'>"
 $html .= "<table class='ui-widget-content ui-corner-all'>";
 $html .= "<tbody>";
 $html .= "<tr>";
-$html .= "<td><label for='general'><i><b>Step 1: General Information</b></i></label></td>";
+$html .= "<td><label for='general'><i><b>General Information</b></i></label></td>";
 $html .= "<td></td>";
 $html .= "<td></td>";
 $html .= "</tr>";
@@ -51,7 +65,7 @@ $html .= "<td class='status'></td>";
 $html .= "</tr>";
 $html .= "<tr>";
 $html .= "<td><label for='description'>Description</label></td>";
-$html .= "<td><textarea id='description' class='ui-widget-content template_text' name='description' rows='10' cols='30'></textarea></td>";
+$html .= "<td><textarea id='description' class='ui-widget-content template_text' name='description' rows='5' cols='250'></textarea></td>";
 $html .= "<td><label for='description'></label></td>";
 $html .= "</tr>";
 $html .= "<tr>";
@@ -97,10 +111,10 @@ $html .= "<td><input id='enable_qr' type='checkbox' value='off' class='ui-widget
 $html .= "<td><label id='status'></label></td>";
 $html .= "</tr>";
 $html .= "<tr>";
-$html .= "<td><i><b>Step 2: Submit</b></i></td>";
+$html .= "<td></td>";
 $html .= "<td></td>";
 $html .= "<td>";
-$html .= "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
+$html .= "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all template_button' value='submit'>";
 $html .= "<span class='ui-button-text'>Create Flyer</span>";
 $html .= "</button>";
 $html .= "</td>";
@@ -110,7 +124,7 @@ $html .= "</table>";
 $html .= "</form>";	
 $html .= "<br>";
 
-echo $html;
+return $html;
 }
 /* buildTextImageForm()
  * Renders a form used for Images and Text, size of 300,000 kb
@@ -121,7 +135,7 @@ $html = "";
 
 $html .= "<form id='upload' action='upload.php' method='POST' enctype='multipart/form-data'>";
 $html .= "<fieldset class='ui-widget-content ui-corner-all'>";
-$html .= "<label id='lupload'><i><b>Step 1: Upload Image (jpeg/jpg/png/gif)</b></i></label>";
+$html .= "<label id='lupload'><i><b>Upload Image (jpeg/jpg/png/gif)</b></i></label>";
 $html .= "<input type='hidden' id='MAX_FILE_SIZE' name='MAX_FILE_SIZE' value='300000' />";
 $html .= "<div>";
 $html .= "<label for='fileselect'>Choose image to upload:</label>";
@@ -135,11 +149,11 @@ $html .= "</fieldset>";
 $html .= "</form>";
 $html .= "<div id='progress' class='ui-corner-all'></div>";
 $html .= "<br>";
-$html .= "<form id='text_image_form' action='' method='' novalidate='novalidate'>";
-$html .= "<table class='ui-widget-content ui-corner-all'>";
+$html .= "<form id='text_image_form' action='' class='ui-widget-content ui-corner-all' method='' novalidate='novalidate'>";
+$html .= "<table>";
 $html .= "<tbody>";
 $html .= "<tr>";
-$html .= "<td><label for='general'><i><b>Step 2: General Information</b></i></label></td>";
+$html .= "<td><label for='general'><i><b>General Information</b></i></label></td>";
 $html .= "<td></td>";
 $html .= "<td></td>";
 $html .= "</tr>";
@@ -150,7 +164,7 @@ $html .= "<td class='status'></td>";
 $html .= "</tr>";
 $html .= "<tr>";
 $html .= "<td><label for='description'>Description</label></td>";
-$html .= "<td><textarea id='description' class='ui-widget-content template_text' name='description' rows='10' cols='30'></textarea></td>";
+$html .= "<td><textarea id='description' class='ui-widget-content template_text' name='description' rows='5' cols='250'></textarea></td>";
 $html .= "<td><label for='description'></label></td>";
 $html .= "</tr>";
 $html .= "<tr>";
@@ -196,10 +210,10 @@ $html .= "<td><input id='enable_qr' type='checkbox' value='off' class='ui-widget
 $html .= "<td><label id='status'></label></td>";
 $html .= "</tr>";
 $html .= "<tr>";
-$html .= "<td><i><b>Step 3: Submit</b></i></td>";
+$html .= "<td></td>";
 $html .= "<td></td>";
 $html .= "<td>";
-$html .= "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
+$html .= "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all template_button' value='submit'>";
 $html .= "<span class='ui-button-text'>Create Flyer</span>";
 $html .= "</button>";
 $html .= "</td>";
@@ -208,8 +222,10 @@ $html .= "</tbody>";
 $html .= "</table>";
 $html .= "</form>";
 $html .= "<div id='messages' class='ui-widget-content ui-corner-all' style='width:510px'>";
+$html .= "<p>Status Messages</p>";
+$html .= "</div>";
 
-echo $html;
+return $html;
 }
 	
 /* buildImageOnlyForm()
@@ -247,7 +263,7 @@ $html .= "<tr>";
 $html .= "<td><i><b>Step 2: Submit</b></i></td>";
 $html .= "<td></td>";
 $html .= "<td>";
-$html .= "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all' value='submit'>";
+$html .= "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all template_button' value='submit'>";
 $html .=  	"<span class='ui-button-text'>Create Flyer</span>";
 $html .= "</button>";
 $html .= "</td>";
@@ -259,7 +275,11 @@ $html .= "<div id='messages' class='ui-widget-content ui-corner-all' style='widt
 $html .= "<p>Status Messages</p>";
 $html .= "</div>";
 
-echo $html;
-}	
-
+return $html;
+}
 ?>
+
+<div id='middleContainer' class='ui-widget-content ui-corner-all middleContainer'>
+	<h3 class="ui-widget-header ui-corner-all middleContainerHead">Step 2: Fill In Information</h3>
+	<? print $html; ?>    
+</div>                

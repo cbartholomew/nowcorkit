@@ -1,5 +1,8 @@
 function Menu(config)
 {		
+		// clean
+		Menu.prototype.clean;
+		
 		var param = config.param;
 		var that = this;
 		var page = 
@@ -7,7 +10,10 @@ function Menu(config)
 			'0' : {id:'flyer_choice'},
 			'1' : {id:'flyer_manager'},
 			'2' : {id:'post'},
-			'3' : {id:'board_manager'}	
+			'3' : {id:'board_manager'},
+			'4' : {id:'preferences'},
+			'5' : {id:'help'},
+			'6' : {id:'logout'}	
 		};
 		
 		var bar = 
@@ -85,10 +91,25 @@ function Menu(config)
 		};
 				
 		this.get_menu_page = function(param)
-		{
+		{   
+			// set page pid			
 			set_page(param);
 			
-			return request_page();	
+			switch(param)
+			{   
+				case "4": 
+	                return load_preferences();   
+				break;
+				case "5":   
+				 	return that.help_modal();    			
+				break;
+				case "6":
+					 return window.location = "logout.php";
+				break;
+				default:
+				    return request_page();  
+			}
+
 		};
 }
 
@@ -113,16 +134,15 @@ Menu.prototype.help_modal = function()
 		});
 	});
 	$("#modal_help").dialog({
-				autoOpen: false,
-				cache: false,
-				modal: true,
-				height: 600,
-				width:  550,
-				draggable: false,
-				resizable: false,
+				autoOpen	: false,
+				cache		: false,
+				modal		: true,
+				height		: 600,
+				width		: 550,
+				draggable	: false,
+				resizable	: false,
 				title: 'Help Menu',
 	});
-
 	$( "#modal_help" ).dialog( "open" );
 };
 

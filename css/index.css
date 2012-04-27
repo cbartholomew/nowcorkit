@@ -1,0 +1,95 @@
+hr 					{ width  :156px; margin-left:5px; margin-right:0px; } 
+.logo				{ padding:25px; float:right;}
+.logosmall			{ padding:5px; }  
+.snButton 			{ padding:5px; width:100px;}
+.snButtonFooter 	{ width:140px; float:left}  
+ 
+.userInfo           { padding-left:5px; padding-right:5px; padding-top:5px; display:inline-block;}  
+.message            { padding:5px; width: 140px;} 
+.signIn				{ padding:5px; float:left;}   
+.loginButton		{ padding-left:5px; padding-right:5px; padding-top:10px; float:left;}  
+.header 			{ height: 185px; -moz-border-radius:5px; -webkit-border-radius:5px;}
+.footer				{ position:absolute;bottom:5px;right:5px;;padding:10px;}
+ 
+.leftContentLogin		 { float:left;margin-right:5px;margin-top:5px;width:25%;}
+.middleContentLogin      { float:left;margin-top:5px;width:74%;height:auto;}
+.menuContentLogin		 { float:right;padding-top:10px;padding-right:15px;padding-bottom:15px;}
+.center_contentLogin	 { margin: 0 auto 0 auto}
+
+#login_footer { height: 100px; float:bottom; text-align: center; font-size : 12px; -moz-border-radius:5px; -webkit-border-radius:5px;}
+                                                                    
+/*
+h1	 				{ font-size: 30px;}
+ 
+label, #login.input {display:block;}
+label 				{font-size:16px;}
+a 					{color: #2B82AD;}
+
+#submit {width: "130px";}
+fieldset 
+{ 
+	padding:0; 
+	border:0; 
+	margin-top:25px; 
+}
+input 
+{ 
+	margin: 10px 10px 10px 10px;
+	width:  400px;
+	height: 42px;
+	padding:0;
+	font-size:24px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+#login
+{ 
+	margin: 0px auto 0px auto;
+	padding: 49px;
+	width:   400px;
+	height:  175px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}  
+
+
+#login_header
+{ 
+	height: 100px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+#login_footer
+{    
+	text-align: center;
+	font-size : 12px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+} 
+
+#forgot_password
+{
+	
+	font-size: 12!important;
+	float: right;
+	color: #2B82AD;	
+}
+
+#sortable 
+{ 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}         
+#sortable li 
+{ 
+    margin: 3px 3px 3px 0px; 
+    padding: 10px; 
+    float: left; 
+    width: auto; 
+    height: auto; 
+    font-size: 4em; 
+    text-align: center; 
+} 
+*/

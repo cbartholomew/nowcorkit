@@ -3,12 +3,10 @@ function initialize_page()
 	$(document).ready(function(){
 		$.getScript('js/menu.js', function(){	
 			var m = new Menu({param:'0'});
-			m.get_toolbar();
 		
 			$(function(){
 				$( "#selectable" ).selectable({
-					selected: function(event, ui){		
-						console.log(ui.selected.id);
+					selected: function(event, ui){ 
 						m.get_menu_page(ui.selected.id);
 					}
 				});
@@ -21,10 +19,24 @@ function initialize_create_flyer()
 	$(document).ready(function(){
 		$.getScript('js/flyer.js', function(){
 			var f = new Flyer({param:'0'});
-			$(function(){ 
-				$("#flyer_select").change(function(){				
-					f.load_template($(this).val());
-				});	
+			$(function(){                      
+
+   				$("#text").click(function(ui){
+					f.load_template($(this).attr("id2"));                    
+					$("#flyer_info").html(flyer_info[$(this).attr("id")].description);					
+				}); 
+				
+				$("#text_image").click(function(){   				
+					f.load_template($(this).attr("id2"));     				
+                    $("#flyer_info").html(flyer_info[$(this).attr("id")].description);	
+				}); 
+				
+				$("#image").click(function(){
+                     f.load_template($(this).attr("id2"));
+					 $("#flyer_info").html(flyer_info[$(this).attr("id")].description);	       
+				}); 
+				
+				
 			});
 		});
 	});

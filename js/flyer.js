@@ -66,6 +66,7 @@ function Flyer(config)
 				width  : 350,
 				text   : ""	
 		});
+		
 		$.ajax({
 		       url: "flyer_creation.php",
 			   type: "post",

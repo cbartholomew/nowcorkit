@@ -1,3 +1,17 @@
+<?
+   require_once 'includes/google-api-php-client/src/apiClient.php';   
+   require_once 'includes/constants.php';
+   
+	$client = new apiClient();
+	$client->setApplicationName('Nowcorkit Authenticator');
+	$client->setClientId(GCLIENT_ID);
+	$client->setClientSecret(GCLIENT_SECRET);
+	$client->setRedirectUri(GCLIENT_REDIRECT_URL);
+	$client->setDeveloperKey(GCLIENT_SIMPLE_KEY);  
+    $goolgeScopes = Array("https://www.googleapis.com/auth/userinfo.profile");            
+	$client->setScopes($goolgeScopes);
+	$authUrl = $client->createAuthUrl();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +25,15 @@
 <script src="js/detectbrowser.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <div id="login_buttons" class='ui-widget'>
-<h2  class='ui-widget-header' style='text-align:center'>Please choose your login method</h2>
-<div class='login'><img src="images/gmailbutton.png" width="100" height="100" alt="Gmailbutton"></div>
+<!--<h2  class='ui-widget-header' style='text-align:center'>Please choose your login method</h2>-->
+<?
+  echo "<div class='login'><a href='$authUrl'><img src='images/gplus-icon.png' width='29' height='29' alt='plusbutton'></a></div>";
+?>
+
+<!--
 <div class='login'><img src="images/facebookbutton.png" width="100" height="100" alt="Facebookbutton"></div>
 <div class='login'><img src="images/twitterbutton.png" width="100" height="100" alt="Twitterbutton"></div>
+--> 
 </div>
 <body>
 </body>

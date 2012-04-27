@@ -30,24 +30,24 @@ $(document).ready(function() {
         messages: { 
             title: 
 			{
-				required: "Title is required",
-				rangelength: "Maximum character limit: 50"
+				required: "*",
+				rangelength: "Character limit: 50"
 			}, 
             description:{
-				required: "Description is required",
-				rangelength: "Maximum character limit: 300"
+				required: "*",
+				rangelength: "Character limit: 300"
 			},
 			location: 
 			{
-				required: "Location is required",
-				rangelength: "Maximum character limit: 50"
+				required: "*",
+				rangelength: "Character limit: 50"
 			}, 
 			contact_info: 
 			{
-				required: "Required field if contact type is not none"
+				required: "*, Contact Type Not none"
 			},
 			contact_name: {
-	   			rangelength: "Maximum character limit: 50"
+	   			rangelength: "Character limit: 50"
 	   		}
         }, 
         // the errorPlacement has to take the table layout into account 
@@ -93,20 +93,20 @@ $(document).ready(function() {
    	        }, 
    	        messages: { 
    	            title: {
-   				required: "Title is required",
-   				rangelength: "Maximum character limit: 50"
+   				required: "*",
+   				rangelength: "Character limit: 50"
    			}, 
    	            description:{
-   				required: "Description is required",
-   				rangelength: "Maximum character limit: 300"
+   				required: "*",
+   				rangelength: "Character limit: 300"
    			},
    			location: {
-   				required: "Location is required",
-   				rangelength: "Maximum character limit: 50"
+   				required: "*",
+   				rangelength: "Character limit: 50"
    			}, 
-   			contact_info: "Required field if contact type is not none",
+   			contact_info: "*, Contact Type Not none",
    			contact_name:{
-   				rangelength: "Maximum character limit: 50"
+   				rangelength: "Character limit: 50"
    			}
    	        }, 
    	        // the errorPlacement has to take the table layout into account 
@@ -137,8 +137,8 @@ $(document).ready(function() {
    	        }, 
    	        messages: { 
    	            title: {
-   				required: "Title is required",
-   				rangelength: "Maximum character limit: 50"
+   				required: "*",
+   				rangelength: "Character limit: 50"
    			}
    	        },
    	        // the errorPlacement has to take the table layout into account 

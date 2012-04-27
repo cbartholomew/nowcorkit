@@ -2,12 +2,12 @@
 <script type="text/javascript">
 $(function() {
 	$('#content_accordion').accordion({
-		fillSpace : true,
+		active: false,
 		collapsible  : true,
 	});
 });
 </script>
-<div id="content_accordion" class="ui-accordion ui-widget ui-helper-reset">
+<div id="content_accordion" style="width:100%" class="ui-accordion ui-widget ui-helper-reset">
 	<h3><a href="#">What is Nowcorkit?</a></h3>
 	<div>
 		<p>
