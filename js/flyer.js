@@ -3,8 +3,7 @@ function Flyer(config)
 	var param = config.param;
 	var that  = this;
 	
-	var manager_div_list = 
-						 [
+	var manager_div_list = [
 						  "ltext_preview", 
 						  "ltext_edit", 
 						  "ltext_remove", 
@@ -14,23 +13,20 @@ function Flyer(config)
 						  "limage_preview",
 						  "limage_edit",
 						  "limage_remove"
-						];
+	];
 	
-	var flyer = 
-	{
+	var flyer = {
 		'0': {id: 'none'},
 		'1': {id: 'text'},
 		'2': {id: 'text_image'},
 		'3': {id: 'image'}	
 	};
 
-	function set_flyer(fid)
-	{
+	function set_flyer(fid) {
 		param = fid;
 	};
 	
-	function request_flyer_template()
-	{
+	function request_flyer_template() {
 		$.ajax({
 		       url: "flyer_constructor.php",
 			   type: 'post',
@@ -57,8 +53,7 @@ function Flyer(config)
 		return false;
 	}
 	
-	function submit_flyer_template()
-	{
+	function submit_flyer_template() {
 		var modal = new ModalDialog({
 				div    : "modal_dialog",
 				title  : "",
@@ -118,8 +113,7 @@ function Flyer(config)
 		return false;	
 	}
 	
-	function edit_flyer()
-	{
+	function edit_flyer() {
 		$.ajax({
 		       url: "flyer_edit.php",
 			   cache: false,
@@ -161,8 +155,7 @@ function Flyer(config)
 		return false;
 	};
 
-	function request_flyer_edit()
-	{
+	function request_flyer_edit() {
 		$.ajax({
 	       	url:  "flyer_editor.php",
 		   	type: 'post',
@@ -188,8 +181,7 @@ function Flyer(config)
 		return false;
 	};
 	
-	function request_flyer_remove()
-	{
+	function request_flyer_remove() {
 		$.ajax({
 	      	url:  "flyer_remove.php",
 		   	type: 'post',
@@ -242,8 +234,7 @@ function Flyer(config)
 		});
 	}
 	
-	function remove_flyer(_flyer)
-	{
+	function remove_flyer(_flyer) {
 		// make an ajax call to render a form window screen
 		$.ajax({
 	       	url:  "flyer_remove.php",
@@ -267,8 +258,7 @@ function Flyer(config)
 		return true;
 	}
 	
-	function toggle_flyer_description(val)
-	{
+	function toggle_flyer_description(val) {
 		switch(val)
 		{
 			case 'on':
@@ -281,61 +271,52 @@ function Flyer(config)
 		}	
 	}
 	/* privledged*/
-	this.load_template = function(param)
-	{
+	this.load_template = function(param) {
 		toggle_flyer_description('off');
 		set_flyer(param);
 		toggle_flyer_description('on');
 		request_flyer_template();
  	}
 	
-	this.load_editor = function()
-	{
+	this.load_editor = function() {
 		Flyer.prototype.toggle_actions(manager_div_list, 'off', 0);
 		return request_flyer_edit();	
 	}
 	
-	this.load_remover = function()
-	{
+	this.load_remover = function() {
 		Flyer.prototype.toggle_actions(manager_div_list, 'off', 0);
 		return request_flyer_remove();
 	}
 	
-	this.edit_submit = function()
-	{
+	this.edit_submit = function() {
 		return edit_flyer();
 	}
 	
-	this.submit = function()
-	{
+	this.submit = function() {
 		return submit_flyer_template();	
 	}
 	
 }
-Flyer.prototype.enable_checkbox = function()
-{
+Flyer.prototype.enable_checkbox = function() {
 	$(function(){		
 		$("#enable_qr").click(function(){
 			( $(this).val() == 'off' ) ? $(this).val('on') : $(this).val('off');
 		});					
 	});
 }
-Flyer.prototype.enable_datepicker = function()
-{
+Flyer.prototype.enable_datepicker = function() {
 	$(function(){
 		$("#event_date").datepicker();		
 	});
 }
-Flyer.prototype.enable_contacttype = function()
-{
+Flyer.prototype.enable_contacttype = function() {
 	$(function(){
 		$("#contact").change(function(){
 			( $(this).val() != 0 ) ? Flyer.prototype.toggle('on','contact_info') : Flyer.prototype.toggle('off','contact_info');
 		});
 	});	
 }
-Flyer.prototype.toggle = function(val, div)
-{
+Flyer.prototype.toggle = function(val, div) {
 	switch(val)
 	{
 		case 'on':
@@ -366,12 +347,11 @@ Flyer.prototype.toggle_actions = function(div_list, val, count)
 	this.toggle_actions(div_list, val, count + 1);
 	
 }
-Flyer.prototype.preview_flyer = function(id)
-{
+Flyer.prototype.preview_flyer = function(id) {
 	window.open('generate.php?flyerid=' + id,null,'height=600,width=800,status=no,toolbar=no,menubar=no,location=no'); 
 	self.close();
 }
-Flyer.prototype.destroy = function()
-{
+
+Flyer.prototype.destroy = function() {
 	this = null;
 }

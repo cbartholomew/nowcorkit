@@ -1,5 +1,4 @@
-function Image(config)
-{
+function Image(config) {
 		this.id 	 =      config.id;
 		this.cork_id =		config.cork_id;
 		this.type    = 		config.type;
@@ -11,13 +10,11 @@ function Image(config)
 		
 }
 
-Image.prototype.init = function()
-{
+Image.prototype.init = function() {
 		if(this.name != "") { this.name = this.name.replace(' ', '_')};
 }
 
-Image.prototype.set_properties = function(config)
-{
+Image.prototype.set_properties = function(config) {
 	
 	this.id 		=   config.id;
 	this.cork_id	=	config.cork_id;

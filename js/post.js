@@ -3,15 +3,11 @@ function Post()
 	var that = this;
 	var param;
 	
-	function set_param()
-	{
-		
+	function set_param() {
 		param = $("#add_button").val();
-	
 	}
 	
-	function update_location(state_id)
-	{
+	function update_location(state_id) {
 		$.ajax({
 			url: "post_location_update.php",
 			type: "post",
@@ -32,8 +28,7 @@ function Post()
 		});
 	}
 	
-	function post_to_location()
-	{
+	function post_to_location() {
 		var m = new ModalDialog({
 			div: "modal_dialog",
 			title: "No Board",
@@ -89,8 +84,7 @@ function Post()
 		});
 	}
 	
-	function remove_post(id)
-	{
+	function remove_post(id) {
 		$.ajax({
 	       	url:  "post_remove.php",
 		   	type: 'post',
@@ -114,8 +108,7 @@ function Post()
 		return true;
 	}
 	
-	function refresh()
-	{
+	function refresh() {
 		console.log("refresh");
 		// make an ajax call to render a form window screen
 		$.ajax({
@@ -136,8 +129,7 @@ function Post()
 		return true;
 	}
 	
-	function insert_table_entry(address)
-	{		
+	function insert_table_entry(address) {		
 		var location = {
 			address_line: address.toString().split(',')[0],
 			city		: address.toString().split(',')[1],
@@ -153,8 +145,7 @@ function Post()
 		$("#flyers").attr( "disabled", false );		
 	}
 	
-	this.actions = function(val)
-	{
+	this.actions = function(val) {
 		set_param();
 		
 		switch(val)
@@ -170,23 +161,19 @@ function Post()
 		}
 	}
 	
-	this.location_update = function(state_id)
-	{
+	this.location_update = function(state_id) {
 		update_location(state_id);
 	}
 	
-	this.load_table_entry = function(address)
-	{
+	this.load_table_entry = function(address) {
 		insert_table_entry(address);
 	}
 	
-	this.post_remove = function(id)
-	{
+	this.post_remove = function(id) {
 		remove_post(id);
 	}
 }
-Post.prototype.maps_api = function(address)
-{
+Post.prototype.maps_api = function(address) {
 	var a = address.split(',');
 	var map_address = "";
 	for (i=0;i<4;i++) { map_address += a[i].toString() + ",";  }
@@ -220,8 +207,7 @@ Post.prototype.maps_api = function(address)
 		  marker.setMap(map);
 	});	
 }
-Post.prototype.show_pps_info = function()
-{
+Post.prototype.show_pps_info = function() {
 	$("#pps_modal").dialog({
 				autoOpen: false,
 				cache: false,

@@ -10,8 +10,7 @@ $(document).ready(function() {
     var validator = $("#general").validate({ 
         rules: { 
             title: 		 "required", 
-            description: "required",
-
+            description: "required"
         }, 
         messages: { 
             title: "Title is required", 

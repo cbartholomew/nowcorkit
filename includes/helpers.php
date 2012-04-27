@@ -116,27 +116,11 @@
 		$case = 0;
 		// assign e-mail and password from form data
 		$u->cork_id 		  = $_SESSION['users_cork_id'];
-		$u->state_id		  = $form["state"];
-		
-		if ($u->password_hash != "")
-		{
-			$case = 1;
-			// hash the password
-			$u->hash_password();
-		}
-		
-		if ($u->state_id != 0)
-		{
-			// update the hashed password
-			$did_change = $u->update_registration_info_by_cork_id($case);									
-		} 
-		else
-		{
-			$case = 2;
-			// update the hashed password
-			$did_change = $u->update_registration_info_by_cork_id($case);							
-		}
-		
+		$u->state_id		  = $form["stateid"];
+	
+		// update the hashed password
+		//$did_change = $u->update_registration_info_by_cork_id($case);									
+	
 		return $did_change;
 	}
 	

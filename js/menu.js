@@ -5,8 +5,7 @@ function Menu(config)
 		
 		var param = config.param;
 		var that = this;
-		var page = 
-		{		
+		var page = {		
 			'0' : {id:'flyer_choice'},
 			'1' : {id:'flyer_manager'},
 			'2' : {id:'post'},
@@ -16,21 +15,18 @@ function Menu(config)
 			'6' : {id:'logout'}	
 		};
 		
-		var bar = 
-		{
+		var bar = {
 			'0' : {id:'menu'},
 			'1' : {id:'help'},
 			'2' : {id:'user'},
 			'3' : {id:'logout'}		
 		};
 		
-		function set_page(pid)
-		{
+		function set_page(pid) {
 			param = pid;
 		};
 		
-		function request_page()
-		{	
+		function request_page() {	
 			$.ajax({
 					url: page[param].id + ".php",
 					beforeSend: function(){
@@ -45,8 +41,7 @@ function Menu(config)
 			return false;
 		};
 		
-		function load_preferences()
-		{
+		function load_preferences() {
 				$.ajax({
 				       url: "update_registration.php",
 					   type: "post",
@@ -65,8 +60,7 @@ function Menu(config)
 				return false;
 		};
 		
-		function toolbar()
-		{
+		function toolbar() {
 			var html =	'<span id="span_menu">';
 			html +=	'<input type="radio" id="menu" 	   	name="menu" />	<label for="menu">Menu</label>';
 			html +=	'<input type="radio" id="help" 		name="menu" />  <label for="help">Help</label>';
@@ -85,13 +79,11 @@ function Menu(config)
 			return false;
 		};
 				
-		this.get_toolbar = function()
-		{
+		this.get_toolbar = function() {
 			return toolbar();
 		};
 				
-		this.get_menu_page = function(param)
-		{   
+		this.get_menu_page = function(param) {   
 			// set page pid			
 			set_page(param);
 			
@@ -113,14 +105,12 @@ function Menu(config)
 		};
 }
 
-Menu.prototype.clean = function()
-{
+Menu.prototype.clean = function() {
 	$('#content').html("");
 	$('#form_content').html("");
 };
 
-Menu.prototype.help_modal = function()
-{
+Menu.prototype.help_modal = function() {
 	$(function(){ 
 	$.ajax({
 			url: 'help.php',

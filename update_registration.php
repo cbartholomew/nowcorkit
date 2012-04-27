@@ -3,13 +3,43 @@ require_once("includes/common.php");
 $u = new User(null);
 $u->state_id = get_users_state($_SESSION["users_cork_id"]);
 ?>
-<div id='login' title='login' class='ui-widget-content ui-corner-all leftContainer' style='padding:10px'>
-	<h3 class="ui-widget-header ui-corner-all leftContainerHead">Location Update</h3>
+<script>
+	// clean
+	Menu.prototype.clean;
+	
+	$(function() {
+		var div = ["update"];
+		// run the currently selected effect
+		function runEffect() {
+			// run the effect
+			$( "#" + div[0] ).removeAttr( "style" ).hide().fadeIn("slow");    
+		};  
+		runEffect();
+		
+		$("#btnUpdate").click(function(){ 			
+				$.ajax({
+			      	url:  "update_registration_info.php",
+				   	type: 'post',
+				   	data: {
+							stateid: $("#state option:selected").val()
+				   	},
+			        success: function(data) {
+						$("#updates").html(data)
+					},
+					error:   function(data) {
+						
+					}
+				});
+		});
+	});		
+</script>
+<div id='updates' class='ui-widget-content ui-corner-all leftContainer' style='padding:10px'>
+<h3 class="ui-widget-header ui-corner-all leftContainerHead">Location Update</h3>
 <div class='ui-widget-content ui-corner-all' style='padding:10px'>
 You may not always be in the location that your G+ has set you to. If you'd like to update your	location, you may do so below.	
 </div>
 <br>
-<form id='login_form' method='POST' action='update_registration_info.php' >
+<form id='update_form' method='POST' action='' >
 <table>
 <tr>
 <td><label id='lstate' name='lstate' style='color:white'>Choose State: </label></td>    
@@ -35,7 +65,7 @@ echo $html;
 </select>
 </td>
 <td>
-<button type="submit" style="float:right"class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all template_button" value="submit">
+<button type="button" id="btnUpdate" style="float:right"class="ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all template_button" value="submit">
 <span class="ui-button-text">Update</span>
 </button>
 </td>
