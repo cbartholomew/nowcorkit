@@ -8,8 +8,8 @@
 
 // import Board object
 require_once("Board.php");
-// import Facebook User Object
-require_once("FacebookUser.php");
+// import Accounts Object
+require_once("Accounts.php");
 // import Flyer Object
 require_once("Flyer.php");
 // import Image Object

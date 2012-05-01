@@ -56,3 +56,24 @@ if (!$login_correct){ echo "<label id='error' style='color:red'>The username and
 <div id='image' name='image' class='ui-helper-hidden ui-widget-content template_div'>
 <p>Have a flyer already made? Use it! Upload a full flyer. No additional text fields are available through this option.</p>
 </div>  -->
+
+
+// display errors and warnings but not notices
+// ini_set("display_errors", true);
+// error_reporting(E_ALL ^ E_NOTICE);      
+
+//enable sessions, restricting cookie to /nowcorkit/
+// if (preg_match("{^(/)}", $_SERVER["REQUEST_URI"], $matches))
+//        session_set_cookie_params(0, $matches[1]);     
+
+// session_save_path(SESSION_PATH);
+//     session_start();   
+
+//require authentication for most pages
+// if (!preg_match("{/(:?login|register|logout)\d*\.php$}", $_SERVER["PHP_SELF"]))
+//     {
+//        if (!isset($_SESSION["users_cork_id"]))
+// 		   {
+//            redirect("login.php");
+// 		   }
+//     }

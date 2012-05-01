@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="css/jquery.loadmask.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="css/theme/jquery-ui-1.8.16.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<link rel="stylesheet" href="css/content.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	
+	<link rel="icon" type="image/png" href="images/headersmall.png" />
 	<script src="lib/src/jquery-1.7.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/src/jquery-ui-1.8.16.js" type="text/javascript" charset="utf-8"></script>
 	<script src="lib/src/jquery.loadmask.min.js" type="text/javascript" charset="utf-8"></script>
@@ -54,7 +54,7 @@
 <hr  align="left"> 
 <div class="userInfo">                                                
 <? 
-$markup = "<img class='ui-widget-content' src='" . $_COOKIE['picture'] . "?sz=50'>"; 
+$markup = "<img class='ui-widget-content' height=50 width=50 src='" . $_COOKIE['picture'] . "?sz=50'>"; 
 print $markup;
 ?>   
 </div>                                                                           
@@ -71,10 +71,3 @@ print $markup;
 </div>   
 </body>
 </html>
-
-
-<!-- 
-<div id='status_messages' class='ui-widget-content ui-corner-all'>
-<label style="color: #9BCC60;">Messages:</label>
-</div>      
--->

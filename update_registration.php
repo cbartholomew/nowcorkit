@@ -4,16 +4,15 @@ $u = new User(null);
 $u->state_id = get_users_state($_SESSION["users_cork_id"]);
 ?>
 <script>
-	// clean
-	Menu.prototype.clean;
-	
+$(document).ready(function(){
 	$(function() {
-		var div = ["update"];
+		var div = ["updates"];
 		// run the currently selected effect
 		function runEffect() {
 			// run the effect
 			$( "#" + div[0] ).removeAttr( "style" ).hide().fadeIn("slow");    
 		};  
+		
 		runEffect();
 		
 		$("#btnUpdate").click(function(){ 			
@@ -24,14 +23,15 @@ $u->state_id = get_users_state($_SESSION["users_cork_id"]);
 							stateid: $("#state option:selected").val()
 				   	},
 			        success: function(data) {
-						$("#updates").html(data)
+						$("#updates").html(data);
 					},
 					error:   function(data) {
 						
 					}
 				});
 		});
-	});		
+	});
+});	
 </script>
 <div id='updates' class='ui-widget-content ui-corner-all leftContainer' style='padding:10px'>
 <h3 class="ui-widget-header ui-corner-all leftContainerHead">Location Update</h3>
@@ -39,7 +39,6 @@ $u->state_id = get_users_state($_SESSION["users_cork_id"]);
 You may not always be in the location that your G+ has set you to. If you'd like to update your	location, you may do so below.	
 </div>
 <br>
-<form id='update_form' method='POST' action='' >
 <table>
 <tr>
 <td><label id='lstate' name='lstate' style='color:white'>Choose State: </label></td>    
@@ -71,5 +70,4 @@ echo $html;
 </td>
 </tr>
 </table>
-</form>
 </div>

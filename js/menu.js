@@ -86,13 +86,13 @@ function Menu(config)
 		this.get_menu_page = function(param) {   
 			// set page pid			
 			set_page(param);
-			
+
 			switch(param)
 			{   
 				case "4": 
 	                return load_preferences();   
 				break;
-				case "5":   
+				case "5": 
 				 	return that.help_modal();    			
 				break;
 				case "6":

@@ -7,6 +7,7 @@ function initialize_page()
 			$(function(){
 				$( "#selectable" ).selectable({
 					selected: function(event, ui){ 
+						if (ui.selected.id != "5") { m.clean(); }
 						m.get_menu_page(ui.selected.id);
 					}
 				});
