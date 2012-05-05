@@ -2,8 +2,8 @@
 /***********************************************************************
  * flyer_choice.php
  * Author		  : Christopher Bartholomew
- * Last Updated   :  12/08/2011
- * Purpose		  :  This file will render the a dropdown box for a user to choose a form
+ * Last Updated   :  05/2/2011
+ * Purpose		  :  This file will render the new flyer choice screen
  **********************************************************************/
 ?>
 

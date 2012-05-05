@@ -4,53 +4,29 @@
  * Last Updated   :  12/08/2011
  * Purpose		  : Main style sheet used throughout the application
  **********************************************************************/
-/*
-.toolbar {padding:5px;}
-*/
 
-/*
-#content {
-	position:relative;
-} 
-     */
-
-/*	
-#form_content {
-		display: inline-block;
-		position: absolute;
-		top: 135px;
-		left: 485px;
-}
-*/
-
-/*#flyer_select
-{
-	width: 	200px;
-	height: 50px;
-	font-size: 20px;
-	background-color: #201913;
-	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
-	color: rgb(155, 204, 96);
-}*/
-
-.leftContainer      { padding: 10px;}
-.leftContainerHead  { margin: 5px 0 10px 0; padding: 5px; text-align:center;}
-.leftContent		{ float:left;margin-top:5px;margin-right:5px;width:350px;}   
+                    
+.leftContainer         	  { padding: 10px;}
+.leftContainerHead     	  { margin: 5px 0 10px 0; padding: 5px; text-align:center;}
+.leftContent		   	  { float:left;margin-top:5px;margin-right:5px;width:350px;}   
 
 .bottomLeftContainer      { padding: 10px; height:200px;}
 .bottomLeftContainerHead  { margin: 10px 0 10px 0; padding: 5px; text-align:center; }
 
-.middleContainer	{ padding: 10px; display:inline-block;}     
-.middleContainerHead{ margin: 5px 0 10px 0; padding: 5px; text-align:center;}
-.middleContent      { float:left;margin-top:5px;width:565px;}  
+.middleContainer		  { padding: 10px; display:inline-block;}     
+.middleContainerHead	  { margin: 5px 0 10px 0; padding: 5px; text-align:center;}
+.middleContent      	  { float:left;margin-top:5px;width:565px;}  
 
-.rightContainer	{ padding: 10px; float:right;}     
-.rightContainerHead{ margin: 5px 0 10px 0; padding: 5px; text-align:center;}
+.rightContainer			  { padding: 10px; float:right;}     
+.rightContainerHead		  { margin: 5px 0 10px 0; padding: 5px; text-align:center;}
 
-.menuContent		{ float:right;padding-top:10px;padding-right:15px;padding-bottom:15px;}
-.center_content		{ margin: 0 auto 0 auto}
-.flyerSelectImage	{ width: 80px;  padding:5px; text-align:center; margin: 0 7px 0 7px; font-size: .8em; display:inline-block;}
-.flyerDescription   { width: 300px; padding:5px; text-align:left; margin: 10px 7px 10px 7px; font-size:.8em;}                                                                                     
+.menuContent			  { float:right;padding-top:10px;padding-right:15px;padding-bottom:15px;}
+.center_content			  { margin: 0 auto 0 auto}
+.flyerSelectImage		  { width: 80px;  padding:5px; text-align:center; margin: 0 7px 0 7px; font-size: .8em; display:inline-block;}
+.flyerDescription     	  { width: 300px; padding:5px; text-align:left; margin: 10px 7px 10px 7px; font-size:.8em;}                                                                                     
+.login					  { float: left;  padding: 15px; }
+
+.fm_warn		 		 { font-weight:bold; padding:10px; text-align:left; }
 
 #map_canvas{
 		
@@ -62,11 +38,6 @@
 		height: 200px;
 }
 
-.login
-{
-	float: left;  
-	padding: 15px;
-}
 
 #manager
 {
@@ -133,13 +104,6 @@ td.table_data,th.table_data
     padding: 5px;
 }
 
-.template_div
-{   
-	/*
-	width:250px;
-	padding:5px;
-	*/
-}
 
 .template_text
 {
@@ -168,10 +132,14 @@ td.table_data,th.table_data
 
 #feedback { font-size: 1.4em; }
 #selectable_content .ui-selecting { background: #9BCC80; }
-#selectable_content .ui-selected { background: #9BCC60; color: white; }
-#selectable_content { list-style-type: none; margin: 0; padding: 0; }
+#selectable_content .ui-selected  { background: #9BCC60; color: white; }
+#selectable_content { list-style-type: none; margin: 0; padding: 0;    }
 #selectable_content li { margin: 3px; padding: 1px; float: left; width: 100px; height: 80px; font-size: 4em; text-align: center; }   
 
+#flyer_list { list-style-type: none; background: #9BCC60; padding: 5px; width: 315px;}
+#flyer_list li { margin: 2px; padding: 2px; font-size: 1.2em; height: 40px;}
+
+#flyer_drop { width:300px; padding:5px; }
 
 body {
     	background-image: url(../images/bg.jpg);
@@ -179,3 +147,42 @@ body {
     	color: black;
 		font-family :"proxima-nova-1","proxima-nova-2",sans-serif,Tahoma,Helvetica,Verdana;
 }
+
+/*
+.toolbar {padding:5px;}
+*/
+
+/*
+#content {
+	position:relative;
+} 
+     */
+
+/*	
+#form_content {
+		display: inline-block;
+		position: absolute;
+		top: 135px;
+		left: 485px;
+}
+*/
+
+/*#flyer_select
+{
+	width: 	200px;
+	height: 50px;
+	font-size: 20px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
+}*/
+
+/* 
+.template_div
+{   
+	
+	width:250px;
+	padding:5px;
+	
+}
+*/

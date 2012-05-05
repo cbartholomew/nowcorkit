@@ -53,8 +53,8 @@
 		// we have the data(board objects, which contain flyers) - start rendering them
 		for(flyer in data){
 
-			tackPos = (fWidth*.6) - (Math.ceil(Math.random()*(fWidth*.2)));
-			fHTML = "<div  id='flyer" + flyerCount + "'><img src='images/tack.png' style='width:" + (fWidth*.10) + "px; position:absolute; top: 0px;  z-index: 10;left: " + tackPos + "px;' ></img>";
+		tackPos = (fWidth*.6) - (Math.ceil(Math.random()*(fWidth*.2)));
+		fHTML = "<div  id='flyer" + flyerCount + "'><img src='images/tack.png' style='width:" + (fWidth*.10) + "px; position:absolute; top: 0px;  z-index: 10;left: " + tackPos + "px;' ></img>";
 			
 			if ( data[p].flyer.type_id ==  "1" ) {						
 				// text only
@@ -170,7 +170,7 @@
 			fWidth = (fHeight * 8.5)/11;
 			
 		}
-		sWidth -=  cNumber*2.5;
+		sWidth  -= cNumber*2.5;
 		sHeight -= rNumber*2.5;
 		$("body").css( "margin-left", (cNumber) );
 		
@@ -218,9 +218,6 @@
 		});
 	});
 	
-	
-	
-
 </script>
 <body>
 <div id="toolbar" style="position:absolute;bottom:0px;right:0px;z-index:-99;"></div>

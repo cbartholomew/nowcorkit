@@ -88,7 +88,7 @@ function generate_text_flyer($flyer)
 // return the object back as a json request
 header('Content-Type: text/html');
 	
-echo "<html><body style='width:300px;height:388px'>";
+echo "<div id='flyer_container' class='ui-widget-content' style='height:400px;width:300px;background-image:url(images/paper.jpg);color:black;'>";
 echo "		<div id='header'>";
 echo "			<h1>" . $flyer->title . " </h1>";
 echo "		</div>	";
@@ -115,14 +115,18 @@ echo "			</table>";
 echo "		</div>";
 echo " <center>";
 echo "	<img style='padding: 10px 0 0 0'src='". str_replace("\\","",$flyer->qr_full_location) . "'/>";
-echo " <center>";
-echo "</body></html>";
+echo " </center>";
+echo "</div>";
+
 }
 /* generate_text_image_flyer($flyer)
  * create flyer w/ text & image flyer
  */
 function generate_text_image_flyer($flyer)
 {
+	// return the object back as a json request
+	header('Content-Type: text/html');
+	echo "<div id='flyer_container' class='ui-widget-content' style='height:400px;width:300px;background-image:url(images/paper.jpg);color:black;'>";
 	echo "		<div id='header'>";
 	echo "			<h1>" 	. $flyer->title . " </h1>";
 	echo "		</div>	";
@@ -153,6 +157,7 @@ function generate_text_image_flyer($flyer)
 	echo "	<img style='width:100px;height:100px;' src='". str_replace("\\","",$flyer->image_path) . "'/>";
 	echo " </center";
 	echo "  </div>";
+	echo "</div>";
 	
 }
 /* generate_image_flyer($flyer)
@@ -160,9 +165,13 @@ function generate_text_image_flyer($flyer)
  */	
 function generate_image_flyer($flyer)
 {
+	// return the object back as a json request
+	header('Content-Type: text/html');
+	echo "<div id='flyer_container' class='ui-widget-content' style='height:400px;width:300px;'>";
 	echo "	<div id='image'>";
-	echo "	<img style='width:300px;height:388px' src='". str_replace("\\","",$flyer->image_path) . "'/>";
+	echo "	<img height=400 width=300 src='". str_replace("\\","",$flyer->image_path) . "'/>";
 	echo "  </div>";
+	echo "</div>";
 	
 }
 
