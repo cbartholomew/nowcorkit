@@ -3,15 +3,9 @@
 <script src='js/filedrag.js'></script> 
 
 <script> 
-$(function() {
-	var div = ["form_content"];
-	
-	// run the currently selected effect
-	function runEffect() {
-		// run the effect
-		$( "#" + div[0] ).removeAttr( "style" ).hide().fadeIn("slow");    
-	};  
-	runEffect();
+$(function() {	
+	var mydivs = ["form_content"];
+	var fx = new Effects({divs: mydivs});
 });	
 </script> 
 

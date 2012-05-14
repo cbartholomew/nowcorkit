@@ -12,6 +12,10 @@
  */
 require_once("includes/common.php");
 
+/* 
+ * load()
+ * initalizer all the flyers inside arrays.
+ */
 function load()
 {
 
@@ -24,7 +28,11 @@ function load()
 	
 	return $html;
 }
-	
+
+/* 
+ * recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_flyer_array, $html)
+ * recurses through each of the different arrays building a set of li elements to write back to the page
+ */
 function recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_flyer_array, $html)
 {
 	
@@ -39,35 +47,35 @@ function recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_f
 	{	
 		$flyer = new Flyer(null);
 		$flyer = array_pop($text_flyer_array);
-		$html .= "<li class='ui-state-default ui-corner-all' id='t_flyer_" . $flyer->users_flyer_id . "' value='" . $flyer->users_flyer_id . "'>&nbsp;";
+		$html .= "<li class='ui-state-default ui-corner-all' id='t_flyer_" . $flyer->users_flyer_id . "' value='" . $flyer->users_flyer_id . "'>";
 		$html .= "<span class='ui-icon ui-icon-pencil' title='Text Only' style='float:right;'></span>";
 		$html .= $flyer->title . "</li>";
-		$html .= "<script>$('#t_flyer_" . $flyer->users_flyer_id . "').hover(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
-																		"',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
-																		"',function(data){ $( '#flyer_drop' ).html(data); }); });</script>";
+		$html .= "<script>$('#t_flyer_" . $flyer->users_flyer_id . "').hover(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id 
+																		. "',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" 
+																		. $flyer->users_flyer_id . "',function(data){ $( '#flyer_drop' ).html(data); }); });</script>";
 	}
 	else if(count($text_image_flyer_array) > 0)
 	{
 		$flyer = new Flyer(null);
 		$flyer = array_pop($text_image_flyer_array);	
-		$html .= "<li class='ui-state-default ui-corner-all' id='ti_flyer_" . $flyer->users_flyer_id . "'  value='" . $flyer->users_flyer_id . "'>&nbsp;";
+		$html .= "<li class='ui-state-default ui-corner-all' id='ti_flyer_" . $flyer->users_flyer_id . "'  value='" . $flyer->users_flyer_id . "'>";
 		$html .= "<span class='ui-icon ui-icon-image'  title='Text and Image' style='float:right;'></span>";
 		$html .= "<span class='ui-icon ui-icon-pencil' title='Text Only' style='float:right;'></span>";
 		$html .= $flyer->title . "</li>";
-		$html .= "<script>$('#ti_flyer_" . $flyer->users_flyer_id . "').hover(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
-																		"',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
-																																		"',function(data){ $( '#flyer_drop' ).html(data); }); })</script>";
+		$html .= "<script>$('#ti_flyer_" . $flyer->users_flyer_id . "').hover(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id 
+																		. "',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" 
+																		. $flyer->users_flyer_id . "',function(data){ $( '#flyer_drop' ).html(data); }); })</script>";
 	}
 	else if(count($image_flyer_array) > 0)
 	{
 		$flyer = new Flyer(null);
 		$flyer = array_pop($image_flyer_array);
-		$html .= "<li class='ui-state-default ui-corner-all' id='i_flyer_" . $flyer->users_flyer_id . "'  value='" . $flyer->users_flyer_id . "'>&nbsp;";
+		$html .= "<li class='ui-state-default ui-corner-all' id='i_flyer_" . $flyer->users_flyer_id . "'  value='" . $flyer->users_flyer_id . "'>";
 		$html .= "<span class='ui-icon ui-icon-image' style='float:right;'  title='Image Only'></span>";
 		$html .=  $flyer->title . "</li>";
 		$html .= "<script>$('#i_flyer_" . $flyer->users_flyer_id . "').hover(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
-																		"',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
-																																		"',function(data){ $( '#flyer_drop' ).html(data); }); });</script>";
+																		"',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" 
+																		. $flyer->users_flyer_id . "',function(data){ $( '#flyer_drop' ).html(data); }); });</script>";
 	}
 	else
 	{
@@ -79,40 +87,32 @@ function recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_f
 <script>
 $(document).ready(function(){
 	$(function() {
-		$(function() {
-			var div = ["form_content","content"];
-
-			// run the currently selected effect
-			function runEffect() {
-				// run the effect
-				$( "#" + div[0] ).removeAttr( "style" ).hide().fadeIn("slow"); 
-				$( "#" + div[1] ).removeAttr( "style" ).hide().fadeIn("slow");    
-			};  
-			runEffect();
-		});
+		
+		var mydivs = ["form_content", "content"];
+		var fx = new Effects({divs: mydivs});
 		
 		// render middle html box
 		$.post("flyer_manager_flyer_area.php", function(middleHtml){ 			
 			$("#form_content").html(middleHtml);		
 			$.getScript('js/flyer.js', function(){		
-				
-					$("#area_edit_radio").buttonset();		
-			
-					$('#area_edit').click(function() {
-						if ($("#p_drop").attr("type") == "0") {
-							$("#p_drop").html("Please click an item first!");
-						}
-						var f = new Flyer({param:$("#flyer_container").attr("type")});
-						f.load_editor();
-					});
+								
+				$("#area_edit_radio").buttonset();		
+		
+				$('#area_edit').click(function() {
+					if ($("#p_drop").attr("type") == "0") {
+						$("#p_drop").html("Please click an item first!");
+					}
+					var f = new Flyer({param:$("#flyer_container").attr("type")});
+					f.load_editor();
+				});
 
-					$('#area_remove').click(function() {
-						if ($("#p_drop").attr("type") == "0") {
-							$("#p_drop").html("Please click an item first!");
-						}
-						var f = new Flyer({param:$("#flyer_container").attr("type")});
-						f.load_remover();
-					});
+				$('#area_remove').click(function() {
+					if ($("#p_drop").attr("type") == "0") {
+						$("#p_drop").html("Please click an item first!");
+					}
+					var f = new Flyer({param:$("#flyer_container").attr("type")});
+					f.load_remover();
+				});
 			});							
 		});	
 	});	
@@ -124,12 +124,12 @@ $(document).ready(function(){
     <div id="manager_info" class="ui-widget-content" style="width:320;padding:5px;margin-bottom:5px;">
     Your created flyers are in the list below. To edit, preview, or remove them, click the item.
     </div>
-	<div id="flyer_list" class="ui-widget-content">
+	<ul id="flyer_list" class="ui-widget-content">
 			<? 
 			$html = load(); 
 			echo $html;
 			?>
-	</div>
+	</ul>
 </div>
 <div id='modal_editor' class='ui-helper-hidden'></div>
 <div id='modal_remove' class='ui-helper-hidden' title='Remove flyer?'>
@@ -137,109 +137,4 @@ $(document).ready(function(){
 <input type='hidden' id='users_flyer_id' value=''/>
 </div>
 
-<?
-// $html  = "";
-// $html .=  "<table class='ui-widget' style='border-spacing:0;'>";
-// $html .=  "<tr>";
-// $html .=  "<th class='ui-widget-header ui-corner-tl'>Text Flyers</th>";
-// $html .=  "<th class='ui-widget-header ui-corner-tl'>Actions</th>";
-// $html .=  "</tr>";
-// $html .=  "<tbody>";
-// $html .=  "<tr class='ui-widget-content'>";
-// $html .=  "<td class='ui-widget-content ui-corner-bl'>";
-// $html .=  "<select id='text_flyer_select' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
-// $html .=  "<option class='ui-widget-content' value='0'>Choose Flyer</option>";	
-// 		// load the flyers to id select box
-// 		$text_flyer_array = GetFlyers($_SESSION["users_cork_id"], "1");
-// 		for ($i=0, $n=count($text_flyer_array); $i<$n;$i++)
-// 		{
-// 		$flyer = new Flyer(null);
-// 		$flyer = array_pop($text_flyer_array);
-// 		$html .=  "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";
-// 		}
-// $html .=  "</select>";
-// $html .=  "</td>";
-// $html .=  "<td class='ui-widget-content ui-corner-br'>";
-// $html .=  "<div id='text_radio' style='margin:15px'>";
-// $html .=  "<input type='radio' id='text_preview' 	name='text' /><label for='text_preview' id='ltext_preview'>Preview</label>";
-// $html .=  "<input type='radio' id='text_edit' 		name='text' /><label for='text_edit' 	id='ltext_edit'>Edit</label>";
-// $html .=  "<input type='radio' id='text_remove' 		name='text' /><label for='text_remove'	id='ltext_remove'>Remove</label>";
-// $html .=  "</div>";
-// $html .=  "</td>";
-// $html .=  "</tr>";
-// $html .=  "</tbody>";
-// $html .=  "</table>";
-// $html .=  "<br>";
-// $html .=  "<table class='ui-widget' style='border-spacing:0px;'>";
-// $html .=  "<tr>";
-// $html .=  "<th class='ui-widget-header ui-corner-tl'>Text & Image Flyers</th>";
-// $html .=  "<th class='ui-widget-header ui-corner-tr'>Actions</th>";
-// $html .=  "</tr>";
-// $html .=  "<tbody>";
-// $html .=  "<tr class='ui-widget-content'>";
-// $html .=  "<td class='ui-widget-content ui-corner-bl'>";
-// $html .=  "<select id='text_image_flyer_select' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
-// $html .=  "<option class='ui-widget-content' value='0'>Choose Flyer</option>";	
-// 		// load the flyers to id select box
-// 		$text_image_flyer_array = GetFlyers($_SESSION["users_cork_id"], "2");
-// 		for ($i=0, $n=count($text_image_flyer_array); $i<$n;$i++)
-// 		{
-// 		$flyer = new Flyer(null);
-// 		$flyer = array_pop($text_image_flyer_array);
-// 		$html .=  "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";
-// 		}
-// $html .=  "</select>";
-// $html .=  "</td>";
-// $html .=  "<td class='ui-widget-content ui-corner-br'>";
-// $html .=  "<div id='text_image_radio' style='margin:15px'>";
-// $html .=  "<input type='radio' id='text_image_preview' name='text_image' /> 	  <label for='text_image_preview'  id='ltext_image_preview'>Preview</label>";
-// $html .=  "<input type='radio' id='text_image_edit' 	  name='text_image' />    <label for='text_image_edit'     id='ltext_image_edit'>Edit</label>";
-// $html .=  "<input type='radio' id='text_image_remove'  name='text_image' />    <label for='text_image_remove'   id='ltext_image_remove'>Remove</label>";
-// $html .=  "</div>";
-// $html .=  "</td>";
-// $html .=  "</tr>";
-// $html .=  "</tbody>";	
-// $html .=  "</table>";
-// $html .=  "<br>";
-// $html .=  "<table class='ui-widget' style='border-spacing:0;'>";
-// $html .=  "<tr>";
-// $html .=  "<th class='ui-widget-header ui-corner-tl'>Image Flyers</th>";
-// $html .=  "<th class='ui-widget-header ui-corner-tr'>Actions</th>";
-// $html .=  "</tr>";
-// $html .=  "<tbody>";
-// $html .=  "<tr class='ui-widget-content'>";
-// $html .=  "<td class='ui-widget-content ui-corner-bl'>";
-// $html .=  "<select id='image_flyer_select' class='ui-widget-content' style='color: rgb(155, 204, 96);'>";
-// $html .=  "<option class='ui-widget-content' value='0'>Choose Flyer</option>";	
-// 		// load the flyers to id select box
-// 		$image_flyer_array = GetFlyers($_SESSION["users_cork_id"], "3");
-// 		for ($i=0, $n=count($image_flyer_array); $i<$n;$i++)
-// 		{
-// 		$flyer = new Flyer(null);
-// 		$flyer = array_pop($image_flyer_array);
-// 		$html .=  "<option class='ui-widget-content' value='" . $flyer->users_flyer_id . "'>" . $flyer->title . "</option>";
-// 		}
-// $html .=  "</select>";
-// $html .=  "</td>";
-// $html .=  "<td class='ui-widget-content ui-corner-br'>";
-// $html .=  "<div id='image_radio' style='margin:15px'>";
-// $html .=  "<input type='radio' id='image_preview' name='image' /><label for='image_preview' id='limage_preview'>Preview</label>";
-// $html .=  "<input type='radio' id='image_edit' 	 name='image' /><label for='image_edit'    id='limage_edit'>Edit</label>";
-// $html .=  "<input type='radio' id='image_remove'  name='image' /><label for='image_remove'  id='limage_remove'>Remove</label>";
-// $html .=  "</div>";
-// $html .=  "</td>";
-// $html .=  "</tr>";
-// $html .=  "</tbody>";
-// $html .=  "</table>";
-// $html .=  "<div id='modal_editor' class='ui-helper-hidden'>";
-// $html .=  "</div>";
-// $html .=  "<div id='modal_remove' class='ui-helper-hidden' title='Remove flyer?'>";
-// $html .=  "<label id='ltitle'></label>";
-// $html .=  "<input type='hidden' id='users_flyer_id' value=''/>";
-// $html .=  "</div>";
-// $html .=  "<script>initialize_flyer_manager();</script>";
-// $html .=  "<script src='js/flyer_edit_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
-// 
-// echo $html;
 
-?>

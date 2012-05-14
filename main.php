@@ -32,6 +32,7 @@
 	<script src='js/date.js' type='text/javascript' charset='utf-8'></script>
 	<script src='js/detectbrowser.js' type='text/javascript' charset='utf-8'></script>
 	<script src='js/modal.js' type='text/javascript' charset='utf-8'></script>  
+	<script src='js/effects.js' type='text/javascript' charset='utf-8'></script>  
                                                                                
 
 </head>
