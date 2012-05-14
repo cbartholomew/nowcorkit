@@ -40,31 +40,34 @@ function recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_f
 		$flyer = new Flyer(null);
 		$flyer = array_pop($text_flyer_array);
 		$html .= "<li class='ui-state-default ui-corner-all' id='t_flyer_" . $flyer->users_flyer_id . "' value='" . $flyer->users_flyer_id . "'>&nbsp;";
-		$html .= "<span class='ui-icon ui-icon-pencil' title='Text Only' style='float:left;'></span>";
-		$html .= "<span class='ui-icon ui-icon-circle-arrow-e' style='float:right;'></span>";
+		$html .= "<span class='ui-icon ui-icon-pencil' title='Text Only' style='float:right;'></span>";
 		$html .= $flyer->title . "</li>";
-		$html .= "<script>$('#t_flyer_" . $flyer->users_flyer_id . "').draggable({revert:'valid', distance:100, axis:'x'})</script>";
+		$html .= "<script>$('#t_flyer_" . $flyer->users_flyer_id . "').hover(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
+																		"',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
+																		"',function(data){ $( '#flyer_drop' ).html(data); }); });</script>";
 	}
 	else if(count($text_image_flyer_array) > 0)
 	{
 		$flyer = new Flyer(null);
 		$flyer = array_pop($text_image_flyer_array);	
 		$html .= "<li class='ui-state-default ui-corner-all' id='ti_flyer_" . $flyer->users_flyer_id . "'  value='" . $flyer->users_flyer_id . "'>&nbsp;";
-		$html .= "<span class='ui-icon ui-icon-image'  title='Text and Image' style='float:left;'></span>";
-		$html .= "<span class='ui-icon ui-icon-pencil' style='float:left;' title='Text and Image'></span>";
-		$html .= "<span class='ui-icon ui-icon-circle-arrow-e' style='float:right;'></span>";
+		$html .= "<span class='ui-icon ui-icon-image'  title='Text and Image' style='float:right;'></span>";
+		$html .= "<span class='ui-icon ui-icon-pencil' title='Text Only' style='float:right;'></span>";
 		$html .= $flyer->title . "</li>";
-		$html .= "<script>$('#ti_flyer_" . $flyer->users_flyer_id . "').draggable({revert:'valid', distance:100, axis:'x'})</script>";
+		$html .= "<script>$('#ti_flyer_" . $flyer->users_flyer_id . "').hover(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
+																		"',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
+																																		"',function(data){ $( '#flyer_drop' ).html(data); }); })</script>";
 	}
 	else if(count($image_flyer_array) > 0)
 	{
 		$flyer = new Flyer(null);
 		$flyer = array_pop($image_flyer_array);
 		$html .= "<li class='ui-state-default ui-corner-all' id='i_flyer_" . $flyer->users_flyer_id . "'  value='" . $flyer->users_flyer_id . "'>&nbsp;";
-		$html .= "<span class='ui-icon ui-icon-image' style='float:left;'  title='Image Only'></span>";
-		$html .= "<span class='ui-icon ui-icon-circle-arrow-e' style='float:right;'></span>";
+		$html .= "<span class='ui-icon ui-icon-image' style='float:right;'  title='Image Only'></span>";
 		$html .=  $flyer->title . "</li>";
-		$html .= "<script>$('#i_flyer_" . $flyer->users_flyer_id . "').draggable({revert:'valid', distance:100, axis:'x'})</script>";
+		$html .= "<script>$('#i_flyer_" . $flyer->users_flyer_id . "').hover(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
+																		"',function(data){ $( '#flyer_drop' ).html(data); }); }).click(function(){ $.get('generate.php?flyerid=" . $flyer->users_flyer_id . 
+																																		"',function(data){ $( '#flyer_drop' ).html(data); }); });</script>";
 	}
 	else
 	{
@@ -73,34 +76,44 @@ function recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_f
 	return recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_flyer_array, $html);
 }
 ?>
-
 <script>
 $(document).ready(function(){
 	$(function() {
+		$(function() {
+			var div = ["form_content","content"];
+
+			// run the currently selected effect
+			function runEffect() {
+				// run the effect
+				$( "#" + div[0] ).removeAttr( "style" ).hide().fadeIn("slow"); 
+				$( "#" + div[1] ).removeAttr( "style" ).hide().fadeIn("slow");    
+			};  
+			runEffect();
+		});
+		
 		// render middle html box
-		$.post("flyer_manager_flyer_area.php", function(middleHtml){ $("#form_content").html(middleHtml);
-			// bind droppable listener, call api to generate flyer
-			$("#area_edit_radio").buttonset();
-						
-			$( "#flyer_drop" ).droppable({
-				over: function(){
-					$(this).addClass('ui-state-highlight');
-				},
-				out: function()
-				{
-					$(this).removeClass('ui-state-highlight');
-				},
-				drop: function(event,ui) {
-					$(this).removeClass('ui-state-highlight');
-					var flyerid = ui.draggable.context.id.split('_')[2];
-					// on drop, create call back that will apply the inner html of the flyer to the flyer area
-					$.get("generate.php?flyerid=" + flyerid, function(data){ $( "#flyer_drop" ).html(data); });				
-				}
-			});	
+		$.post("flyer_manager_flyer_area.php", function(middleHtml){ 			
+			$("#form_content").html(middleHtml);		
+			$.getScript('js/flyer.js', function(){		
+				
+					$("#area_edit_radio").buttonset();		
 			
-			$('#flyer_drop').css('height',$("#flyer_list").height() + 34);
-			$('#p_drop').css('height',$("#flyer_list").height() - 6);
-			
+					$('#area_edit').click(function() {
+						if ($("#p_drop").attr("type") == "0") {
+							$("#p_drop").html("Please click an item first!");
+						}
+						var f = new Flyer({param:$("#flyer_container").attr("type")});
+						f.load_editor();
+					});
+
+					$('#area_remove').click(function() {
+						if ($("#p_drop").attr("type") == "0") {
+							$("#p_drop").html("Please click an item first!");
+						}
+						var f = new Flyer({param:$("#flyer_container").attr("type")});
+						f.load_remover();
+					});
+			});							
 		});	
 	});	
 });
@@ -109,12 +122,12 @@ $(document).ready(function(){
 <div id='container' class='ui-widget-content ui-corner-all leftContainer'>
 	<h3 class="ui-widget-header ui-corner-all leftContainerHead">Created Flyers</h3>       
     <div id="manager_info" class="ui-widget-content" style="width:320;padding:5px;margin-bottom:5px;">
-    Your created flyers are in the list below. To edit, preview, or remove them, drag the item to the flyer area.
+    Your created flyers are in the list below. To edit, preview, or remove them, click the item.
     </div>
 	<div id="flyer_list" class="ui-widget-content">
 			<? 
-				$html = load(); 
-				echo $html;
+			$html = load(); 
+			echo $html;
 			?>
 	</div>
 </div>

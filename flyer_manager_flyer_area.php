@@ -8,6 +8,6 @@
 <input type='radio' id='area_remove' 	name='area' /><label for='area_remove'	id='larea_remove'style="width:50%">Remove</label>
 </div>
 <div id='flyer_drop' class='ui-corner-all'>
-<center><p id="p_drop" class='ui-widget-content fm_warn'>Drag flyer items here</p></center>
+<center><p id="p_drop" type="0" class='ui-widget-content fm_warn'>Click or Hover over the items on the left!</p></center>
 </div>
 </div>

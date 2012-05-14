@@ -114,6 +114,15 @@ function Flyer(config)
 	}
 	
 	function edit_flyer() {
+		
+		var modal = new ModalDialog({
+				div    : "modal_dialog",
+				title  : "",
+				height : 350,
+				width  : 350,
+				text   : ""	
+		});
+		
 		$.ajax({
 		       url: "flyer_edit.php",
 			   cache: false,
@@ -135,21 +144,26 @@ function Flyer(config)
 			   },
 		       success: function(data){
 					$("#modal_editor").unmask();
-					$('#status_messages').toggleClass('ui-helper-hidden', false);
-					$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer update was a success!</label>");
+					var info = {
+						title:"Flyer Update",
+						text: "Flyer successfully updated",
+						height: 350,
+						width: 350
+					};
+					
+					modal.set_info(info);
+					modal.open();
 		       },
 			   error:  function(data){
 					$("#modal_editor").unmask();
-					$("#status_messages").html("<label style='color: #9BCC60;'>Messages: Flyer update was fail, please try again later!</label>");
 			   },
 			   complete: function(){
 					$( "#modal_editor" ).dialog( "close" );
 					$.getScript('js/menu.js', function(){
 						var menu = new Menu({param: '1'});
-						menu.get_menu_page('1');
+						menu.get_menu_page('1');				
 					});					
 					$('#modal_editor').unmask();
-
 			   }
 		});	
 		return false;
@@ -161,15 +175,15 @@ function Flyer(config)
 		   	type: 'post',
 		   	data: {
 					template: flyer[param].id,
-					users_flyer_id: $('#' + flyer[param].id +'_flyer_select option:selected').val()
+					users_flyer_id: $('#flyer_container').attr('ufid')
 		   	},
 	        success: function(data) {
 				var modal_editor_config = 
 				{
 					div: 	"modal_editor",
-					title:  'Updating Flyer: ' + $('#' + flyer[param].id +'_flyer_select option:selected').html(),
-					height: 565,
-					width: 	550,
+					title:  'Updating Flyer: ' + $('#flyer_container').attr('title'),
+					width: 	600,
+					height: 'auto',
 					text: 	data
 				};						
 				var modal_button_config = {};
@@ -187,7 +201,7 @@ function Flyer(config)
 		   	type: 'post',
 		   	data: {
 					template: flyer[param].id,
-					users_flyer_id: $('#' +  flyer[param].id +'_flyer_select option:selected').val(),
+					users_flyer_id: $('#flyer_container').attr('ufid'),
 					is_purge: 'false'
 		   	},
 	        success: function(data) {
@@ -279,7 +293,7 @@ function Flyer(config)
  	}
 	
 	this.load_editor = function() {
-		Flyer.prototype.toggle_actions(manager_div_list, 'off', 0);
+		//Flyer.prototype.toggle_actions(manager_div_list, 'off', 0);
 		return request_flyer_edit();	
 	}
 	

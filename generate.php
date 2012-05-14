@@ -88,7 +88,7 @@ function generate_text_flyer($flyer)
 // return the object back as a json request
 header('Content-Type: text/html');
 	
-echo "<div id='flyer_container' class='ui-widget-content' style='height:400px;width:300px;background-image:url(images/paper.jpg);color:black;'>";
+echo "<div id='flyer_container' type='1' class='ui-widget-content' ufid='" . $flyer->users_flyer_id . "' style='height:400px;width:300px;background-image:url(images/paper.jpg);color:black;' title='" . $flyer->title ."'>";
 echo "		<div id='header'>";
 echo "			<h1>" . $flyer->title . " </h1>";
 echo "		</div>	";
@@ -126,7 +126,7 @@ function generate_text_image_flyer($flyer)
 {
 	// return the object back as a json request
 	header('Content-Type: text/html');
-	echo "<div id='flyer_container' class='ui-widget-content' style='height:400px;width:300px;background-image:url(images/paper.jpg);color:black;'>";
+	echo "<div id='flyer_container' type='2' class='ui-widget-content' ufid='" . $flyer->users_flyer_id . "' style='height:400px;width:300px;background-image:url(images/paper.jpg);color:black;' title='" . $flyer->title ."'>";
 	echo "		<div id='header'>";
 	echo "			<h1>" 	. $flyer->title . " </h1>";
 	echo "		</div>	";
@@ -167,7 +167,7 @@ function generate_image_flyer($flyer)
 {
 	// return the object back as a json request
 	header('Content-Type: text/html');
-	echo "<div id='flyer_container' class='ui-widget-content' style='height:400px;width:300px;'>";
+	echo "<div id='flyer_container' type='3' class='ui-widget-content' ufid='". $flyer->users_flyer_id ."' style='height:400px;width:300px;' title='" . $flyer->title ."'>";
 	echo "	<div id='image'>";
 	echo "	<img height=400 width=300 src='". str_replace("\\","",$flyer->image_path) . "'/>";
 	echo "  </div>";
