@@ -258,7 +258,7 @@ $html .= "<td><i><b>Step 2: Submit</b></i></td>";
 $html .= "<td></td>";
 $html .= "<td>";
 $html .= "<button type='submit' class='ui-button ui-button-text-only ui-widget ui-state-default ui-corner-all template_button' value='submit'>";
-$html .=  	"<span class='ui-button-text'>Create Flyer</span>";
+$html .= "<span class='ui-button-text'>Create Flyer</span>";
 $html .= "</button>";
 $html .= "</td>";
 $html .= "</tr>";

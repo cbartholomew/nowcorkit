@@ -23,13 +23,18 @@ function Board(config)
 	{
 		// left off here....put code here to decide what request to make, populate from there.
 		// remove populate calls from ajax request below.
-		param = $("#board_select").val();
-		return (param == "create") ? populate_create() : populate_tabs();
+		param = $("#board_select").val();		
+		return populate_tabs();
 	};
 	
-	function populate_tabs()
+	function set_create() 
 	{
-		$('#tabs').toggleClass('ui-helper-hidden', false); 
+		param = "create";
+		populate_create(); 
+	}
+	// problem with execution. expecting tabs - tabs needs ot be in form_content; however.
+	function populate_tabs()
+	{	
 		$(function() {
 			$( "#tabs" ).tabs({
 				ajaxOptions: {
@@ -37,11 +42,18 @@ function Board(config)
 				data: {
 					board_id: param
 				},
+				beforeSend: function()
+				{
+					$("#tabs").mask("loading...");
+				},
 				success: function(data){
+					
 					$("#postpayment").change(function(){
 						var val = ($(this).val() > 1 ) ? 'on' : 'off';		
 						that.toggle_features(board_div_list,val,0);
 					});
+					$("#tabs").unmask();					
+					
 				},
 				error: function( xhr, status, index, anchor ) {
 					$( anchor.hash ).html(
@@ -51,7 +63,12 @@ function Board(config)
 			 }
 			});
 		});
-		$('#tabs').tabs("option","selected",0);
+		$("#bhead").html($("#board_select option:selected").html());	
+		$('#middleContainer').toggleClass('ui-helper-hidden', false); 
+		$('#tabs').toggleClass('ui-helper-hidden', false); 
+		$('#tabs').tabs("option","selected",0);					
+		//var mydivs = ["tabs"];
+		//var fx = new Effects({divs: mydivs});
 	};
 	
 	function populate_create()
@@ -63,25 +80,13 @@ function Board(config)
 					template: param
 			   },
 				beforeSend: function(){
-					$("#modal_board_preferences").mask("loading...");
+					$("#form_content").mask("loading...");
 			   },
 		       success: function(data) {
 					$("#form_content").unmask();
+					$("#form_content").html(data);
 					
-					console.log("create");		
-					
-					var m = new ModalDialog({
-						div    : "modal_board_preferences",
-						title  : "New Board",
-						height : "auto",
-						width  : "550",
-						text   : data,
-					});
-
-					var modal_dialog_button = {};
-					m.set_button(modal_dialog_button);
-					m.open();
-
+			
 					$("#postpayment").change(function(){
 						var val = ($(this).val() > 1 ) ? 'on' : 'off';		
 						that.toggle_features(board_div_list,val,0);
@@ -173,7 +178,7 @@ function Board(config)
 		return false;
 	};
 	
-	function approve(id)
+	function approve(id)	
 	{
 		$.ajax({
 	       	url:  "post_approve.php",
@@ -456,6 +461,11 @@ function Board(config)
 	this.load_board = function()
 	{
 		set_board();	
+	};
+	
+	this.load_create = function()
+	{
+		set_create();
 	};
 	
 	this.toggle = function(val)

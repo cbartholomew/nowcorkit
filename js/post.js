@@ -15,15 +15,14 @@ function Post()
 					state_id: state_id
 			},
 			beforeSend: function(){
-					$("#locations").mask("updating...");
+					$("#form_content").mask("updating...");
 			},
 			success: function(data){
-					$("#locations").unmask();
-					$("#locations").html(data);
+					$("#form_content").unmask();
+					$("#form_content").html(data);
 			},
 			error:  function(data){
-					$("#locations").unmask();
-					$("#status_messages").html("<label style='color: #9BCC60;'>Messages: location update failed, please try again later</label>");
+					$("#form_content").unmask();
 			}
 		});
 	}
@@ -79,7 +78,6 @@ function Post()
 			},
 			error:  function(data){
 					$("#locations").unmask();
-					$("#status_messages").html("<label style='color: #9BCC60;'>Messages: location update failed, please try again later</label>");
 			}
 		});
 	}
@@ -122,6 +120,7 @@ function Post()
 				$("#posting").html(data);
 			},
 	        success: function(data) {
+			
 				$("#posting").html(data);
 				$("#posting").unmask();
 	       }
@@ -142,7 +141,9 @@ function Post()
 		$("#table_address").html(location.address_line + "<br>" + location.city + ", " + location.state + "<br>" + location.zip);
 		$("#table_permission").html(location.permission);
 		$("#add_button").val(location.board_id);
-		$("#flyers").attr( "disabled", false );		
+		$("#flyers").attr( "disabled", false );	
+		
+		console.log("here");	
 	}
 	
 	this.actions = function(val) {

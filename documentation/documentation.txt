@@ -89,5 +89,29 @@ Board Manager
 
 Corkboard
 -image and text with qr overflow...
-	 
+
+
+$user = new Userinfo();
+$user->setId(105499867526169935261);
+$user->setEmail("cbartholomew@gmail.com");		
+$user->setVerified_email(1)
+$user->setName("Christopher Bartholomew")			  
+$user->setGiven_name("Christopher" )  	  	
+$user->setFamily_name("Bartholomew")		  
+$user->setLink("https://plus.google.com/105499867526169935261") 			  
+$user->setPicture("https://lh3.googleusercontent.com/-ApACrt0LEVs/AAAAAAAAAAI/AAAAAAAAAY8/6wEBdkPgtiA/photo.jpg")     	  
+$user->setGender("male")			  
+$user->setLocale("en-US")
+	
+// 		google plus
+//    		[id] 			=> 105499867526169935261 
+//    		[email] 		=> cbartholomew@gmail.com 
+// 		[verified_email]=> 1 
+// 		[name] 			=> Christopher Bartholomew 
+// 		[given_name] 	=> Christopher 	
+// 		[family_name] 	=> Bartholomew 
+// 		[link] 			=> https://plus.google.com/105499867526169935261 
+// 		[picture] 		=> https://lh3.googleusercontent.com/-ApACrt0LEVs/AAAAAAAAAAI/AAAAAAAAAY8/6wEBdkPgtiA/photo.jpg
+// 		[gender] 		=> male 
+// 		[locale] 		=> en-US
 	

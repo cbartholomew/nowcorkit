@@ -3,36 +3,8 @@ require_once("includes/common.php");
 $u = new User(null);
 $u->state_id = get_users_state($_SESSION["users_cork_id"]);
 ?>
-<script>
-$(document).ready(function(){
-	$(function() {
-		var div = ["updates"];
-		// run the currently selected effect
-		function runEffect() {
-			// run the effect
-			$( "#" + div[0] ).removeAttr( "style" ).hide().fadeIn("slow");    
-		};  
-		
-		runEffect();
-		
-		$("#btnUpdate").click(function(){ 			
-				$.ajax({
-			      	url:  "update_registration_info.php",
-				   	type: 'post',
-				   	data: {
-							stateid: $("#state option:selected").val()
-				   	},
-			        success: function(data) {
-						$("#updates").html(data);
-					},
-					error:   function(data) {
-						
-					}
-				});
-		});
-	});
-});	
-</script>
+<script type="text/javascript">initialize_registration_update();</script>
+
 <div id='updates' class='ui-widget-content ui-corner-all leftContainer' style='padding:10px'>
 <h3 class="ui-widget-header ui-corner-all leftContainerHead">Location Update</h3>
 <div class='ui-widget-content ui-corner-all' style='padding:10px'>
@@ -53,11 +25,10 @@ for ($i=0; $i<50;$i++)
 {
 	$state = new State();
 	$state = array_pop($states);
-	if ($state->id == $u->state_id) {
+	if ($state->id == $u->state_id)
 		$html .=  "<option value='" . $state->id . "' selected='selected'>" . $state->name . "</option>";
-	} else {
+	else 
 		$html .=  "<option value='" . $state->id . "'>" . $state->name . "</option>";
-	}
 }		
 echo $html;						
 ?>		 

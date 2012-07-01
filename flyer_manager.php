@@ -83,41 +83,10 @@ function recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_f
 	}	
 	return recurse_write_list($text_flyer_array, $text_image_flyer_array, $image_flyer_array, $html);
 }
-?>
-<script>
-$(document).ready(function(){
-	$(function() {
-		
-		var mydivs = ["form_content", "content"];
-		var fx = new Effects({divs: mydivs});
-		
-		// render middle html box
-		$.post("flyer_manager_flyer_area.php", function(middleHtml){ 			
-			$("#form_content").html(middleHtml);		
-			$.getScript('js/flyer.js', function(){		
-								
-				$("#area_edit_radio").buttonset();		
-		
-				$('#area_edit').click(function() {
-					if ($("#p_drop").attr("type") == "0") {
-						$("#p_drop").html("Please click an item first!");
-					}
-					var f = new Flyer({param:$("#flyer_container").attr("type")});
-					f.load_editor();
-				});
 
-				$('#area_remove').click(function() {
-					if ($("#p_drop").attr("type") == "0") {
-						$("#p_drop").html("Please click an item first!");
-					}
-					var f = new Flyer({param:$("#flyer_container").attr("type")});
-					f.load_remover();
-				});
-			});							
-		});	
-	});	
-});
-</script>
+
+?>
+<script type='text/javascript'>initialize_flyer_manager();</script>
 
 <div id='container' class='ui-widget-content ui-corner-all leftContainer'>
 	<h3 class="ui-widget-header ui-corner-all leftContainerHead">Created Flyers</h3>       
@@ -125,10 +94,7 @@ $(document).ready(function(){
     Your created flyers are in the list below. To edit, preview, or remove them, click the item.
     </div>
 	<ul id="flyer_list" class="ui-widget-content">
-			<? 
-			$html = load(); 
-			echo $html;
-			?>
+			<? echo load(); ?>
 	</ul>
 </div>
 <div id='modal_editor' class='ui-helper-hidden'></div>
@@ -136,5 +102,4 @@ $(document).ready(function(){
 <label id='ltitle'></label>
 <input type='hidden' id='users_flyer_id' value=''/>
 </div>
-
 

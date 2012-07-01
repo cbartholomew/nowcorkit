@@ -8,7 +8,9 @@ function initialize_page()
 				$( "#selectable" ).selectable({
 					selected: function(event, ui){ 
 						if (ui.selected.id != "5") { m.clean(); }
-						m.get_menu_page(ui.selected.id);
+						
+						if(ui.selected.id)
+							m.get_menu_page(ui.selected.id);
 					}
 				});
 			});	
@@ -39,11 +41,75 @@ function initialize_create_flyer()
 		});
 	});
 };
-function initalize_board_manager()
+function initialize_flyer_manager(){
+	$(document).ready(function(){
+		$(function() {
+
+			var mydivs = ["form_content", "content"];
+			var fx = new Effects({divs: mydivs});
+
+			// render middle html box
+			$.post("flyer_manager_flyer_area.php", function(middleHtml){ 			
+				$("#form_content").html(middleHtml);		
+				$.getScript('js/flyer.js', function(){		
+
+					$("#area_edit_radio").buttonset();		
+
+					$('#area_edit').click(function() {
+						if ($("#p_drop").attr("type") == "0") {
+							$("#p_drop").html("Please click an item first!");
+						}
+						var f = new Flyer({param:$("#flyer_container").attr("type")});
+						f.load_editor();
+					});
+
+					$('#area_remove').click(function() {
+						if ($("#p_drop").attr("type") == "0") {
+							$("#p_drop").html("Please click an item first!");
+						}
+						var f = new Flyer({param:$("#flyer_container").attr("type")});
+						f.load_remover();
+					});
+				});							
+			});	
+		});	
+	});	
+}
+function initialize_registration_update(){
+	$(document).ready(function(){
+		$(function() {
+			var mydivs = ["updates"];
+			var fx = new Effects({divs: mydivs});
+			
+			$("#btnUpdate").click(function(){ 			
+					$.ajax({
+				      	url:  "update_registration_info.php",
+					   	type: 'post',
+					   	data: {
+								stateid: $("#state option:selected").val()
+					   	},
+				        success: function(data) {
+							$("#updates").html(data);
+						},
+						error:   function(data) {
+
+						}
+					});
+			});
+		});
+	});
+}
+function initialize_board_manager()
 {
 	$(document).ready(function(){
+		//var mydivs = ["form_content", "content"];
+		//var fx = new Effects({divs: mydivs});
+		
 		$.getScript('js/board.js', function(){
 			var b = new Board({param:'create', page:''});
+			$("#create_board").button().click(function(){
+				return b.load_create();
+			});
 			$("#board_select").change(function(){
 				return b.load_board();
 			});
@@ -59,6 +125,10 @@ function initalize_board_manager()
 function initialize_tab_manager()
 {
 	$(document).ready(function(){
+		
+		//var mydivs = ["tabs"];
+		//var fx = new Effects({divs: mydivs});
+		
 		$.getScript('js/board.js', function(){
 			var b = new Board({param:'create', page:''});
 			$(function(){				
@@ -77,6 +147,8 @@ function initialize_tab_manager()
 				$("#notapproved").click(function(){
 					b.update_post_filter($(this).val());
 				});
+
+				
 			});
 		});
 	});
@@ -84,6 +156,9 @@ function initialize_tab_manager()
 function initialize_cork_flyer()
 {
 	$(document).ready(function(){
+				
+	
+					
 		$.getScript('js/post.js', function(){	
 			var p = new Post();
 			
@@ -111,12 +186,17 @@ function initialize_cork_flyer()
 					p.show_pps_info()		
 				});
 				$("#location").change(function(){
-					p.maps_api($(this).val());
-					p.load_table_entry($(this).val());
+					console.log("ere");
+					//p.maps_api($(this).val());
+					//p.load_table_entry($(this).val());
 				});		
 				$("#state").change(function(){
 					p.location_update($(this).val());
-				});							
+				});
+				
+				if($("#hcontainer").html() != "")
+					$("#form_content").html($("#hcontainer").html());
+											
 			});
 		});
 	});

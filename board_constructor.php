@@ -1,4 +1,5 @@
 <script src="js/board_edit_validation_hand.js" type="text/javascript" charset="utf-8"></script>
+
 <?
 /***********************************************************************
 * board_constructor.php
@@ -20,22 +21,22 @@ $filter_value = $_GET["filter_value"];
 	switch($template)
 	{
 	case "general":
-		build_general_form($board_id);
+		$html = build_general_form($board_id);
 	break;
 	case "permission":
-		build_permission_form($board_id);	
+		$html = build_permission_form($board_id);	
 	break;
 	case "posting":
-		build_posting_form($board_id);
+		$html = build_posting_form($board_id);
 	break;	
 	case "post":
-		build_post_form($board_id);
+		$html = build_post_form($board_id);
 	break;
 	case "create":
-		build_new_form();
+		$html = build_new_form();
 	break;
 	case "render_posts":
-		render_posts_table($board_id, $filter_value);
+		$html = render_posts_table($board_id, $filter_value);
 	break;	
 	}
 /* build_general_form($board_id)
@@ -116,8 +117,8 @@ $html .=  "</tbody>";
 $html .=  "</table>";
 $html .=  "</form>";
 
-echo $html;
-echo "<script>initialize_tab_manager();</script>";
+
+return $html;
 }
 /*  build_permission_form($board_id)
 *
@@ -210,8 +211,8 @@ $html .=  "</tbody>";
 $html .=  "</table>";
 $html .=  "</form>";
 
-echo $html;
-echo "<script>initialize_tab_manager();</script>";
+//$html .= "<script>initialize_tab_manager();</script>";
+return $html;
 }
 /* build_posting_form($board_id)
 * 
@@ -330,8 +331,8 @@ $html .=  "</tbody>";
 $html .=  "</table>";
 $html .=  "</form>";
 
-echo $html;
-echo "<script>initialize_tab_manager();</script>";
+
+return $html;
 }
 /* build_post_form($board_id)
 *
@@ -341,7 +342,6 @@ function build_post_form($board_id)
 {
 $html = "";
 $html .=  "<script src='js/date.js' type='text/javascript' charset='utf-8'></script>";
-$html .=  "<link rel='stylesheet' href='css/main.css' type='text/css' media='screen' title='no title' charset='utf-8'>";
 $html .=  "<input type='hidden' id='board_id' value='" . $board_id . "'/>";
 $html .=  "<form id='filters' method='' action=''>";
 $html .=  "<legend style='color:#FFF'>Filter Posts</legend>";
@@ -369,14 +369,11 @@ $html .=  "</form>";
 $html .=  "<br>";	
 $html .=  "<div id='post_content'>";
 
-
-echo $html;
-
 // recursive function to render the posts in the table
-render_posts_table($board_id,0);
-
-echo "</div>";
-echo "<script>initialize_tab_manager();</script>";
+$html = render_posts_table($board_id,0,$html);
+$html .= "</div>";
+$html .= "<script>initialize_tab_manager();</script>";
+return $html;
 }
 
 /*
@@ -384,33 +381,35 @@ echo "<script>initialize_tab_manager();</script>";
 * I render the posts depending on the post value
 */
 
-function render_posts_table($board_id, $filter_value)
+function render_posts_table($board_id, $filter_value, $tempHtml)
 {
 
-echo  "<table class='ui-widget ui-corner-all' style='border-spacing:0;'>";
-echo  "<thead>";
-echo  "<tr>";
-echo  "<th class='ui-widget-content ui-widget-header table_data'>ID</th>";
-echo  "<th class='ui-widget-content ui-widget-header table_data'>Title</th>";
-echo  "<th class='ui-widget-content ui-widget-header table_data'>Status</th>";
-echo  "<th class='ui-widget-content ui-widget-header table_data'>Expires</th>";
-echo  "<th class='ui-widget-content ui-widget-header table_data'>Preview</th>";
-echo  "<th class='ui-widget-content ui-widget-header table_data'>Remove</th>";
-echo  "<th class='ui-widget-content ui-widget-header table_data'>Approve</th>";
-echo  "<th class='ui-widget-content ui-widget-header table_data'>Begin PPS</th>";
-echo  "</tr>";
-echo  "</thead>";
-echo  "<tbody class='ui-widget-content'>";
+$tempHtml .= "<table class='ui-widget ui-corner-all' style='border-spacing:0;'>";
+$tempHtml .= "<thead>";
+$tempHtml .= "<tr>";
+$tempHtml .= "<th class='ui-widget-content ui-widget-header table_data'>ID</th>";
+$tempHtml .= "<th class='ui-widget-content ui-widget-header table_data'>Title</th>";
+$tempHtml .= "<th class='ui-widget-content ui-widget-header table_data'>Status</th>";
+$tempHtml .= "<th class='ui-widget-content ui-widget-header table_data'>Expires</th>";
+$tempHtml .= "<th class='ui-widget-content ui-widget-header table_data'>Preview</th>";
+$tempHtml .= "<th class='ui-widget-content ui-widget-header table_data'>Remove</th>";
+$tempHtml .= "<th class='ui-widget-content ui-widget-header table_data'>Approve</th>";
+$tempHtml .= "<th class='ui-widget-content ui-widget-header table_data'>Begin PPS</th>";
+$tempHtml .= "</tr>";
+$tempHtml .= "</thead>";
+$tempHtml .= "<tbody class='ui-widget-content'>";
 
 // load the flyers to id select box
 $posts = get_all_posts_by_board_id($board_id);
 
 // build the table rows based on the filter id
-recurse_table_fields($posts,$filter_value);
+$tempHtml = recurse_table_fields($posts,$filter_value,$tempHtml);
 
-echo  "</tbody>";
-echo  "</table>";
-echo  "</form>";
+$tempHtml .=  "</tbody>";
+$tempHtml .=  "</table>";
+$tempHtml .=  "</form>";
+
+return $tempHtml;
 
 }
 
@@ -418,11 +417,11 @@ echo  "</form>";
 *
 * renders the table fields
 */
-function recurse_table_fields($posts,$filter_value)
+function recurse_table_fields($posts,$filter_value, $tempHtml)
 {
 
 // return if there is nothing left in the array
-if (count($posts) == 0) { return; }
+if (count($posts) == 0) { return $tempHtml; }
 
 // pop post off array
 $post = array_pop($posts);
@@ -430,17 +429,17 @@ $post = array_pop($posts);
 if ($post->flyer->post_status_id == $filter_value || $filter_value == 0)
 {
 
-echo  "<tr>";
-echo  "<td class='ui-widget-content table_data'>" . $post->flyer->board_post_id    . "</td>";
-echo  "<td class='ui-widget-content table_data'>" . $post->flyer->title 		   . "</td>";
-echo  "<td class='ui-widget-content table_data'>" . $post->flyer->post_status_desc . "</td>";
-echo  "<td class='ui-widget-content table_data'>" . $post->flyer->post_expiration  . "</td>";
-echo  "<td class='ui-widget-content table_data'><center><button type='button' name='" . $post->flyer->users_flyers_id . "' id='preview_" . $post->flyer->board_post_id  . "'>Preview</button></center></td>";
-echo  "<td class='ui-widget-content table_data'><center><button type='button' id='remove_"  . $post->flyer->board_post_id . "'>Remove</button></center></td>";
-echo  "<td class='ui-widget-content table_data'><center><button type='button' id='approve_" . $post->flyer->board_post_id . "'>Approve</button></center></td>";
-echo  "<td class='ui-widget-content table_data'><center><button type='button' flyerdays='"  . $post->flyer->post_flyerdays ."' expire='". $post->flyer->post_expiration  ."' id='pps_" . $post->flyer->board_post_id . "'>Enable PPS</button></center></td>";
-echo  "</tr>";
-echo  "<script>render_action_buttons(" . $post->flyer->board_post_id . ");</script>";
+$tempHtml .=  "<tr>";
+$tempHtml .=  "<td class='ui-widget-content table_data'>" . $post->flyer->board_post_id    . "</td>";
+$tempHtml .=  "<td class='ui-widget-content table_data'>" . $post->flyer->title 		   . "</td>";
+$tempHtml .=  "<td class='ui-widget-content table_data'>" . $post->flyer->post_status_desc . "</td>";
+$tempHtml .=  "<td class='ui-widget-content table_data'>" . $post->flyer->post_expiration  . "</td>";
+$tempHtml .=  "<td class='ui-widget-content table_data'><center><button type='button' name='" . $post->flyer->users_flyers_id . "' id='preview_" . $post->flyer->board_post_id  . "'>Preview</button></center></td>";
+$tempHtml .=   "<td class='ui-widget-content table_data'><center><button type='button' id='remove_"  . $post->flyer->board_post_id . "'>Remove</button></center></td>";
+$tempHtml .=   "<td class='ui-widget-content table_data'><center><button type='button' id='approve_" . $post->flyer->board_post_id . "'>Approve</button></center></td>";
+$tempHtml .=   "<td class='ui-widget-content table_data'><center><button type='button' flyerdays='"  . $post->flyer->post_flyerdays ."' expire='". $post->flyer->post_expiration  ."' id='pps_" . $post->flyer->board_post_id . "'>Enable PPS</button></center></td>";
+$tempHtml .=  "</tr>";
+$tempHtml .=  "<script>render_action_buttons(" . $post->flyer->board_post_id . ");</script>";
 }
 
 
@@ -448,7 +447,8 @@ echo  "<script>render_action_buttons(" . $post->flyer->board_post_id . ");</scri
 unset($post);
 
 // continue with the html write
-recurse_table_fields($posts,$filter_value);
+return recurse_table_fields($posts,$filter_value, $tempHtml);
+
 }
 
 
@@ -578,9 +578,9 @@ $html .=  "</table>";
 $html .=  "</form>";
 $html .=  "<script src='js/board_validation_handler.js' type='text/javascript' charset='utf-8'></script>";
 
-echo $html;
+return $html;
 
 }
 
-
 ?>
+<? print $html; ?>    
