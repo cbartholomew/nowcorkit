@@ -6,8 +6,7 @@ function Effects(config) {
 	function runEffect() {
 		// run the effect
 		for (var i=0;i<divs.length;i++)
-			$( "#" + divs[i] ).removeAttr( "style" ).hide().fadeIn("slow");  
+			$( "#" + divs[i] ).removeAttr( "style" ).hide().fadeIn("fast");  
 	};  
-	
 	runEffect();
 }

@@ -102,8 +102,8 @@ function initialize_registration_update(){
 function initialize_board_manager()
 {
 	$(document).ready(function(){
-		//var mydivs = ["form_content", "content"];
-		//var fx = new Effects({divs: mydivs});
+		var mydivs = ["form_content", "content"];
+		var fx = new Effects({divs: mydivs});
 		
 		$.getScript('js/board.js', function(){
 			var b = new Board({param:'create', page:''});
@@ -126,8 +126,8 @@ function initialize_tab_manager()
 {
 	$(document).ready(function(){
 		
-		//var mydivs = ["tabs"];
-		//var fx = new Effects({divs: mydivs});
+		var mydivs = ["tabs"];
+		var fx = new Effects({divs: mydivs});
 		
 		$.getScript('js/board.js', function(){
 			var b = new Board({param:'create', page:''});
@@ -155,49 +155,52 @@ function initialize_tab_manager()
 };
 function initialize_cork_flyer()
 {
-	$(document).ready(function(){
-				
-	
-					
-		$.getScript('js/post.js', function(){	
-			var p = new Post();
+	$(document).ready(function(){	
+		var mydivs = ["form_content", "content"];
+		var fx = new Effects({divs: mydivs});
 			
-			$(function() {		
-				/*render buttons*/
-				$( "#add_button" ).button({
-			        icons: {
-			            primary: "ui-icon-plus"
-			        },
-				 	text: false
-				});
-				$( "#pps_button" ).button({
-			        icons: {
-			            primary: "ui-icon-notice"
-			        },
-				 	text: false
-				});	
+		$.getScript('js/post.js', function(){	
+			$("#form_content").load("post_secondary.php", function(){
 				
-				/*attach button listeners*/		
+				var p = new Post();
+				$(function() {		
+					/*render buttons*/
+					$( "#add_button" ).button({
+				        icons: {
+				            primary: "ui-icon-plus"
+				        },
+					 	text: false
+					});
+					$( "#pps_button" ).button({
+				        icons: {
+				            primary: "ui-icon-notice"
+				        },
+					 	text: false
+					});	
+						
+				
+					/*attach button listeners*/		
 					
-				$("#add_button").click(function(){
-					p.actions('post_to_location');				
-				});
-				$("#pps_button").click(function(){
-					p.show_pps_info()		
-				});
-				$("#location").change(function(){
-					console.log("ere");
-					//p.maps_api($(this).val());
-					//p.load_table_entry($(this).val());
-				});		
-				$("#state").change(function(){
-					p.location_update($(this).val());
-				});
+					$("#add_button").click(function(){
+						p.actions('post_to_location');				
+					});
 				
-				if($("#hcontainer").html() != "")
-					$("#form_content").html($("#hcontainer").html());
-											
-			});
+					$("#pps_button").click(function(){
+						p.show_pps_info()		
+					});
+	
+					$("#state").change(function(){
+						p.location_update($(this).val());
+					});
+												
+					$("#location").change(function(){
+						p.maps_api($(this).val());
+						p.load_table_entry($(this).val());
+					});
+					
+					$("#form_content").unmask();
+				});
+			});			
 		});
 	});
 	

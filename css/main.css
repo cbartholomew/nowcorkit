@@ -29,13 +29,8 @@
 .fm_warn		 		 { font-weight:bold; padding:10px; text-align:left; }
 
 #map_canvas{
-		
-		display: inline-block;
- 		position: absolute;
-		top: 120px;
-		left: 910px;
-		width: 200px;
-		height: 200px;
+	width:	200px;
+	height: 200px;
 }
 
 
@@ -81,7 +76,16 @@
 
 #state
 {
-	width: 	250px;
+	width: 	325px;
+	font-size: 20px;
+	background-color: #201913;
+	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');
+	color: rgb(155, 204, 96);
+}
+
+#location
+{
+	width: 	325px;
 	font-size: 20px;
 	background-color: #201913;
 	background-image: url('theme/images/ui-bg_inset-soft_10_201913_1x100.png');

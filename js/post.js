@@ -9,20 +9,20 @@ function Post()
 	
 	function update_location(state_id) {
 		$.ajax({
-			url: "post_location_update.php",
+			url: "post.php",
 			type: "post",
 			data: {
 					state_id: state_id
 			},
 			beforeSend: function(){
-					$("#form_content").mask("updating...");
+					$("#content").mask("updating...");
 			},
 			success: function(data){
-					$("#form_content").unmask();
-					$("#form_content").html(data);
+					$("#content").html(data);
+					$("#content").unmask();
 			},
 			error:  function(data){
-					$("#form_content").unmask();
+					$("#content").unmask();
 			}
 		});
 	}
@@ -129,6 +129,7 @@ function Post()
 	}
 	
 	function insert_table_entry(address) {		
+	
 		var location = {
 			address_line: address.toString().split(',')[0],
 			city		: address.toString().split(',')[1],
@@ -137,13 +138,13 @@ function Post()
 			board_id	: address.toString().split(',')[4],
 			permission	: address.toString().split(',')[5]
 		}	
-
-		$("#table_address").html(location.address_line + "<br>" + location.city + ", " + location.state + "<br>" + location.zip);
-		$("#table_permission").html(location.permission);
+		
+	
+		$("#map_address").html(location.address_line + "<br>" + location.city + ", " + location.state + "<br>" + location.zip + "</p>");
+		$("#table_permission").html(location.permission.toString());
 		$("#add_button").val(location.board_id);
 		$("#flyers").attr( "disabled", false );	
 		
-		console.log("here");	
 	}
 	
 	this.actions = function(val) {
