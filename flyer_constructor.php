@@ -133,7 +133,7 @@ $html .= "<label id='lupload'><i><b>Upload Image (jpeg/jpg/png/gif)</b></i></lab
 $html .= "<input type='hidden' id='MAX_FILE_SIZE' name='MAX_FILE_SIZE' value='300000' />";
 $html .= "<div>";
 $html .= "<label for='fileselect'>Choose image to upload:</label>";
-$html .= "<input type='file' id='fileselect' name='fileselect'/>";
+$html .= "<input type='file' id='fileselect' name='fileselect' uploaded=''/>";
 $html .= "<div id='filedrag'>or drop image here</div>";
 $html .= "</div>";
 $html .= "<div id='submitbutton'>";
@@ -235,7 +235,7 @@ $html .= "<label id='lupload'><i><b>Step 1: Upload Image (jpeg/jpg/png/gif)</b><
 $html .= "<input type='hidden' id='MAX_FILE_SIZE' name='MAX_FILE_SIZE' value='300000' />";
 $html .= "<div>";
 $html .= "<label for='fileselect'>Choose image to upload:</label>";
-$html .= "<input type='file' id='fileselect' name='fileselect'/>";
+$html .= "<input type='file' id='fileselect' name='fileselect' uploaded=''/>";
 $html .= "<div id='filedrag'>or drop image here</div>";
 $html .= "</div>";
 $html .= "<div id='submitbutton'>";
