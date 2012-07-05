@@ -62,40 +62,40 @@ $html .=  "</tr>";
 $html .=  "</thead>";
 $html .=  "<tbody>";	
 
-	$posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
-	if (count($posts) > 0)
+$posts = get_all_posts_by_users_cork_id($_SESSION["users_cork_id"]);
+if (count($posts) > 0)
+{
+	for ($i=0,$n=count($posts); $i<$n; $i++)
 	{
-		for ($i=0,$n=count($posts); $i<$n; $i++)
-		{
-			$board = new Board(null);
-			$board = array_pop($posts);
-			
-			$status_image = ($board->board_status_is_displaying == 0) ? "offline.png" : "online.png";
+		$board = new Board(null);
+		$board = array_pop($posts);
 		
-			$html .=  "<tr>";
-			$html .=  "<td id='board_title' class='ui-widget-content table_data'>" . $board->title . "</td>";
-			$html .=  "<td id='board_status'class='ui-widget-content table_data'><img src='images/" . $status_image . "' width='50' height='50' alt='red means offline'/></td>";
-			$html .=  "<td class='ui-widget-content table_data'>" . $board->flyers->title . "</td>";
-			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_status_desc ."</td>";
-			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_expiration  ."</td>";
-			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>";
-			$html .=  "<button value='". $board->id  . "'"
-										 . "type='button' id='" . $board->id . "_" . $board->board_post_id ."'"
-									 . ">Scout</button></td>";
-			$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>";
-			$html .=  "<button value='"	 . $board->flyers->users_flyers_id  . "'"
-										 . "type='button' id='" . $board->board_post_id ."'"
-									 	 . ">Remove</button></td>";
-			$html .=  "</tr>";
-			$html .=  "<script>render_remove_button(" . $board->board_post_id . "," . $board->id .");</script>";	
-		}
-	}
-	else
-	{
+		$status_image = ($board->board_status_is_displaying == 0) ? "offline.png" : "online.png";
+	
 		$html .=  "<tr>";
-		$html .=  "<td class='ui-widget-content table_data' colspan='5'>You have no flyers posted</td>";
+		$html .=  "<td id='board_title' class='ui-widget-content table_data'>" . $board->title . "</td>";
+		$html .=  "<td id='board_status'class='ui-widget-content table_data'><img src='images/" . $status_image . "' width='50' height='50' alt='stat'/></td>";
+		$html .=  "<td class='ui-widget-content table_data'>" . $board->flyers->title . "</td>";
+		$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_status_desc ."</td>";
+		$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>" . $board->flyers->post_expiration  ."</td>";
+		$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>";
+		$html .=  "<button value='". $board->id  . "'"
+									 . "type='button' id='" . $board->id . "_" . $board->board_post_id ."'"
+								 . ">Scout</button></td>";
+		$html .=  "<td class='ui-widget-content table_data' style='text-align: center;'>";
+		$html .=  "<button value='"	 . $board->flyers->users_flyers_id  . "'"
+									 . "type='button' id='" . $board->board_post_id ."'"
+								 	 . ">Remove</button></td>";
 		$html .=  "</tr>";
+		$html .=  "<script>render_remove_button(" . $board->board_post_id . "," . $board->id .");</script>";	
 	}
+}
+else
+{
+	$html .=  "<tr>";
+	$html .=  "<td class='ui-widget-content table_data' colspan='5'>You have no flyers posted</td>";
+	$html .=  "</tr>";
+}
 	
 $html .=  "</tbody>";
 $html .=  "</table>";
