@@ -66,8 +66,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </div> 
 <div id="login_content" class="leftContentLogin"></div>
 <div id="login_tab"		class="middleContentLogin"> 
-<ul><li><a href="#tabs-1">Watch the video!</a></li></ul>
-<div id="tabs-1"><p>Content</p></div>        
+<ul><li><a href="#tabs-1">Welcome!!</a></li></ul>
+<div id="tabs-1"><p>Welcome to the nowcorkit.com new release! We've added a new look to accommodate for our future plans! Currently, we are only supporting Google accounts for nowcorkit.com. Please sign in by clicking the G+ image above!</p></div>        
 </div> 
 </div> 
      

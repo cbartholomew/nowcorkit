@@ -47,7 +47,7 @@
 	<li id="2" class="ui-widget-content ui-corner-all"><img src="images/cork_flyer.jpeg" 	width="170" height="115" alt="Cork Flyers">Cork Flyers</li> 
 	<li id="1" class="ui-widget-content ui-corner-all"><img src="images/flyer_manager.jpeg" width="170" height="115" alt="Manage Flyers">Manage Flyers</li>		
 	<li id="3" class="ui-widget-content ui-corner-all"><img src="images/board_manager.jpeg" width="170" height="115" alt="Manage Boards">Manage Boards</li>
-	<li id="5" class="ui-widget-content ui-corner-all"><img src="images/help.jpeg" 		  	width="170" height="115" alt="help">Help</li>  
+	<li id="55" class="ui-widget-content ui-corner-all"><img src="images/help.jpeg" 		  	width="170" height="115" alt="help">Help</li>  
 	<li id="6" class="ui-widget-content ui-corner-all"><img src="images/logout.jpeg"		width="170" height="115" alt="logout">Logout</li>  
 	</ol>
 </div>

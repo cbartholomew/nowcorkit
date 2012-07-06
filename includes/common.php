@@ -7,6 +7,9 @@
  * Purpose		: Used to control sessions and loading of additional helpers. 
  * this also includes the creating of session variables
  **********************************************************************/
+	ini_set("display_errors", false);
+   	error_reporting(E_ALL ^ E_NOTICE);
+	session_save_path("/var/chroot/home/content/43/4173543/html/tmp");
     session_start();    
 	// requirements 
  	require_once('constants.php');  

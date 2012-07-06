@@ -22,8 +22,10 @@
 		// Check if the user is clread there
 		$account_type = Accounts::GooglePlus;
 		
+		
 		// Lookup Account
 		$has_account = lookup_third_party_id($user["id"]);
+		$has_account = lookup_third_party_email($user["email"]);
 		
 		// Construct Object
 		$nowcorkit_user = new User($account_type);
@@ -139,6 +141,21 @@
 	{
 		// check the database for the user
 		$sql = "SELECT * FROM users WHERE users_third_party_account_id = '$third_party_id'";
+		$result = mysql_query($sql) or die (show_error('Problem with checking id'));
+			
+		// return the value back to the validator. false means no user found, true means user is found
+		$value = (mysql_num_rows($result) > 0 ) ? true : false ;
+
+		return $value;
+	}
+	
+	/* lookup_email($email_address)
+	 * Checks if user's email is in the user's table
+	 */
+	function lookup_third_party_email($email_address)
+	{
+		// check the database for the user
+		$sql = "SELECT * FROM users WHERE users_email = '$email_address'";
 		$result = mysql_query($sql) or die (show_error('Problem with checking email'));
 			
 		// return the value back to the validator. false means no user found, true means user is found
