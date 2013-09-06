@@ -18,7 +18,7 @@
 
 	// google API information
 	define("GCLIENT_ID"				, "861149793626.apps.googleusercontent.com");
-	define("GCLIENT_SECRET"			, "Tv2im0BvO6Ca2YszIp7e-Iix");    
+	define("GCLIENT_SECRET"			, "");    
 	define("GCLIENT_REDIRECT_URL"	, "http://localhost/nowcorkit/main.php");
 	define("GCLIENT_SIMPLE_KEY"		, "AIzaSyDaVcENLnUcWYLoeoIQPAmpHNeZTON0ml0");
 	define("GSCOPE_PROFILE"			,"https://www.googleapis.com/auth/userinfo.profile");                 
@@ -29,12 +29,12 @@
 // PROD
 	// your database's Information
     define("DB_NAME", "nowcorkitdb");
-    define("DB_SERVER", "50.63.228.94");
-    define("DB_USERNAME", "nowcorkitdb");
-    define("DB_PASSWORD", "N0wC0rk1t!");
+    define("DB_SERVER", "");
+    define("DB_USERNAME", "");
+    define("DB_PASSWORD", "");
 	
 	define("GCLIENT_ID"				, "861149793626-ouo3jgojgefe3qmhrlj4fg39ounl6n0e.apps.googleusercontent.com");
-	define("GCLIENT_SECRET"			, "DumcFCTug4gxfMqUYwM2wevf");    
+	define("GCLIENT_SECRET"			, "");    
 	define("GCLIENT_REDIRECT_URL"	, "http://www.nowcorkit.com/main.php");
 	define("GCLIENT_SIMPLE_KEY"		, "AIzaSyDaVcENLnUcWYLoeoIQPAmpHNeZTON0ml0");
 	define("GSCOPE_PROFILE"			,"https://www.googleapis.com/auth/userinfo.profile");                 
